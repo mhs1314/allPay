@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qht.mapper.ConfigMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.qht.entity.Config" id="configMap">
+        <result property="uid" column="uid"/>
+        <result property="logo" column="logo"/>
+        <result property="phone" column="phone"/>
+        <result property="companyName" column="company_name"/>
+        <result property="intr" column="intr"/>
+        <result property="addr" column="addr"/>
+        <result property="zip" column="zip"/>
+        <result property="mailbox" column="mailbox"/>
+        <result property="twoBitCode" column="two_bit_code"/>
+    </resultMap>
+
+</mapper>
