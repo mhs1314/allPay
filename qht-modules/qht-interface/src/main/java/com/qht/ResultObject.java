@@ -1,7 +1,6 @@
 package com.qht;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 
 /**
  * rest接口响应结果
@@ -46,8 +45,7 @@ public class ResultObject<T> {
 
 	/**
      * 请求数据
-     */
-	@JsonInclude(Include.NON_NULL)
+     */	
     private T data;
 
     public ResultObject() {

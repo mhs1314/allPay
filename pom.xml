@@ -7,7 +7,7 @@
     <groupId>com.github.wxiaoqi</groupId>
     <artifactId>qht-security</artifactId>
     <version>2.0-SNAPSHOT</version>
-    <url>https://github.com/wxiaoqi/ace-security</url>
+    <url>https://github.com/wxiaoqi/qht-platform</url>
     <licenses>
         <license>
             <name>Apache 2</name>
@@ -40,7 +40,7 @@
     <developers>
         <developer>
             <name>ace</name>
-            <email>463540703@qq.com</email>
+            <email>2466607841@qq.com</email>
         </developer>
     </developers>
     <dependencies>
@@ -52,6 +52,7 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <!-- -->
     <repositories>
         <repository>
             <id>oss</id>
@@ -72,6 +73,7 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+     
     <!--依赖管理，用于管理spring-cloud的依赖，其中Camden.SR3是版本号-->
     <dependencyManagement>
         <dependencies>
@@ -89,7 +91,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+    <!-- -->
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -101,7 +103,7 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
+     
     <build>
         <plugins>
             <plugin>
