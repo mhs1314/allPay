@@ -21,6 +21,15 @@ public class StudentController extends BaseController<StudentBiz,Student> implem
 
     @Autowired
     private StudentBiz studentBiz;
+    
+    public String getTenantId(HttpServletRequest request){
+        String tenantId=null;
+        StudentDto studentDto=(StudentDto)request.getSession().getAttribute("studentDto");
+        if (studentDto!=null){
+            tenantId=studentDto.getTenantId();
+        }
+        return tenantId;
+    }
 
     @Override
     @PostMapping("login")
@@ -50,7 +59,7 @@ public class StudentController extends BaseController<StudentBiz,Student> implem
             resultObject.setMsg("登陆成功");
             resultObject.setData(studentDto);
             //将信息传入session
-            HttpServletRequest req=null;
+            HttpServletRequest req= getRequest();            
             req.getSession().setAttribute("studentDto",studentDto);
             return resultObject;
         }

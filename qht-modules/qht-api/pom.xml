@@ -79,8 +79,8 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.qht</groupId>
-            <artifactId>qht-interface</artifactId>
+            <groupId>com.github.wxiaoqi</groupId>
+            <artifactId>qht-common</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
 

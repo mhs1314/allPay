@@ -5,7 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.wxiaoqi.security.common.msg.TableResultResponse;
 import com.github.wxiaoqi.security.common.util.EntityUtils;
 import com.github.wxiaoqi.security.common.util.Query;
-import com.qht.dto.CourseEvaluationDto;
+//import com.qht.dto.CourseEvaluationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
