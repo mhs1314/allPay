@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("account")
-public class AccountController extends BaseController<AccountBiz,Account> {
+public class AccountController extends BaseController<AccountBiz,Account>{
 
 }

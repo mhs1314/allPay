@@ -11,9 +11,10 @@ spring:
         default-property-inclusion: non_null
     datasource:
         name: test
-        url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/qht?useUnicode=true&characterEncoding=UTF8
+        #url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/qht?useUnicode=true&characterEncoding=UTF8
+        url: jdbc:mysql://119.3.48.21:3306/eduction?useUnicode=true&characterEncoding=UTF8
         username: root
-        password: 123456
+        password: Qianwen1000.cn
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
