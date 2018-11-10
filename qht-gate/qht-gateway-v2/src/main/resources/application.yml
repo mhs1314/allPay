@@ -63,6 +63,23 @@ spring:
           - Path=/api/auth/**
           filters:
           - StripPrefix=2
+        # ------------------------------------  
+        - id: qht-api
+          uri: lb://qht-api
+          order: 8002
+          predicates:
+          - Path=/qht/auth/**
+          filters:
+          - StripPrefix=2
+        # ------------------------------------  
+        - id: qht-api
+          uri: lb://qht-api
+          order: 8003
+          predicates:
+          - Path=/qht/api/**
+          filters:
+          - StripPrefix=2      
+        # ------------------------------------  
         - id: ace-admin
           uri: lb://ace-admin
           order: 8001

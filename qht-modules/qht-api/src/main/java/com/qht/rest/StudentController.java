@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("student")
-public class StudentController extends BaseController<StudentBiz,Student> implements StudentService {
+public class StudentController extends APIBaseController<StudentBiz,Student> implements StudentService {
 
     @Autowired
     private StudentBiz studentBiz;

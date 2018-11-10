@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("guardian")
-public class GuardianController extends BaseController<GuardianBiz,Guardian> {
+public class GuardianController extends APIBaseController<GuardianBiz,Guardian> {
 
 }

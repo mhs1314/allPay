@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("signInOut")
-public class SignInOutController extends BaseController<SignInOutBiz,SignInOut> {
+public class SignInOutController extends APIBaseController<SignInOutBiz,SignInOut> {
 
 }

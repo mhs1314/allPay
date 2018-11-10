@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("config")
-public class ConfigController extends BaseController<ConfigBiz,Config> {
+public class ConfigController extends APIBaseController<ConfigBiz,Config> {
 
 }

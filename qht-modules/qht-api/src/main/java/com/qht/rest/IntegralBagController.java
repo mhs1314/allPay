@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("integralBag")
-public class IntegralBagController extends BaseController<IntegralBagBiz,IntegralBag> {
+public class IntegralBagController extends APIBaseController<IntegralBagBiz,IntegralBag> {
 
 }
