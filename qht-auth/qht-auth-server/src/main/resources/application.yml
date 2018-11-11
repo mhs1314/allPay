@@ -9,6 +9,7 @@ spring:
         database: 2
         host: ${REDIS_HOST:localhost}
         port: ${REDIS_PORT:6379}
+        password: qht123456
         pool:
         max-active: 20
     datasource:

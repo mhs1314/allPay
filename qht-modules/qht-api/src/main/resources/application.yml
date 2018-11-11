@@ -145,7 +145,7 @@ redis:
          maxWait: 1000
     host: ${REDIS_HOST:localhost}
     port:  ${REDIS_PORT:6379}
-    password:
+    password: qht123456
     timeout: 2000
     # 服务或应用名
     sysName: qht-api
