@@ -208,4 +208,14 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public TenantAlbumDto selectTenantAlbum(String tenantId) {
         return studentMapper.selectTenantAlbum(tenantId);
     }
+
+    /**
+     * 学生端-个人中心--首页--我的课程详情介绍
+     * @param uid
+     * @param tenantId
+     * @return
+     */
+    public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenantId) {
+        return studentMapper.selectIndexCourseDetails(uid,tenantId);
+    }
 }

@@ -1,5 +1,7 @@
 package com.qht.rest;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.github.wxiaoqi.security.common.rest.BaseController;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
@@ -21,7 +23,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     @Autowired
     private StudentBiz studentBiz;
-    
+
+    /**
+     * 得到tenantId
+     * @param request
+     * @return
+     */
     public String getTenantId(HttpServletRequest request){
         String tenantId=null;
         StudentDto studentDto=(StudentDto)request.getSession().getAttribute("studentDto");
@@ -214,11 +221,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("courseList")
     @ResponseBody
     public ResultObject<List<CourseListDto>> courseList(RequestObject<CourseListParameter> requestObject, HttpServletRequest req) {
+        //使用分页插件
+        PageHelper.startPage(requestObject.getData().getPage(), requestObject.getData().getLimit());
         List<CourseListDto> courseListDtos=studentBiz.selectCourseList(requestObject.getData(),this.getTenantId(req));
+        //得到总条数
+        PageInfo<CourseListDto> count=new PageInfo<>(courseListDtos);
         ResultObject<List<CourseListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
-        resultObject.setCount(courseListDtos.size());
+        resultObject.setCount(count.getTotal());
         resultObject.setData(courseListDtos);
         return resultObject;
     }
@@ -227,11 +238,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("teacherList")
     @ResponseBody
     public ResultObject<List<TopTeacherListDto>> topTeacherList(RequestObject<TopTeacherListParameter> requestObject, HttpServletRequest req) {
+        //使用分页插件
+        PageHelper.startPage(requestObject.getData().getPage(), requestObject.getData().getLimit());
         List<TopTeacherListDto> topTeacherListDtos=studentBiz.selectTopTeacherList(requestObject.getData(),this.getTenantId(req));
+        //得到总条数
+        PageInfo<TopTeacherListDto> count=new PageInfo<>(topTeacherListDtos);
         ResultObject<List<TopTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
-        resultObject.setCount(topTeacherListDtos.size());
+        resultObject.setCount(count.getTotal());
         resultObject.setData(topTeacherListDtos);
         return resultObject;
     }
@@ -257,7 +272,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setCode("1");
         resultObject.setMsg("成功");
         resultObject.setData(teacherCourseDtos);
-        resultObject.setCount(teacherCourseDtos.size());
+        resultObject.setCount((long) teacherCourseDtos.size());
         return resultObject;
     }
 
@@ -297,5 +312,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
     }
 
+    @Override
+    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestParam("uid") String uid, HttpServletRequest req) {
+        List<IndexCourseDetailsDto> indexCourseDetailsDtos=studentBiz.selectIndexCourseDetails(uid,this.getTenantId(req));
+        ResultObject<List<IndexCourseDetailsDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(indexCourseDetailsDtos);
+        return resultObject;
+    }
 
 }

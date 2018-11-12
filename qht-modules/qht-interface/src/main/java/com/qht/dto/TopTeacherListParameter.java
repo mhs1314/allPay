@@ -13,7 +13,38 @@ public class TopTeacherListParameter implements Serializable {
 
     private BigDecimal integral;
 
-    private String page;
+    private Integer page;
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    private Integer limit;
+
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    @Override
+    public String toString() {
+        return "TopTeacherListParameter{" +
+                "pkg_subject_id='" + pkg_subject_id + '\'' +
+                ", pkg_grade_id='" + pkg_grade_id + '\'' +
+                ", newtime='" + newtime + '\'' +
+                ", integral=" + integral +
+                ", page=" + page +
+                ", limit=" + limit +
+                '}';
+    }
 
     public String getPkg_subject_id() {
         return pkg_subject_id;
@@ -45,25 +76,6 @@ public class TopTeacherListParameter implements Serializable {
 
     public void setIntegral(BigDecimal integral) {
         this.integral = integral;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
-
-    @Override
-    public String toString() {
-        return "TopTeacherListParameter{" +
-                "pkg_subject_id='" + pkg_subject_id + '\'' +
-                ", pkg_grade_id='" + pkg_grade_id + '\'' +
-                ", newtime='" + newtime + '\'' +
-                ", integral='" + integral + '\'' +
-                ", page='" + page + '\'' +
-                '}';
     }
 
 
