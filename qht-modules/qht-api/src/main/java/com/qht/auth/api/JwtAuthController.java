@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
-import com.qht.auth.util.JwtAuthenticationRequest;
 import com.qht.auth.service.AuthService;
+import com.qht.auth.util.QhtAuthenticationRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,8 +32,8 @@ public class JwtAuthController {
 	
 	@RequestMapping(value = "token", method = RequestMethod.POST)
     public ObjectRestResponse<String> createAuthenticationToken(
-            @RequestBody JwtAuthenticationRequest authenticationRequest) throws Exception {
-        log.info(authenticationRequest.getUsername()+" require logging...");
+            @RequestBody QhtAuthenticationRequest authenticationRequest) throws Exception {
+        log.info(authenticationRequest.getAccount()+" require logging...");
         final String token = authService.login(authenticationRequest);
         return new ObjectRestResponse<>().data(token);
     }

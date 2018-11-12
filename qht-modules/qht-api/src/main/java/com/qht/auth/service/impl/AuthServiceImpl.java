@@ -7,8 +7,8 @@ import org.springframework.util.StringUtils;
 import com.github.wxiaoqi.security.auth.common.util.jwt.JWTInfo;
 import com.github.wxiaoqi.security.common.exception.auth.UserInvalidException;
 import com.qht.auth.service.AuthService;
-import com.qht.auth.util.JwtAuthenticationRequest;
 import com.qht.auth.util.JwtTokenUtil;
+import com.qht.auth.util.QhtAuthenticationRequest;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.dto.StudentDto;
@@ -39,18 +39,24 @@ public class AuthServiceImpl implements AuthService {
     }
 	
 	@Override
-	public String login(JwtAuthenticationRequest authenticationRequest) throws Exception {
-		String account = authenticationRequest.getUsername();
+	public String login(QhtAuthenticationRequest authenticationRequest) throws Exception {
+		String account = authenticationRequest.getAccount();
 		String password = authenticationRequest.getPassword();
-		authenticationRequest.setType(3);
+		//authenticationRequest.setType(3);
 		//3-教师,4-学生
 		if(authenticationRequest.getType() == 3) {
 			TeacherDto dto = teacherBiz.teacherLogin(account, password);
+			if(dto == null) {
+				throw new UserInvalidException("用户不存在或账户密码错误!");
+			}
 			if (!StringUtils.isEmpty(dto.getUid())) {
 	            return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
 	        }
 		}else if(authenticationRequest.getType() == 4) {
 			StudentDto dto = studentBiz.studentLogin(account, password);
+			if(dto == null) {
+				throw new UserInvalidException("用户不存在或账户密码错误!");
+			}
 			if(!StringUtils.isEmpty(dto.getUid())) {
 				return jwtTokenUtil.generateToken(new JWTInfo(dto.getNickname(), dto.getUid() + "", dto.getSchoolid()));
 			}			
