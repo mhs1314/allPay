@@ -430,17 +430,17 @@ FROM message m
 where m.uid=#{uid} AND t.tenant_id=#{tid} and m.isread=#{isread}
     </select>
 
-
+    <!--删除消息-->
     <delete id="deleteMessage" parameterType="String">
         delete FROM message where uid=#{uid}
+    </delete>
 
-    </delete>    <!--学生端-个人中心-首页-课程答疑-->
+      <!--学生端-个人中心-首页-课程答疑-->
     <select id="selectMyIndexCourseAnswer" resultType="com.qht.dto.MyIndexCourseAnswerDto">
 
     </select>
 
-    </delete>
-
+    <!--查看单条消息-->
     <select id="selectMessageById" parameterType="String">
       select * FROM message where uid=#{uid}
     </select>
