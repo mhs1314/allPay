@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("message")
-public class MessageController extends BaseController<MessageBiz,Message> {
+public class MessageController extends APIBaseController<MessageBiz,Message> {
 
 }

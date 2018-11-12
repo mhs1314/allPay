@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("period")
-public class PeriodController extends BaseController<PeriodBiz,Period> {
+public class PeriodController extends APIBaseController<PeriodBiz,Period> {
 
 }

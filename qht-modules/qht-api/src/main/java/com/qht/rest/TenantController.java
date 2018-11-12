@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("tenant")
-public class TenantController extends BaseController<TenantBiz,Tenant> {
+public class TenantController extends APIBaseController<TenantBiz,Tenant> {
 
 }

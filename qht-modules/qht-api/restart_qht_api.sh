@@ -1,9 +1,9 @@
 #!/bin/sh
 JAVA_OPTS='-Xms128m -Xmx512m -XX:NewSize=128m -XX:MaxNewSize=512m -XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=128m -XX:NewRatio=2 -XX:MaxTenuringThreshold=8 -XX:+DisableExplicitGC'
 dir=`cd "$( dirname "$0" )" && pwd`
-qht_jar=qht-admin.jar
+qht_jar=qht-api.jar
 RESOURCE_NAME=${dir}/target/${qht_jar}
-LOG_NAME=/home/qht-admin.log
+LOG_NAME=/home/qht-api.log
 NG="zh_CN.UTF-8"
 pid=`ps ax | grep ${qht_jar} | grep java | head -1 | awk '{print $1}'`
 echo $pid

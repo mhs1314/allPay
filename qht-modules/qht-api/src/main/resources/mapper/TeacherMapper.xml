@@ -26,5 +26,10 @@
         <result property="account" column="account"/>
         <result property="password" column="password"/>
     </resultMap>
+    
+    <!--登陆查询学生信息-->
+    <select id="teacherLogin" resultType="com.qht.dto.TeacherDto">
+        select uid,nickname,tenant_id as tenantId,school_id as schoolId from teacher where account=#{account} and password=#{password}
+    </select>
 
 </mapper>
