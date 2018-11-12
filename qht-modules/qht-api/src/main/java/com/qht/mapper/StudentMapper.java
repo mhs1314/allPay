@@ -3,10 +3,8 @@ package com.qht.mapper;
 import com.qht.dto.*;
 import com.qht.entity.Student;
 
-import com.qht.services.MyIndexCourseParameter;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

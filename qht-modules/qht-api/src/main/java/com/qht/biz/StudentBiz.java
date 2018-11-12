@@ -1,8 +1,7 @@
 package com.qht.biz;
 
 import com.qht.dto.*;
-import com.qht.services.MyIndexCourseParameter;
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,15 +2,12 @@ package com.qht.rest;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.github.wxiaoqi.security.common.rest.BaseController;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.biz.StudentBiz;
 import com.qht.dto.*;
 import com.qht.entity.Student;
-import com.qht.services.MyIndexCourseParameter;
 import com.qht.services.StudentService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -218,6 +215,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
     }
 
+
+
     @Override
     @PostMapping("courseList")
     @ResponseBody
@@ -359,14 +358,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexCourseAnswer")
     @ResponseBody
-    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(RequestObject<MyIndexCourseAnswerParameter> requestObject, String page, String limit, HttpServletRequest req) {
+    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(RequestObject<MyIndexCourseAnswerParameter> requestObject,
+                                                                          @RequestParam(defaultValue = "1") String page,
+                                                                          @RequestParam(defaultValue = "10") String limit,
+                                                                          HttpServletRequest req) {
         Integer p=Integer.parseInt(page);
         Integer l=Integer.parseInt(limit);
         //使用分页插件
         PageHelper.startPage(p, l);
         List<MyIndexCourseAnswerDto> myIndexCourseAnswerDtos=studentBiz.selectMyIndexCourseAnswer(requestObject.getData(),this.getTenantId(req));
-
-        return null;
+        PageInfo<MyIndexCourseAnswerDto> count=new PageInfo<>(myIndexCourseAnswerDtos);
+        ResultObject<List<MyIndexCourseAnswerDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setCount(count.getTotal());
+        resultObject.setData(myIndexCourseAnswerDtos);
+        return resultObject;
     }
 
 }
