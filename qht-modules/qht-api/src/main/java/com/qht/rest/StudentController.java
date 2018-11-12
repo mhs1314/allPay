@@ -358,10 +358,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
                                                                 @RequestParam(defaultValue = "1")String page,
                                                                 @RequestParam(defaultValue = "10")String limit) {
+        Integer p=Integer.parseInt(page);
+        Integer l=Integer.parseInt(limit);
+        PageHelper.startPage(p,l);
         List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter.getUid(),paramter.getTenant_id(),this.getTenantId(req));
+        PageInfo<MyIndexMessageDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexMessageDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
+        resultObject.setCount(count.getTotal());
         resultObject.setData(list);
         return resultObject;
 
@@ -378,6 +383,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
+
     public ResultObject<MyIndexMessageDto> selectMessageById(String uid) {
         MyIndexMessageDto dto=studentBiz.selectMessageById(uid);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
