@@ -1,6 +1,7 @@
 package com.qht.biz;
 
 import com.qht.dto.*;
+import com.qht.services.MyIndexCourseParameter;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -217,5 +218,25 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      */
     public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenantId) {
         return studentMapper.selectIndexCourseDetails(uid,tenantId);
+    }
+
+    /**
+     * 学生端-个人中心--首页--我的课程列表
+     * @param data
+     * @param tenantId
+     * @return
+     */
+    public List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data, String tenantId) {
+        return studentMapper.selectMyIndexCourse(data,tenantId);
+    }
+
+    /**
+     *学生端-个人中心--首页--课程答疑
+     * @param data
+     * @param tenantId
+     * @return
+     */
+    public List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data, String tenantId) {
+        return studentMapper.selectMyIndexCourseAnswer(data,tenantId);
     }
 }

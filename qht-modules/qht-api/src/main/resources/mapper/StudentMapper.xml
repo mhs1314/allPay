@@ -396,9 +396,30 @@
         select uid,album,index from album where tenant_id=#{tenantId}
     </select>
 
+    <!--学生端-个人中心-首页-我的课程列表-->
+    <select id="selectMyIndexCourse" resultType="com.qht.dto.MyIndexCourseDto">
+        select
+          cp.pkg_name,c.name as chapter_name,p.name,p.video_file,p.begin
+        from buy_record br
+          left join course_pkg cp on br.course_pkg_id=cp.uid
+          left join chapter c on cp.uid=c.course_id
+          left join period p on c.uid=p.chapter_id
+        where br.tenant_id=#{tenantId}
+          and cp.course_type_id=#{course_type_id}
+          and cp.pkg_subject_id=#{pkg_subject_id}
+          and c.bgin like CONCAT(#{now_time},'%')
+          and cp.play_type_id=#{play_type_id}
+          and br.student_id=#{uid}
+    </select>
+
     <!--学生端-个人中心-首页-我的课程详情介绍-->
     <select id="selectIndexCourseDetails" resultType="com.qht.dto.IndexCourseDetailsDto">
         select uid,name,video_file,begin from period where tenant_id=#{tenantId} and uid=#{uid}
+    </select>
+
+    <!--学生端-个人中心-首页-课程答疑-->
+    <select id="selectMyIndexCourseAnswer" resultType="com.qht.dto.MyIndexCourseAnswerDto">
+
     </select>
 
 

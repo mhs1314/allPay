@@ -8,6 +8,7 @@ import com.qht.ResultObject;
 import com.qht.biz.StudentBiz;
 import com.qht.dto.*;
 import com.qht.entity.Student;
+import com.qht.services.MyIndexCourseParameter;
 import com.qht.services.StudentService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -220,9 +221,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("courseList")
     @ResponseBody
-    public ResultObject<List<CourseListDto>> courseList(RequestObject<CourseListParameter> requestObject, HttpServletRequest req) {
+    public ResultObject<List<CourseListDto>> courseList(RequestObject<CourseListParameter> requestObject,
+                                                        @RequestParam(defaultValue = "1") String  page ,
+                                                        @RequestParam(defaultValue = "10")String limit,
+                                                        HttpServletRequest req) {
+        Integer p=Integer.parseInt(page);
+        Integer l=Integer.parseInt(limit);
         //使用分页插件
-        PageHelper.startPage(requestObject.getData().getPage(), requestObject.getData().getLimit());
+        PageHelper.startPage(p, l);
         List<CourseListDto> courseListDtos=studentBiz.selectCourseList(requestObject.getData(),this.getTenantId(req));
         //得到总条数
         PageInfo<CourseListDto> count=new PageInfo<>(courseListDtos);
@@ -237,9 +243,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherList")
     @ResponseBody
-    public ResultObject<List<TopTeacherListDto>> topTeacherList(RequestObject<TopTeacherListParameter> requestObject, HttpServletRequest req) {
+    public ResultObject<List<TopTeacherListDto>> topTeacherList(RequestObject<TopTeacherListParameter> requestObject,
+                                                                @RequestParam(defaultValue = "1") String  page ,
+                                                                @RequestParam(defaultValue = "10")String limit,
+                                                                HttpServletRequest req) {
+        Integer p=Integer.parseInt(page);
+        Integer l=Integer.parseInt(limit);
         //使用分页插件
-        PageHelper.startPage(requestObject.getData().getPage(), requestObject.getData().getLimit());
+        PageHelper.startPage(p, l);
         List<TopTeacherListDto> topTeacherListDtos=studentBiz.selectTopTeacherList(requestObject.getData(),this.getTenantId(req));
         //得到总条数
         PageInfo<TopTeacherListDto> count=new PageInfo<>(topTeacherListDtos);
@@ -313,6 +324,29 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
+    @PostMapping("myIndexCourse")
+    @ResponseBody
+    public ResultObject<List<MyIndexCourseDto>> myIndexCourse(RequestObject<MyIndexCourseParameter> requestObject,
+                                                            @RequestParam(defaultValue = "1") String  page ,
+                                                            @RequestParam(defaultValue = "10")String limit,
+                                                            HttpServletRequest req) {
+        Integer p=Integer.parseInt(page);
+        Integer l=Integer.parseInt(limit);
+        //使用分页插件
+        PageHelper.startPage(p, l);
+        List<MyIndexCourseDto> myIndexCourseDtos=studentBiz.selectMyIndexCourse(requestObject.getData(),this.getTenantId(req));
+        PageInfo<MyIndexCourseDto> count=new PageInfo<>(myIndexCourseDtos);
+        ResultObject<List<MyIndexCourseDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setCount(count.getTotal());
+        resultObject.setData(myIndexCourseDtos);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("indexCourseDetails")
+    @ResponseBody
     public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestParam("uid") String uid, HttpServletRequest req) {
         List<IndexCourseDetailsDto> indexCourseDetailsDtos=studentBiz.selectIndexCourseDetails(uid,this.getTenantId(req));
         ResultObject<List<IndexCourseDetailsDto>> resultObject=new ResultObject<>();
@@ -320,6 +354,19 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setMsg("成功");
         resultObject.setData(indexCourseDetailsDtos);
         return resultObject;
+    }
+
+    @Override
+    @PostMapping("myIndexCourseAnswer")
+    @ResponseBody
+    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(RequestObject<MyIndexCourseAnswerParameter> requestObject, String page, String limit, HttpServletRequest req) {
+        Integer p=Integer.parseInt(page);
+        Integer l=Integer.parseInt(limit);
+        //使用分页插件
+        PageHelper.startPage(p, l);
+        List<MyIndexCourseAnswerDto> myIndexCourseAnswerDtos=studentBiz.selectMyIndexCourseAnswer(requestObject.getData(),this.getTenantId(req));
+
+        return null;
     }
 
 }

@@ -3,6 +3,7 @@ package com.qht.mapper;
 import com.qht.dto.*;
 import com.qht.entity.Student;
 
+import com.qht.services.MyIndexCourseParameter;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -172,4 +173,20 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     List<IndexCourseDetailsDto> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
+
+    /**
+     * 学生端-个人中心--首页--我的课程列表
+     * @param data
+     * @param tenantId
+     * @return
+     */
+    List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data, String tenantId);
+
+    /**
+     * 学生端-个人中心--首页--课程答疑
+     * @param data
+     * @param tenantId
+     * @return
+     */
+    List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data, String tenantId);
 }
