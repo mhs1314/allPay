@@ -5,7 +5,6 @@ import com.qht.entity.Student;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -173,6 +172,21 @@ public interface StudentMapper extends Mapper<Student> {
      */
     List<IndexCourseDetailsDto> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
 
+    /**
+     * 学生端-个人中心--首页--我的课程列表
+     * @param data
+     * @param tenantId
+     * @return
+     */
+    List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data, String tenantId);
+
+    /**
+     * 学生端-个人中心--首页--课程答疑
+     * @param data
+     * @param tenantId
+     * @return
+     */
+    List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data, String tenantId);
 
     /**
      * 消息
@@ -191,6 +205,5 @@ public interface StudentMapper extends Mapper<Student> {
     Integer deleteMessage(String uid);
 
     MyIndexMessageDto selectMessageById(String uid);
-
 
 }
