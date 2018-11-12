@@ -171,4 +171,12 @@ public interface StudentService {
      * @return
      */
     public ResultObject<TenantAlbumDto> tenantAlbum(HttpServletRequest req);
+
+    /**
+     * 学生端-个人中心--首页--我的课程详情介绍
+     * @param uid
+     * @param req
+     * @return
+     */
+    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestParam("uid")String uid,HttpServletRequest req);
 }

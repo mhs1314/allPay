@@ -17,11 +17,16 @@ public class CourseListParameter implements Serializable {
     //播放类型 1直播 2录播
     private String play_type_id;
     //当前页
-    private String page;
-    //课程包类型id
-    private String course_type_id;
+    private Integer page;
 
-    private String tenantId;
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
     @Override
     public String toString() {
         return "CourseListParameter{" +
@@ -31,12 +36,18 @@ public class CourseListParameter implements Serializable {
                 ", newtime='" + newtime + '\'' +
                 ", price='" + price + '\'' +
                 ", play_type_id='" + play_type_id + '\'' +
-                ", page='" + page + '\'' +
+                ", page=" + page +
+                ", limit=" + limit +
                 ", course_type_id='" + course_type_id + '\'' +
                 ", tenantId='" + tenantId + '\'' +
                 '}';
     }
 
+    private Integer limit;
+    //课程包类型id
+    private String course_type_id;
+
+    private String tenantId;
 
 
     public String getTenantId() {
@@ -97,11 +108,11 @@ public class CourseListParameter implements Serializable {
         this.play_type_id = play_type_id;
     }
 
-    public String getPage() {
+    public Integer getPage() {
         return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(Integer page) {
         this.page = page;
     }
 

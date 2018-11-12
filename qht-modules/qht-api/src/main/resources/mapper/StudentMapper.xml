@@ -314,7 +314,6 @@
 			from course_pkg cp
 			  INNER JOIN teacher t on cp.teacher_id=t.uid
 			where cp.tenant_id=#{tenantId})as b
-        where
     </select>
 
     <resultMap id="selectTopTeacherInfoAndCourse" type="com.qht.dto.TopTeacherInfoDto">
@@ -395,6 +394,11 @@
     <!--运营商-画册-->
     <select id="selectTenantAlbum" parameterType="java.lang.String" resultType="com.qht.dto.TenantAlbumDto">
         select uid,album,index from album where tenant_id=#{tenantId}
+    </select>
+
+    <!--学生端-个人中心-首页-我的课程详情介绍-->
+    <select id="selectIndexCourseDetails" resultType="com.qht.dto.IndexCourseDetailsDto">
+        select uid,name,video_file,begin from period where tenant_id=#{tenantId} and uid=#{uid}
     </select>
 
 

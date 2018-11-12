@@ -32,13 +32,13 @@ public class ResultObject<T> {
 
 
     //返回数据条数
-    private Integer count;
+    private Long count;
 
-    public Integer getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Long count) {
         this.count = count;
     }
 

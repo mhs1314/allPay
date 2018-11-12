@@ -164,4 +164,12 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     TenantAlbumDto selectTenantAlbum(String tenantId);
+
+    /**
+     * 学生端-个人中心--首页--我的课程详情介绍
+     * @param uid
+     * @param tenantId
+     * @return
+     */
+    List<IndexCourseDetailsDto> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
 }
