@@ -321,5 +321,17 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setData(indexCourseDetailsDtos);
         return resultObject;
     }
+    @Override
+    public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
+                                                                @RequestParam(defaultValue = "1")String page,
+                                                                @RequestParam(defaultValue = "10")String limit) {
+        List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter.getUid(),paramter.getTenant_id(),this.getTenantId(req));
+        ResultObject<List<MyIndexMessageDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(list);
+        return resultObject;
+
+    }
 
 }

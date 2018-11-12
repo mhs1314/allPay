@@ -179,4 +179,15 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestParam("uid")String uid,HttpServletRequest req);
+
+    /**
+     * 學生個人中心消息
+     * @param req
+     * @return
+     */
+    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
+                                                                 @RequestParam(defaultValue = "1")String page,
+                                                                 @RequestParam(defaultValue = "10")String limit);
 }
+
+

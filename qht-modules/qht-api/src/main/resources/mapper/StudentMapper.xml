@@ -401,6 +401,19 @@
         select uid,name,video_file,begin from period where tenant_id=#{tenantId} and uid=#{uid}
     </select>
 
+    <!-- 消息-->
+    <select id="selectMyIndexMessage"  resultType="com.qht.dto.MyIndexMessageDto">
+      select  t.back_img as head,
+				m.uid as uid,m.isread as isread,
+				t.`name` as nickname,
+				m.time as time,
+				m.content as content
+FROM message m
+							LEFT JOIN `user`  u  ON m.uid=u.uid
+							LEFT JOIN teacher t  ON m.tenant_id=t.tenant_id
+where m.uid=#{uid} AND t.tenant_id=#{tid} and m.isread=#{isread}
+    </select>
+
 
 
 

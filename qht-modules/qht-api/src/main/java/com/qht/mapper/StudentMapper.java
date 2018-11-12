@@ -172,4 +172,16 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     List<IndexCourseDetailsDto> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
+
+
+    /**
+     * 消息
+     * @param uid
+     * @param tid
+     * @param isread
+     * @return
+     */
+    List<MyIndexMessageDto> selectMyIndexMessage(String uid,String tid,String isread);
+
+
 }

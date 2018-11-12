@@ -218,4 +218,14 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenantId) {
         return studentMapper.selectIndexCourseDetails(uid,tenantId);
     }
+    /**
+     * 消息
+     * @param uid
+     * @param tid
+     * @param isread
+     * @return
+     */
+    public List<MyIndexMessageDto> selectMyIndexMessage(String uid,String tid,String isread){
+        return  studentMapper.selectMyIndexMessage( uid, tid, isread);
+    }
 }
