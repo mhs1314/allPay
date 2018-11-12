@@ -441,8 +441,14 @@ where m.uid=#{uid} AND t.tenant_id=#{tid} and m.isread=#{isread}
     </select>
 
     <!--查看单条消息-->
-    <select id="selectMessageById" parameterType="String">
-      select * FROM message where uid=#{uid}
+    <select id="selectMessageById"  resultType="MyIndexMessageDto" parameterType="String">
+        select  t.back_img as head,
+                    m.uid as uid,m.isread as isread,
+                    t.`name` as nickname,
+                    m.time as time,
+                    m.content as content
+      FROM message
+     where uid=#{uid}
     </select>
 
 
