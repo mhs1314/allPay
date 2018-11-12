@@ -450,9 +450,54 @@ where m.uid=#{uid} AND t.tenant_id=#{tid} and m.isread=#{isread}
       FROM message
      where uid=#{uid}
     </select>
+    <resultMap id="studentMap" type="StudentInfoDto">
+        <id column="uid" property="uid"/>
+        <result column="head" property="head"/>
+        <result column="schoolid" property="schoolid"/>
+        <result column="sex" property="sex"/>
+        <result column="name" property="name"/>
+        <result column="nickname" property="nickname"/>
+        <result column="school_name" property="school_name"/>
+        <result column="clazz" property="clazz"/>
+        <result column="clanzzName" property="clanzzName"/>
+        <result column="age" property="age"/>
+        <collection property="tatDtos" ofType="TatDto">
+            <id column="tid" property="tid"/>
+            <result column="tname" property="tname"/>
+        </collection>
+        <collection property="guardianDtos" ofType="GuardianDto">
+            <id column="call" property="call"/>
+            <id column="phone" property="phone"/>
+        </collection>
+    </resultMap>
+    <!-- 学生信息-->
+    <select id="studentInfo" resultMap="studentMap">
+SELECT
+	s.uid as uid ,
+	s.head as head,
+	s.schoolid as schoolid,
+	s.sex as sex,
+	s.`name` as `name`,
+	s.nickname as nickname,
+	sc.school_name as school_name,
+	s.clazz as clazz,
+	p.`name` as clanzzName,
+	s.age as age,
 
-
-
+	t.uid as tid,
+	t.tag_name as tname,
+	g.`call` as `call`,
+	g.phone  as phone
+FROM
+	student s
+LEFT JOIN school sc ON s.schoolid = sc.uid
+LEFT JOIN guardian g ON s.uid = g.student_id
+LEFT JOIN interest_label i ON s.uid = i.student_id
+LEFT JOIN tag t ON i.tag_id = t.uid
+LEFT JOIN pkg_grade p ON s.grade_id = p.uid
+WHERE
+	s.uid = #{uid} AND s.tenant_id =#{tid}
+    </select>
 
 
 

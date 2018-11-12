@@ -228,6 +228,15 @@ public interface StudentService {
      */
     public ResultObject<MyIndexMessageDto>selectMessageById(String uid);
 
+    /**
+     * 學生信息
+     * @param reg
+     * @param uid
+     * @param tid
+     * @return
+     */
+    public  ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid);
+
 }
 
 

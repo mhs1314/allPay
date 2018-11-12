@@ -355,6 +355,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
     }
     @Override
+    @PostMapping("myIndexMessage")
+    @ResponseBody
     public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
                                                                 @RequestParam(defaultValue = "1")String page,
                                                                 @RequestParam(defaultValue = "10")String limit) {
@@ -373,6 +375,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
+    @PostMapping("myIndexDelMessage")
+    @ResponseBody
     public ResultObject<Integer> deleteMessage(String uid) {
         Integer row=studentBiz.deleteMessage(uid);
         ResultObject<Integer> resultObject=new ResultObject<>();
@@ -383,10 +387,23 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
-
+    @PostMapping("myIndexMessageDetails")
+    @ResponseBody
     public ResultObject<MyIndexMessageDto> selectMessageById(String uid) {
         MyIndexMessageDto dto=studentBiz.selectMessageById(uid);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("studentInfo")
+    @ResponseBody
+    public ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid) {
+        StudentInfoDto dto=studentBiz.studentInfo(uid,this.getTenantId(reg));
+        ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
         resultObject.setData(dto);

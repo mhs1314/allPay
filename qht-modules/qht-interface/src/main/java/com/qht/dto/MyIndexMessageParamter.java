@@ -1,9 +1,11 @@
 package com.qht.dto;
 
+import java.io.Serializable;
+
 /**
  * 趙家豪
  */
-public class MyIndexMessageParamter {
+public class MyIndexMessageParamter implements Serializable {
     //學生id
     private  String uid;
     //運營商id

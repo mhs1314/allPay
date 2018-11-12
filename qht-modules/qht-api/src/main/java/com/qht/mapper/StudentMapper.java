@@ -204,6 +204,19 @@ public interface StudentMapper extends Mapper<Student> {
      */
     Integer deleteMessage(String uid);
 
+    /**
+     * 查詢消息
+     * @param uid
+     * @return
+     */
     MyIndexMessageDto selectMessageById(String uid);
+
+    /**
+     * 查詢學生信息
+     * @param uid
+     * @param tid
+     * @return
+     */
+    StudentInfoDto studentInfo(String uid,String tid);
 
 }
