@@ -1,19 +1,21 @@
 package com.qht.dto;
 
 
+import java.io.Serializable;
 
 /**
  * 登陆信息
  * @author 草原狼
  * @date 2018-11-8
  */
-public class LoginInfoDto {
+public class LoginInfoDto implements Serializable {
 	//运营商ID
 	private String tenantId;
     //账号   
     private String account;	
 	//密码    
     private String password;
+
     
 	public String getTenantId() {
 		return tenantId;

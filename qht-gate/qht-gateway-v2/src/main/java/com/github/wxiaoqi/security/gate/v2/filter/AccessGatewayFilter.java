@@ -101,6 +101,12 @@ public class AccessGatewayFilter implements GlobalFilter {
             ServerHttpRequest build = mutate.build();
             return gatewayFilterChain.filter(serverWebExchange.mutate().request(build).build());
         }
+        //业务层不进行拦截的地址
+        else if(isLoginAddr(requestUri)) {
+        	ServerHttpRequest build = mutate.build();
+            return gatewayFilterChain.filter(serverWebExchange.mutate().request(build).build());
+        }
+        
         IJWTInfo user = null;
         try {
             user = getJWTUser(request, mutate);
@@ -233,6 +239,21 @@ public class AccessGatewayFilter implements GlobalFilter {
             }
         }
         return flag;
+    }
+    /**
+     * 判断是否登录地址
+     * @param requestUri
+     * @return
+     */
+    private boolean isLoginAddr(String requestUri) {
+    	boolean flag = false;
+    	if(requestUri.startsWith("/qht/auth/")) {
+    		return true;
+    	}
+    	if(requestUri.endsWith("/jwt/token")) {
+    		return true;
+    	}
+    	return flag;
     }
 
     /**

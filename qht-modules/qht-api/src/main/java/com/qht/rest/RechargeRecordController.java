@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("rechargeRecord")
-public class RechargeRecordController extends BaseController<RechargeRecordBiz,RechargeRecord> {
+public class RechargeRecordController extends APIBaseController<RechargeRecordBiz,RechargeRecord> {
 
 }

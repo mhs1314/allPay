@@ -26,9 +26,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAceAuthClient
 @EnableAceCache
 @EnableTransactionManagement
-@MapperScan("com.github.wxiaoqi.security.admin.mapper")
+@MapperScan("com.qht.mapper")
 @EnableSwagger2Doc
-public class AdminBootstrap {
+public class APIBootstrap {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(AdminBootstrap.class).web(true).run(args);    }
+        new SpringApplicationBuilder(APIBootstrap.class).web(true).run(args);    }
 }

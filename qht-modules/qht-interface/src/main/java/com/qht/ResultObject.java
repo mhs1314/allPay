@@ -28,6 +28,20 @@ public class ResultObject<T> {
      */
     private String msg;
     private String errorMsg;
+
+
+
+    //返回数据条数
+    private Integer count;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     /**
 	 * @return the errorMsg
 	 */
@@ -118,7 +132,14 @@ public class ResultObject<T> {
 
     @Override
     public String toString() {
-        return "ResultObject [requestId=" + requestId + ", code=" + code + ", msg=" + msg + ", data=" + data + "]";
+        return "ResultObject{" +
+                "requestId='" + requestId + '\'' +
+                ", code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", count=" + count +
+                ", data=" + data +
+                '}';
     }
+
 }
 

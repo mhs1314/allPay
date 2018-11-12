@@ -5,6 +5,7 @@ import com.github.wxiaoqi.security.common.context.BaseContextHandler;
 import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
 import com.github.wxiaoqi.security.common.msg.TableResultResponse;
 import com.github.wxiaoqi.security.common.util.Query;
+//import com.qht.dto.StudentDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,26 @@ import java.util.Map;
  */
 @Slf4j
 public class BaseController<Biz extends BaseBiz,Entity> {
+
     @Autowired
     protected HttpServletRequest request;
     @Autowired
     protected Biz baseBiz;
+    /*
+    public String getTenantId(HttpServletRequest request){
+        String tenantId=null;
+        StudentDto studentDto=(StudentDto)request.getSession().getAttribute("studentDto");
+        if (studentDto!=null){
+            tenantId=studentDto.getTenantId();
+        }
+        return tenantId;
+    }
+    */
 
+    public HttpServletRequest getRequest() {
+    	return request;
+    }
+    
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
     public ObjectRestResponse<Entity> add(@RequestBody Entity entity){
