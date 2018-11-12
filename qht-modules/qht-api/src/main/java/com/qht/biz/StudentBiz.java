@@ -228,4 +228,11 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public List<MyIndexMessageDto> selectMyIndexMessage(String uid,String tid,String isread){
         return  studentMapper.selectMyIndexMessage( uid, tid, isread);
     }
+
+    public Integer deleteMessage(String id){
+        return studentMapper.deleteMessage(id);
+    }
+    public MyIndexMessageDto selectMessageById(String uid){
+        return studentMapper.selectMessageById(uid);
+    }
 }

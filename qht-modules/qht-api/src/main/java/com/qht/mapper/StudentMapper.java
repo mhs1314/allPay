@@ -183,5 +183,14 @@ public interface StudentMapper extends Mapper<Student> {
      */
     List<MyIndexMessageDto> selectMyIndexMessage(String uid,String tid,String isread);
 
+    /**
+     * 刪除消息
+     * @param uid
+     * @return
+     */
+    Integer deleteMessage(String uid);
+
+    MyIndexMessageDto selectMessageById(String uid);
+
 
 }

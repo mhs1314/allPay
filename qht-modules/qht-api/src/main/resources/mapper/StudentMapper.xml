@@ -414,6 +414,15 @@ FROM message m
 where m.uid=#{uid} AND t.tenant_id=#{tid} and m.isread=#{isread}
     </select>
 
+    <delete id="deleteMessage" parameterType="String">
+        delete FROM message where uid=#{uid}
+
+    </delete>
+
+    <select id="selectMessageById" parameterType="String">
+      select * FROM message where uid=#{uid}
+    </select>
+
 
 
 

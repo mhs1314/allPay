@@ -334,4 +334,24 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     }
 
+    @Override
+    public ResultObject<Integer> deleteMessage(String uid) {
+        Integer row=studentBiz.deleteMessage(uid);
+        ResultObject<Integer> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(row);
+        return resultObject;
+    }
+
+    @Override
+    public ResultObject<MyIndexMessageDto> selectMessageById(String uid) {
+        MyIndexMessageDto dto=studentBiz.selectMessageById(uid);
+        ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return resultObject;
+    }
+
 }

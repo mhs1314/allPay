@@ -188,6 +188,20 @@ public interface StudentService {
     public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
                                                                  @RequestParam(defaultValue = "1")String page,
                                                                  @RequestParam(defaultValue = "10")String limit);
+
+    /**
+     * 刪除消息
+     * @param uid
+     * @return
+     */
+    public ResultObject<Integer> deleteMessage(String uid);
+
+    /**
+     * 查詢單個消息
+     * @param uid
+     * @return
+     */
+    public ResultObject<MyIndexMessageDto>selectMessageById(String uid);
 }
 
 
