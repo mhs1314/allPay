@@ -31,8 +31,12 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<BannerDto>> banner(HttpServletRequest req);
-
-
+    /**
+     * 获取首页广告信息--App
+     * @param req
+     * @return
+     */
+    public ResultObject<List<BannerDto>> indexBanner(HttpServletRequest req);
     /**
      * 获取首页的直播课程
      * @param req
