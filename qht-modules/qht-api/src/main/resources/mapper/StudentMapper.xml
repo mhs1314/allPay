@@ -4,7 +4,7 @@
 <mapper namespace="com.qht.mapper.StudentMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.qht.entity.Student" id="studentMap">
+    <resultMap type="com.qht.entity.Student"  id="studentMap">
         <result property="uid" column="uid"/>
         <result property="tenantId" column="tenant_id"/>
         <result property="nickname" column="nickname"/>
@@ -17,6 +17,7 @@
         <result property="account" column="account"/>
         <result property="password" column="password"/>
     </resultMap>
+    
 
     <!--登陆查询学生信息-->
     <select id="studentLogin" resultType="com.qht.dto.StudentDto">
@@ -508,7 +509,7 @@
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
-    <resultMap id="studentMap" type="com.qht.dto.StudentInfoDto">
+    <resultMap id="studentInfoMap" type="com.qht.dto.StudentInfoDto">
         <id column="uid" property="uid"/>
         <result column="head" property="head"/>
         <result column="schoolid" property="schoolid"/>
@@ -523,7 +524,7 @@
             <id column="tid" property="tid"/>
             <result column="tname" property="tname"/>
         </collection>
-        <collection property="guardianDtos" ofType="GuardianDto">
+        <collection property="guardianDtos" ofType="com.qht.dto.GuardianDto">
             <id column="gid" property="gid"/>
             <result column="call" property="call"/>
             <result column="phone" property="phone"/>
