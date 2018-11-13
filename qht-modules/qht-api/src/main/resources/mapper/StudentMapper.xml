@@ -628,6 +628,36 @@ LEFT JOIN answer a ON p.uid = a.period_id
 where a.tenant_id=#{}
 </select>
 
+    <select id="indexCoruseList" resultType="IndexCoruseListDto" parameterType="IndexCoruseListParameter">
+        SELECT
+	c.uid,
+	c.pkg_name,
+	c.cover,
+	c.play_type_id,
+	t.nickname,
+	c.apply_number
+FROM
+	course_pkg c
+LEFT JOIN teacher t ON c.teacher_id = t.uid
+LEFT JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+WHERE
+	c.tenant_id =#{tenant_id}
+        <if test="play_type_id!=null and play_type_id!=''">
+            AND c.play_type_id =#{play_type_id}
+        </if>
+        <if test="pkg_grade_id!=null and pkg_grade_id!=''">
+            AND c.pkg_grade_id =#{pkg_grade_id}
+        </if>
+        <if test="pkg_subject_id!=null and pkg_subject_id!=''">
+            AND c.pkg_subject_id =#{pkg_subject_id}
+        </if>
+        <if test="course_type_id!=null and course_type_id!=''">
+            AND c.course_type_id =#{course_type_id}
+        </if>
+
+
+
+    </select>
 
 
 </mapper>

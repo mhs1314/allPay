@@ -510,4 +510,18 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return  resultObject;
     }
 
+    @Override
+    @PostMapping("/app/indexCoruseList")
+    @ResponseBody
+    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(HttpServletRequest reg, RequestObject<IndexCoruseListParameter> parameter) {
+        parameter.getData().setTenant_id(this.getTenantId(reg));
+        List<IndexCoruseListDto> dto=studentBiz.indexCoruseList(parameter.getData());
+        ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return  resultObject;
+    }
+
+
 }

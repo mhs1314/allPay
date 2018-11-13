@@ -322,5 +322,13 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
   public  List<IndexAnswerDto> indexAnswer(String tid){
         return studentMapper.indexAnswer(tid);
   }
+    /**
+     * 课程列表
+     * @param parameter
+     * @return
+     */
+  public   List<IndexCoruseListDto> indexCoruseList(IndexCoruseListParameter parameter){
+        return studentMapper.indexCoruseList(parameter);
+    }
 }
 

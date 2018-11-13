@@ -267,6 +267,7 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<IndexAnswerDto>> indexAnswer(HttpServletRequest reg);
+    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(HttpServletRequest reg,RequestObject<IndexCoruseListParameter> parameter);
 
 }
 
