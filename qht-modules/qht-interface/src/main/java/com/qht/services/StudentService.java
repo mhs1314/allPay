@@ -256,11 +256,17 @@ public interface StudentService {
     public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(HttpServletRequest reg,String uid,String tid);
 
     /**
-     *
+     *名师资源
      * @param reg
      * @return
      */
     public ResultObject<List<IndexTeacherDto>> indexTeacher(HttpServletRequest reg);
+    /**
+     *课程疑答
+     * @param reg
+     * @return
+     */
+    public ResultObject<List<IndexAnswerDto>> indexAnswer(HttpServletRequest reg);
 
 }
 

@@ -239,4 +239,11 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     List<IndexTeacherDto> indexTeacher(String tid);
+
+    /**
+     * 课程疑答
+     * @param tid
+     * @return
+     */
+    List<IndexAnswerDto> indexAnswer(String tid);
 }

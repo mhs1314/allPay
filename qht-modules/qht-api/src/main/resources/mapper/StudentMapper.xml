@@ -612,7 +612,21 @@ LEFT JOIN school s ON t.school_id = s.uid
 WHERE
 	t.tenant_id = #{tid}
     </select>
+<select id="indexAnswer" resultType="IndexAnswerDto" parameterType="String" >
+    SELECT
+	c.cover as cover,
+	a.uid as uid,
+	pr.comments_content as question,
+	p.`name` as name,
+	a.type as type
 
+FROM
+	course_pkg c
+LEFT JOIN period_evaluation pr ON c.uid = pr.course_id
+LEFT JOIN period p ON pr.period_id = p.uid
+LEFT JOIN answer a ON p.uid = a.period_id
+where a.tenant_id=#{}
+</select>
 
 
 
