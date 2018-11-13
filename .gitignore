@@ -8,3 +8,4 @@ target/
 .classpath
 ace-modules/ace-tool/src/main/resources/application-dev.yml
 */application.yml
+.idea
