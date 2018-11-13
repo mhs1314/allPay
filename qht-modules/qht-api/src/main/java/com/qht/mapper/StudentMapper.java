@@ -188,7 +188,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param isread
      * @return
      */
-    List<MyIndexMessageDto> selectMyIndexMessage(String uid,String tid,String isread);
+    List<MyIndexMessageDto> selectMyIndexMessage(@Param("uid")String uid,@Param("tid")String tid,@Param("isread")String isread);
 
     /**
      * 刪除消息
@@ -216,7 +216,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tid
      * @return
      */
-    StudentInfoDto studentInfo(String uid,String tid);
+    StudentInfoDto studentInfo(@Param("uid")String uid,@Param("tid")String tid);
 
     /**
      * 消费记录
@@ -231,7 +231,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tid
      * @return
      */
-    List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tid);
+    List<IndexFutureCoruseDto> indexFutureCoruse(@Param("uid")String uid,@Param("tid")String tid);
 
     /**
      * 名师资源
@@ -246,4 +246,18 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     List<IndexAnswerDto> indexAnswer(String tid);
+
+    /**
+     * 课程列表
+     * @param parameter
+     * @return
+     */
+    List<IndexCoruseListDto> indexCoruseList(IndexCoruseListParameter parameter);
+    /**
+     * 名师资源列表
+     * @param parameter
+     * @return
+     */
+    List<IndexTeacherListDto> indexTeacherList(IndexTeacherListParameter parameter);
+
 }
