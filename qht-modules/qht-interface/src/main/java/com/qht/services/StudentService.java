@@ -31,8 +31,12 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<BannerDto>> banner(HttpServletRequest req);
-
-
+    /**
+     * 获取首页广告信息--App
+     * @param req
+     * @return
+     */
+    public ResultObject<List<BannerDto>> indexBanner(HttpServletRequest req);
     /**
      * 获取首页的直播课程
      * @param req
@@ -200,9 +204,7 @@ public interface StudentService {
      * @param req
      * @return
      */
-    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
-                                                                 @RequestParam(defaultValue = "1")String page,
-                                                                 @RequestParam(defaultValue = "10")String limit);
+    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,RequestObject<MyIndexMessageParamter> paramter);
 
     /**
      * 刪除消息
@@ -227,6 +229,22 @@ public interface StudentService {
     public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(RequestObject<MyIndexBuyRecordParameter> requestObject,
                                                                     HttpServletRequest req);
 
+    /**
+     * 學生信息
+     * @param reg
+     * @param uid
+     * @param tid
+     * @return
+     */
+    public  ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid);
+
+    /**
+     * 消息記錄
+     * @param reg
+     * @param parameter
+     * @return
+     */
+    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(HttpServletRequest reg,RequestObject<MyIndexMyintegralDetailParameter> parameter);
 }
 
 

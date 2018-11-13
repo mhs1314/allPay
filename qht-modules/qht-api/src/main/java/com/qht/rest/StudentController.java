@@ -79,14 +79,25 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<BannerDto>> banner(HttpServletRequest req) {
         //通过session取到运营的id
-        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req));
+        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"1");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
         resultObject.setCode("1");
         resultObject.setMsg("成功");
         return resultObject;
     }
-
+    @Override
+    @PostMapping("/app/indexBanner")
+    @ResponseBody
+    public ResultObject<List<BannerDto>> indexBanner(HttpServletRequest req) {
+        //通过session取到运营的id
+        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"2");
+        ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
+        resultObject.setData(list);
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        return resultObject;
+    }
     @Override
     @PostMapping("liveClass")
     @ResponseBody
@@ -347,19 +358,27 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
     }
     @Override
-    public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
-                                                                @RequestParam(defaultValue = "1")String page,
-                                                                @RequestParam(defaultValue = "10")String limit) {
-        List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter.getUid(),paramter.getTenant_id(),this.getTenantId(req));
+    @PostMapping("myIndexMessage")
+    @ResponseBody
+    public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,RequestObject<MyIndexMessageParamter> paramter) {
+        Integer p=Integer.parseInt(paramter.getData().getPage());
+        Integer l=Integer.parseInt(paramter.getData().getLimit());
+        paramter.getData().setIsread(this.getTenantId(req));
+        PageHelper.startPage(p,l);
+        List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter);
+        PageInfo<MyIndexMessageDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexMessageDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
+        resultObject.setCount(count.getTotal());
         resultObject.setData(list);
         return resultObject;
 
     }
 
     @Override
+    @PostMapping("myIndexDelMessage")
+    @ResponseBody
     public ResultObject<Integer> deleteMessage(String uid) {
         Integer row=studentBiz.deleteMessage(uid);
         ResultObject<Integer> resultObject=new ResultObject<>();
@@ -370,6 +389,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
+    @PostMapping("myIndexMessageDetails")
+    @ResponseBody
     public ResultObject<MyIndexMessageDto> selectMessageById(String uid) {
         MyIndexMessageDto dto=studentBiz.selectMessageById(uid);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
@@ -394,6 +415,36 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(myIndexBuyRecordDtos);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("studentInfo")
+    @ResponseBody
+    public ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid) {
+        StudentInfoDto dto=studentBiz.studentInfo(uid,this.getTenantId(reg));
+        ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return resultObject;
+    }
+    //消費記錄
+    @Override
+    @PostMapping("/myIndexMyintegralDetail")
+    @ResponseBody
+    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(HttpServletRequest reg, RequestObject<MyIndexMyintegralDetailParameter> parameter) {
+        parameter.getData().setTenant_id(this.getTenantId(reg));
+        Integer p=Integer.parseInt(parameter.getData().getPage());
+        Integer l=Integer.parseInt(parameter.getData().getLimit());
+        PageHelper.startPage(p,l);
+        List<MyIndexMyintegralDetailDto> list=studentBiz.myIndexMyintegralDetail(parameter);
+        PageInfo<MyIndexMyintegralDetailDto> count=new PageInfo<>(list);
+        ResultObject<List<MyIndexMyintegralDetailDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setCount(count.getTotal());
+        resultObject.setData(list);
         return resultObject;
     }
 

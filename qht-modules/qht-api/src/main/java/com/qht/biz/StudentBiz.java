@@ -1,5 +1,6 @@
 package com.qht.biz;
 
+import com.qht.RequestObject;
 import com.qht.dto.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,25 +28,28 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * login查询学生
+     *
      * @param account
      * @param password
      * @return
      */
-    public StudentDto studentLogin(String account, String password){
-        return studentMapper.studentLogin(account,password);
+    public StudentDto studentLogin(String account, String password) {
+        return studentMapper.studentLogin(account, password);
     }
 
     /**
      * 首页查询banner
+     *
      * @param tenantId
      * @return
      */
-    public List<BannerDto> selectBanner(String tenantId) {
-        return studentMapper.selectBanner(tenantId);
+    public List<BannerDto> selectBanner(String tenantId,String type) {
+        return studentMapper.selectBanner(tenantId,type);
     }
 
     /**
      * 首页查询直播课程
+     *
      * @param tenantId
      * @return
      */
@@ -213,21 +217,33 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenantId) {
         return studentMapper.selectIndexCourseDetails(uid,tenantId);
     }
+
     /**
      * 消息
-     * @param uid
-     * @param tid
-     * @param isread
+     * @param paramter
      * @return
      */
-    public List<MyIndexMessageDto> selectMyIndexMessage(String uid,String tid,String isread){
-        return  studentMapper.selectMyIndexMessage( uid, tid, isread);
+    public List<MyIndexMessageDto> selectMyIndexMessage(RequestObject<MyIndexMessageParamter> paramter) {
+        return studentMapper.selectMyIndexMessage(paramter.getData().getUid(), paramter.getData().getTenant_id(), paramter.getData().getIsread());
     }
 
-    public Integer deleteMessage(String id){
+    /**
+     * 刪除消息
+     *
+     * @param id
+     * @return
+     */
+    public Integer deleteMessage(String id) {
         return studentMapper.deleteMessage(id);
     }
-    public MyIndexMessageDto selectMessageById(String uid){
+
+    /**
+     * 查詢信息
+     *
+     * @param uid
+     * @return
+     */
+    public MyIndexMessageDto selectMessageById(String uid) {
         return studentMapper.selectMessageById(uid);
     }
 
@@ -257,6 +273,27 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public List<MyIndexBuyRecordDto> selectMyIndexBuyRecourd(MyIndexBuyRecordParameter data) {
         return studentMapper.selectMyIndexBuyRecord(data);
     }
+
+
+
+
+    /**
+     * 學生信息
+     * @param uid
+     * @param tid
+     * @return
+     */
+    public StudentInfoDto studentInfo(String uid,String tid){
+        return  studentMapper.studentInfo(uid,tid);
     }
 
+    /**
+     * 消費明細
+     * @param parameter
+     * @return
+     */
+    public List<MyIndexMyintegralDetailDto> myIndexMyintegralDetail(RequestObject<MyIndexMyintegralDetailParameter> parameter){
+        return  studentMapper.myIndexMyintegralDetail(parameter.getData());
+    }
+}
 

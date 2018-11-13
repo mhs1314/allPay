@@ -23,8 +23,8 @@
         select uid,nickname,tenant_id as tenantId,schoolid from student where account=#{account} and password=#{password}
     </select>
     <!--查询banner-->
-    <select id="selectBanner" resultType="com.qht.dto.BannerDto" parameterType="java.lang.String">
-        select uid,image,link,sort from banner where tenantId=#{tenantId}
+    <select id="selectBanner" resultType="com.qht.dto.BannerDto">
+        select uid,image,link,sort from banner where tenantId=#{tenantId} type=#{type}
     </select>
     <!--查询首页直播课程信息-->
     <select id="selectLiveClass" resultType="com.qht.dto.LiveClassDto" parameterType="java.lang.String">
@@ -452,10 +452,11 @@
       </if>
     </select>
 
-
+    <!--删除消息-->
     <delete id="deleteMessage" parameterType="String">
         delete FROM message where uid=#{uid}
-    </delete>    <!--学生端-个人中心-首页-课程答疑-->
+    </delete>
+    <!--学生端-个人中心-首页-课程答疑-->
     <select id="selectMyIndexCourseAnswer" resultType="com.qht.dto.MyIndexCourseAnswerDto" parameterType="com.qht.dto.MyIndexCourseAnswerParameter">
         select
           an.answer_file_name,an.answer_time,an.answer,an.answer_file_url,an.uid,
@@ -483,6 +484,7 @@
     </select>
 
 
+
     <select id="selectMessageById" parameterType="String">
       select * FROM message where uid=#{uid}
     </select>
@@ -506,10 +508,6 @@
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
-
-
-
-
 
 
 

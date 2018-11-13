@@ -32,7 +32,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenantId
      * @return
      */
-    List<BannerDto> selectBanner(String tenantId);
+    List<BannerDto> selectBanner(String tenantId,String type);
 
     /**
      * 通过运营id查询首页直播课程
@@ -197,6 +197,11 @@ public interface StudentMapper extends Mapper<Student> {
      */
     Integer deleteMessage(String uid);
 
+    /**
+     * 查詢消息
+     * @param uid
+     * @return
+     */
     MyIndexMessageDto selectMessageById(String uid);
 
     /**
@@ -205,4 +210,14 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     List<MyIndexBuyRecordDto> selectMyIndexBuyRecord(MyIndexBuyRecordParameter data);
+    /**
+     * 查詢學生信息
+     * @param uid
+     * @param tid
+     * @return
+     */
+    StudentInfoDto studentInfo(String uid,String tid);
+
+    List<MyIndexMyintegralDetailDto> myIndexMyintegralDetail(MyIndexMyintegralDetailParameter parameter);
+
 }
