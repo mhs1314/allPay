@@ -267,8 +267,21 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<IndexAnswerDto>> indexAnswer(HttpServletRequest reg);
-    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(HttpServletRequest reg,RequestObject<IndexCoruseListParameter> parameter);
 
+    /**
+     * 课程列表
+     * @param reg
+     * @param parameter
+     * @return
+     */
+    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(HttpServletRequest reg,RequestObject<IndexCoruseListParameter> parameter);
+    /**
+     * 名师资源列表
+     * @param reg
+     * @param parameter
+     * @return
+     */
+    public ResultObject<List<IndexTeacherListDto>> indexTeacherList(HttpServletRequest reg,RequestObject<IndexTeacherListParameter> parameter);
 }
 
 

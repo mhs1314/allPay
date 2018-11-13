@@ -330,5 +330,14 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
   public   List<IndexCoruseListDto> indexCoruseList(IndexCoruseListParameter parameter){
         return studentMapper.indexCoruseList(parameter);
     }
+
+    /**
+     * 名师资源列表
+     * @param parameter
+     * @return
+     */
+  public   List<IndexTeacherListDto> indexTeacherList(IndexTeacherListParameter parameter){
+        return studentMapper.indexTeacherList(parameter);
+    }
 }
 

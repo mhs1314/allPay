@@ -654,10 +654,34 @@ WHERE
         <if test="course_type_id!=null and course_type_id!=''">
             AND c.course_type_id =#{course_type_id}
         </if>
-
-
-
     </select>
+    <select id="indexTeacherList" resultType="com.qht.dto.IndexTeacherListDto" parameterType="com.qht.dto.IndexTeacherListParameter">
+SELECT
+	t.uid as uid,
+	t.nickname as nickname,
+	t.back_img as back_img,
+	p.`name` as name,
+	t.praise_number as praise_number,
+	AVG( l.comments_star) as integral,
+        COUNT(p.uid) AS course_count
+FROM
+	teacher t
+LEFT JOIN pkg_subject p ON t.subject_id = p.uid
+LEFT JOIN course_pkg cp ON t.uid = cp.teacher_id
+LEFT JOIN lecturer_evaluation l ON t.uid=l.teacher_id
 
+WHERE
+	t.tenant_id =#{tid}
+	<if test="pkg_grade_id!=null and pkg_grade_id!=''">
+        AND cp.pkg_grade_id=#{pkg_grade_id}
+    </if>
+        <if test="pkg_grade_id!=null and pkg_grade_id!=''">
+            and t.subject_id=#{subject_id}
+     </if>
+        <if test="pkg_grade_id!=null and pkg_grade_id!=''">
+            and t.praise_number &gt;=#{praise_number}
+        </if>
+	GROUP BY t.uid
+    </select>
 
 </mapper>
