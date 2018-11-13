@@ -524,8 +524,9 @@
             <result column="tname" property="tname"/>
         </collection>
         <collection property="guardianDtos" ofType="GuardianDto">
-            <id column="call" property="call"/>
-            <id column="phone" property="phone"/>
+            <id column="gid" property="gid"/>
+            <result column="call" property="call"/>
+            <result column="phone" property="phone"/>
         </collection>
     </resultMap>
     <!-- 学生信息-->
@@ -544,6 +545,7 @@ SELECT
 
 	t.uid as tid,
 	t.tag_name as tname,
+	g.uid as gid,
 	g.`call` as `call`,
 	g.phone  as phone
 FROM
