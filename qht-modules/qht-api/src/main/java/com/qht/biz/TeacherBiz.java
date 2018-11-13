@@ -27,7 +27,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param password
      * @return
      */
-    public TeacherDto teacherLogin(String account, String password){
+    public TeacherDto teacherLogin(String account, String password){    	
         return teacherMapper.teacherLogin(account,password);
     }
 }

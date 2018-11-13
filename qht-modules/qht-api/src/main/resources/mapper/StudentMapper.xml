@@ -4,8 +4,8 @@
 <mapper namespace="com.qht.mapper.StudentMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.qht.entity.Student"  id="studentMap">
-        <result property="uid" column="uid"/>
+    <resultMap type="com.qht.entity.Student"  id="studentMap">       
+        <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="tenantId" column="tenant_id"/>
         <result property="nickname" column="nickname"/>
         <result property="name" column="name"/>
@@ -21,11 +21,12 @@
 
     <!--登陆查询学生信息-->
     <select id="studentLogin" resultType="com.qht.dto.StudentDto">
-        select uid,nickname,tenant_id as tenantId,schoolid from student where account=#{account} and password=#{password}
+        select uid,nickname,tenant_id as tenantId,school_id as schoolId from student where account=#{account} and password=#{password}
     </select>
+    
     <!--查询banner-->
     <select id="selectBanner" resultType="com.qht.dto.BannerDto">
-        select uid,image,link,sort from banner where tenantId=#{tenantId} type=#{type}
+        select uid,image,link,sort from banner where tenantId=#{tenantId} and type=#{type}
     </select>
     <!--查询首页直播课程信息-->
     <select id="selectLiveClass" resultType="com.qht.dto.LiveClassDto" parameterType="java.lang.String">
@@ -46,7 +47,7 @@
         and
           p.tenant_id=#{tenantId}
     </select>
-
+    
     <sql id="selectClassMessageFromCourse_PKG">
          select
           cp.cover,
@@ -77,6 +78,7 @@
         </if>
 
     </select>
+    
     <!--查询首页试听课程排行榜-->
     <select id="selectListeningClassRanking" resultType="com.qht.dto.ListeningClassRankingDto" parameterType="java.lang.String">
         <include refid="selectClassMessageFromCourse_PKG"/>
@@ -100,13 +102,14 @@
           teacher.school_id=school.uid
         where tenant_id=#{tenantId}
     </select>
-    <!--查询首页老师集合-->
+    
+     <!--查询首页老师集合-->
     <select id="selectTeacherList" resultType="com.qht.dto.TeacherListDto" parameterType="java.lang.String">
        select
         a.intr,a.integral,a.sex,a.nickname,a.back_img,a.school_name,b.pkg_count
       from
-	    (select t.intr,t.integral,t.sex,t.nickname,t.back_img,s.school_name from teacher t inner join school s on t.school_id=s.uid where t.tenant_id=#{tenantId})as a ,
-	    (select count(course_pkg.uid) as pkg_count from course_pkg where tenant_id=#{tenantId})as b
+	    ( select t.intr,t.integral,t.sex,t.nickname,t.back_img,s.school_name from teacher t inner join school s on t.school_id=s.uid where t.tenant_id=#{tenantId} )as a ,
+	    ( select count(course_pkg.uid) as pkg_count from course_pkg where tenant_id=#{tenantId} )as b
     </select>
 
     <!--查询学生课程详情-课程包简介-->
@@ -130,9 +133,9 @@
 		  inner join period per on ch.uid=per.chapter_id
 		where cp.uid=#{uid} and cp.tenant_id=#{tenantId}
     </select>
-
+    
     <resultMap id="selectCourseChapterAndClass" type="com.qht.dto.CourseChapterDto">
-        <result property="uid" column="uid"/>
+        <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
         <collection property="classe" ofType="com.qht.dto.ClassDto">
             <result property="uid" column="uid"/>
@@ -169,9 +172,9 @@
            inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenantId}
     </select>
-
+    
     <resultMap id="selectTeacherInfoAndCourse" type="com.qht.dto.TeacherInfoDto">
-        <result property="uid" column="uid"/>
+        <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="integral" column="integral"/>
         <result property="back_img" column="back_img"/>
         <result property="nickname" column="nickname"/>
@@ -199,7 +202,7 @@
           inner join school s on t.school_id=s.uid
         where t.tenant_id=#{tenantId} and cp.uid=#{uid}
     </select>
-
+    
     <!--课程列表-->
     <select id="selectCourseList" resultType="com.qht.dto.CourseListDto" parameterType="com.qht.dto.CourseListParameter">
         select
@@ -246,10 +249,9 @@
           </if>
         </if>
     </select>
-
-
+    
     <resultMap id="selectTopTeacherListAndTopTeacherCourse" type="com.qht.dto.TopTeacherListDto">
-        <result property="uid" column="uid"/>
+        <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="intr" column="intr"/>
         <result property="integral" column="integral"/>
         <result property="back_img" column="back_img"/>
@@ -328,11 +330,11 @@
 			  count(t.uid) as course_count
 			from course_pkg cp
 			  INNER JOIN teacher t on cp.teacher_id=t.uid
-			where cp.tenant_id=#{tenantId})as b
+			where cp.tenant_id=#{tenantId} ) as b
     </select>
-
-    <resultMap id="selectTopTeacherInfoAndCourse" type="com.qht.dto.TopTeacherInfoDto">
-        <result property="uid" column="uid"/>
+    
+     <resultMap id="selectTopTeacherInfoAndCourse" type="com.qht.dto.TopTeacherInfoDto">
+        <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="integral" column="integral"/>
         <result property="back_img" column="back_img"/>
         <result property="nickname" column="nickname"/>
@@ -397,9 +399,8 @@
           inner join student s on pe.student_id=s.uid
         where cp.teacher_id=#{uid} and cp.tenant_id=#{tenantId}
     </select>
-
-
-    <!--运营商-学校介绍-->
+    
+     <!--运营商-学校介绍-->
     <select id="selectTenantSchool" resultType="com.qht.dto.TenantSchoolDto" parameterType="java.lang.String">
         select
           uid,intr,culture,school_name,banner
@@ -436,8 +437,8 @@
     <select id="selectIndexCourseDetails" resultType="com.qht.dto.IndexCourseDetailsDto">
         select uid,name,video_file,begin from period where tenant_id=#{tenantId} and uid=#{uid}
     </select>
-
-  <!-- 消息-->
+    
+    <!-- 消息-->
     <select id="selectMyIndexMessage"  resultType="com.qht.dto.MyIndexMessageDto">
       select  t.back_img as head,
 				m.uid as uid,m.isread as isread,
@@ -483,10 +484,8 @@
             </if>
         </if>
     </select>
-
-
-
-    <select id="selectMessageById" parameterType="String">
+    
+     <select id="selectMessageById" parameterType="String">
       select * FROM message where uid=#{uid}
     </select>
 
@@ -510,9 +509,9 @@
         </if>
     </select>
     <resultMap id="studentInfoMap" type="com.qht.dto.StudentInfoDto">
-        <id column="uid" property="uid"/>
+        <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result column="head" property="head"/>
-        <result column="schoolid" property="schoolid"/>
+        <result column="school_id" property="schoolId"/>
         <result column="sex" property="sex"/>
         <result column="name" property="name"/>
         <result column="nickname" property="nickname"/>
@@ -530,12 +529,13 @@
             <result column="phone" property="phone"/>
         </collection>
     </resultMap>
-    <!-- 学生信息-->
+    
+     <!-- 学生信息-->
     <select id="studentInfo" resultMap="studentMap">
 SELECT
 	s.uid as uid ,
 	s.head as head,
-	s.schoolid as schoolid,
+	s.school_id as schoolId,
 	s.sex as sex,
 	s.`name` as `name`,
 	s.nickname as nickname,
@@ -551,7 +551,7 @@ SELECT
 	g.phone  as phone
 FROM
 	student s
-LEFT JOIN school sc ON s.schoolid = sc.uid
+LEFT JOIN school sc ON s.school_id = sc.uid
 LEFT JOIN guardian g ON s.uid = g.student_id
 LEFT JOIN interest_label i ON s.uid = i.student_id
 LEFT JOIN tag t ON i.tag_id = t.uid
@@ -581,7 +581,8 @@ WHERE
 
 
     </select>
-    <!--近期课程-->
+    
+     <!--近期课程-->
     <select id="indexFutureCoruse" resultType="com.qht.dto.IndexFutureCoruseDto">
 SELECT
 	c.cover,
@@ -626,10 +627,10 @@ FROM
 LEFT JOIN period_evaluation pr ON c.uid = pr.course_id
 LEFT JOIN period p ON pr.period_id = p.uid
 LEFT JOIN answer a ON p.uid = a.period_id
-where a.tenant_id=#{}
+where a.tenant_id=#{tid}
 </select>
 
-    <select id="indexCoruseList" resultType="com.qht.dto.IndexCoruseListDto" parameterType="com.qht.dto.IndexCoruseListParameter">
+ <select id="indexCoruseList" resultType="com.qht.dto.IndexCoruseListDto" parameterType="com.qht.dto.IndexCoruseListParameter">
         SELECT
 	c.uid,
 	c.pkg_name,
@@ -684,5 +685,5 @@ WHERE
         </if>
 	GROUP BY t.uid
     </select>
-
+    
 </mapper>

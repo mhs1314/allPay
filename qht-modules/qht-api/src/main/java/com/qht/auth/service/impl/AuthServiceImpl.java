@@ -40,9 +40,9 @@ public class AuthServiceImpl implements AuthService {
 	
 	@Override
 	public String login(QhtAuthenticationRequest authenticationRequest) throws Exception {
-		String account = authenticationRequest.getAccount();
+		String account = authenticationRequest.getAccount();		
 		String password = authenticationRequest.getPassword();
-		//authenticationRequest.setType(3);
+		authenticationRequest.setType(4);
 		//3-教师,4-学生
 		if(authenticationRequest.getType() == 3) {
 			TeacherDto dto = teacherBiz.teacherLogin(account, password);
