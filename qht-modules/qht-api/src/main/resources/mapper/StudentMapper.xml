@@ -508,7 +508,7 @@
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
-    <resultMap id="studentMap" type="StudentInfoDto">
+    <resultMap id="studentMap" type="com.qht.dto.StudentInfoDto">
         <id column="uid" property="uid"/>
         <result column="head" property="head"/>
         <result column="schoolid" property="schoolid"/>
@@ -559,7 +559,7 @@ WHERE
 	s.uid = #{uid} AND s.tenant_id =#{tid}
     </select>
 <!--消费记录-->
-    <select id="myIndexMyintegralDetail"  resultType="MyIndexMyintegralDetailDto" parameterType="MyIndexMyintegralDetailParameter">
+    <select id="myIndexMyintegralDetail"  resultType="com.qht.dto.MyIndexMyintegralDetailDto" parameterType="com.qht.dto.MyIndexMyintegralDetailParameter">
         SELECT
         b.uid AS uid,
         c.pkg_name AS pkg_name,
@@ -581,7 +581,7 @@ WHERE
 
     </select>
     <!--近期课程-->
-    <select id="indexFutureCoruse" resultType="IndexFutureCoruseDto">
+    <select id="indexFutureCoruse" resultType="com.qht.dto.IndexFutureCoruseDto">
 SELECT
 	c.cover,
 	c.uid,
@@ -598,7 +598,7 @@ LEFT JOIN student  s   ON s.uid= b.student_id
  where s.uid=#{uid} and s.tenant_id =#{tid}
     </select>
 <!--名师资源-->
-    <select id="indexTeacher" resultType="IndexTeacherDto" parameterType="String">
+    <select id="indexTeacher" resultType="com.qht.dto.IndexTeacherDto" parameterType="String">
         SELECT
 	t.uid,
 	t.nickname,
@@ -612,7 +612,7 @@ LEFT JOIN school s ON t.school_id = s.uid
 WHERE
 	t.tenant_id = #{tid}
     </select>
-<select id="indexAnswer" resultType="IndexAnswerDto" parameterType="String" >
+<select id="indexAnswer" resultType="com.qht.dto.IndexAnswerDto" parameterType="String" >
     SELECT
 	c.cover as cover,
 	a.uid as uid,
@@ -628,7 +628,7 @@ LEFT JOIN answer a ON p.uid = a.period_id
 where a.tenant_id=#{}
 </select>
 
-    <select id="indexCoruseList" resultType="IndexCoruseListDto" parameterType="IndexCoruseListParameter">
+    <select id="indexCoruseList" resultType="com.qht.dto.IndexCoruseListDto" parameterType="com.qht.dto.IndexCoruseListParameter">
         SELECT
 	c.uid,
 	c.pkg_name,
