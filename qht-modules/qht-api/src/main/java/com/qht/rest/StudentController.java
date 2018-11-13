@@ -527,7 +527,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexTeacherList")
     @ResponseBody
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(HttpServletRequest reg, RequestObject<IndexTeacherListParameter> parameter) {
-        parameter.getData().setIntegral(this.getTenantId(reg));
+        parameter.getData().setTenant_id(this.getTenantId(reg));
         List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(parameter.getData());
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
