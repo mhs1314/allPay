@@ -43,12 +43,9 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 通过pkg_subject_id，pkg_grade_id，tenantId查询首页免费课程
-     * @param pkg_subject_id
-     * @param pkg_grade_id
-     * @param tenantId
      * @return
      */
-    List<FreeClassDto> selectFreeClass(@Param("pkg_subject_id") String pkg_subject_id, @Param("pkg_grade_id") String pkg_grade_id, @Param("tenantId") String tenantId);
+    List<FreeClassDto> selectFreeClass(FreeClassParameter data);
 
     /**
      * 通过运营id查询首页试听排行榜
@@ -113,18 +110,16 @@ public interface StudentMapper extends Mapper<Student> {
     /**
      * 课程列表
      * @param data
-     * @param tenantId
      * @return
      */
-    List<CourseListDto> selectCourseList(CourseListParameter data, String tenantId);
+    List<CourseListDto> selectCourseList(CourseListParameter data);
 
     /**
      * 名师列表
      * @param data
-     * @param tenantId
      * @return
      */
-    List<TopTeacherListDto> selectTopTeacherList(TopTeacherListParameter data, String tenantId);
+    List<TopTeacherListDto> selectTopTeacherList(TopTeacherListParameter data);
 
     /**
      * 名师详情--讲师简介
@@ -148,7 +143,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenantId
      * @return
      */
-    List<TeacherEvaluationDto> selectTeacherEvaluation(String uid, String tenantId);
+    List<TeacherEvaluationDto> selectTeacherEvaluation(@Param("uid")String uid, @Param("tenantId") String tenantId);
 
     /**
      * 运营商--学校介绍
@@ -175,18 +170,16 @@ public interface StudentMapper extends Mapper<Student> {
     /**
      * 学生端-个人中心--首页--我的课程列表
      * @param data
-     * @param tenantId
      * @return
      */
-    List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data, String tenantId);
+    List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data);
 
     /**
      * 学生端-个人中心--首页--课程答疑
      * @param data
-     * @param tenantId
      * @return
      */
-    List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data, String tenantId);
+    List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data);
 
     /**
      * 消息
@@ -206,4 +199,10 @@ public interface StudentMapper extends Mapper<Student> {
 
     MyIndexMessageDto selectMessageById(String uid);
 
+    /**
+     * 学生端-个人中心--首页--兑换记录
+     * @param data
+     * @return
+     */
+    List<MyIndexBuyRecordDto> selectMyIndexBuyRecord(MyIndexBuyRecordParameter data);
 }

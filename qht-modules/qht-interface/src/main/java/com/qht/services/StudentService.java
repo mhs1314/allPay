@@ -119,8 +119,6 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<CourseListDto>> courseList(RequestObject<CourseListParameter >requestObject,
-                                                        @RequestParam(defaultValue = "1") String  page ,
-                                                        @RequestParam(defaultValue = "10")String limit,
                                                         HttpServletRequest req);
 
     /**学生端--通用--名师*/
@@ -133,8 +131,6 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<TopTeacherListDto>> topTeacherList(RequestObject<TopTeacherListParameter> requestObject,
-                                                                @RequestParam(defaultValue = "1") String  page ,
-                                                                @RequestParam(defaultValue = "10")String limit,
                                                                 HttpServletRequest req);
 
     /**名师详情--讲师简介*/
@@ -180,8 +176,6 @@ public interface StudentService {
 
 
     public ResultObject<List<MyIndexCourseDto>> myIndexCourse(RequestObject<MyIndexCourseParameter> requestObject,
-                                                              @RequestParam(defaultValue = "1") String  page ,
-                                                              @RequestParam(defaultValue = "10")String limit,
                                                               HttpServletRequest req);
 
     /**
@@ -196,14 +190,10 @@ public interface StudentService {
     /**
      * 学生端-个人中心--首页--课程答疑
      * @param requestObject
-     * @param page
-     * @param limit
      * @param req
      * @return
      */
     public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(RequestObject<MyIndexCourseAnswerParameter> requestObject,
-                                                                          @RequestParam(defaultValue = "1") String page,
-                                                                          @RequestParam(defaultValue = "10") String limit,
                                                                           HttpServletRequest req);
     /**
      * 學生個人中心消息
@@ -227,6 +217,15 @@ public interface StudentService {
      * @return
      */
     public ResultObject<MyIndexMessageDto>selectMessageById(String uid);
+
+    /**
+     * 学生端-个人中心--首页--兑换记录
+     * @param requestObject
+     * @param req
+     * @return
+     */
+    public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(RequestObject<MyIndexBuyRecordParameter> requestObject,
+                                                                    HttpServletRequest req);
 
 }
 
