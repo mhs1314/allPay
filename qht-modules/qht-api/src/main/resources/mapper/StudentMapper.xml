@@ -59,14 +59,22 @@
         inner join pkg_level pl on cp.pkg_level_id=pl.uid
     </sql>
     <!--首页查询免费课程-->
-    <select id="selectFreeClass" resultType="com.qht.dto.FreeClassDto">
+    <select id="selectFreeClass" resultType="com.qht.dto.FreeClassDto" parameterType="com.qht.dto.FreeClassParameter">
         <include refid="selectClassMessageFromCourse_PKG"/>
-        where
-          course_pkg.pkg_subject_id=#{pkg_subject_id}
-        and
-          course_pkg.pkg_grade_id=${pkg_grade_id}
-        and
-          course_pkg.tenant_id=#{tenantId} and course_pkg.pkt_type_id="1"
+        where course_pkg.tenant_id=#{tenantId} and course_pkg.pkt_type_id="1"
+        <if test="pkg_subject_id=='' and pkg_subject_id==null">
+            and course_pkg.pkg_subject_id='1'
+        </if>
+        <if test="pkg_subject_id!='' and pkg_subject_id!=null">
+            and course_pkg.pkg_subject_id=#{pkg_subject_id}
+        </if>
+        <if test="pkg_grade_id=='' and pkg_grade_id==null">
+            and course_pkg.pkg_grade_id='1'
+        </if>
+        <if test="pkg_grade_id!=null and pkg_grade_id!=''">
+            and course_pkg.pkg_grade_id=${pkg_grade_id}
+        </if>
+
     </select>
     <!--查询首页试听课程排行榜-->
     <select id="selectListeningClassRanking" resultType="com.qht.dto.ListeningClassRankingDto" parameterType="java.lang.String">
@@ -146,7 +154,7 @@
         where c.course_id=#{uid} and c.tenant_id=#{tenantId}
     </select>
     <!--课程详情-课程包评论-->
-    <select id="selectCourseEvaluation">
+    <select id="selectCourseEvaluation" resultType="com.qht.dto.CourseEvaluationDto">
         select
           s.head,
           s.name,
@@ -192,7 +200,7 @@
     </select>
 
     <!--课程列表-->
-    <select id="selectCourseList" resultType="com.qht.dto.CourseListDto">
+    <select id="selectCourseList" resultType="com.qht.dto.CourseListDto" parameterType="com.qht.dto.CourseListParameter">
         select
             cp.cover,
             cp.uid,
@@ -256,7 +264,7 @@
         </collection>
     </resultMap>
     <!--名师列表-->
-    <select id="selectTopTeacherList" resultMap="selectTopTeacherListAndTopTeacherCourse">
+    <select id="selectTopTeacherList" resultMap="selectTopTeacherListAndTopTeacherCourse" parameterType="com.qht.dto.TopTeacherListParameter">
         select
           a.uid,
           a.intr,
@@ -291,7 +299,13 @@
 			  inner join period p on p.chapter_id=ch.uid
 			  inner join pkg_grade pg on pg.uid=cp.pkg_grade_id
 			where
-			  t.tenant_id=#{tenantId} and cp.pkg_subject_id=#{pkg_subject_id} and cp.pkg_grade_id=#{pkg_grade_id}
+			  t.tenant_id=#{tenantId}
+            <if test="pkg_subject_id!=null and pkg_subject_id!=''">
+                and cp.pkg_subject_id=#{pkg_subject_id}
+            </if>
+            <if test="pkg_grade_id!=null and pkg_grade_id!=''">
+                and cp.pkg_grade_id=#{pkg_grade_id}
+            </if>
 			<if test="newtime != null and newtime != ''">
                 <if test="newtime=='1'">
                     order by p.begin asc
@@ -397,19 +411,24 @@
     </select>
 
     <!--学生端-个人中心-首页-我的课程列表-->
-    <select id="selectMyIndexCourse" resultType="com.qht.dto.MyIndexCourseDto">
+    <select id="selectMyIndexCourse" resultType="com.qht.dto.MyIndexCourseDto" parameterType="com.qht.dto.MyIndexCourseParameter">
         select
           cp.pkg_name,c.name as chapter_name,p.name,p.video_file,p.begin
         from buy_record br
           left join course_pkg cp on br.course_pkg_id=cp.uid
           left join chapter c on cp.uid=c.course_id
           left join period p on c.uid=p.chapter_id
-        where br.tenant_id=#{tenantId}
-          and cp.course_type_id=#{course_type_id}
-          and cp.pkg_subject_id=#{pkg_subject_id}
+        where br.tenant_id=#{tenantId} and br.student_id=#{uid}
+        <if test="course_type_id!=null and course_type_id!=''">
+            and cp.course_type_id=#{course_type_id}
+        </if>
+        <if test="pkg_subject_id!=null and pkg_subject_id!=''">
+            and cp.pkg_subject_id=#{pkg_subject_id}
+        </if>
           and c.bgin like CONCAT(#{now_time},'%')
-          and cp.play_type_id=#{play_type_id}
-          and br.student_id=#{uid}
+        <if test="play_type_id!=null and play_type_id!=''">
+            and cp.play_type_id=#{play_type_id}
+        </if>
     </select>
 
     <!--学生端-个人中心-首页-我的课程详情介绍-->
@@ -424,105 +443,70 @@
 				t.`name` as nickname,
 				m.time as time,
 				m.content as content
-FROM message m
+      FROM message m
 							LEFT JOIN `user`  u  ON m.uid=u.uid
 							LEFT JOIN teacher t  ON m.tenant_id=t.tenant_id
-where m.uid=#{uid} AND t.tenant_id=#{tid}
-<if test="isread!=null and isread!=''">
-    and m.isread=#{isread}
-</if>
-
+      where m.uid=#{uid} AND t.tenant_id=#{tid}
+      <if test="isread!=null and isread!=''">
+          and m.isread=#{isread}
+      </if>
     </select>
 
     <!--删除消息-->
     <delete id="deleteMessage" parameterType="String">
         delete FROM message where uid=#{uid}
     </delete>
-
-      <!--学生端-个人中心-首页-课程答疑-->
-    <select id="selectMyIndexCourseAnswer" resultType="com.qht.dto.MyIndexCourseAnswerDto">
-
-    </select>
-
-    <!--查看单条消息-->
-    <select id="selectMessageById"  resultType="MyIndexMessageDto" parameterType="String">
-        select  t.back_img as head,
-                    m.uid as uid,m.isread as isread,
-                    t.`name` as nickname,
-                    m.time as time,
-                    m.content as content
-      FROM message
-     where uid=#{uid}
-    </select>
-    <resultMap id="studentMap" type="StudentInfoDto">
-        <id column="uid" property="uid"/>
-        <result column="head" property="head"/>
-        <result column="schoolid" property="schoolid"/>
-        <result column="sex" property="sex"/>
-        <result column="name" property="name"/>
-        <result column="nickname" property="nickname"/>
-        <result column="school_name" property="school_name"/>
-        <result column="clazz" property="clazz"/>
-        <result column="clanzzName" property="clanzzName"/>
-        <result column="age" property="age"/>
-        <collection property="tatDtos" ofType="TatDto">
-            <id column="tid" property="tid"/>
-            <result column="tname" property="tname"/>
-        </collection>
-        <collection property="guardianDtos" ofType="GuardianDto">
-            <id column="call" property="call"/>
-            <id column="phone" property="phone"/>
-        </collection>
-    </resultMap>
-    <!-- 学生信息-->
-    <select id="studentInfo" resultMap="studentMap">
-SELECT
-	s.uid as uid ,
-	s.head as head,
-	s.schoolid as schoolid,
-	s.sex as sex,
-	s.`name` as `name`,
-	s.nickname as nickname,
-	sc.school_name as school_name,
-	s.clazz as clazz,
-	p.`name` as clanzzName,
-	s.age as age,
-
-	t.uid as tid,
-	t.tag_name as tname,
-	g.`call` as `call`,
-	g.phone  as phone
-FROM
-	student s
-LEFT JOIN school sc ON s.schoolid = sc.uid
-LEFT JOIN guardian g ON s.uid = g.student_id
-LEFT JOIN interest_label i ON s.uid = i.student_id
-LEFT JOIN tag t ON i.tag_id = t.uid
-LEFT JOIN pkg_grade p ON s.grade_id = p.uid
-WHERE
-	s.uid = #{uid} AND s.tenant_id =#{tid}
-    </select>
-
-    <select id="myIndexMyintegralDetail"  resultType="MyIndexMyintegralDetailDto" parameterType="MyIndexMyintegralDetailParameter">
- SELECT
-	b.uid AS uid,
-	c.pkg_name AS pkg_name,
-	c.total_priceas AS total_price,
-	b.time AS time
-FROM
-	buy_record b
-LEFT JOIN course_pkg c ON b.course_pkg_id = c.uid
-WHERE
-	    b.student_id =#{uid}
-       AND b.tenant_id =#{tid}
-        <if test="begin_time!=null and begin_time!=''">
-            AND b.time &gt;= #{begin_time}
+    <!--学生端-个人中心-首页-课程答疑-->
+    <select id="selectMyIndexCourseAnswer" resultType="com.qht.dto.MyIndexCourseAnswerDto" parameterType="com.qht.dto.MyIndexCourseAnswerParameter">
+        select
+          an.answer_file_name,an.answer_time,an.answer,an.answer_file_url,an.uid,
+          ask.question,ask.question_attach,ask.question_url,
+          p.video_file,p.begin,p.name,
+          c.name as chapter_name,
+          cp.pkg_name,
+          t.nickname as teacher_nickname,
+          s.nickname
+        from answer an left join course_ask ask on an.ask_id=ask.uid
+          left join period p on an.period_id=p.uid
+          left join chapter c on p.chapter_id=c.uid
+          left join course_pkg cp on c.course_id=cp.uid
+          left join teacher t on cp.teacher_id=t.uid
+          left join student s on an.student_id=s.uid
+        where an.student_id=#{uid} and an.tenant_id=#{tenantId}
+        <if test="answer != '' and answer!=null">
+            <if test="answer=='1'">
+                and an.type=1
+            </if>
+            <if test="answer=='2'">
+                and an.type=2
+            </if>
         </if>
-        <if test="over_time!=null and over_time!=''">
-            AND b.time &lt;= #{over_time}
+    </select>
+
+
+
+    <select id="selectMessageById" parameterType="String">
+      select * FROM message where uid=#{uid}
+    </select>
+
+    <!--学生端-个人中心-首页-兑换记录-->
+    <select id="selectMyIndexBuyRecord" resultType="com.qht.dto.MyIndexBuyRecordDto" parameterType="com.qht.dto.MyIndexBuyRecordParameter">
+        select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin from buy_record br
+          left join course_pkg cp on br.course_pkg_id=cp.uid
+          left join teacher t on cp.teacher_id=t.uid
+          left join chapter c on cp.uid=c.course_id
+          left join period p on c.uid=p.chapter_id
+        where br.student_id=#{uid}
+          and br.tenant_id=#{tenantId}
+          <if test="pkg_subject_id!=null and pkg_subject_id!==''">
+              and cp.pkg_subject_id=#{pkg_subject_id}
+          </if>
+          <if test="play_type_id !='' and play_type_id != null">
+            and cp.play_type_id=#{play_type_id}
+          </if>
+        <if test="pkt_type_id != null and pkt_type_id != ''">
+          and cp.pkt_type_id=#{pkt_type_id}
         </if>
-
-
     </select>
 
 

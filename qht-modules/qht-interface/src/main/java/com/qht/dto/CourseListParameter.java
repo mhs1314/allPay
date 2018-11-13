@@ -16,15 +16,33 @@ public class CourseListParameter implements Serializable {
     private String price;
     //播放类型 1直播 2录播
     private String play_type_id;
-    //当前页
-    private Integer page;
 
-    public Integer getLimit() {
+
+    //课程包类型id
+    private String course_type_id;
+
+    public String getTenant_id() {
+        return tenant_id;
+    }
+
+    public void setTenant_id(String tenant_id) {
+        this.tenant_id = tenant_id;
+    }
+
+    public String getLimit() {
         return limit;
     }
 
-    public void setLimit(Integer limit) {
+    public void setLimit(String limit) {
         this.limit = limit;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 
     @Override
@@ -36,27 +54,17 @@ public class CourseListParameter implements Serializable {
                 ", newtime='" + newtime + '\'' +
                 ", price='" + price + '\'' +
                 ", play_type_id='" + play_type_id + '\'' +
-                ", page=" + page +
-                ", limit=" + limit +
                 ", course_type_id='" + course_type_id + '\'' +
-                ", tenantId='" + tenantId + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", limit='" + limit + '\'' +
+                ", page='" + page + '\'' +
                 '}';
     }
 
-    private Integer limit;
-    //课程包类型id
-    private String course_type_id;
-
-    private String tenantId;
-
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
+    private String tenant_id;
+    private String limit;
+    //当前页
+    private String page;
 
 
 
@@ -106,14 +114,6 @@ public class CourseListParameter implements Serializable {
 
     public void setPlay_type_id(String play_type_id) {
         this.play_type_id = play_type_id;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
     }
 
     public String getCourse_type_id() {

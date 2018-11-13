@@ -59,19 +59,14 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询首页的免费课程
-     *
-     * @param pkg_subject_id
-     * @param pkg_grade_id
-     * @param tenantId
      * @return
      */
-    public List<FreeClassDto> selectFreeClass(String pkg_subject_id, String pkg_grade_id, String tenantId) {
-        return studentMapper.selectFreeClass(pkg_subject_id, pkg_grade_id, tenantId);
+    public List<FreeClassDto> selectFreeClass(FreeClassParameter data) {
+        return studentMapper.selectFreeClass(data);
     }
 
     /**
      * 查询首页试听排行榜
-     *
      * @param tenantId
      * @return
      */
@@ -81,7 +76,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询首页试听列表
-     *
      * @param tenantId
      * @return
      */
@@ -91,7 +85,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询首页老师排行榜
-     *
      * @param tenantId
      * @return
      */
@@ -101,7 +94,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询首页老师集合
-     *
      * @param tenantId
      * @return
      */
@@ -111,107 +103,95 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询学生课程详情-课程包简介
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public CourseIntroDto selectCourseIntro(String uid, String tenantId) {
 
-        return studentMapper.selectCourseIntro(uid, tenantId);
+        return studentMapper.selectCourseIntro(uid,tenantId);
     }
 
     /**
      * 课程详情--课程包体系
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public List<CourseChapterDto> selectCourseChapter(String uid, String tenantId) {
-        return studentMapper.selectCourseChapter(uid, tenantId);
+        return studentMapper.selectCourseChapter(uid,tenantId);
     }
 
     /**
      * 课程详情--课程包评论
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public List<CourseEvaluationDto> selectCourseEvaluation(String uid, String tenantId) {
-        return studentMapper.selectCourseEvaluation(uid, tenantId);
+        return studentMapper.selectCourseEvaluation(uid,tenantId);
     }
 
     /**
      * 课程详情--教师信息
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public TeacherInfoDto selectTeacherInfo(String uid, String tenantId) {
-        return studentMapper.selectTeacherInfo(uid, tenantId);
+        return studentMapper.selectTeacherInfo(uid,tenantId);
     }
 
     /**
      * 课程列表
-     *
      * @param data
-     * @param tenantId
      * @return
      */
-    public List<CourseListDto> selectCourseList(CourseListParameter data, String tenantId) {
-        return studentMapper.selectCourseList(data, tenantId);
+    public List<CourseListDto> selectCourseList(CourseListParameter data) {
+        return studentMapper.selectCourseList(data);
     }
 
     /**
      * 名师列表
-     *
      * @param data
-     * @param tenantId
      * @return
      */
-    public List<TopTeacherListDto> selectTopTeacherList(TopTeacherListParameter data, String tenantId) {
-        return studentMapper.selectTopTeacherList(data, tenantId);
+    public List<TopTeacherListDto> selectTopTeacherList(TopTeacherListParameter data) {
+        return studentMapper.selectTopTeacherList(data);
     }
 
     /**
      * 名师详情--讲师简介
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public List<TopTeacherInfoDto> selectTopTeacherInfo(String uid, String tenantId) {
-        return studentMapper.selectTopTeacherInfo(uid, tenantId);
+        return studentMapper.selectTopTeacherInfo(uid,tenantId);
     }
 
     /**
      * 名师详情--全部课程
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public List<TeacherCourseDto> selectTeacherCourse(String uid, String tenantId) {
-        return studentMapper.selectTeacherCourse(uid, tenantId);
+        return studentMapper.selectTeacherCourse(uid,tenantId);
     }
 
     /**
      * 名师详情--评论列表
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public List<TeacherEvaluationDto> selectTeacherEvaluation(String uid, String tenantId) {
-        return studentMapper.selectTeacherEvaluation(uid, tenantId);
+        return studentMapper.selectTeacherEvaluation(uid,tenantId);
     }
 
     /**
      * 运营商--学校介绍
-     *
      * @param tenantId
      * @return
      */
@@ -221,7 +201,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 运营商--画册
-     *
      * @param tenantId
      * @return
      */
@@ -231,13 +210,12 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 学生端-个人中心--首页--我的课程详情介绍
-     *
      * @param uid
      * @param tenantId
      * @return
      */
     public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenantId) {
-        return studentMapper.selectIndexCourseDetails(uid, tenantId);
+        return studentMapper.selectIndexCourseDetails(uid,tenantId);
     }
 
     /**
@@ -271,25 +249,33 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 学生端-个人中心--首页--我的课程列表
-     *
      * @param data
-     * @param tenantId
      * @return
      */
-    public List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data, String tenantId) {
-        return studentMapper.selectMyIndexCourse(data, tenantId);
+    public List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data) {
+        return studentMapper.selectMyIndexCourse(data);
     }
 
     /**
-     * 学生端-个人中心--首页--课程答疑
-     *
+     *学生端-个人中心--首页--课程答疑
      * @param data
-     * @param tenantId
      * @return
      */
-    public List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data, String tenantId) {
-        return studentMapper.selectMyIndexCourseAnswer(data, tenantId);
+    public List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data) {
+        return studentMapper.selectMyIndexCourseAnswer(data);
     }
+
+    /**
+     * 学生端-个人中心--首页--兑换记录
+     * @param data
+     * @return
+     */
+    public List<MyIndexBuyRecordDto> selectMyIndexBuyRecourd(MyIndexBuyRecordParameter data) {
+        return studentMapper.selectMyIndexBuyRecord(data);
+    }
+
+
+
 
     /**
      * 學生信息
