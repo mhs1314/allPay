@@ -427,7 +427,11 @@
 FROM message m
 							LEFT JOIN `user`  u  ON m.uid=u.uid
 							LEFT JOIN teacher t  ON m.tenant_id=t.tenant_id
-where m.uid=#{uid} AND t.tenant_id=#{tid} and m.isread=#{isread}
+where m.uid=#{uid} AND t.tenant_id=#{tid}
+<if test="isread!=null and isread!=''">
+    and m.isread=#{isread}
+</if>
+
     </select>
 
     <!--删除消息-->
@@ -499,6 +503,27 @@ WHERE
 	s.uid = #{uid} AND s.tenant_id =#{tid}
     </select>
 
+    <select id="myIndexMyintegralDetail"  resultType="MyIndexMyintegralDetailDto" parameterType="MyIndexMyintegralDetailParameter">
+ SELECT
+	b.uid AS uid,
+	c.pkg_name AS pkg_name,
+	c.total_priceas AS total_price,
+	b.time AS time
+FROM
+	buy_record b
+LEFT JOIN course_pkg c ON b.course_pkg_id = c.uid
+WHERE
+	    b.student_id =#{uid}
+       AND b.tenant_id =#{tid}
+        <if test="begin_time!=null and begin_time!=''">
+            AND b.time &gt;= #{begin_time}
+        </if>
+        <if test="over_time!=null and over_time!=''">
+            AND b.time &lt;= #{over_time}
+        </if>
+
+
+    </select>
 
 
 

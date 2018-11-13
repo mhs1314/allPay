@@ -1,5 +1,6 @@
 package com.qht.biz;
 
+import com.qht.RequestObject;
 import com.qht.dto.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,14 +242,11 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 消息
-     *
-     * @param uid
-     * @param tid
-     * @param isread
+     * @param paramter
      * @return
      */
-    public List<MyIndexMessageDto> selectMyIndexMessage(String uid, String tid, String isread) {
-        return studentMapper.selectMyIndexMessage(uid, tid, isread);
+    public List<MyIndexMessageDto> selectMyIndexMessage(RequestObject<MyIndexMessageParamter> paramter) {
+        return studentMapper.selectMyIndexMessage(paramter.getData().getUid(), paramter.getData().getTenant_id(), paramter.getData().getIsread());
     }
 
     /**
@@ -301,6 +299,15 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      */
     public StudentInfoDto studentInfo(String uid,String tid){
         return  studentMapper.studentInfo(uid,tid);
+    }
+
+    /**
+     * 消費明細
+     * @param parameter
+     * @return
+     */
+    public List<MyIndexMyintegralDetailDto> myIndexMyintegralDetail(RequestObject<MyIndexMyintegralDetailParameter> parameter){
+        return  studentMapper.myIndexMyintegralDetail(parameter.getData());
     }
 }
 

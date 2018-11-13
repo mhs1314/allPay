@@ -210,9 +210,7 @@ public interface StudentService {
      * @param req
      * @return
      */
-    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
-                                                                 @RequestParam(defaultValue = "1")String page,
-                                                                 @RequestParam(defaultValue = "10")String limit);
+    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,RequestObject<MyIndexMessageParamter> paramter);
 
     /**
      * 刪除消息
@@ -237,6 +235,13 @@ public interface StudentService {
      */
     public  ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid);
 
+    /**
+     * 消息記錄
+     * @param reg
+     * @param parameter
+     * @return
+     */
+    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(HttpServletRequest reg,RequestObject<MyIndexMyintegralDetailParameter> parameter);
 }
 
 

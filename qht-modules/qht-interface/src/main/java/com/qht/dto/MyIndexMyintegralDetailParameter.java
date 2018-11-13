@@ -1,21 +1,15 @@
 package com.qht.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * 趙家豪
- */
-public class MyIndexMessageParamter implements Serializable {
-    //學生id
-    private  String uid;
-    //運營商id
-    private String tenant_id;
-    // 是否閲讀：1、已讀 2、未讀
-    private String isread;
-    //当前页
-    private String page="1";
-    //行数
-    private String limit="10";
+public class MyIndexMyintegralDetailParameter implements Serializable {
+    private String uid;
+    private String  tenant_id;
+    private Date begin_time;
+    private Date over_time;
+    private String page;
+    private String limit;
 
     public String getUid() {
         return uid;
@@ -33,13 +27,20 @@ public class MyIndexMessageParamter implements Serializable {
         this.tenant_id = tenant_id;
     }
 
-
-    public String getIsread() {
-        return isread;
+    public Date getBegin_time() {
+        return begin_time;
     }
 
-    public void setIsread(String isread) {
-        this.isread = isread;
+    public void setBegin_time(Date begin_time) {
+        this.begin_time = begin_time;
+    }
+
+    public Date getOver_time() {
+        return over_time;
+    }
+
+    public void setOver_time(Date over_time) {
+        this.over_time = over_time;
     }
 
     public String getPage() {

@@ -219,4 +219,6 @@ public interface StudentMapper extends Mapper<Student> {
      */
     StudentInfoDto studentInfo(String uid,String tid);
 
+    List<MyIndexMyintegralDetailDto> myIndexMyintegralDetail(MyIndexMyintegralDetailParameter parameter);
+
 }

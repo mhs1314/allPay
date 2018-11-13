@@ -357,13 +357,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexMessage")
     @ResponseBody
-    public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,MyIndexMessageParamter paramter,
-                                                                @RequestParam(defaultValue = "1")String page,
-                                                                @RequestParam(defaultValue = "10")String limit) {
-        Integer p=Integer.parseInt(page);
-        Integer l=Integer.parseInt(limit);
+    public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,RequestObject<MyIndexMessageParamter> paramter) {
+        Integer p=Integer.parseInt(paramter.getData().getPage());
+        Integer l=Integer.parseInt(paramter.getData().getLimit());
+        paramter.getData().setIsread(this.getTenantId(req));
         PageHelper.startPage(p,l);
-        List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter.getUid(),paramter.getTenant_id(),this.getTenantId(req));
+        List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter);
         PageInfo<MyIndexMessageDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexMessageDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
@@ -407,6 +406,24 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setCode("1");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
+        return resultObject;
+    }
+    //消費記錄
+    @Override
+    @PostMapping("/myIndexMyintegralDetail")
+    @ResponseBody
+    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(HttpServletRequest reg, RequestObject<MyIndexMyintegralDetailParameter> parameter) {
+        parameter.getData().setTenant_id(this.getTenantId(reg));
+        Integer p=Integer.parseInt(parameter.getData().getPage());
+        Integer l=Integer.parseInt(parameter.getData().getLimit());
+        PageHelper.startPage(p,l);
+        List<MyIndexMyintegralDetailDto> list=studentBiz.myIndexMyintegralDetail(parameter);
+        PageInfo<MyIndexMyintegralDetailDto> count=new PageInfo<>(list);
+        ResultObject<List<MyIndexMyintegralDetailDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setCount(count.getTotal());
+        resultObject.setData(list);
         return resultObject;
     }
 
