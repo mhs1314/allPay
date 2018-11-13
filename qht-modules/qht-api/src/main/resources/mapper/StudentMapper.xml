@@ -578,7 +578,23 @@ WHERE
 
 
     </select>
-
+    <!--近期课程-->
+    <select id="indexFutureCoruse" resultType="IndexFutureCoruseDto">
+SELECT
+	c.cover,
+	c.uid,
+	c.pkg_name,
+	t.nickname,
+	ps.`name`,
+	c.apply_number
+FROM
+	course_pkg c
+LEFT JOIN teacher t ON c.teacher_id = t.uid
+LEFT JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
+LEFT JOIN buy_record b ON c.uid=b.course_pkg_id
+LEFT JOIN student  s   ON s.uid= b.student_id
+ where s.uid=#{uid} and s.tenant_id =#{tid}
+    </select>
 
 
 

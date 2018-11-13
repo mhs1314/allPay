@@ -295,5 +295,15 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public List<MyIndexMyintegralDetailDto> myIndexMyintegralDetail(RequestObject<MyIndexMyintegralDetailParameter> parameter){
         return  studentMapper.myIndexMyintegralDetail(parameter.getData());
     }
+
+    /**
+     * 近期合同
+     * @param uid
+     * @param tid
+     * @return
+     */
+   public List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tid){
+       return studentMapper.indexFutureCoruse(uid,tid);
+   }
 }
 

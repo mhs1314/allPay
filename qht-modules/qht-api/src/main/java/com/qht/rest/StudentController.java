@@ -467,4 +467,23 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
     }
 
+    /**
+     * 近期课程
+     * @param reg
+     * @param uid
+     * @param tid
+     * @return
+     */
+    @Override
+    @PostMapping("/app/indexFutureCoruse")
+    @ResponseBody
+    public ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(HttpServletRequest reg, String uid, String tid) {
+        List<IndexFutureCoruseDto> dto=studentBiz.indexFutureCoruse(uid,this.getTenantId(reg));
+        ResultObject<List<IndexFutureCoruseDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return resultObject;
+    }
+
 }

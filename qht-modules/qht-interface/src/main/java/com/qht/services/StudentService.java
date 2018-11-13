@@ -245,6 +245,15 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(HttpServletRequest reg,RequestObject<MyIndexMyintegralDetailParameter> parameter);
+
+    /**
+     * 近期课程
+     * @param reg
+     * @param uid
+     * @param tid
+     * @return
+     */
+    public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(HttpServletRequest reg,String uid,String tid);
 }
 
 

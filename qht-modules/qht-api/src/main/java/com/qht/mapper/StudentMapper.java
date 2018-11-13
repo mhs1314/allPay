@@ -225,4 +225,11 @@ public interface StudentMapper extends Mapper<Student> {
      */
     List<MyIndexMyintegralDetailDto> myIndexMyintegralDetail(MyIndexMyintegralDetailParameter parameter);
 
+    /**
+     * 近期合同
+     * @param uid
+     * @param tid
+     * @return
+     */
+    List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tid);
 }
