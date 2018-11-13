@@ -23,8 +23,8 @@
         select uid,nickname,tenant_id as tenantId,schoolid from student where account=#{account} and password=#{password}
     </select>
     <!--查询banner-->
-    <select id="selectBanner" resultType="com.qht.dto.BannerDto" parameterType="java.lang.String">
-        select uid,image,link,sort from banner where tenantId=#{tenantId}
+    <select id="selectBanner" resultType="com.qht.dto.BannerDto">
+        select uid,image,link,sort from banner where tenantId=#{tenantId} type=#{type}
     </select>
     <!--查询首页直播课程信息-->
     <select id="selectLiveClass" resultType="com.qht.dto.LiveClassDto" parameterType="java.lang.String">

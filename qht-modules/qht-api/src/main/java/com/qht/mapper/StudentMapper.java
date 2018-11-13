@@ -32,7 +32,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenantId
      * @return
      */
-    List<BannerDto> selectBanner(String tenantId);
+    List<BannerDto> selectBanner(String tenantId,String type);
 
     /**
      * 通过运营id查询首页直播课程

@@ -43,8 +43,8 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenantId
      * @return
      */
-    public List<BannerDto> selectBanner(String tenantId) {
-        return studentMapper.selectBanner(tenantId);
+    public List<BannerDto> selectBanner(String tenantId,String type) {
+        return studentMapper.selectBanner(tenantId,type);
     }
 
     /**

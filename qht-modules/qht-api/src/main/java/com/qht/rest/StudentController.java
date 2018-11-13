@@ -78,14 +78,25 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<BannerDto>> banner(HttpServletRequest req) {
         //通过session取到运营的id
-        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req));
+        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"1");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
         resultObject.setCode("1");
         resultObject.setMsg("成功");
         return resultObject;
     }
-
+    @Override
+    @PostMapping("/app/indexBanner")
+    @ResponseBody
+    public ResultObject<List<BannerDto>> indexBanner(HttpServletRequest req) {
+        //通过session取到运营的id
+        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"2");
+        ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
+        resultObject.setData(list);
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        return resultObject;
+    }
     @Override
     @PostMapping("liveClass")
     @ResponseBody
