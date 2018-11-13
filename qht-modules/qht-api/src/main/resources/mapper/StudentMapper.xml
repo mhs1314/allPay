@@ -595,7 +595,21 @@ LEFT JOIN buy_record b ON c.uid=b.course_pkg_id
 LEFT JOIN student  s   ON s.uid= b.student_id
  where s.uid=#{uid} and s.tenant_id =#{tid}
     </select>
-
+<!--名师资源-->
+    <select id="indexTeacher" resultType="IndexTeacherDto" parameterType="String">
+        SELECT
+	t.uid,
+	t.nickname,
+	p.`name`,
+	s.school_name,
+	t.back_img
+FROM
+	teacher t
+LEFT JOIN pkg_subject p ON t.subject_id = p.uid
+LEFT JOIN school s ON t.school_id = s.uid
+WHERE
+	t.tenant_id = #{tid}
+    </select>
 
 
 

@@ -305,5 +305,14 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
    public List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tid){
        return studentMapper.indexFutureCoruse(uid,tid);
    }
+
+    /**
+     * 名师资源
+     * @param tid
+     * @return
+     */
+    public List<IndexTeacherDto> indexTeacher(String tid){
+       return  studentMapper.indexTeacher(tid);
+    }
 }
 

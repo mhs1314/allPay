@@ -232,4 +232,11 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tid);
+
+    /**
+     * 名师资源
+     * @param tid
+     * @return
+     */
+    List<IndexTeacherDto> indexTeacher(String tid);
 }

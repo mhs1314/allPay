@@ -254,6 +254,14 @@ public interface StudentService {
      * @return
      */
     public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(HttpServletRequest reg,String uid,String tid);
+
+    /**
+     *
+     * @param reg
+     * @return
+     */
+    public ResultObject<List<IndexTeacherDto>> indexTeacher(HttpServletRequest reg);
+
 }
 
 

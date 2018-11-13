@@ -486,4 +486,16 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
     }
 
+    @Override
+    @PostMapping("/app/indexTeacher")
+    @ResponseBody
+    public ResultObject<List<IndexTeacherDto>> indexTeacher(HttpServletRequest reg) {
+        List<IndexTeacherDto> dto=studentBiz.indexTeacher(this.getTenantId(reg));
+        ResultObject<List<IndexTeacherDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+       return  resultObject;
+    }
+
 }
