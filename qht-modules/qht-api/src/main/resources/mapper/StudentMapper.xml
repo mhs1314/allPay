@@ -508,7 +508,7 @@
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
-    <resultMap id="studentMap" type="StudentInfoDto">
+    <resultMap id="studentMap" type="com.qht.dto.StudentInfoDto">
         <id column="uid" property="uid"/>
         <result column="head" property="head"/>
         <result column="schoolid" property="schoolid"/>
@@ -519,7 +519,7 @@
         <result column="clazz" property="clazz"/>
         <result column="clanzzName" property="clanzzName"/>
         <result column="age" property="age"/>
-        <collection property="tatDtos" ofType="TatDto">
+        <collection property="tatDtos" ofType="com.qht.dto.TatDto">
             <id column="tid" property="tid"/>
             <result column="tname" property="tname"/>
         </collection>
