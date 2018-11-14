@@ -11,8 +11,11 @@ import com.qht.auth.util.JwtTokenUtil;
 import com.qht.auth.util.QhtAuthenticationRequest;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
+import com.qht.dto.LoginResultDto;
 import com.qht.dto.StudentDto;
+import com.qht.dto.StudentLoginResultDto;
 import com.qht.dto.TeacherDto;
+import com.qht.dto.TeacherLoginResultDto;
 
 /**
  * 权限验证
@@ -39,10 +42,10 @@ public class AuthServiceImpl implements AuthService {
     }
 	
 	@Override
-	public String login(QhtAuthenticationRequest authenticationRequest) throws Exception {
+	public LoginResultDto login(QhtAuthenticationRequest authenticationRequest) throws Exception {
 		String account = authenticationRequest.getAccount();		
 		String password = authenticationRequest.getPassword();
-		authenticationRequest.setType(4);
+		//authenticationRequest.setType(4);
 		//3-教师,4-学生
 		if(authenticationRequest.getType() == 3) {
 			TeacherDto dto = teacherBiz.teacherLogin(account, password);
@@ -50,7 +53,15 @@ public class AuthServiceImpl implements AuthService {
 				throw new UserInvalidException("用户不存在或账户密码错误!");
 			}
 			if (!StringUtils.isEmpty(dto.getUid())) {
-	            return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				TeacherLoginResultDto result = new TeacherLoginResultDto();
+				String token = jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				result.setToken(token);
+				result.setNickname(dto.getNickname());
+				result.setSchoolId(dto.getSchoolid());
+				result.setTenantId(dto.getTenantId());
+				result.setUid(dto.getUid());
+	            //return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				return result;
 	        }
 		}else if(authenticationRequest.getType() == 4) {
 			StudentDto dto = studentBiz.studentLogin(account, password);
@@ -58,7 +69,16 @@ public class AuthServiceImpl implements AuthService {
 				throw new UserInvalidException("用户不存在或账户密码错误!");
 			}
 			if(!StringUtils.isEmpty(dto.getUid())) {
-				return jwtTokenUtil.generateToken(new JWTInfo(dto.getNickname(), dto.getUid() + "", dto.getSchoolid()));
+				//return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				StudentLoginResultDto result = new StudentLoginResultDto();
+				String token = jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				result.setToken(token);
+				result.setNickname(dto.getNickname());
+				result.setSchoolId(dto.getSchoolid());
+				result.setTenantId(dto.getTenantId());
+				result.setUid(dto.getUid());
+	            //return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				return result;
 			}			
 		}
 		throw new UserInvalidException("用户不存在或账户密码错误!");
