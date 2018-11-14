@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
+import com.qht.ResultBuilder;
+import com.qht.ResultObject;
 import com.qht.auth.service.AuthService;
 import com.qht.auth.util.QhtAuthenticationRequest;
+import com.qht.dto.LoginResultDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,12 +33,14 @@ public class JwtAuthController {
 	@Autowired
     private AuthService authService;
 	
-	@RequestMapping(value = "token", method = RequestMethod.POST)
-    public ObjectRestResponse<String> createAuthenticationToken(
+	@RequestMapping(value = "token", method = RequestMethod.POST)	
+    public ResultObject<LoginResultDto> createAuthenticationToken(
             @RequestBody QhtAuthenticationRequest authenticationRequest) throws Exception {
         log.info(authenticationRequest.getAccount()+" require logging...");
-        final String token = authService.login(authenticationRequest);
-        return new ObjectRestResponse<>().data(token);
+        LoginResultDto result = authService.login(authenticationRequest);
+        String requestId = authenticationRequest.getRequestId();        
+       // return new ObjectRestResponse<>().data(token);
+        return ResultBuilder.success(requestId, result);       
     }
 	
 	@RequestMapping(value = "refresh", method = RequestMethod.GET)
