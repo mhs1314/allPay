@@ -10,6 +10,7 @@ import com.qht.dto.*;
 import com.qht.entity.Student;
 import com.qht.services.StudentService;
 import com.sun.org.apache.regexp.internal.RE;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -658,6 +659,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
+    }
+
+    @Override
+    public ResultObject<Void> indexAnswerDetailsExceptional(RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject, HttpServletRequest req) {
+        //先检测问题的type是否被解决
+
+        //在判断学生的积分余额
+//        Integer blance=studentBiz.selectStudent
+        return null;
     }
 
 

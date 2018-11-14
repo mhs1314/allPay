@@ -346,6 +346,12 @@ public interface StudentService {
      */
     public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(HttpServletRequest request,@RequestParam("uid")String uid);
 
+    /**
+     * app我的课程答疑--答疑详情-打赏
+     * @param req
+     * @return
+     */
+    public ResultObject<Void> indexAnswerDetailsExceptional(RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject,HttpServletRequest req);
 }
 
 
