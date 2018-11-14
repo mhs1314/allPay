@@ -575,7 +575,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         requestObject.getData().setTenant_id(this.getTenantId(req));
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
         List<MyIndexMycollectDto> myIndexMycollectDtos=studentBiz.selectMyIndexMycollect(requestObject.getData());
-
+        PageInfo<MyIndexMycollectDto> count=new PageInfo<>(myIndexMycollectDtos);
+        ResultObject<List<MyIndexMycollectDto>> resultObject=new ResultObject<>();
+        resultObject.setCount(count.getTotal());
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
         return null;
     }
 
