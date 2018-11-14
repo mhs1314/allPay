@@ -539,7 +539,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
-        resultObject.setCount(Long.parseLong(dto.size()+""));
         resultObject.setData(dto);
         return  resultObject;
     }
@@ -604,6 +603,17 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         }
     }
 
+    @Override
+    @PostMapping("app/indexMyAnswer")
+    @ResponseBody
+    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestParam("uid") String uid, HttpServletRequest req) {
+        List<IndexMyAnswerDto> indexMyAnswerDtos=studentBiz.selectIndexMyAnswer(uid,this.getTenantId(req));
+        ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(indexMyAnswerDtos);
+        return resultObject;
+    }
     /**
      * 名师详情-基本信息
      * @param request

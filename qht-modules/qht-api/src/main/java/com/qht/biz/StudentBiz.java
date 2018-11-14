@@ -379,5 +379,15 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
         Integer num=studentMapper.updateMyIndexCancelcollect(uid,student_id,tenantId);
         return num;
     }
+
+    /**
+     * app我的课程答疑
+     * @param uid
+     * @param tenantId
+     * @return
+     */
+    public List<IndexMyAnswerDto> selectIndexMyAnswer(String uid, String tenantId) {
+        return studentMapper.selectIndexMyAnswer(uid,tenantId);
+    }
 }
 

@@ -289,4 +289,11 @@ public interface StudentMapper extends Mapper<Student> {
      */
     Integer updateMyIndexCancelcollect(@Param("uid") String uid, @Param("student_id") String student_id, @Param("tenantId") String tenantId);
 
+    /**
+     * app我的课程答疑
+     * @param uid
+     * @param tenantId
+     * @return
+     */
+    List<IndexMyAnswerDto> selectIndexMyAnswer(@Param("uid") String uid, @Param("tenantId") String tenantId);
 }
