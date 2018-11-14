@@ -604,7 +604,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
-    @PostMapping("app/indexMyAnswer")
+    @PostMapping("/app/indexMyAnswer")
     @ResponseBody
     public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestParam("uid") String uid, HttpServletRequest req) {
         List<IndexMyAnswerDto> indexMyAnswerDtos=studentBiz.selectIndexMyAnswer(uid,this.getTenantId(req));
@@ -629,6 +629,18 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setCode("1");
         resultObject.setMsg("成功");
         resultObject.setData(teacherDetailsDto);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("/app/indexAnswerDetails")
+    @ResponseBody
+    public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(String uid, HttpServletRequest req){
+        IndexAnswerDetailsDto indexAnswerDetailsDto=studentBiz.selectIndexAnswerDetails(uid,this.getTenantId(req));
+        ResultObject<IndexAnswerDetailsDto> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(indexAnswerDetailsDto);
         return resultObject;
     }
 

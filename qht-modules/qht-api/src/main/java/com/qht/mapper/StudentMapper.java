@@ -296,4 +296,12 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     List<IndexMyAnswerDto> selectIndexMyAnswer(@Param("uid") String uid, @Param("tenantId") String tenantId);
+
+    /**
+     * app我的课程答疑--答疑详情
+     * @param uid
+     * @param tenantId
+     * @return
+     */
+    IndexAnswerDetailsDto selectIndexAnswerDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
 }

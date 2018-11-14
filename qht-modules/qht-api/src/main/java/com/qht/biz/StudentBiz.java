@@ -389,5 +389,15 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public List<IndexMyAnswerDto> selectIndexMyAnswer(String uid, String tenantId) {
         return studentMapper.selectIndexMyAnswer(uid,tenantId);
     }
+
+    /**
+     * app我的课程答疑--答疑详情
+     * @param uid
+     * @param tenantId
+     * @return
+     */
+    public IndexAnswerDetailsDto selectIndexAnswerDetails(String uid, String tenantId) {
+        return studentMapper.selectIndexAnswerDetails(uid,tenantId);
+    }
 }
 
