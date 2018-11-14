@@ -337,6 +337,15 @@ public interface StudentService {
      */
     public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(@RequestParam("uid")String uid,HttpServletRequest req);
 
+
+    /**
+     * 名师详情-所有课程
+     * @param request
+     * @param uid
+     * @return
+     */
+    public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(HttpServletRequest request,@RequestParam("uid")String uid);
+
 }
 
 

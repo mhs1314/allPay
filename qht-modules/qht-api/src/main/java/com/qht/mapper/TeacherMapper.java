@@ -1,5 +1,6 @@
 package com.qht.mapper;
 
+import com.qht.dto.AppTeacherCourseDto;
 import com.qht.dto.TeacherDetailsDto;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,6 +9,8 @@ import com.qht.entity.Teacher;
 
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 /**
  * 教师
@@ -34,5 +37,12 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @return
 	 */
 	TeacherDetailsDto teacherDetails(@Param("uid")String uid,@Param("tid")String tid);
+    /**
+     * 名师详情-所有课程
+     * @param uid
+     * @param tid
+     * @return
+     */
+    List<AppTeacherCourseDto> appTeacherCourseDto  (@Param("uid")String uid, @Param("tid")String tid);
 
 }

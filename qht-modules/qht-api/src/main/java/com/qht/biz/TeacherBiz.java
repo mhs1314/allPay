@@ -1,5 +1,6 @@
 package com.qht.biz;
 
+import com.qht.dto.AppTeacherCourseDto;
 import com.qht.dto.TeacherDetailsDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import com.qht.dto.TeacherDto;
 import com.qht.entity.Teacher;
 import com.qht.mapper.StudentMapper;
 import com.qht.mapper.TeacherMapper;
+
+import java.util.List;
 
 /**
  * 教师
@@ -41,5 +44,14 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
    public TeacherDetailsDto teacherDetails(@Param("uid")String uid, @Param("tid")String tid){
        return teacherMapper.teacherDetails(uid,tid);
    }
+    /**
+     * 名师详情-所有课程
+     * @param uid
+     * @param tid
+     * @return
+     */
+   public List<AppTeacherCourseDto>  appTeacherCourseDto  (@Param("uid")String uid, @Param("tid")String tid){
+        return teacherMapper.appTeacherCourseDto(uid,tid);
+    }
 
 }
