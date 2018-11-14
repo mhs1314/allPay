@@ -68,6 +68,12 @@ public class TeacherEvaluationDto implements Serializable {
 	public void setEval(Integer eval) {
 		this.eval = eval;
 	}
+	@Override
+	public String toString() {
+		return "TeacherEvaluationDto [head=" + head + ", uid=" + uid + ", comments_time=" + comments_time
+				+ ", pkg_name=" + pkg_name + ", comments_star=" + comments_star + ", comments_content="
+				+ comments_content + ", name=" + name + ", eval=" + eval + "]";
+	}
     
     
 }

@@ -53,4 +53,12 @@ public class IndexAnswerDto implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+	@Override
+	public String toString() {
+		return "IndexAnswerDto [uid=" + uid + ", cover=" + cover + ", question=" + question + ", name=" + name
+				+ ", type=" + type + "]";
+	}
+    
+    
 }

@@ -53,4 +53,12 @@ public class IndexCoruseListParameter  implements Serializable {
     public void setCourse_type_id(String course_type_id) {
         this.course_type_id = course_type_id;
     }
+
+	@Override
+	public String toString() {
+		return "IndexCoruseListParameter [tenant_id=" + tenant_id + ", play_type_id=" + play_type_id + ", pkg_grade_id="
+				+ pkg_grade_id + ", pkg_subject_id=" + pkg_subject_id + ", course_type_id=" + course_type_id + "]";
+	}
+    
+    
 }
