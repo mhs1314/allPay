@@ -379,13 +379,17 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexDelMessage")
     @ResponseBody
-    public ResultObject<Integer> deleteMessage(String uid) {
-        Integer row=studentBiz.deleteMessage(uid);
-        ResultObject<Integer> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
-        resultObject.setMsg("成功");
-        resultObject.setData(row);
-        return resultObject;
+    public ResultObject<Void> deleteMessage(String uid) {
+        ResultObject<Void> resultObject=new ResultObject<>();
+        if(studentBiz.deleteMessage(uid)>0){
+            resultObject.setMsg("删除成功");
+            resultObject.setStatus("1");
+            return resultObject;
+        }else{
+            resultObject.setMsg("删除失败");
+            resultObject.setStatus("2");
+            return resultObject;
+        }
     }
 
     @Override
@@ -582,11 +586,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
                                                    HttpServletRequest req) {
         ResultObject<Void> resultObject=new ResultObject<>();
         if(studentBiz.updateMyIndexCancelcollect(uid,student_id,this.getTenantId(req))>0){
-            resultObject.setCode("1");
+            resultObject.setStatus("1");
             resultObject.setMsg("取消成功");
             return resultObject;
         }else{
-            resultObject.setCode("2");
+            resultObject.setStatus("2");
             resultObject.setMsg("服务器异常");
             return resultObject;
         }
