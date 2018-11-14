@@ -831,7 +831,7 @@ WHERE
         update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}
     </update>
     
-    <select id="appMyStudentInfo" resultType="AppMyStudentInfo">
+    <select id="appMyStudentInfo" resultType="com.qht.dto.AppMyStudentInfoDto">
 SELECT
 	s.head AS head,
 	s.uid AS uid,
