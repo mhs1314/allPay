@@ -320,6 +320,14 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestParam("uid")String uid,HttpServletRequest req);
+
+    /**
+     * 名师详情-基本信息
+     * @param request
+     * @param uid
+     * @return
+     */
+    public ResultObject<TeacherDetailsDto> teacherDetails(HttpServletRequest request,@RequestParam("uid")String uid);
 }
 
 

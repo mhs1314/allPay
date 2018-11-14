@@ -31,5 +31,25 @@
     <select id="teacherLogin" resultType="com.qht.dto.TeacherDto">
         select uid,nickname,tenant_id as tenantId,school_id as schoolId from teacher where account=#{account} and password=#{password}
     </select>
+    <!--名师详细-基本信息-->
+    <select id="teacherDetails" resultType="com.qht.dto.TeacherDetailsDto">
+        SELECT
+	t.uid AS uid,
+	t.intr as intr,
+	AVG(l.comments_star) AS integral,
+	sc.school_name as school_name,
+	ps.`name`  as subject_name,
+	t.nickname AS nickname,
+	t.back_img AS back_img,
+	t.praise_number AS praise_number
+FROM
+	teacher t
+LEFT JOIN pkg_subject p ON t.subject_id = p.uid
+LEFT JOIN lecturer_evaluation l ON t.uid = l.teacher_id
+LEFT JOIN school sc   on t.school_id=sc.uid
+LEFT JOIN pkg_subject ps ON t.subject_id=ps.uid
+where t.id=#{uid} and t.tenant_id=#{tid}
+GROUP BY t.uid
 
+    </select>
 </mapper>

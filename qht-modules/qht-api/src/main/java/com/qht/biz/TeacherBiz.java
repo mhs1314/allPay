@@ -1,5 +1,7 @@
 package com.qht.biz;
 
+import com.qht.dto.TeacherDetailsDto;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +32,14 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
     public TeacherDto teacherLogin(String account, String password){    	
         return teacherMapper.teacherLogin(account,password);
     }
+    /**
+     * 名师详情-基本信息
+     * @param uid
+     * @param tid
+     * @return
+     */
+   public TeacherDetailsDto teacherDetails(@Param("uid")String uid, @Param("tid")String tid){
+       return teacherMapper.teacherDetails(uid,tid);
+   }
+
 }
