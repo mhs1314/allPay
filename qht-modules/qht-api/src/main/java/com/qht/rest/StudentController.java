@@ -10,8 +10,6 @@ import com.qht.biz.TeacherBiz;
 import com.qht.dto.*;
 import com.qht.entity.Student;
 import com.qht.services.StudentService;
-import com.sun.org.apache.regexp.internal.RE;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -766,7 +764,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(HttpServletRequest request, String uid) {
         AppMyStudentInfoDto dto=studentBiz.appMyStudentInfo(uid,this.getTenantId(request));
         ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
