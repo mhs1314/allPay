@@ -614,6 +614,7 @@ LEFT JOIN school s ON t.school_id = s.uid
 WHERE
 	t.tenant_id = #{tid}
     </select>
+    <!--课程答疑-->
 <select id="indexAnswer" resultType="com.qht.dto.IndexAnswerDto" parameterType="String" >
     SELECT
 	c.cover as cover,
@@ -629,7 +630,7 @@ LEFT JOIN period p ON pr.period_id = p.uid
 LEFT JOIN answer a ON p.uid = a.period_id
 where a.tenant_id=#{tid}
 </select>
-
+<!-- 课程列表-->
  <select id="indexCoruseList" resultType="com.qht.dto.IndexCoruseListDto" parameterType="com.qht.dto.IndexCoruseListParameter">
         SELECT
 	c.uid,
@@ -657,6 +658,7 @@ WHERE
             AND c.course_type_id =#{course_type_id}
         </if>
     </select>
+    <!--名师资源列表-->
     <select id="indexTeacherList" resultType="com.qht.dto.IndexTeacherListDto" parameterType="com.qht.dto.IndexTeacherListParameter">
 SELECT
 	t.uid as uid,
