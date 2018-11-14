@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.biz.StudentBiz;
+import com.qht.biz.TeacherBiz;
 import com.qht.dto.*;
 import com.qht.entity.Student;
 import com.qht.services.StudentService;
@@ -22,6 +23,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     @Autowired
     private StudentBiz studentBiz;
+    @Autowired
+    private TeacherBiz teacherBiz;
 
     /**
      * 得到tenantId
@@ -532,6 +535,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
+        resultObject.setCount(Long.parseLong(dto.size()+""));
         resultObject.setData(dto);
         return  resultObject;
     }
@@ -592,6 +596,23 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         }
     }
 
+    /**
+     * 名师详情-基本信息
+     * @param request
+     * @param uid
+     * @return
+     */
+    @Override
+    @PostMapping("/app/TeacherDetails")
+    @ResponseBody
+    public ResultObject<TeacherDetailsDto> teacherDetails(HttpServletRequest request,@RequestParam("uid")  String uid) {
+        TeacherDetailsDto teacherDetailsDto=teacherBiz.teacherDetails(uid,this.getTenantId(request));
+        ResultObject<TeacherDetailsDto> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(teacherDetailsDto);
+        return resultObject;
+    }
 
 
 }
