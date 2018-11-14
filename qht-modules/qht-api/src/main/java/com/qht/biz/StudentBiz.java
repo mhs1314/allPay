@@ -329,7 +329,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      */
   public   List<IndexCoruseListDto> indexCoruseList(IndexCoruseListParameter parameter){
         return studentMapper.indexCoruseList(parameter);
-    }
+  }
 
     /**
      * 名师资源列表
@@ -338,6 +338,46 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      */
   public   List<IndexTeacherListDto> indexTeacherList(IndexTeacherListParameter parameter){
         return studentMapper.indexTeacherList(parameter);
+  }
+
+    /**
+     * 学生端-个人中心--首页--兑换记录--课程详情
+     * @param uid
+     * @return
+     */
+    public List<MyIndexBuyRecordCourseDetailsDto> selectMyIndexBuyRecordDetails(String uid) {
+        return studentMapper.selectMyIndexBuyRecordDetails(uid);
+    }
+
+    /**
+     * 学生端-个人中心--首页--兑换记录--课程回看
+     * @param data
+     * @return
+     */
+    public List<MyIndexBuyRecordCourseBackDto> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParameter data) {
+
+        return studentMapper.selectMyIndexBuyRecordCourseBack(data);
+    }
+
+    /**
+     *学生端-个人中心--首页--我的收藏列表
+     * @param data
+     * @return
+     */
+    public List<MyIndexMycollectDto> selectMyIndexMycollect(MyIndexMycollectParameter data) {
+        return studentMapper.selectMyIndexMycollect(data);
+    }
+
+    /**
+     * 学生端-个人中心--首页--我的收藏列表--取消收藏
+     * @param uid
+     * @param student_id
+     * @param tenantId
+     */
+    public Integer updateMyIndexCancelcollect(String uid, String student_id, String tenantId) {
+
+        Integer num=studentMapper.updateMyIndexCancelcollect(uid,student_id,tenantId);
+        return num;
     }
 }
 

@@ -685,5 +685,48 @@ WHERE
         </if>
 	GROUP BY t.uid
     </select>
-    
+
+    <!--学生端-个人中心-首页-兑换记录-课程详情-->
+    <select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="String">
+        select c.uid,c.name,p.uid as pid,p.name as period_name,p.begin,p.video_file
+        from course_pkg cp
+        left join chapter c on cp.uid=c.course_id
+        left join period p on c.uid=p.chapter_id
+        where cp.uid=#{uid}
+    </select>
+
+    <!--学生端-个人中心-首页-兑换记录-课程回看-->
+    <select id="selectMyIndexBuyRecordCourseBack" resultType="com.qht.dto.MyIndexBuyRecordCourseBackDto" parameterType="com.qht.dto.MyIndexBuyRecordCourseBackParameter">
+        select
+        p.effective_time,p.uid,p.name,p.video_file,p.begin,cp.pkg_name,t.nickname
+        from period p
+        left join chapter c on c.uid=p.chapter_id
+        left join course_pkg cp on cp.uid=c.course_id
+        left join buy_recourd br on br.course_pkg_id=cp.uid
+        left join teacher t on t.uid=cp.teacher_id
+        left join student s on  s.uid=br.student_id
+        where p.tenant_id=#{tenant_id} and br.student_id=#{uid}
+        <if test="pkg_subject_id!=null and pkg_subject_id!==''">
+            and cp.pkg_subject_id=#{pkg_subject_id}
+        </if>
+    </select>
+    <!--学生端-个人中心-首页-我的收藏列表-->
+    <select id="selectMyIndexMycollect" parameterType="com.qht.dto.MyIndexMycollectParameter" resultType="com.qht.dto.MyIndexMycollectDto">
+        select cp.cover,cp.pkg_name,cp.pkt_type_id,t.nickname,c.collect_time
+        from course_pkg cp
+        left join teacher t on cp.teacher_id=t.uid
+        left join collect c on c.course_pkg_id=cp.uid
+        left join student s on s.uid=c.student_id
+        where s.uid=#{uid} and cp.tenant_id=#{tenant_id}
+        <if test="pkt_type_id!='' and pkt_type_id!=null">
+            and cp.pkt_type_id=#{pkt_type_id}
+        </if>
+    </select>
+
+    <!--取消收藏-->
+    <update id="updateMyIndexCancelcollect">
+        update collect from set is_collect=2 where uid=#{uid} and student_id#{student_id} and tenant_id=#{tenant_id}
+    </update>
+
+
 </mapper>

@@ -260,4 +260,33 @@ public interface StudentMapper extends Mapper<Student> {
      */
     List<IndexTeacherListDto> indexTeacherList(IndexTeacherListParameter parameter);
 
+    /**
+     * 学生端-个人中心--首页--兑换记录--课程详情
+     * @param uid
+     * @return
+     */
+    List<MyIndexBuyRecordCourseDetailsDto> selectMyIndexBuyRecordDetails(String uid);
+
+    /**
+     * 学生端-个人中心--首页--兑换记录--课程回看
+     * @param data
+     * @return
+     */
+    List<MyIndexBuyRecordCourseBackDto> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParameter data);
+
+    /**
+     * 学生端-个人中心--首页--我的收藏列表
+     * @param data
+     * @return
+     */
+    List<MyIndexMycollectDto> selectMyIndexMycollect(MyIndexMycollectParameter data);
+
+    /**
+     * 学生端-个人中心--首页--我的收藏列表--取消收藏
+     * @param uid
+     * @param student_id
+     * @param tenantId
+     */
+    Integer updateMyIndexCancelcollect(@Param("uid") String uid, @Param("student_id") String student_id, @Param("tenantId") String tenantId);
+
 }

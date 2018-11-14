@@ -282,6 +282,36 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(HttpServletRequest reg,RequestObject<IndexTeacherListParameter> parameter);
+
+    /**
+     * 学生端-个人中心--首页--兑换记录--课程详情
+     * @param uid
+     * @return
+     */
+    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(String uid);
+
+    /**
+     * 学生端-个人中心--首页--兑换记录--课程回看
+     * @return
+     */
+    public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject,HttpServletRequest req);
+
+    /**
+     * 学生端-个人中心--首页--我的收藏列表
+     * @param requestObject
+     * @param req
+     * @return
+     */
+    public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(RequestObject<MyIndexMycollectParameter>requestObject,HttpServletRequest req);
+
+    /**
+     * 学生端-个人中心--首页--取消收藏列表
+     * @param uid
+     * @param student_id
+     * @param req
+     * @return
+     */
+    public ResultObject<Void> myIndexCancelcollect(@RequestParam("uid") String uid,@RequestParam("student_id") String student_id,HttpServletRequest req);
 }
 
 

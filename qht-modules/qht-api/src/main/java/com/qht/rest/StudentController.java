@@ -536,5 +536,62 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return  resultObject;
     }
 
+    @Override
+    @PostMapping("myIndexBuyrecordCourseDetails")
+    @ResponseBody
+    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(String uid) {
+        List<MyIndexBuyRecordCourseDetailsDto> myIndexBuyRecordCourseDetailsDtos=studentBiz.selectMyIndexBuyRecordDetails(uid);
+        ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(myIndexBuyRecordCourseDetailsDtos);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("myIndexBuyrecordCourseBack")
+    @ResponseBody
+    public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject, HttpServletRequest req) {
+        requestObject.getData().setTenant_id(this.getTenantId(req));
+        PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
+        List<MyIndexBuyRecordCourseBackDto> myIndexBuyRecordCourseBackDtos=studentBiz.selectMyIndexBuyRecordCourseBack(requestObject.getData());
+        PageInfo<MyIndexBuyRecordCourseBackDto> count=new PageInfo<>(myIndexBuyRecordCourseBackDtos);
+        ResultObject<List<MyIndexBuyRecordCourseBackDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setCount(count.getTotal());
+        resultObject.setData(myIndexBuyRecordCourseBackDtos);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("myIndexMycollect")
+    @ResponseBody
+    public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(RequestObject<MyIndexMycollectParameter> requestObject, HttpServletRequest req) {
+        requestObject.getData().setTenant_id(this.getTenantId(req));
+        PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
+        List<MyIndexMycollectDto> myIndexMycollectDtos=studentBiz.selectMyIndexMycollect(requestObject.getData());
+
+        return null;
+    }
+
+    @Override
+    @PostMapping("myIndexCancelcollect")
+    @ResponseBody
+    public ResultObject<Void> myIndexCancelcollect(@RequestParam("uid") String uid, @RequestParam("student_id") String student_id,
+                                                   HttpServletRequest req) {
+        ResultObject<Void> resultObject=new ResultObject<>();
+        if(studentBiz.updateMyIndexCancelcollect(uid,student_id,this.getTenantId(req))>0){
+            resultObject.setCode("1");
+            resultObject.setMsg("取消成功");
+            return resultObject;
+        }else{
+            resultObject.setCode("2");
+            resultObject.setMsg("服务器异常");
+            return resultObject;
+        }
+    }
+
+
 
 }
