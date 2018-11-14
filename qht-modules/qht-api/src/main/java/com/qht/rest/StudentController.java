@@ -538,9 +538,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     /**
      * 近期课程
-     * @param reg
-     * @param uid
-     * @param tid
      * @return
      */
     @Override
@@ -680,8 +677,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
     /**
      * 名师详情-基本信息
-     * @param request
-     * @param uid
      * @return
      */
     @Override
@@ -725,8 +720,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
     /**
      * 名师详情-所有评论
-     * @param request
-     * @param uid
      * @return
      */
     @Override
