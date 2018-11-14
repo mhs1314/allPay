@@ -1,5 +1,7 @@
 package com.qht.auth.service.impl;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -42,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
     }
 	
 	@Override
-	public LoginResultDto login(QhtAuthenticationRequest authenticationRequest) throws Exception {
+	public LoginResultDto login(QhtAuthenticationRequest authenticationRequest,HttpServletRequest request) throws Exception {
 		String account = authenticationRequest.getAccount();		
 		String password = authenticationRequest.getPassword();
 		//authenticationRequest.setType(4);
@@ -52,6 +54,7 @@ public class AuthServiceImpl implements AuthService {
 			if(dto == null) {
 				throw new UserInvalidException("用户不存在或账户密码错误!");
 			}
+			request.getSession().setAttribute("user_session_key",dto);
 			if (!StringUtils.isEmpty(dto.getUid())) {
 				TeacherLoginResultDto result = new TeacherLoginResultDto();
 				String token = jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
@@ -68,6 +71,7 @@ public class AuthServiceImpl implements AuthService {
 			if(dto == null) {
 				throw new UserInvalidException("用户不存在或账户密码错误!");
 			}
+			request.getSession().setAttribute("user_session_key",dto);
 			if(!StringUtils.isEmpty(dto.getUid())) {
 				//return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
 				StudentLoginResultDto result = new StudentLoginResultDto();

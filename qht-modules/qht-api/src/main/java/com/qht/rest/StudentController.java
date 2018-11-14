@@ -68,6 +68,7 @@ import com.qht.dto.StudentDto;
 import com.qht.dto.StudentInfoDto;
 import com.qht.dto.TeacherCourseDto;
 import com.qht.dto.TeacherDetailsDto;
+import com.qht.dto.TeacherDto;
 import com.qht.dto.TeacherEvaluationDto;
 import com.qht.dto.TeacherInfoDto;
 import com.qht.dto.TeacherListDto;
@@ -100,11 +101,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
      */
     public String getTenantId(){
         String tenantId=null;
-        StudentDto studentDto=(StudentDto)request.getSession().getAttribute("studentDto");
+        TeacherDto studentDto=(TeacherDto)request.getSession().getAttribute("user_session_key");
         if (studentDto!=null){
             tenantId=studentDto.getTenantId();
         }
-        return tenantId;
+        return tenantId == null ? "11": tenantId;
     }
 
     @Override
@@ -596,8 +597,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexTeacherList")
     @ResponseBody
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter) {
-        parameter.getData().setTenant_id(getTenantId());
-        List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(parameter.getData());
+        //parameter.getData().setTenant_id(getTenantId());
+    	IndexTeacherListParameter para = new IndexTeacherListParameter();
+    	para.setTenant_id("11");
+        List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(para);
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");

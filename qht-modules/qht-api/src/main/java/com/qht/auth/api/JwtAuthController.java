@@ -33,11 +33,14 @@ public class JwtAuthController {
 	@Autowired
     private AuthService authService;
 	
+	@Autowired
+    private HttpServletRequest request;
+	
 	@RequestMapping(value = "token", method = RequestMethod.POST)	
     public ResultObject<LoginResultDto> createAuthenticationToken(
             @RequestBody QhtAuthenticationRequest authenticationRequest) throws Exception {
       //  log.info(authenticationRequest.getAccount()+" require logging...");
-        LoginResultDto result = authService.login(authenticationRequest);
+        LoginResultDto result = authService.login(authenticationRequest,request);
         String requestId = authenticationRequest.getRequestId();        
        // return new ObjectRestResponse<>().data(token);
         return ResultBuilder.success(requestId, result);       

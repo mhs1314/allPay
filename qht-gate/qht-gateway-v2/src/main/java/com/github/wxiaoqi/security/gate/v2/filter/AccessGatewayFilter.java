@@ -114,6 +114,7 @@ public class AccessGatewayFilter implements GlobalFilter {
             log.error("用户Token过期异常", e);
             return getVoidMono(serverWebExchange, new TokenForbiddenResponse("User Token Forbidden or Expired!"));
         }
+        /*
         List<PermissionInfo> permissionIfs = userService.getAllPermissionInfo();
         // 判断资源是否启用权限约束
         Stream<PermissionInfo> stream = getPermissionIfs(requestUri, method, permissionIfs);
@@ -124,6 +125,7 @@ public class AccessGatewayFilter implements GlobalFilter {
                 return getVoidMono(serverWebExchange, new TokenForbiddenResponse("User Forbidden!Does not has Permission!"));
             }
         }
+        */
         // 申请客户端密钥头
         mutate.header(serviceAuthConfig.getTokenHeader(), serviceAuthUtil.getClientToken());
         ServerHttpRequest build = mutate.build();
