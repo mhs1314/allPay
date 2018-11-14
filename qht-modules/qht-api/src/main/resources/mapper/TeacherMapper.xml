@@ -48,8 +48,27 @@ LEFT JOIN pkg_subject p ON t.subject_id = p.uid
 LEFT JOIN lecturer_evaluation l ON t.uid = l.teacher_id
 LEFT JOIN school sc   on t.school_id=sc.uid
 LEFT JOIN pkg_subject ps ON t.subject_id=ps.uid
-where t.id=#{uid} and t.tenant_id=#{tid}
+where t.uid=#{uid} and t.tenant_id=#{tid}
 GROUP BY t.uid
+
+    </select>
+
+    <select id="teacherCourse" resultType="com.qht.dto.AppTeacherCourseDto">
+        SELECT
+	c.cover AS cover,
+	c.uid AS uid,
+	c.pkg_name AS total_price,
+	c.total_price AS total_price,
+	c.apply_number AS apply_number,
+	AVG(l.comments_star) / 2 AS integral,
+	t.praise_number AS praise_number
+
+FROM
+	course_pkg c
+LEFT JOIN teacher t ON c.teacher_id=t.uid
+LEFT JOIN lecturer_evaluation l ON l.teacher_id=t.uid
+where t.uid=#{uid} and t.tenant_id=#{tid}
+GROUP BY c.uid
 
     </select>
 </mapper>

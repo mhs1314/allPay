@@ -623,4 +623,20 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
 
+    /**
+     * 名师详情--所有课程
+     */
+    @Override
+    @PostMapping("/app/TeacherCourse")
+    @ResponseBody
+    public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(HttpServletRequest request, String uid) {
+        List<AppTeacherCourseDto> dto=teacherBiz.appTeacherCourseDto(uid,this.getTenantId(request));
+        ResultObject<List<AppTeacherCourseDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return resultObject;
+    }
+
+
 }
