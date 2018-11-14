@@ -137,9 +137,9 @@
     <resultMap id="selectCourseChapterAndClass" type="com.qht.dto.CourseChapterDto">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
-        <collection property="classe" ofType="com.qht.dto.ClassDto">
-            <result property="uid" column="uid"/>
-            <result property="name" column="name"/>
+        <collection property="period" ofType="com.qht.dto.ClassDto">
+            <result property="pid" column="pid"/>
+            <result property="period_name" column="period_name"/>
             <result property="video_file" column="video_file"/>
             <result property="begin" column="begin"/>
         </collection>
@@ -149,8 +149,8 @@
         select
           c.uid,
           c.name,
-          p.uid,
-          p.name,
+          p.uid as  pid,
+          p.name as period_name,
           p.video_file,
           p.begin
         from
@@ -685,6 +685,17 @@ WHERE
         </if>
 	GROUP BY t.uid
     </select>
+
+    <resultMap id="selectMyIndexBuyRecordDetailsAndPeriod" type="com.qht.dto.MyIndexBuyRecordCourseDetailsDto">
+        <id column="uid" jdbcType="VARCHAR" property="uid" />
+        <result property="name" column="name"/>
+        <collection property="period" ofType="com.qht.dto.ClassDto">
+            <result property="pid" column="pid"/>
+            <result property="period_name" column="period_name"/>
+            <result property="video_file" column="video_file"/>
+            <result property="begin" column="begin"/>
+        </collection>
+    </resultMap>
 
     <!--学生端-个人中心-首页-兑换记录-课程详情-->
     <select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="String">
