@@ -8,6 +8,8 @@ import java.io.Serializable;
 public class StudentDto implements Serializable {
     //学生的uid
     private String uid;
+    
+    private String studentId;
     //学校的id
     private String schoolid;
     //昵称
@@ -16,8 +18,21 @@ public class StudentDto implements Serializable {
     private String tenantId;
 
 
+    public String getStudentId() {
+		return studentId;
+	}
 
-    @Override
+
+
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+
+
+
+	@Override
     public String toString() {
         return "StudentDto{" +
                 "uid='" + uid + '\'' +

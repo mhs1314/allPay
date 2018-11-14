@@ -1,5 +1,17 @@
 package com.qht.rest;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qht.RequestObject;
@@ -7,17 +19,65 @@ import com.qht.ResultObject;
 import com.qht.biz.CollectBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
-import com.qht.dto.*;
+import com.qht.dto.AppMyStudentInfoDto;
+import com.qht.dto.AppTeacherCourseDto;
+import com.qht.dto.AppTeacherEvaluationDto;
+import com.qht.dto.BannerDto;
+import com.qht.dto.CourseChapterDto;
+import com.qht.dto.CourseEvaluationDto;
+import com.qht.dto.CourseIntroDto;
+import com.qht.dto.CourseIntroParameter;
+import com.qht.dto.CourseListDto;
+import com.qht.dto.CourseListParameter;
+import com.qht.dto.FreeClassDto;
+import com.qht.dto.FreeClassParameter;
+import com.qht.dto.IndexAnswerDetailsAppendAnswerParameter;
+import com.qht.dto.IndexAnswerDetailsDto;
+import com.qht.dto.IndexAnswerDetailsExceptionalParameter;
+import com.qht.dto.IndexAnswerDto;
+import com.qht.dto.IndexCoruseListDto;
+import com.qht.dto.IndexCoruseListParameter;
+import com.qht.dto.IndexCourseDetailsDto;
+import com.qht.dto.IndexFutureCoruseDto;
+import com.qht.dto.IndexMyAnswerDto;
+import com.qht.dto.IndexTeacherDto;
+import com.qht.dto.IndexTeacherListDto;
+import com.qht.dto.IndexTeacherListParameter;
+import com.qht.dto.ListeningClassListDto;
+import com.qht.dto.ListeningClassRankingDto;
+import com.qht.dto.LiveClassDto;
+import com.qht.dto.LoginInfoDto;
+import com.qht.dto.MyCollectlistDto;
+import com.qht.dto.MyIndexBuyRecordCourseBackDto;
+import com.qht.dto.MyIndexBuyRecordCourseBackParameter;
+import com.qht.dto.MyIndexBuyRecordCourseDetailsDto;
+import com.qht.dto.MyIndexBuyRecordDto;
+import com.qht.dto.MyIndexBuyRecordParameter;
+import com.qht.dto.MyIndexCourseAnswerDto;
+import com.qht.dto.MyIndexCourseAnswerParameter;
+import com.qht.dto.MyIndexCourseDto;
+import com.qht.dto.MyIndexCourseParameter;
+import com.qht.dto.MyIndexMessageDto;
+import com.qht.dto.MyIndexMessageParamter;
+import com.qht.dto.MyIndexMycollectDto;
+import com.qht.dto.MyIndexMycollectParameter;
+import com.qht.dto.MyIndexMyintegralDetailDto;
+import com.qht.dto.MyIndexMyintegralDetailParameter;
+import com.qht.dto.StudentDto;
+import com.qht.dto.StudentInfoDto;
+import com.qht.dto.TeacherCourseDto;
+import com.qht.dto.TeacherDetailsDto;
+import com.qht.dto.TeacherEvaluationDto;
+import com.qht.dto.TeacherInfoDto;
+import com.qht.dto.TeacherListDto;
+import com.qht.dto.TeacherRankingDto;
+import com.qht.dto.TenantAlbumDto;
+import com.qht.dto.TenantSchoolDto;
+import com.qht.dto.TopTeacherInfoDto;
+import com.qht.dto.TopTeacherListDto;
+import com.qht.dto.TopTeacherListParameter;
 import com.qht.entity.Student;
 import com.qht.services.StudentService;
-import com.sun.org.apache.regexp.internal.RE;
-import io.swagger.models.auth.In;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("student")
@@ -29,13 +89,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     private TeacherBiz teacherBiz;
     @Autowired
     private CollectBiz collectBiz;
-
+    
+    @Autowired
+    private HttpServletRequest request;
     /**
      * 得到tenantId
      * @param request
      * @return
      */
-    public String getTenantId(HttpServletRequest request){
+    public String getTenantId(){
         String tenantId=null;
         StudentDto studentDto=(StudentDto)request.getSession().getAttribute("studentDto");
         if (studentDto!=null){
@@ -47,7 +109,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("login")
     @ResponseBody
-    public ResultObject<StudentDto> login(RequestObject<LoginInfoDto> requestObject) {
+    public ResultObject<StudentDto> login(@RequestBody RequestObject<LoginInfoDto> requestObject) {
         //获取到密码
         String account=requestObject.getData().getAccount();
         //获取到密码
@@ -85,9 +147,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("banner")
     @ResponseBody
-    public ResultObject<List<BannerDto>> banner(HttpServletRequest req) {
+    public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<Void> requestObject) {
         //通过session取到运营的id
-        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"1");
+        List<BannerDto> list=studentBiz.selectBanner(getTenantId(),"1");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
         resultObject.setCode("0");
@@ -97,9 +159,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexBanner")
     @ResponseBody
-    public ResultObject<List<BannerDto>> indexBanner(HttpServletRequest req) {
+    public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<Void> requestObject) {
         //通过session取到运营的id
-        List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"2");
+        List<BannerDto> list=studentBiz.selectBanner(getTenantId(),"2");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
         resultObject.setCode("0");
@@ -109,9 +171,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("liveClass")
     @ResponseBody
-    public ResultObject<List<LiveClassDto>> liveClass(HttpServletRequest req) {
+    public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<Void> requestObject) {
         //查询首页直播课程
-        List<LiveClassDto> list=studentBiz.selectLiveClass(this.getTenantId(req));
+        List<LiveClassDto> list=studentBiz.selectLiveClass(getTenantId());
         ResultObject<List<LiveClassDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -122,8 +184,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("freeClass")
     @ResponseBody
-    public ResultObject<List<FreeClassDto>> freeClass(RequestObject<FreeClassParameter> requestObject,HttpServletRequest req) {
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+    public ResultObject<List<FreeClassDto>> freeClass(@RequestBody RequestObject<FreeClassParameter> requestObject) {
+        requestObject.getData().setTenant_id(getTenantId());
         //查询免费课程
         List<FreeClassDto> list= studentBiz.selectFreeClass(requestObject.getData());
         ResultObject<List<FreeClassDto>> resultObject=new ResultObject<>();
@@ -136,9 +198,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("listeningClassRanking")
     @ResponseBody
-    public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(HttpServletRequest req) {
+    public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<Void> requestObject) {
         //查询试听排行榜
-        List<ListeningClassRankingDto> list=studentBiz.selectListeningClassRanking(this.getTenantId(req));
+        List<ListeningClassRankingDto> list=studentBiz.selectListeningClassRanking(getTenantId());
         ResultObject<List<ListeningClassRankingDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -149,9 +211,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("listeningClassList")
     @ResponseBody
-    public ResultObject<List<ListeningClassListDto>> listeningClassList(HttpServletRequest req) {
+    public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<Void> requestObject) {
         //查询
-        List<ListeningClassListDto> list=studentBiz.selectListeningClassList(this.getTenantId(req));
+        List<ListeningClassListDto> list=studentBiz.selectListeningClassList(getTenantId());
         ResultObject<List<ListeningClassListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -162,9 +224,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherRanking")
     @ResponseBody
-    public ResultObject<List<TeacherRankingDto>> teacherRanking(HttpServletRequest req) {
+    public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<Void> requestObject) {
         //查询
-        List<TeacherRankingDto> list=studentBiz.selectTeacherRanking(this.getTenantId(req));
+        List<TeacherRankingDto> list=studentBiz.selectTeacherRanking(getTenantId());
         ResultObject<List<TeacherRankingDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -175,9 +237,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @GetMapping("teacherList")
     @ResponseBody
-    public ResultObject<List<TeacherListDto>> teacherList(HttpServletRequest req) {
+    public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<Void> requestObject) {
         //查询
-        List<TeacherListDto> list=studentBiz.selectTeacherList(this.getTenantId(req));
+        List<TeacherListDto> list=studentBiz.selectTeacherList(getTenantId());
         ResultObject<List<TeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -188,9 +250,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("courseIntro")
     @ResponseBody
-    public ResultObject<CourseIntroDto> courseIntro(RequestObject<CourseIntroParameter> requestObject,HttpServletRequest req) {
+    public ResultObject<CourseIntroDto> courseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
         //通过课程包的uid和运营的id查询
-        CourseIntroDto courseIntroDto=studentBiz.selectCourseIntro(requestObject.getData().getUid(),this.getTenantId(req));
+        CourseIntroDto courseIntroDto=studentBiz.selectCourseIntro(requestObject.getData().getUid(),getTenantId());
         ResultObject<CourseIntroDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -201,8 +263,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("courseChapter")
     @ResponseBody
-    public ResultObject<List<CourseChapterDto>> courseChapter(RequestObject<CourseIntroParameter> requestObject, HttpServletRequest req) {
-        List<CourseChapterDto> courseChapterDtos=studentBiz.selectCourseChapter(requestObject.getData().getUid(),this.getTenantId(req));
+    public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
+        List<CourseChapterDto> courseChapterDtos=studentBiz.selectCourseChapter(requestObject.getData().getUid(),getTenantId());
         ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -213,8 +275,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("courseEvaluation")
     @ResponseBody
-    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(RequestObject<CourseIntroParameter> requestObject, HttpServletRequest req) {
-        List<CourseEvaluationDto> courseEvaluationDtos=studentBiz.selectCourseEvaluation(requestObject.getData().getUid(),this.getTenantId(req));
+    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
+        List<CourseEvaluationDto> courseEvaluationDtos=studentBiz.selectCourseEvaluation(requestObject.getData().getUid(),getTenantId());
         ResultObject<List<CourseEvaluationDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -225,8 +287,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherInfo")
     @ResponseBody
-    public ResultObject<TeacherInfoDto> teacherInfo(RequestObject<CourseIntroParameter> requestObject, HttpServletRequest req) {
-        TeacherInfoDto teacherInfoDto=studentBiz.selectTeacherInfo(requestObject.getData().getUid(),this.getTenantId(req));
+    public ResultObject<TeacherInfoDto> teacherInfo(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
+        TeacherInfoDto teacherInfoDto=studentBiz.selectTeacherInfo(requestObject.getData().getUid(),getTenantId());
         ResultObject<TeacherInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -239,12 +301,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("courseList")
     @ResponseBody
-    public ResultObject<List<CourseListDto>> courseList(RequestObject<CourseListParameter> requestObject,
-                                                        HttpServletRequest req) {
-
+    public ResultObject<List<CourseListDto>> courseList(@RequestBody RequestObject<CourseListParameter> requestObject) {
         //使用分页插件
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()), Integer.parseInt(requestObject.getData().getLimit()));
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+        requestObject.getData().setTenant_id(getTenantId());
         List<CourseListDto> courseListDtos=studentBiz.selectCourseList(requestObject.getData());
         //得到总条数
         PageInfo<CourseListDto> count=new PageInfo<>(courseListDtos);
@@ -259,11 +319,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherList")
     @ResponseBody
-    public ResultObject<List<TopTeacherListDto>> topTeacherList(RequestObject<TopTeacherListParameter> requestObject,
-                                                                HttpServletRequest req) {
+    public ResultObject<List<TopTeacherListDto>> topTeacherList(@RequestBody RequestObject<TopTeacherListParameter> requestObject) {
         //使用分页插件
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()), Integer.parseInt(requestObject.getData().getLimit()));
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+        requestObject.getData().setTenant_id(getTenantId());
         List<TopTeacherListDto> topTeacherListDtos=studentBiz.selectTopTeacherList(requestObject.getData());
         //得到总条数
         PageInfo<TopTeacherListDto> count=new PageInfo<>(topTeacherListDtos);
@@ -278,8 +337,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("courseTeacherInfo")
     @ResponseBody
-    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestParam("uid") String uid, HttpServletRequest req) {
-        List<TopTeacherInfoDto> topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(uid,this.getTenantId(req));
+    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestBody RequestObject<String> request) {
+        List<TopTeacherInfoDto> topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(request.getData(),getTenantId());
         ResultObject<List<TopTeacherInfoDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -290,8 +349,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherCourse")
     @ResponseBody
-    public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestParam("uid")String uid, HttpServletRequest req) {
-        List<TeacherCourseDto> teacherCourseDtos=studentBiz.selectTeacherCourse(uid,this.getTenantId(req));
+    public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestBody RequestObject<String> request) {
+        List<TeacherCourseDto> teacherCourseDtos=studentBiz.selectTeacherCourse(request.getData(),getTenantId());
         ResultObject<List<TeacherCourseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -303,8 +362,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherEvaluation")
     @ResponseBody
-    public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestParam("uid")String uid, HttpServletRequest req) {
-        List<TeacherEvaluationDto> teacherEvaluationDtos=studentBiz.selectTeacherEvaluation(uid,this.getTenantId(req));
+    public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestBody RequestObject<String> request) {
+        List<TeacherEvaluationDto> teacherEvaluationDtos=studentBiz.selectTeacherEvaluation(request.getData(),getTenantId());
         ResultObject<List<TeacherEvaluationDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -315,8 +374,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("tenantSchool")
     @ResponseBody
-    public ResultObject<TenantSchoolDto> tenantSchool(HttpServletRequest req) {
-        TenantSchoolDto tenantSchoolDto=studentBiz.selectTenantSchool(this.getTenantId(req));
+    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<Void> requestObject) {
+        TenantSchoolDto tenantSchoolDto=studentBiz.selectTenantSchool(getTenantId());
         ResultObject<TenantSchoolDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -327,8 +386,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("tenantAlbum")
     @ResponseBody
-    public ResultObject<TenantAlbumDto> tenantAlbum(HttpServletRequest req) {
-        TenantAlbumDto tenantAlbumDto=studentBiz.selectTenantAlbum(this.getTenantId(req));
+    public ResultObject<TenantAlbumDto> tenantAlbum(@RequestBody RequestObject<Void> requestObject) {
+        TenantAlbumDto tenantAlbumDto=studentBiz.selectTenantAlbum(getTenantId());
         ResultObject<TenantAlbumDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -339,11 +398,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexCourse")
     @ResponseBody
-    public ResultObject<List<MyIndexCourseDto>> myIndexCourse(RequestObject<MyIndexCourseParameter> requestObject,
-                                                            HttpServletRequest req) {
+    public ResultObject<List<MyIndexCourseDto>> myIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject) {
         //使用分页插件
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()), Integer.parseInt(requestObject.getData().getLimit()));
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+        requestObject.getData().setTenant_id(getTenantId());
         List<MyIndexCourseDto> myIndexCourseDtos=studentBiz.selectMyIndexCourse(requestObject.getData());
         PageInfo<MyIndexCourseDto> count=new PageInfo<>(myIndexCourseDtos);
         ResultObject<List<MyIndexCourseDto>> resultObject=new ResultObject<>();
@@ -357,8 +415,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("indexCourseDetails")
     @ResponseBody
-    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestParam("uid") String uid, HttpServletRequest req) {
-        List<IndexCourseDetailsDto> indexCourseDetailsDtos=studentBiz.selectIndexCourseDetails(uid,this.getTenantId(req));
+    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestBody RequestObject<String> req) {
+        List<IndexCourseDetailsDto> indexCourseDetailsDtos=studentBiz.selectIndexCourseDetails(req.getData(),getTenantId());
         ResultObject<List<IndexCourseDetailsDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -368,10 +426,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexMessage")
     @ResponseBody
-    public ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,RequestObject<MyIndexMessageParamter> paramter) {
+    public ResultObject<List<MyIndexMessageDto>> myIndexMessage(@RequestBody RequestObject<MyIndexMessageParamter> paramter) {
         Integer p=Integer.parseInt(paramter.getData().getPage());
         Integer l=Integer.parseInt(paramter.getData().getLimit());
-        paramter.getData().setIsread(this.getTenantId(req));
+        paramter.getData().setIsread(getTenantId());
         PageHelper.startPage(p,l);
         List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter);
         PageInfo<MyIndexMessageDto> count=new PageInfo<>(list);
@@ -416,11 +474,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexBuyrecord")
     @ResponseBody
-    public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(RequestObject<MyIndexBuyRecordParameter> requestObject,
-                                                                    HttpServletRequest req) {
+    public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(@RequestBody RequestObject<MyIndexBuyRecordParameter> requestObject) {
         //使用分页插件
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+        requestObject.getData().setTenant_id(getTenantId());
         List<MyIndexBuyRecordDto> myIndexBuyRecordDtos=studentBiz.selectMyIndexBuyRecourd(requestObject.getData());
         PageInfo<MyIndexBuyRecordDto> count=new PageInfo<>(myIndexBuyRecordDtos);
         ResultObject<List<MyIndexBuyRecordDto>> resultObject=new ResultObject<>();
@@ -435,7 +492,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("studentInfo")
     @ResponseBody
     public ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid) {
-        StudentInfoDto dto=studentBiz.studentInfo(uid,this.getTenantId(reg));
+        StudentInfoDto dto=studentBiz.studentInfo(uid,getTenantId());
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -446,8 +503,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/myIndexMyintegralDetail")
     @ResponseBody
-    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(HttpServletRequest reg, RequestObject<MyIndexMyintegralDetailParameter> parameter) {
-        parameter.getData().setTenant_id(this.getTenantId(reg));
+    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(@RequestBody RequestObject<MyIndexMyintegralDetailParameter> parameter) {
+        parameter.getData().setTenant_id(getTenantId());
         Integer p=Integer.parseInt(parameter.getData().getPage());
         Integer l=Integer.parseInt(parameter.getData().getLimit());
         PageHelper.startPage(p,l);
@@ -464,12 +521,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexCourseAnswer")
     @ResponseBody
-    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(RequestObject<MyIndexCourseAnswerParameter> requestObject,
-                                                                          HttpServletRequest req) {
-
+    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(@RequestBody RequestObject<MyIndexCourseAnswerParameter> requestObject) {
         //使用分页插件
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+        requestObject.getData().setTenant_id(getTenantId());
         List<MyIndexCourseAnswerDto> myIndexCourseAnswerDtos=studentBiz.selectMyIndexCourseAnswer(requestObject.getData());
         PageInfo<MyIndexCourseAnswerDto> count=new PageInfo<>(myIndexCourseAnswerDtos);
         ResultObject<List<MyIndexCourseAnswerDto>> resultObject=new ResultObject<>();
@@ -490,8 +545,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexFutureCoruse")
     @ResponseBody
-    public ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(HttpServletRequest reg, String uid, String tid) {
-        List<IndexFutureCoruseDto> dto=studentBiz.indexFutureCoruse(uid,this.getTenantId(reg));
+    public ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(@RequestBody RequestObject<String> req) {
+        List<IndexFutureCoruseDto> dto=studentBiz.indexFutureCoruse(req.getData(),getTenantId());
         ResultObject<List<IndexFutureCoruseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -502,8 +557,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexTeacher")
     @ResponseBody
-    public ResultObject<List<IndexTeacherDto>> indexTeacher(HttpServletRequest reg) {
-        List<IndexTeacherDto> dto=studentBiz.indexTeacher(this.getTenantId(reg));
+    public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<Void> req) {
+        List<IndexTeacherDto> dto=studentBiz.indexTeacher(getTenantId());
         ResultObject<List<IndexTeacherDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -514,8 +569,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexAnswer")
     @ResponseBody
-    public ResultObject<List<IndexAnswerDto>> indexAnswer(HttpServletRequest reg) {
-        List<IndexAnswerDto> dto=studentBiz.indexAnswer(this.getTenantId(reg));
+    public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<Void> req) {
+        List<IndexAnswerDto> dto=studentBiz.indexAnswer(getTenantId());
         ResultObject<List<IndexAnswerDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -526,8 +581,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexCoruseList")
     @ResponseBody
-    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(HttpServletRequest reg, RequestObject<IndexCoruseListParameter> parameter) {
-        parameter.getData().setTenant_id(this.getTenantId(reg));
+    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(@RequestBody RequestObject<IndexCoruseListParameter> parameter) {
+        parameter.getData().setTenant_id(getTenantId());
         List<IndexCoruseListDto> dto=studentBiz.indexCoruseList(parameter.getData());
         ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -539,8 +594,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexTeacherList")
     @ResponseBody
-    public ResultObject<List<IndexTeacherListDto>> indexTeacherList(HttpServletRequest reg, RequestObject<IndexTeacherListParameter> parameter) {
-        parameter.getData().setTenant_id(this.getTenantId(reg));
+    public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter) {
+        parameter.getData().setTenant_id(getTenantId());
         List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(parameter.getData());
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -552,8 +607,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexBuyrecordCourseDetails")
     @ResponseBody
-    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(String uid) {
-        List<MyIndexBuyRecordCourseDetailsDto> myIndexBuyRecordCourseDetailsDtos=studentBiz.selectMyIndexBuyRecordDetails(uid);
+    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(@RequestBody RequestObject<String> req) {
+        List<MyIndexBuyRecordCourseDetailsDto> myIndexBuyRecordCourseDetailsDtos=studentBiz.selectMyIndexBuyRecordDetails(req.getData());
         ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -564,8 +619,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexBuyrecordCourseBack")
     @ResponseBody
-    public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject, HttpServletRequest req) {
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+    public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(@RequestBody RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject) {
+        requestObject.getData().setTenant_id(getTenantId());
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
         List<MyIndexBuyRecordCourseBackDto> myIndexBuyRecordCourseBackDtos=studentBiz.selectMyIndexBuyRecordCourseBack(requestObject.getData());
         PageInfo<MyIndexBuyRecordCourseBackDto> count=new PageInfo<>(myIndexBuyRecordCourseBackDtos);
@@ -580,8 +635,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexMycollect")
     @ResponseBody
-    public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(RequestObject<MyIndexMycollectParameter> requestObject, HttpServletRequest req) {
-        requestObject.getData().setTenant_id(this.getTenantId(req));
+    public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(@RequestBody RequestObject<MyIndexMycollectParameter> requestObject) {
+        requestObject.getData().setTenant_id(getTenantId());
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
         List<MyIndexMycollectDto> myIndexMycollectDtos=studentBiz.selectMyIndexMycollect(requestObject.getData());
         PageInfo<MyIndexMycollectDto> count=new PageInfo<>(myIndexMycollectDtos);
@@ -595,10 +650,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexCancelcollect")
     @ResponseBody
-    public ResultObject<Void> myIndexCancelcollect(@RequestParam("uid") String uid, @RequestParam("student_id") String student_id,
-                                                   HttpServletRequest req) {
+    public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<StudentDto> requestObject) {
         ResultObject<Void> resultObject=new ResultObject<>();
-        if(studentBiz.updateMyIndexCancelcollect(uid,student_id,this.getTenantId(req))>0){
+        String uid = requestObject.getData().getUid();
+        String student_id = requestObject.getData().getStudentId();
+        if(studentBiz.updateMyIndexCancelcollect(uid,student_id,getTenantId())>0){
 
             resultObject.setCode("0");
             resultObject.setMsg("取消成功");
@@ -613,8 +669,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexMyAnswer")
     @ResponseBody
-    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestParam("uid") String uid, HttpServletRequest req) {
-        List<IndexMyAnswerDto> indexMyAnswerDtos=studentBiz.selectIndexMyAnswer(uid,this.getTenantId(req));
+    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestBody RequestObject<String> requestObject) {
+        List<IndexMyAnswerDto> indexMyAnswerDtos=studentBiz.selectIndexMyAnswer(requestObject.getData(),getTenantId());
         ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -630,8 +686,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/TeacherDetails")
     @ResponseBody
-    public ResultObject<TeacherDetailsDto> teacherDetails(HttpServletRequest request,@RequestParam("uid")  String uid) {
-        TeacherDetailsDto teacherDetailsDto=teacherBiz.teacherDetails(uid,this.getTenantId(request));
+    public ResultObject<TeacherDetailsDto> teacherDetails(@RequestBody RequestObject<String> requestObject) {
+        TeacherDetailsDto teacherDetailsDto=teacherBiz.teacherDetails(requestObject.getData(),getTenantId());
         ResultObject<TeacherDetailsDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -642,8 +698,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexAnswerDetails")
     @ResponseBody
-    public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(String uid, HttpServletRequest req){
-        IndexAnswerDetailsDto indexAnswerDetailsDto=studentBiz.selectIndexAnswerDetails(uid,this.getTenantId(req));
+    public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(@RequestBody RequestObject<String> requestObject){
+        IndexAnswerDetailsDto indexAnswerDetailsDto=studentBiz.selectIndexAnswerDetails(requestObject.getData(),getTenantId());
         ResultObject<IndexAnswerDetailsDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -658,8 +714,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/TeacherCourse")
     @ResponseBody
-    public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(HttpServletRequest request, String uid) {
-        List<AppTeacherCourseDto> dto=teacherBiz.appTeacherCourseDto(uid,this.getTenantId(request));
+    public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<String> requestObject) {
+        List<AppTeacherCourseDto> dto=teacherBiz.appTeacherCourseDto(requestObject.getData(),getTenantId());
         ResultObject<List<AppTeacherCourseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -675,8 +731,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/teacherEvaluation")
     @ResponseBody
-    public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation(HttpServletRequest request, String uid, Integer eval) {
-        List<AppTeacherEvaluationDto> dto=teacherBiz.teacherEvaluation(uid,this.getTenantId(request),eval);
+    public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation1(@RequestBody RequestObject<TeacherEvaluationDto> requestObject) {
+        List<AppTeacherEvaluationDto> dto=teacherBiz.teacherEvaluation(requestObject.getData().getUid(),getTenantId(),requestObject.getData().getEval());
         ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -687,8 +743,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexAnswerDetailsAppendAnswer")
     @ResponseBody
-    public ResultObject<Void> indexAnswerDetailsAppendAnswer(HttpServletRequest req, RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject) {
-        requestObject.getData().setTanant_id(this.getTenantId(req));
+    public ResultObject<Void> indexAnswerDetailsAppendAnswer(@RequestBody RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject) {
+        requestObject.getData().setTanant_id(getTenantId());
         Integer appendAskAnswer=studentBiz.insertAppendAskAnswer(requestObject.getData());
         ResultObject<Void> resultObject=new ResultObject<>();
         if(appendAskAnswer==1){
@@ -703,7 +759,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @GetMapping("/app/indexAnswerDetailsExceptional")
     @ResponseBody
-    public ResultObject<Void> indexAnswerDetailsExceptional(RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject, HttpServletRequest req) {
+    public ResultObject<Void> indexAnswerDetailsExceptional(@RequestBody RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject) {
         ResultObject<Void> resultObject=new ResultObject<>();
         //先检测问题的type是否被解决
         Integer type=studentBiz.selectAnswerType(requestObject.getData().getAnswer_id());
@@ -750,8 +806,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
    @Override
     @PostMapping("/app/myCollectlist")
     @ResponseBody
-    public ResultObject<List<MyCollectlistDto>> myCollectlist(HttpServletRequest request, String uid) {
-        List<MyCollectlistDto> dto=collectBiz.myCollectlist(uid,this.getTenantId(request));
+    public ResultObject<List<MyCollectlistDto>> myCollectlist(@RequestBody RequestObject<String> requestObject) {
+        List<MyCollectlistDto> dto=collectBiz.myCollectlist(requestObject.getData(),getTenantId());
         ResultObject<List<MyCollectlistDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -763,8 +819,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/myStudentInfo")
     @ResponseBody
-    public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(HttpServletRequest request, String uid) {
-        AppMyStudentInfoDto dto=studentBiz.appMyStudentInfo(uid,this.getTenantId(request));
+    public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<String> requestObject) {
+        AppMyStudentInfoDto dto=studentBiz.appMyStudentInfo(requestObject.getData(),getTenantId());
         ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");

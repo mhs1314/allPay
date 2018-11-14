@@ -18,4 +18,56 @@ public class TeacherEvaluationDto implements Serializable {
     private String comments_content;
     //学生姓名
     private String name;
+    //积分
+    private Integer eval;
+	public String getHead() {
+		return head;
+	}
+	public void setHead(String head) {
+		this.head = head;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	public Date getComments_time() {
+		return comments_time;
+	}
+	public void setComments_time(Date comments_time) {
+		this.comments_time = comments_time;
+	}
+	public String getPkg_name() {
+		return pkg_name;
+	}
+	public void setPkg_name(String pkg_name) {
+		this.pkg_name = pkg_name;
+	}
+	public String getComments_star() {
+		return comments_star;
+	}
+	public void setComments_star(String comments_star) {
+		this.comments_star = comments_star;
+	}
+	public String getComments_content() {
+		return comments_content;
+	}
+	public void setComments_content(String comments_content) {
+		this.comments_content = comments_content;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getEval() {
+		return eval;
+	}
+	public void setEval(Integer eval) {
+		this.eval = eval;
+	}
+    
+    
 }
