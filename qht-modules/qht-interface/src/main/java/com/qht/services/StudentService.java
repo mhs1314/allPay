@@ -211,7 +211,7 @@ public interface StudentService {
      * @param uid
      * @return
      */
-    public ResultObject<Integer> deleteMessage(String uid);
+    public ResultObject<Void> deleteMessage(String uid);
 
     /**
      * 查詢單個消息

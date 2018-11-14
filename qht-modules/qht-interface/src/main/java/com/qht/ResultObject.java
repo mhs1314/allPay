@@ -1,6 +1,7 @@
 package com.qht;
 
 
+import java.io.Serializable;
 
 /**
  * rest接口响应结果
@@ -23,14 +24,37 @@ public class ResultObject<T> {
      * 返回码
      */
     private String code;
+
     /**
      * 返回描述
      */
     private String msg;
+
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultObject{" +
+                "requestId='" + requestId + '\'' +
+                ", code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", status='" + status + '\'' +
+                ", errorMsg='" + errorMsg + '\'' +
+                ", count=" + count +
+                ", data=" + data +
+                '}';
+    }
+
     private String errorMsg;
-
-
-
     //返回数据条数
     private Long count;
 
@@ -128,17 +152,6 @@ public class ResultObject<T> {
 
     public boolean isSuccess() {
         return SUCCESS_CODE.equals(code);
-    }
-
-    @Override
-    public String toString() {
-        return "ResultObject{" +
-                "requestId='" + requestId + '\'' +
-                ", code='" + code + '\'' +
-                ", msg='" + msg + '\'' +
-                ", count=" + count +
-                ", data=" + data +
-                '}';
     }
 
 }
