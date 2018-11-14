@@ -52,7 +52,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 GROUP BY t.uid
 
     </select>
-
+    <!--名师详细-所有课程包-->
     <select id="teacherCourse" resultType="com.qht.dto.AppTeacherCourseDto">
         SELECT
 	c.cover AS cover,
