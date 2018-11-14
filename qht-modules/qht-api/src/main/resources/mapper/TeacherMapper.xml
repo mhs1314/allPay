@@ -67,7 +67,7 @@ FROM
 	course_pkg c
 LEFT JOIN teacher t ON c.teacher_id=t.uid
 LEFT JOIN lecturer_evaluation l ON l.teacher_id=t.uid
-where t.uid=#{uid} and t.tenant_id=#{tid}
+where t.uid=#{uid} and t.tenant_id=#{tid} and c.type='1'
 GROUP BY c.uid
 
     </select>
