@@ -7,4 +7,8 @@ target/
 .settings/
 .classpath
 ace-modules/ace-tool/src/main/resources/application-dev.yml
+<<<<<<< HEAD
+=======
+*/application.yml
+>>>>>>> 83ebf608bdefff64a2df94f9d34ef2da5544c479
 .idea
