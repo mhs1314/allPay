@@ -31,23 +31,12 @@ public class ResultObject<T> {
     private String msg;
 
 
-    private String status;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "ResultObject{" +
                 "requestId='" + requestId + '\'' +
                 ", code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
-                ", status='" + status + '\'' +
                 ", errorMsg='" + errorMsg + '\'' +
                 ", count=" + count +
                 ", data=" + data +

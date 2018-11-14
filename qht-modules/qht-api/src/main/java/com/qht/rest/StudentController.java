@@ -383,11 +383,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         ResultObject<Void> resultObject=new ResultObject<>();
         if(studentBiz.deleteMessage(uid)>0){
             resultObject.setMsg("删除成功");
-            resultObject.setStatus("1");
+            resultObject.setCode("1");
             return resultObject;
         }else{
             resultObject.setMsg("删除失败");
-            resultObject.setStatus("2");
+            resultObject.setCode("2");
             return resultObject;
         }
     }
@@ -590,11 +590,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
                                                    HttpServletRequest req) {
         ResultObject<Void> resultObject=new ResultObject<>();
         if(studentBiz.updateMyIndexCancelcollect(uid,student_id,this.getTenantId(req))>0){
-            resultObject.setStatus("1");
+            resultObject.setCode("1");
             resultObject.setMsg("取消成功");
             return resultObject;
         }else{
-            resultObject.setStatus("2");
+            resultObject.setCode("2");
             resultObject.setMsg("服务器异常");
             return resultObject;
         }
