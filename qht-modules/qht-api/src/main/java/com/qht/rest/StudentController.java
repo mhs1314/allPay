@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
+import com.qht.biz.CollectBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.dto.*;
@@ -26,6 +27,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     private StudentBiz studentBiz;
     @Autowired
     private TeacherBiz teacherBiz;
+    @Autowired
+    private CollectBiz collectBiz;
 
     /**
      * 得到tenantId
@@ -674,6 +677,19 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();
         resultObject.setCode("1");
         resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("/app/myCollectlist")
+    @ResponseBody
+    public ResultObject<List<MyCollectlistDto>> myCollectlist(HttpServletRequest request, String uid) {
+        List<MyCollectlistDto> dto=collectBiz.myCollectlist(uid,this.getTenantId(request));
+        ResultObject<List<MyCollectlistDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
+        resultObject.setCount(Long.parseLong(dto.size()+""));
         resultObject.setData(dto);
         return resultObject;
     }

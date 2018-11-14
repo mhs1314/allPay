@@ -54,19 +54,17 @@ GROUP BY t.uid
     </select>
     <!--名师详细-所有课程包-->
     <select id="teacherCourse" resultType="com.qht.dto.AppTeacherCourseDto">
-        SELECT
-	c.cover AS cover,
-	c.uid AS uid,
-	c.pkg_name AS total_price,
-	c.total_price AS total_price,
-	c.apply_number AS apply_number,
-	AVG(l.comments_star) AS comments_star,
-	t.praise_number AS praise_number
-
+ SELECT
+	c.cover as cover ,
+	c.uid as uid,
+	c.pkg_name as pkg_name,
+	c.apply_number as apply_number,
+AVG( p.comments_star) as comments_star,
+	SUM(p.praise_number) as praise_number,
+	c.total_price
 FROM
 	course_pkg c
-LEFT JOIN teacher t ON c.teacher_id=t.uid
-LEFT JOIN lecturer_evaluation l ON l.teacher_id=t.uid
+LEFT JOIN period_evaluation p ON c.uid=p.course_id
 where t.uid=#{uid} and t.tenant_id=#{tid} and c.type='1'
 GROUP BY c.uid
 

@@ -360,6 +360,13 @@ public interface StudentService {
      */
     public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation(HttpServletRequest request,@RequestParam("uid")String uid,@RequestParam("eval")Integer eval);
 
+    /**
+     * 我的收藏
+     * @param request
+     * @param uid
+     * @return
+     */
+    public ResultObject<List<MyCollectlistDto>> myCollectlist(HttpServletRequest request,@RequestParam("uid")String uid);
 }
 
 
