@@ -36,13 +36,6 @@ public class IndexMyAnswerDto implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {
@@ -63,6 +56,14 @@ public class IndexMyAnswerDto implements Serializable {
 
     private String name;
 
-    private String type;
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    private Integer type;
 
 }

@@ -751,6 +751,40 @@ WHERE
         left join course_pkg cp on c.course_id=cp.uid
         where a.student_id=#{uid} and a.tenant_id=#{tenantId}
     </select>
+    <!--app我的课程答疑-答疑详情-->
+    <select id="selectIndexAnswerDetails" resultType="com.qht.dto.IndexAnswerDetailsDto">
+        select
+        a.answer_time,
+        a.answer_file_url,
+        a.type,
+        a.uid,
+        a.answer,
+        a.append_ask_answer,
+        a.append_ask,
+        a.time,
+        a.praise_number,
+        a.is_exceptional,
+        ask.question,
+        ask.question_url,
+        p.name as period_name,
+        cp.cover,
+        cp.pkg_name,
+        t.name as teacher_name,
+        t.back_img
+        s.school_name,
+        ps.name as subject_name,
+        st.head,
+        st.name as student_name
+        from answer a
+        left join course_ask ask on a.ask_id=ask.uid
+        left join period p on p.uid=a.period_id
+        left join chapter c on c.uid=p.chapter_id
+        left join course_pkg cp on cp.uid=c.course_id
+        left join teacher t on t.uid=cp.teacher_id
+        left join school s on t.school_id=s.uid
+        left join pkg_subject ps on cp.pkg_subject_id=ps.uid
+        left join student st on st.uid=a.student_id
+    </select>
 
 
 </mapper>
