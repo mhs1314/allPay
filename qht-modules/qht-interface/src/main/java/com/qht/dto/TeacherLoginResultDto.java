@@ -39,6 +39,13 @@ public class TeacherLoginResultDto extends LoginResultDto {
 	}
 	public void setTenantId(String tenantId) {
 		this.tenantId = tenantId;
+	}
+	@Override
+	public String toString() {
+		return "TeacherLoginResultDto [uid=" + uid + ", schoolId=" + schoolId + ", nickname=" + nickname + ", tenantId="
+				+ tenantId + "]";
 	}	
+	
+	
 	
 }

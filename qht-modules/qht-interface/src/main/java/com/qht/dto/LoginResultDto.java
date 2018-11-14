@@ -17,6 +17,12 @@ public class LoginResultDto implements Serializable{
 	}
 	public void setToken(String token) {
 		this.token = token;
-	}   
+	}
+	@Override
+	public String toString() {
+		return "LoginResultDto [token=" + token + "]";
+	}  
+	
+	
     
 }

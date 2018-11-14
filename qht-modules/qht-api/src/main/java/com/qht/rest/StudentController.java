@@ -68,6 +68,7 @@ import com.qht.dto.StudentDto;
 import com.qht.dto.StudentInfoDto;
 import com.qht.dto.TeacherCourseDto;
 import com.qht.dto.TeacherDetailsDto;
+import com.qht.dto.TeacherDto;
 import com.qht.dto.TeacherEvaluationDto;
 import com.qht.dto.TeacherInfoDto;
 import com.qht.dto.TeacherListDto;
@@ -100,11 +101,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
      */
     public String getTenantId(){
         String tenantId=null;
-        StudentDto studentDto=(StudentDto)request.getSession().getAttribute("studentDto");
+        TeacherDto studentDto=(TeacherDto)request.getSession().getAttribute("user_session_key");
         if (studentDto!=null){
             tenantId=studentDto.getTenantId();
         }
-        return tenantId;
+        return tenantId == null ? "11": tenantId;
     }
 
     @Override
@@ -162,7 +163,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<Void> requestObject) {
         //通过session取到运营的id
-        List<BannerDto> list=studentBiz.selectBanner(getTenantId(),"2");
+        List<BannerDto> list=studentBiz.selectBanner("11","2");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
         resultObject.setCode("0");
@@ -186,9 +187,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("freeClass")
     @ResponseBody
     public ResultObject<List<FreeClassDto>> freeClass(@RequestBody RequestObject<FreeClassParameter> requestObject) {
-        requestObject.getData().setTenant_id(getTenantId());
+        //requestObject.getData().setTenant_id(getTenantId());
+    	//TODO
+        FreeClassParameter fcp = new FreeClassParameter();
+        fcp.setTenantId("11");
         //查询免费课程
-        List<FreeClassDto> list= studentBiz.selectFreeClass(requestObject.getData());
+        List<FreeClassDto> list= studentBiz.selectFreeClass(fcp);
         ResultObject<List<FreeClassDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -593,8 +597,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexTeacherList")
     @ResponseBody
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter) {
-        parameter.getData().setTenant_id(getTenantId());
-        List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(parameter.getData());
+        //parameter.getData().setTenant_id(getTenantId());
+    	IndexTeacherListParameter para = new IndexTeacherListParameter();
+    	para.setTid("11");
+        List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(para);
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");

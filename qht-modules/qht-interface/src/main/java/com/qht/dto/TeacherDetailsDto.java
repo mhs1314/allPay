@@ -84,4 +84,13 @@ public class TeacherDetailsDto  implements Serializable {
     public void setPraise_number(String praise_number) {
         this.praise_number = praise_number;
     }
+
+	@Override
+	public String toString() {
+		return "TeacherDetailsDto [uid=" + uid + ", intr=" + intr + ", integral=" + integral + ", nickname=" + nickname
+				+ ", subject_name=" + subject_name + ", school_name=" + school_name + ", back_img=" + back_img
+				+ ", praise_number=" + praise_number + "]";
+	}
+    
+    
 }

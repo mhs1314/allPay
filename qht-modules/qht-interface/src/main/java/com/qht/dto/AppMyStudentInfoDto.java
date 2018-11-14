@@ -93,4 +93,14 @@ public class AppMyStudentInfoDto implements Serializable {
     public void setGrade_name(String grade_name) {
         this.grade_name = grade_name;
     }
+
+	@Override
+	public String toString() {
+		return "AppMyStudentInfoDto [head=" + head + ", uid=" + uid + ", phone=" + phone + ", integral=" + integral
+				+ ", sex=" + sex + ", name=" + name + ", nickname=" + nickname + ", school_name=" + school_name
+				+ ", grade_name=" + grade_name + "]";
+	}
+    
+    
+    
 }

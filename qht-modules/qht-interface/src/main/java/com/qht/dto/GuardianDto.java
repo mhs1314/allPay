@@ -33,4 +33,11 @@ public class GuardianDto  implements Serializable {
     public void setGid(String gid) {
         this.gid = gid;
     }
+
+	@Override
+	public String toString() {
+		return "GuardianDto [gid=" + gid + ", call=" + call + ", phone=" + phone + "]";
+	}
+    
+    
 }

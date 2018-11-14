@@ -74,4 +74,12 @@ public class AppTeacherEvaluationDto implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
+
+	@Override
+	public String toString() {
+		return "AppTeacherEvaluationDto [head=" + head + ", uid=" + uid + ", comments_star=" + comments_star + ", name="
+				+ name + ", period_name=" + period_name + ", time=" + time + ", content=" + content + "]";
+	}
+    
+    
 }
