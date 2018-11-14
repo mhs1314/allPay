@@ -68,7 +68,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         StudentDto studentDto=studentBiz.studentLogin(account,password);
 
         if(studentDto!=null){
-            resultObject.setCode("1");
+
+            resultObject.setCode("0");
             resultObject.setMsg("登陆成功");
             resultObject.setData(studentDto);
             //将信息传入session
@@ -89,7 +90,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"1");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         return resultObject;
     }
@@ -101,7 +102,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<BannerDto> list=studentBiz.selectBanner(this.getTenantId(req),"2");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         return resultObject;
     }
@@ -112,7 +113,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //查询首页直播课程
         List<LiveClassDto> list=studentBiz.selectLiveClass(this.getTenantId(req));
         ResultObject<List<LiveClassDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);
         return resultObject;
@@ -126,7 +127,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //查询免费课程
         List<FreeClassDto> list= studentBiz.selectFreeClass(requestObject.getData());
         ResultObject<List<FreeClassDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);
         return resultObject;
@@ -139,7 +140,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //查询试听排行榜
         List<ListeningClassRankingDto> list=studentBiz.selectListeningClassRanking(this.getTenantId(req));
         ResultObject<List<ListeningClassRankingDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);
         return resultObject;
@@ -152,7 +153,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //查询
         List<ListeningClassListDto> list=studentBiz.selectListeningClassList(this.getTenantId(req));
         ResultObject<List<ListeningClassListDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);
         return resultObject;
@@ -165,7 +166,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //查询
         List<TeacherRankingDto> list=studentBiz.selectTeacherRanking(this.getTenantId(req));
         ResultObject<List<TeacherRankingDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);
         return resultObject;
@@ -178,7 +179,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //查询
         List<TeacherListDto> list=studentBiz.selectTeacherList(this.getTenantId(req));
         ResultObject<List<TeacherListDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);
         return resultObject;
@@ -191,7 +192,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //通过课程包的uid和运营的id查询
         CourseIntroDto courseIntroDto=studentBiz.selectCourseIntro(requestObject.getData().getUid(),this.getTenantId(req));
         ResultObject<CourseIntroDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(courseIntroDto);
         return resultObject;
@@ -203,7 +204,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<CourseChapterDto>> courseChapter(RequestObject<CourseIntroParameter> requestObject, HttpServletRequest req) {
         List<CourseChapterDto> courseChapterDtos=studentBiz.selectCourseChapter(requestObject.getData().getUid(),this.getTenantId(req));
         ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(courseChapterDtos);
         return resultObject;
@@ -215,7 +216,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<CourseEvaluationDto>> courseEvaluation(RequestObject<CourseIntroParameter> requestObject, HttpServletRequest req) {
         List<CourseEvaluationDto> courseEvaluationDtos=studentBiz.selectCourseEvaluation(requestObject.getData().getUid(),this.getTenantId(req));
         ResultObject<List<CourseEvaluationDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(courseEvaluationDtos);
         return resultObject;
@@ -227,7 +228,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<TeacherInfoDto> teacherInfo(RequestObject<CourseIntroParameter> requestObject, HttpServletRequest req) {
         TeacherInfoDto teacherInfoDto=studentBiz.selectTeacherInfo(requestObject.getData().getUid(),this.getTenantId(req));
         ResultObject<TeacherInfoDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(teacherInfoDto);
         return resultObject;
@@ -248,7 +249,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //得到总条数
         PageInfo<CourseListDto> count=new PageInfo<>(courseListDtos);
         ResultObject<List<CourseListDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(courseListDtos);
@@ -267,7 +268,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //得到总条数
         PageInfo<TopTeacherListDto> count=new PageInfo<>(topTeacherListDtos);
         ResultObject<List<TopTeacherListDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(topTeacherListDtos);
@@ -280,7 +281,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestParam("uid") String uid, HttpServletRequest req) {
         List<TopTeacherInfoDto> topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(uid,this.getTenantId(req));
         ResultObject<List<TopTeacherInfoDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(topTeacherInfoDtos);
         return resultObject;
@@ -292,7 +293,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestParam("uid")String uid, HttpServletRequest req) {
         List<TeacherCourseDto> teacherCourseDtos=studentBiz.selectTeacherCourse(uid,this.getTenantId(req));
         ResultObject<List<TeacherCourseDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(teacherCourseDtos);
         resultObject.setCount((long) teacherCourseDtos.size());
@@ -305,7 +306,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestParam("uid")String uid, HttpServletRequest req) {
         List<TeacherEvaluationDto> teacherEvaluationDtos=studentBiz.selectTeacherEvaluation(uid,this.getTenantId(req));
         ResultObject<List<TeacherEvaluationDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(teacherEvaluationDtos);
         return resultObject;
@@ -317,7 +318,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<TenantSchoolDto> tenantSchool(HttpServletRequest req) {
         TenantSchoolDto tenantSchoolDto=studentBiz.selectTenantSchool(this.getTenantId(req));
         ResultObject<TenantSchoolDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(tenantSchoolDto);
         return resultObject;
@@ -329,7 +330,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<TenantAlbumDto> tenantAlbum(HttpServletRequest req) {
         TenantAlbumDto tenantAlbumDto=studentBiz.selectTenantAlbum(this.getTenantId(req));
         ResultObject<TenantAlbumDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(tenantAlbumDto);
         return resultObject;
@@ -346,7 +347,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<MyIndexCourseDto> myIndexCourseDtos=studentBiz.selectMyIndexCourse(requestObject.getData());
         PageInfo<MyIndexCourseDto> count=new PageInfo<>(myIndexCourseDtos);
         ResultObject<List<MyIndexCourseDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(myIndexCourseDtos);
@@ -359,7 +360,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestParam("uid") String uid, HttpServletRequest req) {
         List<IndexCourseDetailsDto> indexCourseDetailsDtos=studentBiz.selectIndexCourseDetails(uid,this.getTenantId(req));
         ResultObject<List<IndexCourseDetailsDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(indexCourseDetailsDtos);
         return resultObject;
@@ -375,7 +376,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter);
         PageInfo<MyIndexMessageDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexMessageDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(list);
@@ -390,7 +391,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         ResultObject<Void> resultObject=new ResultObject<>();
         if(studentBiz.deleteMessage(uid)>0){
             resultObject.setMsg("删除成功");
-            resultObject.setCode("1");
+
+            resultObject.setCode("0");
             return resultObject;
         }else{
             resultObject.setMsg("删除失败");
@@ -405,7 +407,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<MyIndexMessageDto> selectMessageById(String uid) {
         MyIndexMessageDto dto=studentBiz.selectMessageById(uid);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
@@ -422,7 +424,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<MyIndexBuyRecordDto> myIndexBuyRecordDtos=studentBiz.selectMyIndexBuyRecourd(requestObject.getData());
         PageInfo<MyIndexBuyRecordDto> count=new PageInfo<>(myIndexBuyRecordDtos);
         ResultObject<List<MyIndexBuyRecordDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(myIndexBuyRecordDtos);
@@ -435,7 +437,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid) {
         StudentInfoDto dto=studentBiz.studentInfo(uid,this.getTenantId(reg));
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
@@ -452,7 +454,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<MyIndexMyintegralDetailDto> list=studentBiz.myIndexMyintegralDetail(parameter);
         PageInfo<MyIndexMyintegralDetailDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexMyintegralDetailDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(list);
@@ -471,7 +473,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<MyIndexCourseAnswerDto> myIndexCourseAnswerDtos=studentBiz.selectMyIndexCourseAnswer(requestObject.getData());
         PageInfo<MyIndexCourseAnswerDto> count=new PageInfo<>(myIndexCourseAnswerDtos);
         ResultObject<List<MyIndexCourseAnswerDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(myIndexCourseAnswerDtos);
@@ -491,7 +493,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(HttpServletRequest reg, String uid, String tid) {
         List<IndexFutureCoruseDto> dto=studentBiz.indexFutureCoruse(uid,this.getTenantId(reg));
         ResultObject<List<IndexFutureCoruseDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
@@ -503,7 +505,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexTeacherDto>> indexTeacher(HttpServletRequest reg) {
         List<IndexTeacherDto> dto=studentBiz.indexTeacher(this.getTenantId(reg));
         ResultObject<List<IndexTeacherDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
        return  resultObject;
@@ -515,7 +517,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexAnswerDto>> indexAnswer(HttpServletRequest reg) {
         List<IndexAnswerDto> dto=studentBiz.indexAnswer(this.getTenantId(reg));
         ResultObject<List<IndexAnswerDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return  resultObject;
@@ -528,7 +530,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         parameter.getData().setTenant_id(this.getTenantId(reg));
         List<IndexCoruseListDto> dto=studentBiz.indexCoruseList(parameter.getData());
         ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return  resultObject;
@@ -541,7 +543,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         parameter.getData().setTenant_id(this.getTenantId(reg));
         List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(parameter.getData());
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return  resultObject;
@@ -553,7 +555,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(String uid) {
         List<MyIndexBuyRecordCourseDetailsDto> myIndexBuyRecordCourseDetailsDtos=studentBiz.selectMyIndexBuyRecordDetails(uid);
         ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(myIndexBuyRecordCourseDetailsDtos);
         return resultObject;
@@ -568,7 +570,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         List<MyIndexBuyRecordCourseBackDto> myIndexBuyRecordCourseBackDtos=studentBiz.selectMyIndexBuyRecordCourseBack(requestObject.getData());
         PageInfo<MyIndexBuyRecordCourseBackDto> count=new PageInfo<>(myIndexBuyRecordCourseBackDtos);
         ResultObject<List<MyIndexBuyRecordCourseBackDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
         resultObject.setData(myIndexBuyRecordCourseBackDtos);
@@ -585,7 +587,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         PageInfo<MyIndexMycollectDto> count=new PageInfo<>(myIndexMycollectDtos);
         ResultObject<List<MyIndexMycollectDto>> resultObject=new ResultObject<>();
         resultObject.setCount(count.getTotal());
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         return null;
     }
@@ -597,7 +599,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
                                                    HttpServletRequest req) {
         ResultObject<Void> resultObject=new ResultObject<>();
         if(studentBiz.updateMyIndexCancelcollect(uid,student_id,this.getTenantId(req))>0){
-            resultObject.setCode("1");
+
+            resultObject.setCode("0");
             resultObject.setMsg("取消成功");
             return resultObject;
         }else{
@@ -613,7 +616,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestParam("uid") String uid, HttpServletRequest req) {
         List<IndexMyAnswerDto> indexMyAnswerDtos=studentBiz.selectIndexMyAnswer(uid,this.getTenantId(req));
         ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(indexMyAnswerDtos);
         return resultObject;
@@ -630,7 +633,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<TeacherDetailsDto> teacherDetails(HttpServletRequest request,@RequestParam("uid")  String uid) {
         TeacherDetailsDto teacherDetailsDto=teacherBiz.teacherDetails(uid,this.getTenantId(request));
         ResultObject<TeacherDetailsDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(teacherDetailsDto);
         return resultObject;
@@ -642,7 +645,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(String uid, HttpServletRequest req){
         IndexAnswerDetailsDto indexAnswerDetailsDto=studentBiz.selectIndexAnswerDetails(uid,this.getTenantId(req));
         ResultObject<IndexAnswerDetailsDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(indexAnswerDetailsDto);
         return resultObject;
@@ -658,7 +661,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(HttpServletRequest request, String uid) {
         List<AppTeacherCourseDto> dto=teacherBiz.appTeacherCourseDto(uid,this.getTenantId(request));
         ResultObject<List<AppTeacherCourseDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
@@ -675,7 +678,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation(HttpServletRequest request, String uid, Integer eval) {
         List<AppTeacherEvaluationDto> dto=teacherBiz.teacherEvaluation(uid,this.getTenantId(request),eval);
         ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
@@ -689,7 +692,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         Integer appendAskAnswer=studentBiz.insertAppendAskAnswer(requestObject.getData());
         ResultObject<Void> resultObject=new ResultObject<>();
         if(appendAskAnswer==1){
-            resultObject.setCode("1");
+
+            resultObject.setCode("0");
             resultObject.setMsg("回答成功");
             return resultObject;
         }
@@ -728,11 +732,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
                 Integer insertTeacherRecord=studentBiz.insertTeacherRecord(uid,requestObject.getData().getValue(),requestObject.getData().getTeacher_id());
                 if((insertStudentRecord+insertTeacherRecord)==2){
                     resultObject.setMsg("打赏成功");
-                    resultObject.setCode("1");
+        
+                    resultObject.setCode("0");
                     return resultObject;
                 }
                 resultObject.setMsg("打赏成功");
-                resultObject.setCode("1");
+    
+                resultObject.setCode("0");
                 return resultObject;
             }
         }else{
@@ -747,7 +753,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<MyCollectlistDto>> myCollectlist(HttpServletRequest request, String uid) {
         List<MyCollectlistDto> dto=collectBiz.myCollectlist(uid,this.getTenantId(request));
         ResultObject<List<MyCollectlistDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(Long.parseLong(dto.size()+""));
         resultObject.setData(dto);
