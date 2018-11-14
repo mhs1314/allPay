@@ -375,5 +375,13 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<MyCollectlistDto>> myCollectlist(HttpServletRequest request,@RequestParam("uid")String uid);
+
+    /***
+     * 个人中心学生信息
+     * @param request
+     * @param uid
+     * @return
+     */
+    public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(HttpServletRequest request,@RequestParam("uid")String uid);
 }
 

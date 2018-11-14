@@ -742,7 +742,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
    @Override
-
     @PostMapping("/app/myCollectlist")
     @ResponseBody
     public ResultObject<List<MyCollectlistDto>> myCollectlist(HttpServletRequest request, String uid) {
@@ -751,6 +750,18 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setCode("1");
         resultObject.setMsg("成功");
         resultObject.setCount(Long.parseLong(dto.size()+""));
+        resultObject.setData(dto);
+        return resultObject;
+    }
+
+    @Override
+    @PostMapping("/app/myStudentInfo")
+    @ResponseBody
+    public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(HttpServletRequest request, String uid) {
+        AppMyStudentInfoDto dto=studentBiz.appMyStudentInfo(uid,this.getTenantId(request));
+        ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
+        resultObject.setCode("1");
+        resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
     }

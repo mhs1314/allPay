@@ -3,6 +3,7 @@ package com.qht.biz;
 import com.qht.RequestObject;
 import com.qht.dto.*;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -468,6 +469,15 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      */
     public Integer insertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParameter data) {
         return studentMapper.indsertAppendAskAnswer(data);
+    }
+    /**
+     * 个人中心学生信息
+     * @param uid
+     * @param tid
+     * @return
+     */
+    public AppMyStudentInfoDto appMyStudentInfo(String uid,String tid){
+        return studentMapper.appMyStudentInfo(uid,tid);
     }
 }
 

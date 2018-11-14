@@ -830,4 +830,26 @@ WHERE
     <update id="indsertAppendAskAnswer" parameterType="com.qht.dto.IndexAnswerDetailsAppendAnswerParameter">
         update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}
     </update>
+    
+    <select id="appMyStudentInfo" resultType="AppMyStudentInfo">
+SELECT
+	s.head AS head,
+	s.uid AS uid,
+	s.integral AS integral,
+	s.`name` AS NAME,
+	s.sex AS sex,
+	s.nickname AS nickname,
+	sl.school_name AS school_name,
+	g.phone AS phone,
+	pg.`name` AS grade_name
+FROM
+	student s
+LEFT JOIN school sl ON s.school_id = sl.uid
+LEFT JOIN guardian g ON s.uid = g.student_id
+LEFT JOIN pkg_grade pg ON s.grade_id = pg.uid
+WHERE
+	g.type = 1
+AND s.uid = #{uid}
+and s.tenant_id=#{tid}
+    </select>
 </mapper>

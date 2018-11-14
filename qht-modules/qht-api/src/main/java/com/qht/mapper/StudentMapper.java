@@ -358,4 +358,12 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     Integer indsertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParameter data);
+
+    /**
+     * 个人中心学生信息
+     * @param uid
+     * @param tid
+     * @return
+     */
+    AppMyStudentInfoDto appMyStudentInfo(@Param("uid")String uid,@Param("tid")String tid);
 }
