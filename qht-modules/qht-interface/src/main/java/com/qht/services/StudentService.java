@@ -312,6 +312,14 @@ public interface StudentService {
      * @return
      */
     public ResultObject<Void> myIndexCancelcollect(@RequestParam("uid") String uid,@RequestParam("student_id") String student_id,HttpServletRequest req);
+
+    /**
+     * app我的课程答疑
+     * @param uid
+     * @param req
+     * @return
+     */
+    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestParam("uid")String uid,HttpServletRequest req);
 }
 
 

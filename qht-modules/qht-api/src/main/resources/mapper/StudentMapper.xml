@@ -741,5 +741,16 @@ WHERE
         update collect from set is_collect=2 where uid=#{uid} and student_id#{student_id} and tenant_id=#{tenant_id}
     </update>
 
+    <!--app我的课程答疑-->
+    <select id="selectIndexMyAnswer" resultType="com.qht.dto.IndexMyAnswerDto">
+        select  a.uid,a.type,ask.questtion,p.name,cp.cover
+        from answer a
+        left join course_ask ask on a.ask_id=ask.uid
+        left join period p on p.uid=a.period_id
+        left join chapter c on c.uid=p.chapter_id
+        left join course_pkg cp on c.course_id=cp.uid
+        where a.student_id=#{uid} and a.tenant_id=#{tenantId}
+    </select>
+
 
 </mapper>
