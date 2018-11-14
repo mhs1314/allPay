@@ -679,6 +679,21 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
+    @PostMapping("/app/indexAnswerDetailsAppendAnswer")
+    @ResponseBody
+    public ResultObject<Void> indexAnswerDetailsAppendAnswer(HttpServletRequest req, RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject) {
+        requestObject.getData().setTanant_id(this.getTenantId(req));
+        Integer appendAskAnswer=studentBiz.insertAppendAskAnswer(requestObject.getData());
+        ResultObject<Void> resultObject=new ResultObject<>();
+        if(appendAskAnswer==1){
+            resultObject.setCode("1");
+            resultObject.setMsg("回答成功");
+            return resultObject;
+        }
+        return resultObject.setMsg("稍后重试");
+    }
+
+    @Override
     @GetMapping("/app/indexAnswerDetailsExceptional")
     @ResponseBody
     public ResultObject<Void> indexAnswerDetailsExceptional(RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject, HttpServletRequest req) {

@@ -460,5 +460,14 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public Integer insertTeacherRecord(String uid, Integer value, String teacher_id) {
         return studentMapper.insertTeacherRecord(uid,value,teacher_id);
     }
+
+    /**
+     * 我的课程答疑--答疑详情-追问回答
+     * @param data
+     * @return
+     */
+    public Integer insertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParameter data) {
+        return studentMapper.indsertAppendAskAnswer(data);
+    }
 }
 

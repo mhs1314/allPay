@@ -351,4 +351,11 @@ public interface StudentMapper extends Mapper<Student> {
      */
     Integer insertStudentRecord(@Param("uid") String uid,@Param("value") Integer value, @Param("teacher_id")String teacher_id, @Param("student_id")String student_id);
     Integer insertTeacherRecord(@Param("uid") String uid,@Param("value") Integer value, @Param("teacher_id")String teacher_id);
+
+    /**
+     * 我的课程答疑--答疑详情-追问回答
+     * @param data
+     * @return
+     */
+    Integer indsertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParameter data);
 }

@@ -825,4 +825,9 @@ WHERE
     <insert id="insertTeacherRecord">
         insert into integrallist(uid,name,value,type,teacher_id) value(#{uid},"老师收到打赏",#{value},1,#{teacher_id})
     </insert>
+
+    <!--我的课程答疑-答疑详情-追问回答-->
+    <update id="indsertAppendAskAnswer" parameterType="com.qht.dto.IndexAnswerDetailsAppendAnswerParameter">
+        update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}
+    </update>
 </mapper>
