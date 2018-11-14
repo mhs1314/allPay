@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("auth")
-public class AuthController extends BaseController<AuthBiz,Auth> {
+public class AuthController extends APIBaseController<AuthBiz,Auth> {
 
 }

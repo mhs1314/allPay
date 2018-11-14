@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("loginLog")
-public class LoginLogController extends BaseController<LoginLogBiz,LoginLog> {
+public class LoginLogController extends APIBaseController<LoginLogBiz,LoginLog> {
 
 }

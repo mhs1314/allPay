@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("album")
-public class AlbumController extends BaseController<AlbumBiz,Album> {
+public class AlbumController extends APIBaseController<AlbumBiz,Album> {
 
 }

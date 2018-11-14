@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("paymentMethod")
-public class PaymentMethodController extends BaseController<PaymentMethodBiz,PaymentMethod> {
+public class PaymentMethodController extends APIBaseController<PaymentMethodBiz,PaymentMethod> {
 
 }

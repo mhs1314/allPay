@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("playType")
-public class PlayTypeController extends BaseController<PlayTypeBiz,PlayType> {
+public class PlayTypeController extends APIBaseController<PlayTypeBiz,PlayType> {
 
 }

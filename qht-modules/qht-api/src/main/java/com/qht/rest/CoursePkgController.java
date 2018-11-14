@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("coursePkg")
-public class CoursePkgController extends BaseController<CoursePkgBiz,CoursePkg> {
+public class CoursePkgController extends APIBaseController<CoursePkgBiz,CoursePkg> {
 
 }

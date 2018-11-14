@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("qwTemplate")
-public class QwTemplateController extends BaseController<QwTemplateBiz,QwTemplate> {
+public class QwTemplateController extends APIBaseController<QwTemplateBiz,QwTemplate> {
 
 }

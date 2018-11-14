@@ -1,0 +1,90 @@
+package com.qht.dto;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.Serializable;
+
+public class MyIndexCourseParameter implements Serializable {
+
+    private String uid;
+
+    private String course_type_id;
+
+    private String okg_subject_id;
+
+    private String now_time;
+    private String  page="1";
+    private String limit="10";
+
+    public String getTenant_id() {
+        return tenant_id;
+    }
+
+    public void setTenant_id(String tenant_id) {
+        this.tenant_id = tenant_id;
+    }
+
+    @Override
+    public String toString() {
+        return "MyIndexCourseParameter{" +
+                "uid='" + uid + '\'' +
+                ", course_type_id='" + course_type_id + '\'' +
+                ", okg_subject_id='" + okg_subject_id + '\'' +
+                ", now_time='" + now_time + '\'' +
+                ", page='" + page + '\'' +
+                ", limit='" + limit + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                '}';
+    }
+
+    private String tenant_id;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getCourse_type_id() {
+        return course_type_id;
+    }
+
+    public void setCourse_type_id(String course_type_id) {
+        this.course_type_id = course_type_id;
+    }
+
+    public String getOkg_subject_id() {
+        return okg_subject_id;
+    }
+
+    public void setOkg_subject_id(String okg_subject_id) {
+        this.okg_subject_id = okg_subject_id;
+    }
+
+    public String getNow_time() {
+        return now_time;
+    }
+
+    public void setNow_time(String now_time) {
+        this.now_time = now_time;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    public String getLimit() {
+        return limit;
+    }
+
+    public void setLimit(String limit) {
+        this.limit = limit;
+    }
+
+}

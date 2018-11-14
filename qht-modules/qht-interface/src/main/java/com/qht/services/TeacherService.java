@@ -18,4 +18,5 @@ public interface TeacherService {
 	 * @return
 	 */
 	public ResultObject<String> login(RequestObject<LoginInfoDto> rquest);
+
 }

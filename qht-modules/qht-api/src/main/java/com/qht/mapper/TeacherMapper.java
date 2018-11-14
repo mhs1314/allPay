@@ -1,5 +1,8 @@
 package com.qht.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.qht.dto.TeacherDto;
 import com.qht.entity.Teacher;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -14,5 +17,11 @@ import tk.mybatis.mapper.common.Mapper;
  */
 
 public interface TeacherMapper extends Mapper<Teacher> {
-	
+	/**
+     * 学生登陆
+     * @param account
+     * @param password
+     * @return
+     */
+	TeacherDto teacherLogin(@Param("account") String account, @Param("password") String password);
 }

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("attach")
-public class AttachController extends BaseController<AttachBiz,Attach> {
+public class AttachController extends APIBaseController<AttachBiz,Attach> {
 
 }

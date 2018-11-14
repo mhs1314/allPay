@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("tag")
-public class TagController extends BaseController<TagBiz,Tag> {
+public class TagController extends APIBaseController<TagBiz,Tag> {
 
 }

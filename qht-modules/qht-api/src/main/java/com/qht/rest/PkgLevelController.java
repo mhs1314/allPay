@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("pkgLevel")
-public class PkgLevelController extends BaseController<PkgLevelBiz,PkgLevel> {
+public class PkgLevelController extends APIBaseController<PkgLevelBiz,PkgLevel> {
 
 }

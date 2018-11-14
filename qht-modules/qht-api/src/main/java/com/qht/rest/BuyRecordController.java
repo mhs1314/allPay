@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("buyRecord")
-public class BuyRecordController extends BaseController<BuyRecordBiz,BuyRecord> {
+public class BuyRecordController extends APIBaseController<BuyRecordBiz,BuyRecord> {
 
 }

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("roleAuth")
-public class RoleAuthController extends BaseController<RoleAuthBiz,RoleAuth> {
+public class RoleAuthController extends APIBaseController<RoleAuthBiz,RoleAuth> {
 
 }
