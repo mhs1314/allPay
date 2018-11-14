@@ -2,7 +2,10 @@ package com.qht.services;
 
 import com.qht.RequestObject;
 import com.qht.ResultObject;
+import com.qht.dto.IndexMyCourseDto;
 import com.qht.dto.LoginInfoDto;
+
+import java.util.List;
 
 /**
  * 教师
@@ -18,5 +21,7 @@ public interface TeacherService {
 	 * @return
 	 */
 	public ResultObject<String> login(RequestObject<LoginInfoDto> rquest);
+
+	public ResultObject<List<IndexMyCourseDto>> indexMyCourse();
 
 }

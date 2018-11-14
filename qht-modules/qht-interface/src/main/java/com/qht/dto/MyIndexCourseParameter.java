@@ -1,8 +1,10 @@
 package com.qht.dto;
 
+import org.joda.time.DateTime;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
+
 
 public class MyIndexCourseParameter implements Serializable {
 
@@ -12,7 +14,7 @@ public class MyIndexCourseParameter implements Serializable {
 
     private String okg_subject_id;
 
-    private String now_time;
+    private String now_time= DateTime.now().toString("yyyy-MM-dd");
     private String  page="1";
     private String limit="10";
 
@@ -85,6 +87,11 @@ public class MyIndexCourseParameter implements Serializable {
 
     public void setLimit(String limit) {
         this.limit = limit;
+    }
+    public static void main(String[] args){
+        MyIndexCourseParameter a=new MyIndexCourseParameter();
+        a.setNow_time("2018-11-15");
+        System.out.println(a.getNow_time());
     }
 
 }
