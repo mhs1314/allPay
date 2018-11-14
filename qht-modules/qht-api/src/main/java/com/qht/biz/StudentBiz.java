@@ -399,5 +399,66 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public IndexAnswerDetailsDto selectIndexAnswerDetails(String uid, String tenantId) {
         return studentMapper.selectIndexAnswerDetails(uid,tenantId);
     }
+
+    /**
+     * 打赏---先判断问题是否被解决
+     * @param answer_id
+     * @return
+     */
+    public Integer selectAnswerType(String answer_id) {
+        return studentMapper.selectAnswerType(answer_id);
+    }
+
+    /**
+     * 打赏--判断学生余额
+     * @param student_id
+     * @return
+     */
+    public Integer selectStudentBalance(String student_id) {
+        return studentMapper.selectStudentBalance(student_id);
+    }
+
+    /**
+     * 判断学生是否已经打赏
+     * @param answer_id
+     * @return
+     */
+    public Integer selectAnswerReward(String answer_id) {
+        return studentMapper.selectAnswerReward(answer_id);
+    }
+
+    /**
+     * 扣除学生的积分
+     * @param student_id
+     * @return
+     */
+    public Integer updateStudentBalanceByUid(String student_id,Integer value) {
+        return studentMapper.updateStudentBalanceByUid(student_id,value);
+    }
+
+    /**
+     * 增加老师的积分
+     * @param teacher_id
+     * @param value
+     * @return
+     */
+    public Integer updateTeacherBalanceByUid(String teacher_id, Integer value) {
+        return studentMapper.uodateTeacherBalanceByUid(teacher_id,value);
+    }
+
+    /**
+     * 插入记录
+     * @param uid
+     * @param value
+     * @param teacher_id
+     * @param student_id
+     * @return
+     */
+    public Integer insertStudentRecord(String uid, Integer value, String teacher_id, String student_id) {
+        return studentMapper.insertStudentRecord(uid,value,teacher_id,student_id);
+    }
+    public Integer insertTeacherRecord(String uid, Integer value, String teacher_id) {
+        return studentMapper.insertTeacherRecord(uid,value,teacher_id);
+    }
 }
 

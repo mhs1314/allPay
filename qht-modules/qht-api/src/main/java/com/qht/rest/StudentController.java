@@ -679,12 +679,48 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
+    @GetMapping("/app/indexAnswerDetailsExceptional")
+    @ResponseBody
     public ResultObject<Void> indexAnswerDetailsExceptional(RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject, HttpServletRequest req) {
+        ResultObject<Void> resultObject=new ResultObject<>();
         //先检测问题的type是否被解决
-
+        Integer type=studentBiz.selectAnswerType(requestObject.getData().getAnswer_id());
+        if(type==1){
+            return resultObject.setMsg("该问题为解决，不能打赏");
+        }
         //在判断学生的积分余额
-//        Integer blance=studentBiz.selectStudent
-        return null;
+        Integer balance=studentBiz.selectStudentBalance(requestObject.getData().getStudent_id());
+        if(balance<requestObject.getData().getValue()){
+            return resultObject.setMsg("余额不足");
+        }
+        //判断学生是否已经打赏
+        Integer is_exceptional=studentBiz.selectAnswerReward(requestObject.getData().getAnswer_id());
+        if(is_exceptional==2){
+            return resultObject.setMsg("已经打赏过了");
+        }
+        //进行打赏操作
+        Integer updateStudentBalance=studentBiz.updateStudentBalanceByUid(requestObject.getData().getStudent_id(),requestObject.getData().getValue());
+        if(updateStudentBalance==1){
+            //表示学生扣了积分
+            Integer updateTeacherBalance=studentBiz.updateTeacherBalanceByUid(requestObject.getData().getTeacher_id(),requestObject.getData().getValue());
+            if(updateTeacherBalance==1){
+                //插入积分消费记录
+                String uid="1111111111";
+                Integer insertStudentRecord=studentBiz.insertStudentRecord(uid,requestObject.getData().getValue(),requestObject.getData().getTeacher_id(),requestObject.getData().getStudent_id());
+                Integer insertTeacherRecord=studentBiz.insertTeacherRecord(uid,requestObject.getData().getValue(),requestObject.getData().getTeacher_id());
+                if((insertStudentRecord+insertTeacherRecord)==2){
+                    resultObject.setMsg("打赏成功");
+                    resultObject.setCode("1");
+                    return resultObject;
+                }
+                resultObject.setMsg("打赏成功");
+                resultObject.setCode("1");
+                return resultObject;
+            }
+        }else{
+            return resultObject.setMsg("打赏失败");
+        }
+        return resultObject.setMsg("打赏失败");
     }
 
 

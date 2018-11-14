@@ -304,4 +304,51 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     IndexAnswerDetailsDto selectIndexAnswerDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
+
+    /**
+     * 打赏---先判断问题是否被解决
+     * @param answer_id
+     * @return
+     */
+    Integer selectAnswerType(String answer_id);
+
+    /**
+     * 打赏---判断学生余额
+     * @param student_id
+     * @return
+     */
+    Integer selectStudentBalance(String student_id);
+
+    /**
+     * 判断学生是否已经打赏
+     * @param answer_id
+     * @return
+     */
+    Integer selectAnswerReward(String answer_id);
+
+    /**
+     * 扣除学生积分
+     * @param student_id
+     * @return
+     */
+    Integer updateStudentBalanceByUid(@Param("student_id") String student_id,@Param("value") Integer value);
+
+    /**
+     * 增加老师的积分
+     * @param teacher_id
+     * @param value
+     * @return
+     */
+    Integer uodateTeacherBalanceByUid(@Param("teacher_id")String teacher_id, @Param("value")Integer value);
+
+    /**
+     * 插入记录
+     * @param uid
+     * @param value
+     * @param teacher_id
+     * @param student_id
+     * @return
+     */
+    Integer insertStudentRecord(@Param("uid") String uid,@Param("value") Integer value, @Param("teacher_id")String teacher_id, @Param("student_id")String student_id);
+    Integer insertTeacherRecord(@Param("uid") String uid,@Param("value") Integer value, @Param("teacher_id")String teacher_id);
 }
