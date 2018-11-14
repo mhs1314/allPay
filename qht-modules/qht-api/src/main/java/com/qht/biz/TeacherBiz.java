@@ -1,6 +1,7 @@
 package com.qht.biz;
 
 import com.qht.dto.AppTeacherCourseDto;
+import com.qht.dto.AppTeacherEvaluationDto;
 import com.qht.dto.TeacherDetailsDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param tid
      * @return
      */
-   public TeacherDetailsDto teacherDetails(@Param("uid")String uid, @Param("tid")String tid){
+   public TeacherDetailsDto teacherDetails(String uid,String tid){
        return teacherMapper.teacherDetails(uid,tid);
    }
     /**
@@ -50,8 +51,19 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param tid
      * @return
      */
-   public List<AppTeacherCourseDto>  appTeacherCourseDto  (@Param("uid")String uid, @Param("tid")String tid){
+   public List<AppTeacherCourseDto>  appTeacherCourseDto  (String uid,String tid){
         return teacherMapper.appTeacherCourseDto(uid,tid);
     }
+
+    /**
+     * 名师详情-所有评论
+     * @param uid
+     * @param tid
+     * @param eval
+     * @return
+     */
+   public  List<AppTeacherEvaluationDto> teacherEvaluation(String uid,String tid,Integer eval){
+       return teacherMapper.teacherEvaluation(uid,tid,eval);
+   }
 
 }

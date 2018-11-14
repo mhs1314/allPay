@@ -1,6 +1,7 @@
 package com.qht.mapper;
 
 import com.qht.dto.AppTeacherCourseDto;
+import com.qht.dto.AppTeacherEvaluationDto;
 import com.qht.dto.TeacherDetailsDto;
 import org.apache.ibatis.annotations.Param;
 
@@ -45,4 +46,12 @@ public interface TeacherMapper extends Mapper<Teacher> {
      */
     List<AppTeacherCourseDto> appTeacherCourseDto  (@Param("uid")String uid, @Param("tid")String tid);
 
+    /**
+     * 名师详情-所有评论
+     * @param uid
+     * @param tid
+     * @param eval
+     * @return
+     */
+    List<AppTeacherEvaluationDto> teacherEvaluation(@Param("uid")String uid, @Param("tid")String tid,@Param("eval")Integer eval);
 }

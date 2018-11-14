@@ -60,7 +60,7 @@ GROUP BY t.uid
 	c.pkg_name AS total_price,
 	c.total_price AS total_price,
 	c.apply_number AS apply_number,
-	AVG(l.comments_star) / 2 AS integral,
+	AVG(l.comments_star) AS comments_star,
 	t.praise_number AS praise_number
 
 FROM
@@ -70,5 +70,34 @@ LEFT JOIN lecturer_evaluation l ON l.teacher_id=t.uid
 where t.uid=#{uid} and t.tenant_id=#{tid}
 GROUP BY c.uid
 
+    </select>
+
+    <select id="teacherEvaluation" resultType="com.qht.dto.AppTeacherEvaluationDto">
+      SELECT
+	s.head as head,
+	l.uid as uid,
+	l.comments_star,
+	s.`name` as name,
+	pd.`name` as period_name,
+	l.time as time ,
+	l.content as content
+FROM
+	student s
+LEFT JOIN lecturer_evaluation l ON s.uid = l.student_id
+LEFT JOIN teacher t ON l.teacher_id = t.uid
+LEFT JOIN period_evaluation pev ON t.uid = pev.student_id
+LEFT JOIN period pd ON pev.period_id = pd.uid
+where t.uid=#{uid} and t.tenant_id=#{tid}
+        <if test="eval!=null and eval!=''">
+            <if test="eval=1">
+          and  l.comments_star &lt;=4
+            </if>
+            <if test="eval=2">
+                and  l.comments_star &gt;4 and l.comments_star&lt;=8
+            </if>
+            <if test="eval=3">
+                and  l.comments_star &gt;8
+            </if>
+        </if>
     </select>
 </mapper>
