@@ -361,6 +361,14 @@ public interface StudentService {
     public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation(HttpServletRequest request,@RequestParam("uid")String uid,@RequestParam("eval")Integer eval);
 
     /**
+     * 我的课程答疑--答疑详情-追问回答
+     * @param req
+     * @param requestObject
+     * @return
+     */
+    public ResultObject<Void> indexAnswerDetailsAppendAnswer(HttpServletRequest req,RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject);
+
+    /**
      * 我的收藏
      * @param request
      * @param uid
@@ -368,5 +376,4 @@ public interface StudentService {
      */
     public ResultObject<List<MyCollectlistDto>> myCollectlist(HttpServletRequest request,@RequestParam("uid")String uid);
 }
-
 

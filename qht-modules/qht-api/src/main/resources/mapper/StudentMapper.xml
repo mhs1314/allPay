@@ -799,6 +799,35 @@ WHERE
         left join student st on st.uid=a.student_id
         where a.uid=#{uid} and a.tenant_id=#{tenantId} and cp.status="1"
     </select>
+    <!--打赏-先判断问题是否被解决-->
+    <select id="selectAnswerType" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select type from answer where uid=#{answer_id}
+    </select>
+    <!--打赏-判断学生余额-->
+    <select id="selectStudentBalance" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select balance from student where uid=#{student_id}
+    </select>
+    <!--判断学生是否已经打赏-->
+    <select id="selectAnswerReward" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select is_exceptional from answer where uid=#{answer_id}
+    </select>
+    <!--打赏扣除学生积分-->
+    <update id="updateStudentBalanceByUid">
+        update student set balance=balance-#{value} where uid=#{student_id}
+    </update>
+    <!--增加老师积分-->
+    <update id="uodateTeacherBalanceByUid">
+        update teacher set balance=balance+#{value} where uid=#{teacher_id}
+    </update>
+    <insert id="insertStudentRecord">
+        insert into integrallist(uid,name,value,type,student_id,teacher_id) value(#{uid},"学生积分打赏",#{value},2)
+    </insert>
+    <insert id="insertTeacherRecord">
+        insert into integrallist(uid,name,value,type,teacher_id) value(#{uid},"老师收到打赏",#{value},1,#{teacher_id})
+    </insert>
 
-
+    <!--我的课程答疑-答疑详情-追问回答-->
+    <update id="indsertAppendAskAnswer" parameterType="com.qht.dto.IndexAnswerDetailsAppendAnswerParameter">
+        update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}
+    </update>
 </mapper>

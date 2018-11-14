@@ -35,16 +35,6 @@ public class IndexAnswerDetailsExceptionalParameter implements Serializable {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "IndexAnswerDetailsExceptionalParameter{" +
-                "teacher_id='" + teacher_id + '\'' +
-                ", student_id='" + student_id + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                ", value=" + value +
-                '}';
-    }
-
     private String teacher_id;
 
     private String student_id;
@@ -52,4 +42,25 @@ public class IndexAnswerDetailsExceptionalParameter implements Serializable {
     private String tenant_id;
 
     private Integer value;
+
+    public String getAnswer_id() {
+        return answer_id;
+    }
+
+    public void setAnswer_id(String answer_id) {
+        this.answer_id = answer_id;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexAnswerDetailsExceptionalParameter{" +
+                "teacher_id='" + teacher_id + '\'' +
+                ", student_id='" + student_id + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", value=" + value +
+                ", answer_id='" + answer_id + '\'' +
+                '}';
+    }
+
+    private String answer_id;
 }
