@@ -163,7 +163,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<Void> requestObject) {
         //通过session取到运营的id
-        List<BannerDto> list=studentBiz.selectBanner(getTenantId(),"2");
+        List<BannerDto> list=studentBiz.selectBanner("11","2");
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(list);
         resultObject.setCode("0");
