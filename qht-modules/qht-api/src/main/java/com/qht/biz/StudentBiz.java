@@ -77,70 +77,70 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询首页试听列表
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<ListeningClassListDto> selectListeningClassList(String tenantId) {
-        return studentMapper.selectListeningClassList(tenantId);
+    public List<ListeningClassListDto> selectListeningClassList(String tenant_id) {
+        return studentMapper.selectListeningClassList(tenant_id);
     }
 
     /**
      * 查询首页老师排行榜
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<TeacherRankingDto> selectTeacherRanking(String tenantId) {
-        return studentMapper.selectTeacherRanking(tenantId);
+    public List<TeacherRankingDto> selectTeacherRanking(String tenant_id) {
+        return studentMapper.selectTeacherRanking(tenant_id);
     }
 
     /**
      * 查询首页老师集合
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<TeacherListDto> selectTeacherList(String tenantId) {
-        return studentMapper.selectTeacherList(tenantId);
+    public List<TeacherListDto> selectTeacherList(String tenant_id) {
+        return studentMapper.selectTeacherList(tenant_id);
     }
 
     /**
      * 查询学生课程详情-课程包简介
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public CourseIntroDto selectCourseIntro(String uid, String tenantId) {
+    public CourseIntroDto selectCourseIntro(String uid, String tenant_id) {
 
-        return studentMapper.selectCourseIntro(uid,tenantId);
+        return studentMapper.selectCourseIntro(uid,tenant_id);
     }
 
     /**
      * 课程详情--课程包体系
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<CourseChapterDto> selectCourseChapter(String uid, String tenantId) {
-        return studentMapper.selectCourseChapter(uid,tenantId);
+    public List<CourseChapterDto> selectCourseChapter(String uid, String tenant_id) {
+        return studentMapper.selectCourseChapter(uid,tenant_id);
     }
 
     /**
      * 课程详情--课程包评论
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<CourseEvaluationDto> selectCourseEvaluation(String uid, String tenantId) {
-        return studentMapper.selectCourseEvaluation(uid,tenantId);
+    public List<CourseEvaluationDto> selectCourseEvaluation(String uid, String tenant_id) {
+        return studentMapper.selectCourseEvaluation(uid,tenant_id);
     }
 
     /**
      * 课程详情--教师信息
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public TeacherInfoDto selectTeacherInfo(String uid, String tenantId) {
-        return studentMapper.selectTeacherInfo(uid,tenantId);
+    public TeacherInfoDto selectTeacherInfo(String uid, String tenant_id) {
+        return studentMapper.selectTeacherInfo(uid,tenant_id);
     }
 
     /**
@@ -164,59 +164,59 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     /**
      * 名师详情--讲师简介
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<TopTeacherInfoDto> selectTopTeacherInfo(String uid, String tenantId) {
-        return studentMapper.selectTopTeacherInfo(uid,tenantId);
+    public List<TopTeacherInfoDto> selectTopTeacherInfo(String uid, String tenant_id) {
+        return studentMapper.selectTopTeacherInfo(uid,tenant_id);
     }
 
     /**
      * 名师详情--全部课程
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<TeacherCourseDto> selectTeacherCourse(String uid, String tenantId) {
-        return studentMapper.selectTeacherCourse(uid,tenantId);
+    public List<TeacherCourseDto> selectTeacherCourse(String uid, String tenant_id) {
+        return studentMapper.selectTeacherCourse(uid,tenant_id);
     }
 
     /**
      * 名师详情--评论列表
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<TeacherEvaluationDto> selectTeacherEvaluation(String uid, String tenantId) {
-        return studentMapper.selectTeacherEvaluation(uid,tenantId);
+    public List<TeacherEvaluationDto> selectTeacherEvaluation(String uid, String tenant_id) {
+        return studentMapper.selectTeacherEvaluation(uid,tenant_id);
     }
 
     /**
      * 运营商--学校介绍
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public TenantSchoolDto selectTenantSchool(String tenantId) {
-        return studentMapper.selectTenantSchool(tenantId);
+    public TenantSchoolDto selectTenantSchool(String tenant_id) {
+        return studentMapper.selectTenantSchool(tenant_id);
     }
 
     /**
      * 运营商--画册
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public TenantAlbumDto selectTenantAlbum(String tenantId) {
-        return studentMapper.selectTenantAlbum(tenantId);
+    public TenantAlbumDto selectTenantAlbum(String tenant_id) {
+        return studentMapper.selectTenantAlbum(tenant_id);
     }
 
     /**
      * 学生端-个人中心--首页--我的课程详情介绍
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenantId) {
-        return studentMapper.selectIndexCourseDetails(uid,tenantId);
+    public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenant_id) {
+        return studentMapper.selectIndexCourseDetails(uid,tenant_id);
     }
 
     /**
@@ -281,11 +281,11 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     /**
      * 學生信息
      * @param uid
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    public StudentInfoDto studentInfo(String uid,String tid){
-        return  studentMapper.studentInfo(uid,tid);
+    public StudentInfoDto studentInfo(String uid,String tenant_id){
+        return  studentMapper.studentInfo(uid,tenant_id);
     }
 
     /**
@@ -300,28 +300,28 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     /**
      * 近期合同
      * @param uid
-     * @param tid
+     * @param tenant_id
      * @return
      */
-   public List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tid){
-       return studentMapper.indexFutureCoruse(uid,tid);
+   public List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tenant_id){
+       return studentMapper.indexFutureCoruse(uid,tenant_id);
    }
 
     /**
      * 名师资源
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    public List<IndexTeacherDto> indexTeacher(String tid){
-       return  studentMapper.indexTeacher(tid);
+    public List<IndexTeacherDto> indexTeacher(String tenant_id){
+       return  studentMapper.indexTeacher(tenant_id);
     }
     /**
      * 课程疑答
-     * @param tid
+     * @param tenant_id
      * @return
      */
-  public  List<IndexAnswerDto> indexAnswer(String tid){
-        return studentMapper.indexAnswer(tid);
+  public  List<IndexAnswerDto> indexAnswer(String tenant_id){
+        return studentMapper.indexAnswer(tenant_id);
   }
     /**
      * 课程列表
@@ -394,11 +394,11 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     /**
      * app我的课程答疑--答疑详情
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public IndexAnswerDetailsDto selectIndexAnswerDetails(String uid, String tenantId) {
-        return studentMapper.selectIndexAnswerDetails(uid,tenantId);
+    public IndexAnswerDetailsDto selectIndexAnswerDetails(String uid, String tenant_id) {
+        return studentMapper.selectIndexAnswerDetails(uid,tenant_id);
     }
 
     /**
@@ -473,11 +473,11 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     /**
      * 个人中心学生信息
      * @param uid
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    public AppMyStudentInfoDto appMyStudentInfo(String uid,String tid){
-        return studentMapper.appMyStudentInfo(uid,tid);
+    public AppMyStudentInfoDto appMyStudentInfo(String uid,String tenant_id){
+        return studentMapper.appMyStudentInfo(uid,tenant_id);
     }
     /**
      * app修改头像

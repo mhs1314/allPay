@@ -10,6 +10,7 @@ public class CourseIntroParameter implements Serializable {
     private String  uid;
     //运营方id
     private String tenant_id;
+
     public String getUid() {
         return uid;
     }

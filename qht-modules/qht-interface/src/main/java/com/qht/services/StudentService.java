@@ -186,14 +186,14 @@ public interface StudentService {
      * 刪除消息
      * @return
      */
-    public ResultObject<Void> deleteMessage(String uid);
+    public ResultObject<Void> deleteMessage(@RequestBody RequestObject<String> requestObject);
 
     /**
      * 查詢單個消息
-     * @param uid
+     * @param requestObject
      * @return
      */
-    public ResultObject<MyIndexMessageDto>selectMessageById(String uid);
+    public ResultObject<MyIndexMessageDto>selectMessageById(@RequestBody RequestObject<String> requestObject);
 
     /**
      * 学生端-个人中心--首页--兑换记录
@@ -204,12 +204,9 @@ public interface StudentService {
 
     /**
      * 學生信息
-     * @param reg
-     * @param uid
-     * @param tid
      * @return
      */
-    public  ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid);
+    public  ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<String> requestObject);
 
     /**
      * 消息記錄
@@ -271,7 +268,7 @@ public interface StudentService {
      * 学生端-个人中心--首页--取消收藏列表
      * @return
      */
-    public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<StudentDto> requestObject);
+    public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<MyIndexCanceCollectParameter> requestObject);
 
     /**
      * app我的课程答疑
