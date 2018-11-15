@@ -96,8 +96,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     private HttpServletRequest request;
     /**
      * 得到tenantId
-     * @param request
-     * @return
      */
     public String getTenantId(){
         String tenantId=null;
@@ -803,7 +801,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject.setMsg("打赏失败");
     }
 
-   @Override
+    @Override
     @PostMapping("/app/myCollectlist")
     @ResponseBody
     public ResultObject<List<MyCollectlistDto>> myCollectlist(@RequestBody RequestObject<String> requestObject) {
@@ -822,7 +820,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<String> requestObject) {
         AppMyStudentInfoDto dto=studentBiz.appMyStudentInfo(requestObject.getData(),getTenantId());
         ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
-        resultObject.setCode("1");
+        resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
