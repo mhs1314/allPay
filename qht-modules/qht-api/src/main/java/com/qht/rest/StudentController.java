@@ -586,9 +586,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexCoruseList")
     @ResponseBody
     public ResultObject<List<IndexCoruseListDto>> indexCoruseList(@RequestBody RequestObject<IndexCoruseListParameter> parameter) {
-        System.out.println("-------------"+parameter);
-        parameter.getData().setTenant_id(this.getTenantId());
-    
+        parameter.getData().setTenant_id(getTenantId());
         List<IndexCoruseListDto> dto=studentBiz.indexCoruseList(parameter.getData());
         ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class CourseListParameter implements Serializable {
 
+
     //1免费2试听
     private Integer pkt_type_id;
     //课程包科目
