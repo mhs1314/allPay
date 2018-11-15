@@ -26,7 +26,7 @@
     
     <!--查询banner-->
     <select id="selectBanner" resultType="com.qht.dto.BannerDto">
-        select uid,image,link,sort from banner where tenantId=#{tenantId} and type=#{type}
+        select uid,image,link,sort from banner where tenantId=#{tenant_id} and type=#{type}
     </select>
     <!--查询首页直播课程信息-->
     <select id="selectLiveClass" resultType="com.qht.dto.LiveClassDto" parameterType="java.lang.String">
@@ -45,7 +45,7 @@
         where
           cp.play_type_id="1"
         and
-          p.tenant_id=#{tenantId}
+          p.tenant_id=#{tenant_id}
         and cp.status="1"
     </select>
     
@@ -64,7 +64,7 @@
     <!--首页查询免费课程-->
     <select id="selectFreeClass" resultType="com.qht.dto.FreeClassDto" parameterType="com.qht.dto.FreeClassParameter">
         <include refid="selectClassMessageFromCourse_PKG"/>
-        where cp.tenant_id=#{tenantId}
+        where cp.tenant_id=#{tenant_id}
         and cp.status="1"
         and cp.pkt_type_id="1"
         <if test="pkg_subject_id=='' and pkg_subject_id==null">
@@ -86,7 +86,7 @@
     <select id="selectListeningClassRanking" resultType="com.qht.dto.ListeningClassRankingDto" parameterType="java.lang.String">
         <include refid="selectClassMessageFromCourse_PKG"/>
         where
-        cp.tenant_id=#{tenantId} and cp.pkt_type_id="2" and cp.status="1"
+        cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1"
     </select>
     <!--查询首页试听课程列表-->
     <select id="selectListeningClassList" resultType="com.qht.dto.ListeningClassListDto" parameterType="java.lang.String">
