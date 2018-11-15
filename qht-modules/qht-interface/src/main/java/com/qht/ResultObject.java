@@ -30,18 +30,51 @@ public class ResultObject<T> {
      */
     private String msg;
 
-
     @Override
     public String toString() {
         return "ResultObject{" +
                 "requestId='" + requestId + '\'' +
                 ", code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
+                ", count_bad='" + count_bad + '\'' +
+                ", count_mid='" + count_mid + '\'' +
+                ", count_good='" + count_good + '\'' +
                 ", errorMsg='" + errorMsg + '\'' +
                 ", count=" + count +
                 ", data=" + data +
                 '}';
     }
+
+    public Integer getCount_bad() {
+        return count_bad;
+    }
+
+    public void setCount_bad(Integer count_bad) {
+        this.count_bad = count_bad;
+    }
+
+    public Integer getCount_mid() {
+        return count_mid;
+    }
+
+    public void setCount_mid(Integer count_mid) {
+        this.count_mid = count_mid;
+    }
+
+    public Integer getCount_good() {
+        return count_good;
+    }
+
+    public void setCount_good(Integer count_good) {
+        this.count_good = count_good;
+    }
+
+    private Integer count_bad;
+
+    private Integer count_mid;
+
+    private Integer count_good;
+
 
     private String errorMsg;
     //返回数据条数

@@ -194,11 +194,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
-    @GetMapping("teacherList")
+    @PostMapping("indexTeacherList")
     @ResponseBody
-    public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<Void> requestObject) {
+    public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<TeacherListParameter> requestObject) {
+
+        requestObject.getData().setTenant_id(this.getTenantId());
         //查询
-        List<TeacherListDto> list=studentBiz.selectTeacherList(getTenantId());
+        List<TeacherListDto> list=studentBiz.selectTeacherList(requestObject.getData());
         ResultObject<List<TeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -234,12 +236,56 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("courseEvaluation")
     @ResponseBody
-    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
-        List<CourseEvaluationDto> courseEvaluationDtos=studentBiz.selectCourseEvaluation(requestObject.getData().getUid(),getTenantId());
+    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseEvaluationParameter> requestObject) {
         ResultObject<List<CourseEvaluationDto>> resultObject=new ResultObject<>();
-        resultObject.setCode("0");
-        resultObject.setMsg("成功");
-        resultObject.setData(courseEvaluationDtos);
+        if(requestObject.getData().getEval()==null&&requestObject.getData().getEval()==""){
+            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
+            List<CourseEvaluationDto> courseEvaluationDtos=studentBiz.selectCourseEvaluation(requestObject.getData());
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtos);
+            List<CourseEvaluationDto> courseEvaluationDtosGood=studentBiz.selectCourseEvaluationGood(requestObject.getData());
+            List<CourseEvaluationDto> courseEvaluationDtosMid=studentBiz.selectCourseEvaluationMid(requestObject.getData());
+            List<CourseEvaluationDto> courseEvaluationDtosBad=studentBiz.selectCourseEvaluationBad(requestObject.getData());
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            resultObject.setCount(count.getTotal());
+            resultObject.setCount_good(courseEvaluationDtosGood.size());
+            resultObject.setCount_mid(courseEvaluationDtosMid.size());
+            resultObject.setCount_mid(courseEvaluationDtosBad.size());
+            resultObject.setData(courseEvaluationDtos);
+            return resultObject;
+        }
+        if(requestObject.getData().getEval().equals("3")){
+            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
+            List<CourseEvaluationDto> courseEvaluationDtosGood=studentBiz.selectCourseEvaluationGood(requestObject.getData());
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtosGood);
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            resultObject.setCount(count.getTotal());
+            resultObject.setData(courseEvaluationDtosGood);
+            return resultObject;
+        }
+        if(requestObject.getData().getEval().equals("2")){
+            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
+            List<CourseEvaluationDto> courseEvaluationDtosMid=studentBiz.selectCourseEvaluationMid(requestObject.getData());
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtosMid);
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            resultObject.setCount(count.getTotal());
+            resultObject.setData(courseEvaluationDtosMid);
+            return resultObject;
+        }
+        if(requestObject.getData().getEval().equals("1")){
+            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
+            List<CourseEvaluationDto> courseEvaluationDtosBad=studentBiz.selectCourseEvaluationMid(requestObject.getData());
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtosBad);
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            resultObject.setCount(count.getTotal());
+            resultObject.setData(courseEvaluationDtosBad);
+            return resultObject;
+        }
+        resultObject.setCode("1");
+        resultObject.setMsg("失败");
         return resultObject;
     }
 
@@ -279,6 +325,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("teacherList")
     @ResponseBody
     public ResultObject<List<TopTeacherListDto>> topTeacherList(@RequestBody RequestObject<TopTeacherListParameter> requestObject) {
+        System.out.println();
         //使用分页插件
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()), Integer.parseInt(requestObject.getData().getLimit()));
         requestObject.getData().setTenant_id(getTenantId());
