@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CourseListParameter implements Serializable {
 
     //1免费2试听
-    private Integer pkt_tyepe_id;
+    private Integer pkt_type_id;
     //课程包科目
     private String pkg_subject_id;
     //课程包年级
@@ -48,7 +48,7 @@ public class CourseListParameter implements Serializable {
     @Override
     public String toString() {
         return "CourseListParameter{" +
-                "pkt_tyepe_id=" + pkt_tyepe_id +
+                "pkt_tyepe_id=" + pkt_type_id +
                 ", pkg_subject_id='" + pkg_subject_id + '\'' +
                 ", pkg_grade_id='" + pkg_grade_id + '\'' +
                 ", newtime='" + newtime + '\'' +
@@ -68,12 +68,12 @@ public class CourseListParameter implements Serializable {
 
 
 
-    public Integer getPkt_tyepe_id() {
-        return pkt_tyepe_id;
+    public Integer getPkt_type_id() {
+        return pkt_type_id;
     }
 
-    public void setPkt_tyepe_id(Integer pkt_tyepe_id) {
-        this.pkt_tyepe_id = pkt_tyepe_id;
+    public void setPkt_type_id(Integer pkt_type_id) {
+        this.pkt_type_id = pkt_type_id;
     }
 
     public String getPkg_subject_id() {

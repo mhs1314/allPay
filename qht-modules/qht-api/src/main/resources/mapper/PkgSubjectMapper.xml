@@ -9,5 +9,9 @@
         <result property="tenantId" column="tenant_id"/>
         <result property="name" column="name"/>
     </resultMap>
+    
+     <select id="subjectList" resultType="com.qht.dto.PkgSubjectListDto">
+    	select uid,name as subject_name from pkg_subject
+    </select>
 
 </mapper>

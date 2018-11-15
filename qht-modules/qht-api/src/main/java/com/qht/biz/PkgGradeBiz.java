@@ -1,8 +1,12 @@
 package com.qht.biz;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
+import com.qht.dto.GradetListDto;
 import com.qht.entity.PkgGrade;
 import com.qht.mapper.PkgGradeMapper;
 
@@ -15,4 +19,13 @@ import com.qht.mapper.PkgGradeMapper;
  */
 @Service
 public class PkgGradeBiz extends BaseBiz<PkgGradeMapper,PkgGrade> {
+	@Autowired
+	private PkgGradeMapper pkgGradeMapper;
+	/**
+	 * 所有包年级
+	 * @return
+	 */
+	public List<GradetListDto> gradetList(){
+		return pkgGradeMapper.gradetList();
+	}
 }
