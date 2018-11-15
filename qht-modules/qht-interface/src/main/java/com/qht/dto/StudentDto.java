@@ -14,8 +14,38 @@ public class StudentDto implements Serializable {
     private String schoolid;
     //昵称
     private String nickname;
+    //用户名
+    private String name;
+    
+    private String account;
+    
+    private String tenantId;
 
-    public String getTenant_id() {
+    public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTenant_id() {
         return tenant_id;
     }
 

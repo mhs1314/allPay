@@ -21,7 +21,7 @@
 
     <!--登陆查询学生信息-->
     <select id="studentLogin" resultType="com.qht.dto.StudentDto">
-        select uid,nickname,tenant_id as tenant_id,school_id as schoolId from student where account=#{account} and password=#{password}
+        select uid,nickname,tenant_id as tenantId,school_id as schoolId,`name`,`account` from student where account=#{account} and password=#{password}
     </select>
     
     <!--查询banner-->

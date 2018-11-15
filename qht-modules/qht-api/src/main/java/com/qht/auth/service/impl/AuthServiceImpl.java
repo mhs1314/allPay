@@ -9,8 +9,9 @@ import org.springframework.util.StringUtils;
 import com.github.wxiaoqi.security.auth.common.util.jwt.JWTInfo;
 import com.github.wxiaoqi.security.common.exception.auth.UserInvalidException;
 import com.qht.auth.service.AuthService;
-import com.qht.auth.util.JwtTokenUtil;
 import com.qht.auth.util.QhtAuthenticationRequest;
+import com.qht.auth.util.QhtJWTInfo;
+import com.qht.auth.util.QhtJwtTokenUtil;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.dto.LoginResultDto;
@@ -27,7 +28,7 @@ import com.qht.dto.TeacherLoginResultDto;
 @Service
 public class AuthServiceImpl implements AuthService {
 	
-	private JwtTokenUtil jwtTokenUtil;
+	private QhtJwtTokenUtil jwtTokenUtil;
 	
 	private StudentBiz studentBiz;
     
@@ -35,7 +36,7 @@ public class AuthServiceImpl implements AuthService {
 	
 	@Autowired
     public AuthServiceImpl(
-            JwtTokenUtil jwtTokenUtil,
+    		QhtJwtTokenUtil jwtTokenUtil,
             StudentBiz studentBiz,
             TeacherBiz teacherBiz) {
         this.jwtTokenUtil = jwtTokenUtil;
@@ -57,11 +58,11 @@ public class AuthServiceImpl implements AuthService {
 			request.getSession().setAttribute("user_session_key",dto);
 			if (!StringUtils.isEmpty(dto.getUid())) {
 				TeacherLoginResultDto result = new TeacherLoginResultDto();
-				String token = jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				String token = jwtTokenUtil.generateToken(toQhtJWTInfo(dto));				
 				result.setToken(token);
 				result.setNickname(dto.getNickname());
 				result.setSchoolId(dto.getSchoolid());
-				result.setTenantId(dto.getTenantId());
+				result.setTenantId(dto.getTenant_id());
 				result.setUid(dto.getUid());
 	            //return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
 				return result;
@@ -75,17 +76,43 @@ public class AuthServiceImpl implements AuthService {
 			if(!StringUtils.isEmpty(dto.getUid())) {
 				//return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
 				StudentLoginResultDto result = new StudentLoginResultDto();
-				String token = jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				String token = jwtTokenUtil.generateToken(toQhtJWTInfo(dto));
 				result.setToken(token);
 				result.setNickname(dto.getNickname());
 				result.setSchoolId(dto.getSchoolid());
-				result.setTenantId(dto.getTenantId());
+				result.setTenantId(dto.getTenant_id());
 				result.setUid(dto.getUid());
 	            //return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
 				return result;
 			}			
 		}
 		throw new UserInvalidException("用户不存在或账户密码错误!");
+	}
+	//教师转token信息
+	private QhtJWTInfo toQhtJWTInfo(TeacherDto dto) {
+		if(dto == null) {
+			throw new RuntimeException("教师信息为空，不能生成token");
+		}
+		String uid = dto.getUid();
+		String tenantId = dto.getTenant_id();
+		String nickname = dto.getNickname();
+		String name = dto.getName();
+		String account = dto.getAccount();
+		QhtJWTInfo inf = new QhtJWTInfo(uid, tenantId, nickname, name, account);		
+		return inf;
+	}
+	//学生转token信息
+	private QhtJWTInfo toQhtJWTInfo(StudentDto dto) {
+		if(dto == null) {
+			throw new RuntimeException("学生信息为空，不能生成token");
+		}
+		String uid = dto.getUid();
+		String tenantId = dto.getTenant_id();
+		String nickname = dto.getNickname();
+		String name = dto.getName();
+		String account = dto.getAccount();
+		QhtJWTInfo inf = new QhtJWTInfo(uid, tenantId, nickname, name, account);		
+		return inf;
 	}
 
 	@Override

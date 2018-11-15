@@ -11,6 +11,28 @@ public class TeacherDto implements Serializable {
     private String nickname;
     //运营方id
     private String tenant_id;
+  //用户名
+    private String name;
+    
+    private String account;
+    
+    
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
 	public String getTenant_id() {
 		return tenant_id;
