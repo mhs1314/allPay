@@ -1,5 +1,7 @@
 package com.qht.aop;
 
+import javax.annotation.Resource;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.qht.RequestObject;
 import com.qht.ResultBuilder;
 import com.qht.common.exception.BizException;
+import com.qht.config.MethodUrlMapping;
 
 /**
  * @author 草原狼
@@ -22,12 +25,15 @@ import com.qht.common.exception.BizException;
 public class ControllerAop {
 	
 	private static final Logger log = LoggerFactory.getLogger(ControllerAop.class);
-	private static final String LOG_FORMAT = "class.method[{}], args \n{}, result \n{}";
+	private static final String LOG_FORMAT = "\n url: {} \n class.method[{}] \n args {} \n result {}";
 
+	@Resource(name = "methodUrlMapping")
+	private MethodUrlMapping methodUrlMapping;
+	
 	@Around("execution(public * com.qht.rest..*.*(..))")
 	public Object around(ProceedingJoinPoint pjp) throws Exception {
 		String clazz = pjp.getTarget().getClass().getName();
-		String method = pjp.getSignature().getName();
+		String method = pjp.getSignature().getName();		
 		Object[] args = pjp.getArgs();
 		Object returnVal = null;
 		Throwable ex = null;
@@ -44,7 +50,7 @@ public class ControllerAop {
             } else {
                 returnVal = ResultBuilder.error(request);
             }
-		} finally {
+		} finally {			
 			after(pjp);
 			printLog(clazz, method, args, returnVal, ex);
 		}
@@ -55,16 +61,18 @@ public class ControllerAop {
 		return returnVal;
 	}
 
-	public static void printLog(String clazz, String method, Object[] args, Object returnVal, Throwable e) {
+	public void printLog(String clazz, String method, Object[] args, Object returnVal, Throwable e) {
 		Object arg = null;
 		if (args != null && args.length > 0) {
 			arg = args[0];
 		}
-		String methodName = clazz + "." + method;
+		String methodName = clazz + "." + method;	
+		String url = methodUrlMapping.getMethodUrlMapping().get(method);	
+		log.info("\n==========================================================");
 		if (e == null || e instanceof BizException) {
-			log.info(LOG_FORMAT, methodName, toJSON(arg), toJSON(returnVal));
+			log.info(LOG_FORMAT, url, methodName, toJSON(arg), toJSON(returnVal));			
 		} else {
-			log.error(LOG_FORMAT, methodName, toJSON(arg), toJSON(returnVal), e);
+			log.error(LOG_FORMAT, url, methodName, toJSON(arg), toJSON(returnVal), e);			
 		}
 	}
 
@@ -81,8 +89,8 @@ public class ControllerAop {
 	}
 
 	//aop前置操作
-	private void before(ProceedingJoinPoint pjp) {
-		
+	private void before(ProceedingJoinPoint pjp) {	
+			
 	}
 
 	//aop后置操作
