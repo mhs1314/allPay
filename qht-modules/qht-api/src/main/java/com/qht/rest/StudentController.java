@@ -40,6 +40,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     /**
      * 得到tenantId
      * @return
+     *
+     *  */
     public String getTenant_id(){
         String tenant_id=null;
         TeacherDto studentDto=(TeacherDto)request.getSession().getAttribute("user_session_key");
