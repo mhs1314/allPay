@@ -353,11 +353,11 @@ public interface StudentService {
      */
     public ResultObject<List<AppMyStudentGuardianDto>>myStudentGuardian(@RequestBody ResultObject<AppStudentParameter> resultObject);
 
-    /**
-     * 查看学生兴趣标签
-     * @param resultObject
-     * @return
-     */
-    public ResultObject<List<TagDto>> myStudentInterest(@RequestBody ResultObject<AppStudentParameter> resultObject);
+//    /**
+//     * 查看学生兴趣标签
+//     * @param resultObject
+//     * @return
+//     */
+//    public ResultObject<List<TagDto>> myStudentInterest(@RequestBody ResultObject<AppStudentParameter> resultObject);
 }
 

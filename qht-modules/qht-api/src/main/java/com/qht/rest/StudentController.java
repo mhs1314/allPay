@@ -799,6 +799,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/myStudentInfoEditHead")
     @ResponseBody
     public ResultObject<Void> myStudentInfoEditHead(@RequestBody  ResultObject<AppStudentParameter> resultObject) {
+        resultObject.getData().setTenant_id(this.getTenantId());
        Integer result= studentBiz.appUpdaetStudentHead(resultObject.getData());
         ResultObject<Void> resultObj=new ResultObject<>();
         if (result>=0){
@@ -821,6 +822,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/myStudentInfoEditNickname")
     @ResponseBody
     public ResultObject<Void> myStudentInfoEditNickname(@RequestBody  ResultObject<AppStudentParameter> resultObject) {
+        resultObject.getData().setTenant_id(this.getTenantId());
         Integer result= studentBiz.appUpdaetStudentNickname(resultObject.getData());
         ResultObject<Void> resultObj=new ResultObject<>();
         if (result>=0){
@@ -843,6 +845,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/myStudentInfoEditPs")
     @ResponseBody
     public ResultObject<Void> myStudentInfoEditPs(ResultObject<AppStudentParameter> resultObject) {
+        resultObject.getData().setTenant_id(this.getTenantId());
         Integer result= studentBiz.appUpdaetStudentPassword(resultObject.getData());
         ResultObject<Void> resultObj=new ResultObject<>();
         if (result>=0){
@@ -865,6 +868,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/myStudentGuardian")
     @ResponseBody
     public ResultObject<List<AppMyStudentGuardianDto>> myStudentGuardian(ResultObject<AppStudentParameter> resultObject) {
+        resultObject.getData().setTenant_id(this.getTenantId());
         List<AppMyStudentGuardianDto> dto=studentBiz.appMyStudentGuardian(resultObject.getData());
         ResultObject< List<AppMyStudentGuardianDto>> resultObj=new ResultObject<>();
         resultObj.setCode("0");
@@ -873,22 +877,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObj;
     }
 
-    /**
-     * 查看学生兴趣标签
-     * @param resultObject
-     * @return
-     */
-    @Override
-    @PostMapping("/app/myStudentInterest")
-    @ResponseBody
-    public ResultObject<List<TagDto>> myStudentInterest(ResultObject<AppStudentParameter> resultObject) {
-        List<TagDto> dto=studentBiz.appMyStudentInterest(resultObject.getData());
-        ResultObject< List<TagDto>> resultObj=new ResultObject<>();
-        resultObj.setCode("0");
-        resultObj.setMsg("成功");
-        resultObj.setData(dto);
-        return resultObj;
-    }
+//    /**
+//     * 查看学生兴趣标签
+//     * @param resultObject
+//     * @return
+//     */
+//    @Override
+//    @PostMapping("/app/myStudentInterest")
+//    @ResponseBody
+//    public ResultObject<List<TagDto>> myStudentInterest(ResultObject<AppStudentParameter> resultObject) {
+//        List<TagDto> dto=studentBiz.appMyStudentInterest(resultObject.getData());
+//        ResultObject< List<TagDto>> resultObj=new ResultObject<>();
+//        resultObj.setCode("0");
+//        resultObj.setMsg("成功");
+//        resultObj.setData(dto);
+//        return resultObj;
+//    }
 
 
 }
