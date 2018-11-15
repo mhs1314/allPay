@@ -12,7 +12,7 @@
         <result property="head" column="head"/>
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
-        <result property="school" column="school"/>
+        <result property="school" column="school_name"/>
         <result property="clazz" column="clazz"/>
         <result property="account" column="account"/>
         <result property="password" column="password"/>
