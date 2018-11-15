@@ -3,7 +3,7 @@ package com.qht.biz;
 import com.qht.RequestObject;
 import com.qht.dto.*;
 
-import org.apache.ibatis.annotations.Param;
+import com.qht.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -484,8 +484,40 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-   public  Integer appUpdaetStudentHead(AppUpateHeadParameter parameter){
+   public  Integer appUpdaetStudentHead(AppStudentParameter parameter){
         return studentMapper.appUpdaetStudentHead(parameter);
+    }
+    /**
+     * app修改学生昵称
+     * @param parameter
+     * @return
+     */
+    public Integer appUpdaetStudentNickname(AppStudentParameter parameter){
+        return studentMapper.appUpdaetStudentNickname(parameter);
+    }
+    /**
+     * app修改学生密码
+     * @param parameter
+     * @return
+     */
+   public Integer  appUpdaetStudentPassword(AppStudentParameter parameter){
+       return studentMapper.appUpdaetStudentPassword(parameter);
+   }
+    /**
+     * 查看监护人信息
+     * @param parameter
+     * @return
+     */
+   public List<AppMyStudentGuardianDto>appMyStudentGuardian(AppStudentParameter parameter){
+       return  studentMapper.appMyStudentGuardian(parameter);
+   }
+    /**
+     * 查看兴趣标签
+     * @param parameter
+     * @return
+     */
+   public List<TagDto> appMyStudentInterest (AppStudentParameter parameter){
+        return  studentMapper.appMyStudentInterest(parameter);
     }
 }
 

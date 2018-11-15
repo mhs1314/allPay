@@ -830,7 +830,7 @@ WHERE
     <update id="indsertAppendAskAnswer" parameterType="com.qht.dto.IndexAnswerDetailsAppendAnswerParameter">
         update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}
     </update>
-    
+    <!--编辑个人信息-->
     <select id="appMyStudentInfo" resultType="com.qht.dto.AppMyStudentInfoDto">
 SELECT
 	s.head AS head,
@@ -852,8 +852,38 @@ WHERE
 AND s.uid = #{uid}
 and s.tenant_id=#{tid}
     </select>
-    
-    <update id="appUpdaetStudentHead" parameterType="com.qht.dto.AppUpateHeadParameter">
+    <!--修改头像-->
+    <update id="appUpdaetStudentHead" parameterType="com.qht.dto.AppStudentParameter">
       update student set head=#{head} where uid=#{uid} and  tenant_id=#{tenant_id}
     </update>
+    <!--修改昵称-->
+    <update id="appUpdaetStudentNickname" parameterType="com.qht.dto.AppStudentParameter">
+      update student set nickname=#{nickname} where uid=#{uid} and  tenant_id=#{tenant_id}
+    </update>
+    <!--修改密码-->
+    <update id="appUpdaetStudentPassword" parameterType="com.qht.dto.AppStudentParameter">
+      update student set password=#{password} where uid=#{uid} and  tenant_id=#{tenant_id}
+    </update>
+    <!--app查看学生监护人-->
+    <select id="appMyStudentGuardian" resultType="com.qht.dto.AppMyStudentGuardianDto" parameterType="com.qht.dto.AppStudentParameter">
+       SELECT
+	g.`call` AS CALL,
+	g.uid AS uid,
+	g.phone AS phone,
+	g.type AS type
+    FROM
+        student s
+    LEFT JOIN guardian g ON s.uid = g.student_id
+    </select>
+    <!--app查看学生兴趣标签-->
+    <select id="appMyStudentInterest" resultType="com.qht.dto.TagDto" parameterType="com.qht.dto.AppStudentParameter">
+      SELECT
+            tag.uid as uid,
+            tag.tag_name as tag_name
+        FROM
+            tag
+        INNER JOIN interest_label i ON tag_id=i.tag_id
+        INNER JOIN student   s    on i.student_id=s.uid
+     where  s.uid=#{uid} and  s.tenant_id=#{tenant_id}
+    </select>
 </mapper>

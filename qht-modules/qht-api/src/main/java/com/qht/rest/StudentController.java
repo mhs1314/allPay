@@ -28,6 +28,7 @@ import com.qht.services.StudentService;
 @RequestMapping("student")
 public class StudentController extends APIBaseController<StudentBiz,Student> implements StudentService {
 
+
     @Autowired
     private StudentBiz studentBiz;
     @Autowired
@@ -37,9 +38,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     
     @Autowired
     private HttpServletRequest request;
+
     /**
-     * 得到tenantId
+     * 得到tentant_Id
      * @return
+     */
     public String getTenant_id(){
         String tenant_id=null;
         TeacherDto studentDto=(TeacherDto)request.getSession().getAttribute("user_session_key");
@@ -778,10 +781,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
     }
 
+    /**
+     *app修改头像
+     * @param resultObject
+     * @return
+     */
     @Override
     @PostMapping("/app/myStudentInfoEditHead")
     @ResponseBody
-    public ResultObject<Void> myStudentInfoEditHead(ResultObject<AppUpateHeadParameter> resultObject) {
+    public ResultObject<Void> myStudentInfoEditHead(@RequestBody  ResultObject<AppStudentParameter> resultObject) {
        Integer result= studentBiz.appUpdaetStudentHead(resultObject.getData());
         ResultObject<Void> resultObj=new ResultObject<>();
         if (result>=0){
@@ -793,6 +801,85 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             resultObject.setMsg("失败");
             return resultObj;
         }
-
     }
+
+    /**
+     * app修改昵称
+     * @param resultObject
+     * @return
+     */
+    @Override
+    @PostMapping("/app/myStudentInfoEditNickname")
+    @ResponseBody
+    public ResultObject<Void> myStudentInfoEditNickname(@RequestBody  ResultObject<AppStudentParameter> resultObject) {
+        Integer result= studentBiz.appUpdaetStudentNickname(resultObject.getData());
+        ResultObject<Void> resultObj=new ResultObject<>();
+        if (result>=0){
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            return resultObj;
+        }else{
+            resultObject.setCode("1");
+            resultObject.setMsg("失败");
+            return resultObj;
+        }
+    }
+
+    /**
+     * app修改学生密码
+     * @param resultObject
+     * @return
+     */
+    @Override
+    @PostMapping("/app/myStudentInfoEditPs")
+    @ResponseBody
+    public ResultObject<Void> myStudentInfoEditPs(ResultObject<AppStudentParameter> resultObject) {
+        Integer result= studentBiz.appUpdaetStudentPassword(resultObject.getData());
+        ResultObject<Void> resultObj=new ResultObject<>();
+        if (result>=0){
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            return resultObj;
+        }else{
+            resultObject.setCode("1");
+            resultObject.setMsg("失败");
+            return resultObj;
+        }
+    }
+
+    /**
+     * app查看监护人
+     * @param resultObject
+     * @return
+     */
+    @Override
+    @PostMapping("/app/myStudentGuardian")
+    @ResponseBody
+    public ResultObject<List<AppMyStudentGuardianDto>> myStudentGuardian(ResultObject<AppStudentParameter> resultObject) {
+        List<AppMyStudentGuardianDto> dto=studentBiz.appMyStudentGuardian(resultObject.getData());
+        ResultObject< List<AppMyStudentGuardianDto>> resultObj=new ResultObject<>();
+        resultObj.setCode("0");
+        resultObj.setMsg("成功");
+        resultObj.setData(dto);
+        return resultObj;
+    }
+
+    /**
+     * 查看学生兴趣标签
+     * @param resultObject
+     * @return
+     */
+    @Override
+    @PostMapping("/app/myStudentInterest")
+    @ResponseBody
+    public ResultObject<List<TagDto>> myStudentInterest(ResultObject<AppStudentParameter> resultObject) {
+        List<TagDto> dto=studentBiz.appMyStudentInterest(resultObject.getData());
+        ResultObject< List<TagDto>> resultObj=new ResultObject<>();
+        resultObj.setCode("0");
+        resultObj.setMsg("成功");
+        resultObj.setData(dto);
+        return resultObj;
+    }
+
+
 }

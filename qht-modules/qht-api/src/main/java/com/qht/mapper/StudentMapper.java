@@ -3,6 +3,7 @@ package com.qht.mapper;
 import com.qht.dto.*;
 import com.qht.entity.Student;
 
+import com.qht.entity.Tag;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -371,5 +372,32 @@ public interface StudentMapper extends Mapper<Student> {
      * @param parameter
      * @return
      */
-    Integer appUpdaetStudentHead(AppUpateHeadParameter parameter);
+    Integer appUpdaetStudentHead(AppStudentParameter parameter);
+
+    /**
+     * app修改学生昵称
+     * @param parameter
+     * @return
+     */
+    Integer appUpdaetStudentNickname(AppStudentParameter parameter);
+    /**
+     * app修改学生密码
+     * @param parameter
+     * @return
+     */
+   Integer  appUpdaetStudentPassword(AppStudentParameter parameter);
+
+    /**
+     * 查看监护人信息
+     * @param parameter
+     * @return
+     */
+    List<AppMyStudentGuardianDto>appMyStudentGuardian(AppStudentParameter parameter);
+
+    /**
+     * 查看兴趣标签
+     * @param parameter
+     * @return
+     */
+   List<TagDto> appMyStudentInterest (AppStudentParameter parameter);
 }
