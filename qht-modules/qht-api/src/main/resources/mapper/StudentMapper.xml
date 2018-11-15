@@ -107,11 +107,31 @@
     </select>
     
      <!--查询首页老师集合-->
-    <select id="selectTeacherList" resultType="com.qht.dto.TeacherListDto" parameterType="java.lang.String">
+    <select id="selectTeacherList" resultType="com.qht.dto.TeacherListDto" parameterType="com.qht.dto.TeacherListParameter">
        select
         a.intr,a.integral,a.sex,a.nickname,a.back_img,a.school_name,b.pkg_count
       from
-	    ( select t.intr,t.integral,t.sex,t.nickname,t.back_img,s.school_name from teacher t inner join school s on t.school_id=s.uid where t.tenant_id=#{tenant_id} )as a ,
+	    ( select
+	    t.intr,t.integral,t.sex,t.nickname,t.back_img,s.school_name
+	    from teacher t inner join school s on t.school_id=s.uid
+	    where t.tenant_id=#{tenant_id}
+	    <if test="is_index!=null and is_index!=''">
+            <if test="is_index==1">
+                and t.is_index=1
+            </if>
+        </if>
+        <if test="is_school!=null and is_school!=''">
+            <if test="is_school==1">
+                and t.is_school=1
+            </if>
+        </if>
+        <if test="limit!=null and limit!=''">
+            limit 0,${limit}
+        </if>
+        <if test="limit==null and limit==''">
+            limit 0,6
+        </if>
+	    )as a ,
 	    ( select count(course_pkg.uid) as pkg_count from course_pkg where tenant_id=#{tenant_id} and status="1" )as b
     </select>
 
@@ -162,7 +182,7 @@
         where c.course_id=#{uid} and c.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--课程详情-课程包评论-->
-    <select id="selectCourseEvaluation" resultType="com.qht.dto.CourseEvaluationDto">
+    <select id="selectCourseEvaluation" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
         select
           s.head,
           s.name,
@@ -170,11 +190,62 @@
           pe.comments_time,
           cp.pkg_name,
           pe.comments_star,
-          pe.comments_content
+          pe.comments_content,
+          count(s.name),
         from
            period_evaluation pe inner join student s on s.uid=pe.student_id
            inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1"
+    </select>
+    <!--课程详情-课程包评论good-->
+    <select id="selectCourseEvaluationGood" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
+        select
+        s.head,
+        s.name,
+        pe.uid,
+        pe.comments_time,
+        cp.pkg_name,
+        pe.comments_star,
+        pe.comments_content,
+        count(s.name),
+        from
+        period_evaluation pe inner join student s on s.uid=pe.student_id
+        inner join course_pkg cp on pe.course_id=cp.uid
+        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &gt;4
+    </select>
+    <!--课程详情-课程包评论mid-->
+    <select id="selectCourseEvaluationMid" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
+        select
+        s.head,
+        s.name,
+        pe.uid,
+        pe.comments_time,
+        cp.pkg_name,
+        pe.comments_star,
+        pe.comments_content,
+        count(s.name),
+        from
+        period_evaluation pe inner join student s on s.uid=pe.student_id
+        inner join course_pkg cp on pe.course_id=cp.uid
+        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id}
+        and cp.status="1"
+        and pe.comments_star &lt;=4 and pe.comments_star &gt;2
+    </select>
+    <!--课程详情-课程包评论bad-->
+    <select id="selectCourseEvaluationBad" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
+        select
+        s.head,
+        s.name,
+        pe.uid,
+        pe.comments_time,
+        cp.pkg_name,
+        pe.comments_star,
+        pe.comments_content,
+        count(s.name),
+        from
+        period_evaluation pe inner join student s on s.uid=pe.student_id
+        inner join course_pkg cp on pe.course_id=cp.uid
+        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;=2
     </select>
     
     <resultMap id="selectTeacherInfoAndCourse" type="com.qht.dto.TeacherInfoDto">

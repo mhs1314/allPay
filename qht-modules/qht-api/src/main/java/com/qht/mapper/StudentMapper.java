@@ -71,10 +71,9 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 通过运营id查询首页老师集合
-     * @param tenant_id
      * @return
      */
-    List<TeacherListDto> selectTeacherList(String tenant_id);
+    List<TeacherListDto> selectTeacherList(TeacherListParameter data);
 
     /**
      * 查询学生课程详情-课程包简介
@@ -94,11 +93,12 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 课程详情--课程包评论
-     * @param uid
-     * @param tenant_id
      * @return
      */
-    List<CourseEvaluationDto> selectCourseEvaluation(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
+    List<CourseEvaluationDto> selectCourseEvaluation(CourseEvaluationParameter data);
+    List<CourseEvaluationDto> selectCourseEvaluationGood(CourseEvaluationParameter data);
+    List<CourseEvaluationDto> selectCourseEvaluationBad(CourseEvaluationParameter data);
+    List<CourseEvaluationDto> selectCourseEvaluationMid(CourseEvaluationParameter data);
 
     /**
      * 课程详情--教师信息

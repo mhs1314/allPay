@@ -95,11 +95,10 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询首页老师集合
-     * @param tenant_id
      * @return
      */
-    public List<TeacherListDto> selectTeacherList(String tenant_id) {
-        return studentMapper.selectTeacherList(tenant_id);
+    public List<TeacherListDto> selectTeacherList(TeacherListParameter data) {
+        return studentMapper.selectTeacherList(data);
     }
 
     /**
@@ -125,12 +124,19 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 课程详情--课程包评论
-     * @param uid
-     * @param tenant_id
      * @return
      */
-    public List<CourseEvaluationDto> selectCourseEvaluation(String uid, String tenant_id) {
-        return studentMapper.selectCourseEvaluation(uid,tenant_id);
+    public List<CourseEvaluationDto> selectCourseEvaluation(CourseEvaluationParameter data) {
+        return studentMapper.selectCourseEvaluation(data);
+    }
+    public List<CourseEvaluationDto> selectCourseEvaluationGood(CourseEvaluationParameter data) {
+        return studentMapper.selectCourseEvaluationGood(data);
+    }
+    public List<CourseEvaluationDto> selectCourseEvaluationMid(CourseEvaluationParameter data) {
+        return studentMapper.selectCourseEvaluationMid(data);
+    }
+    public List<CourseEvaluationDto> selectCourseEvaluationBad(CourseEvaluationParameter data) {
+        return studentMapper.selectCourseEvaluationBad(data);
     }
 
     /**

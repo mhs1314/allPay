@@ -72,7 +72,7 @@ public interface StudentService {
      * 获取首页老师集合
      * @return
      */
-    public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<Void> requestObject);
+    public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<TeacherListParameter> requestObject);
 
 
     /**学生端课程*/
@@ -97,7 +97,7 @@ public interface StudentService {
      * @param requestObject
      * @return
      */
-    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseIntroParameter> requestObject);
+    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseEvaluationParameter> requestObject);
 
     /**
      * 课程详情--教师信息
