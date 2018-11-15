@@ -38,7 +38,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Autowired
     private HttpServletRequest request;
     /**
-     * 得到tenantId
+     * 得到tenant_id
      * @return
      *
      *  */
@@ -397,9 +397,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexDelMessage")
     @ResponseBody
-    public ResultObject<Void> deleteMessage(String uid) {
+    public ResultObject<Void> deleteMessage(@RequestBody RequestObject<String> requestObject) {
         ResultObject<Void> resultObject=new ResultObject<>();
-        if(studentBiz.deleteMessage(uid)>0){
+        Integer deleteLine=studentBiz.deleteMessage(requestObject.getData());
+        if(deleteLine>0){
             resultObject.setMsg("删除成功");
 
             resultObject.setCode("0");
@@ -414,8 +415,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexMessageDetails")
     @ResponseBody
-    public ResultObject<MyIndexMessageDto> selectMessageById(String uid) {
-        MyIndexMessageDto dto=studentBiz.selectMessageById(uid);
+    public ResultObject<MyIndexMessageDto> selectMessageById(@RequestBody RequestObject<String> requestObject) {
+        MyIndexMessageDto dto=studentBiz.selectMessageById(requestObject.getData());
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -443,8 +444,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("studentInfo")
     @ResponseBody
-    public ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid) {
-        StudentInfoDto dto=studentBiz.studentInfo(uid,getTenant_id());
+    public ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<String> requestObject) {
+        StudentInfoDto dto=studentBiz.studentInfo(requestObject.getData(),getTenant_id());
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -546,7 +547,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter) {
         //parameter.getData().setTenant_id(getTenantId());
     	IndexTeacherListParameter para = new IndexTeacherListParameter();
-    	para.setTid("11");
+    	para.setTenant_id("11");
         List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(para);
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -601,10 +602,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexCancelcollect")
     @ResponseBody
-    public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<StudentDto> requestObject) {
+    public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<MyIndexCanceCollectParameter> requestObject) {
         ResultObject<Void> resultObject=new ResultObject<>();
         String uid = requestObject.getData().getUid();
-        String student_id = requestObject.getData().getStudentId();
+        String student_id = requestObject.getData().getStudent_id();
         Integer updateLine=studentBiz.updateMyIndexCancelcollect(uid,student_id,getTenant_id());
         if(updateLine>0){
 
