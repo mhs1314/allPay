@@ -4,68 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.qht.dto.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qht.RequestObject;
 import com.qht.ResultObject;
-import com.qht.dto.AppMyStudentInfoDto;
-import com.qht.dto.AppTeacherCourseDto;
-import com.qht.dto.AppTeacherEvaluationDto;
-import com.qht.dto.BannerDto;
-import com.qht.dto.CourseChapterDto;
-import com.qht.dto.CourseEvaluationDto;
-import com.qht.dto.CourseIntroDto;
-import com.qht.dto.CourseIntroParameter;
-import com.qht.dto.CourseListDto;
-import com.qht.dto.CourseListParameter;
-import com.qht.dto.FreeClassDto;
-import com.qht.dto.FreeClassParameter;
-import com.qht.dto.IndexAnswerDetailsAppendAnswerParameter;
-import com.qht.dto.IndexAnswerDetailsDto;
-import com.qht.dto.IndexAnswerDetailsExceptionalParameter;
-import com.qht.dto.IndexAnswerDto;
-import com.qht.dto.IndexCoruseListDto;
-import com.qht.dto.IndexCoruseListParameter;
-import com.qht.dto.IndexCourseDetailsDto;
-import com.qht.dto.IndexFutureCoruseDto;
-import com.qht.dto.IndexMyAnswerDto;
-import com.qht.dto.IndexTeacherDto;
-import com.qht.dto.IndexTeacherListDto;
-import com.qht.dto.IndexTeacherListParameter;
-import com.qht.dto.ListeningClassListDto;
-import com.qht.dto.ListeningClassRankingDto;
-import com.qht.dto.LiveClassDto;
-import com.qht.dto.LoginInfoDto;
-import com.qht.dto.MyCollectlistDto;
-import com.qht.dto.MyIndexBuyRecordCourseBackDto;
-import com.qht.dto.MyIndexBuyRecordCourseBackParameter;
-import com.qht.dto.MyIndexBuyRecordCourseDetailsDto;
-import com.qht.dto.MyIndexBuyRecordDto;
-import com.qht.dto.MyIndexBuyRecordParameter;
-import com.qht.dto.MyIndexCourseAnswerDto;
-import com.qht.dto.MyIndexCourseAnswerParameter;
-import com.qht.dto.MyIndexCourseDto;
-import com.qht.dto.MyIndexCourseParameter;
-import com.qht.dto.MyIndexMessageDto;
-import com.qht.dto.MyIndexMessageParamter;
-import com.qht.dto.MyIndexMycollectDto;
-import com.qht.dto.MyIndexMycollectParameter;
-import com.qht.dto.MyIndexMyintegralDetailDto;
-import com.qht.dto.MyIndexMyintegralDetailParameter;
-import com.qht.dto.StudentDto;
-import com.qht.dto.StudentInfoDto;
-import com.qht.dto.TeacherCourseDto;
-import com.qht.dto.TeacherDetailsDto;
-import com.qht.dto.TeacherEvaluationDto;
-import com.qht.dto.TeacherInfoDto;
-import com.qht.dto.TeacherListDto;
-import com.qht.dto.TeacherRankingDto;
-import com.qht.dto.TenantAlbumDto;
-import com.qht.dto.TenantSchoolDto;
-import com.qht.dto.TopTeacherInfoDto;
-import com.qht.dto.TopTeacherListDto;
-import com.qht.dto.TopTeacherListParameter;
 
 
 /**
@@ -86,13 +30,13 @@ public interface StudentService {
 
     /**
      * 获取首页广告信息
-     * @param req
+     * @param
      * @return
      */
     public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<Void> requestObject);
     /**
      * 获取首页广告信息--App
-     * @param req
+     * @param
      * @return
      */
     public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<Void> requestObject);
@@ -106,35 +50,35 @@ public interface StudentService {
     /**
      * 获取首页免费课程
      * @param requestObject
-     * @param req
+     * @param
      * @return
      */
     public ResultObject<List<FreeClassDto>> freeClass(@RequestBody RequestObject<FreeClassParameter> requestObject);
 
     /**
      * 获取首页试听课程排行榜
-     *  @param req
+     *  @param
      * @return
      */
     public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页试听课程列表
-     * @param req
+     * @param
      * @return
      */
     public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页老师排行榜
-     * @param req
+     * @param
      * @return
      */
     public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页老师集合
-     * @param req
+     * @param
      * @return
      */
     public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<Void> requestObject);
@@ -437,5 +381,13 @@ public interface StudentService {
      * @return
      */
     public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<String> requestObject);
+
+    /**
+     * app修改学生头像
+     * @param resultObject
+     * @return
+     */
+     public ResultObject<Void> myStudentInfoEditHead(@RequestBody ResultObject<AppUpateHeadParameter> resultObject);
+
 }
 

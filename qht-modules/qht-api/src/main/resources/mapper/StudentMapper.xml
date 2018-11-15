@@ -852,4 +852,8 @@ WHERE
 AND s.uid = #{uid}
 and s.tenant_id=#{tid}
     </select>
+    
+    <update id="appUpdaetStudentHead" parameterType="com.qht.dto.AppUpateHeadParameter">
+      update student set head=#{head} where uid=#{uid} and  tenant_id=#{tenant_id}
+    </update>
 </mapper>

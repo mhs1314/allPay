@@ -479,5 +479,13 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public AppMyStudentInfoDto appMyStudentInfo(String uid,String tid){
         return studentMapper.appMyStudentInfo(uid,tid);
     }
+    /**
+     * app修改头像
+     * @param parameter
+     * @return
+     */
+   public  Integer appUpdaetStudentHead(AppUpateHeadParameter parameter){
+        return studentMapper.appUpdaetStudentHead(parameter);
+    }
 }
 

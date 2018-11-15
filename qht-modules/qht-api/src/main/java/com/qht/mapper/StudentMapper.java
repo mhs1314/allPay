@@ -366,4 +366,10 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
     AppMyStudentInfoDto appMyStudentInfo(@Param("uid")String uid,@Param("tid")String tid);
+    /**
+     * app修改头像
+     * @param parameter
+     * @return
+     */
+    Integer appUpdaetStudentHead(AppUpateHeadParameter parameter);
 }

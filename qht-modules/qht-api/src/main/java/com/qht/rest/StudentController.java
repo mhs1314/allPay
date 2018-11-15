@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.qht.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,64 +21,6 @@ import com.qht.ResultObject;
 import com.qht.biz.CollectBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
-import com.qht.dto.AppMyStudentInfoDto;
-import com.qht.dto.AppTeacherCourseDto;
-import com.qht.dto.AppTeacherEvaluationDto;
-import com.qht.dto.BannerDto;
-import com.qht.dto.CourseChapterDto;
-import com.qht.dto.CourseEvaluationDto;
-import com.qht.dto.CourseIntroDto;
-import com.qht.dto.CourseIntroParameter;
-import com.qht.dto.CourseListDto;
-import com.qht.dto.CourseListParameter;
-import com.qht.dto.FreeClassDto;
-import com.qht.dto.FreeClassParameter;
-import com.qht.dto.IndexAnswerDetailsAppendAnswerParameter;
-import com.qht.dto.IndexAnswerDetailsDto;
-import com.qht.dto.IndexAnswerDetailsExceptionalParameter;
-import com.qht.dto.IndexAnswerDto;
-import com.qht.dto.IndexCoruseListDto;
-import com.qht.dto.IndexCoruseListParameter;
-import com.qht.dto.IndexCourseDetailsDto;
-import com.qht.dto.IndexFutureCoruseDto;
-import com.qht.dto.IndexMyAnswerDto;
-import com.qht.dto.IndexTeacherDto;
-import com.qht.dto.IndexTeacherListDto;
-import com.qht.dto.IndexTeacherListParameter;
-import com.qht.dto.ListeningClassListDto;
-import com.qht.dto.ListeningClassRankingDto;
-import com.qht.dto.LiveClassDto;
-import com.qht.dto.LoginInfoDto;
-import com.qht.dto.MyCollectlistDto;
-import com.qht.dto.MyIndexBuyRecordCourseBackDto;
-import com.qht.dto.MyIndexBuyRecordCourseBackParameter;
-import com.qht.dto.MyIndexBuyRecordCourseDetailsDto;
-import com.qht.dto.MyIndexBuyRecordDto;
-import com.qht.dto.MyIndexBuyRecordParameter;
-import com.qht.dto.MyIndexCourseAnswerDto;
-import com.qht.dto.MyIndexCourseAnswerParameter;
-import com.qht.dto.MyIndexCourseDto;
-import com.qht.dto.MyIndexCourseParameter;
-import com.qht.dto.MyIndexMessageDto;
-import com.qht.dto.MyIndexMessageParamter;
-import com.qht.dto.MyIndexMycollectDto;
-import com.qht.dto.MyIndexMycollectParameter;
-import com.qht.dto.MyIndexMyintegralDetailDto;
-import com.qht.dto.MyIndexMyintegralDetailParameter;
-import com.qht.dto.StudentDto;
-import com.qht.dto.StudentInfoDto;
-import com.qht.dto.TeacherCourseDto;
-import com.qht.dto.TeacherDetailsDto;
-import com.qht.dto.TeacherDto;
-import com.qht.dto.TeacherEvaluationDto;
-import com.qht.dto.TeacherInfoDto;
-import com.qht.dto.TeacherListDto;
-import com.qht.dto.TeacherRankingDto;
-import com.qht.dto.TenantAlbumDto;
-import com.qht.dto.TenantSchoolDto;
-import com.qht.dto.TopTeacherInfoDto;
-import com.qht.dto.TopTeacherListDto;
-import com.qht.dto.TopTeacherListParameter;
 import com.qht.entity.Student;
 import com.qht.services.StudentService;
 
@@ -824,5 +767,23 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
+    }
+
+    @Override
+    @PostMapping("/app/myStudentInfoEditHead")
+    @ResponseBody
+    public ResultObject<Void> myStudentInfoEditHead(ResultObject<AppUpateHeadParameter> resultObject) {
+       Integer result= studentBiz.appUpdaetStudentHead(resultObject.getData());
+        ResultObject<Void> resultObj=new ResultObject<>();
+        if (result>=0){
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            return resultObj;
+        }else{
+            resultObject.setCode("1");
+            resultObject.setMsg("失败");
+            return resultObj;
+        }
+
     }
 }
