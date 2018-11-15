@@ -41,21 +41,21 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     /**
      * 首页查询banner
      *
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<BannerDto> selectBanner(String tenantId,String type) {
-        return studentMapper.selectBanner(tenantId,type);
+    public List<BannerDto> selectBanner(String tenant_id,String type) {
+        return studentMapper.selectBanner(tenant_id,type);
     }
 
     /**
      * 首页查询直播课程
      *
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<LiveClassDto> selectLiveClass(String tenantId) {
-        return studentMapper.selectLiveClass(tenantId);
+    public List<LiveClassDto> selectLiveClass(String tenant_id) {
+        return studentMapper.selectLiveClass(tenant_id);
     }
 
     /**
@@ -68,11 +68,11 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查询首页试听排行榜
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<ListeningClassRankingDto> selectListeningClassRanking(String tenantId) {
-        return studentMapper.selectListeningClassRanking(tenantId);
+    public List<ListeningClassRankingDto> selectListeningClassRanking(String tenant_id) {
+        return studentMapper.selectListeningClassRanking(tenant_id);
     }
 
     /**
@@ -373,22 +373,22 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * 学生端-个人中心--首页--我的收藏列表--取消收藏
      * @param uid
      * @param student_id
-     * @param tenantId
+     * @param tenant_id
      */
-    public Integer updateMyIndexCancelcollect(String uid, String student_id, String tenantId) {
+    public Integer updateMyIndexCancelcollect(String uid, String student_id, String tenant_id) {
 
-        Integer num=studentMapper.updateMyIndexCancelcollect(uid,student_id,tenantId);
+        Integer num=studentMapper.updateMyIndexCancelcollect(uid,student_id,tenant_id);
         return num;
     }
 
     /**
      * app我的课程答疑
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<IndexMyAnswerDto> selectIndexMyAnswer(String uid, String tenantId) {
-        return studentMapper.selectIndexMyAnswer(uid,tenantId);
+    public List<IndexMyAnswerDto> selectIndexMyAnswer(String uid, String tenant_id) {
+        return studentMapper.selectIndexMyAnswer(uid,tenant_id);
     }
 
     /**

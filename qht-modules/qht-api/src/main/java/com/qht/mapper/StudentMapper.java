@@ -29,17 +29,17 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 通过运营id查询首页banner
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<BannerDto> selectBanner(@Param("tenantId") String tenantId,@Param("type") String type);
+    List<BannerDto> selectBanner(@Param("tenant_id") String tenant_id,@Param("type") String type);
 
     /**
      * 通过运营id查询首页直播课程
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<LiveClassDto> selectLiveClass(String tenantId);
+    List<LiveClassDto> selectLiveClass(String tenant_id);
 
     /**
      * 通过pkg_subject_id，pkg_grade_id，tenantId查询首页免费课程
@@ -49,10 +49,10 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 通过运营id查询首页试听排行榜
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<ListeningClassRankingDto> selectListeningClassRanking(String tenantId);
+    List<ListeningClassRankingDto> selectListeningClassRanking(String tenant_id);
 
     /**
      * 通过运营id查询首页试听列表
