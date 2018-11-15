@@ -29,7 +29,17 @@
     
     <!--登陆查询学生信息-->
     <select id="teacherLogin" resultType="com.qht.dto.TeacherDto">
-        select uid,nickname,tenant_id as tenant_id,school_id as schoolId, `name`,`account` from teacher where account=#{account} and password=#{password}
+        SELECT
+	uid,
+	nickname,
+	tenant_id AS tenant_id,
+	school_id AS schoolId,
+	`name`,
+	`account`
+FROM
+	teacher
+WHERE
+	account = #{account} and password=#{password}
     </select>
     <!--名师详细-基本信息-->
     <select id="teacherDetails" resultType="com.qht.dto.TeacherDetailsDto">

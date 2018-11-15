@@ -529,7 +529,7 @@
       FROM message m
 							LEFT JOIN `user`  u  ON m.uid=u.uid
 							LEFT JOIN teacher t  ON m.tenant_id=t.tenant_id
-      where m.uid=#{uid} AND t.tenant_id=#{tid}
+      where m.uid=#{uid} AND t.tenant_id=#{tenant_id}
       <if test="isread!=null and isread!=''">
           and m.isread=#{isread}
       </if>
@@ -639,7 +639,7 @@ LEFT JOIN interest_label i ON s.uid = i.student_id
 LEFT JOIN tag t ON i.tag_id = t.uid
 LEFT JOIN pkg_grade p ON s.grade_id = p.uid
 WHERE
-	s.uid = #{uid} AND s.tenant_id =#{tid}
+	s.uid = #{uid} AND s.tenant_id =#{tenant_id}
     </select>
 <!--消费记录-->
     <select id="myIndexMyintegralDetail"  resultType="com.qht.dto.MyIndexMyintegralDetailDto" parameterType="com.qht.dto.MyIndexMyintegralDetailParameter">
@@ -653,7 +653,7 @@ WHERE
         LEFT JOIN course_pkg c ON b.course_pkg_id = c.uid
         WHERE
         b.student_id =#{uid}
-        AND b.tenant_id =#{tid}
+        AND b.tenant_id =#{tenant_id}
         and c.status="1"
         <if test="begin_time!=null and begin_time!=''">
             AND b.time &gt;= #{begin_time}
@@ -680,7 +680,7 @@ LEFT JOIN teacher t ON c.teacher_id = t.uid
 LEFT JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
 LEFT JOIN buy_record b ON c.uid=b.course_pkg_id
 LEFT JOIN student  s   ON s.uid= b.student_id
- where s.uid=#{uid} and s.tenant_id =#{tid}
+ where s.uid=#{uid} and s.tenant_id =#{tenant_id}
     </select>
 <!--名师资源-->
     <select id="indexTeacher" resultType="com.qht.dto.IndexTeacherDto" parameterType="String">
@@ -695,7 +695,7 @@ FROM
 LEFT JOIN pkg_subject p ON t.subject_id = p.uid
 LEFT JOIN school s ON t.school_id = s.uid
 WHERE
-	t.tenant_id = #{tid}
+	t.tenant_id = #{tenant_id}
     </select>
     <!--课程答疑-->
 <select id="indexAnswer" resultType="com.qht.dto.IndexAnswerDto" parameterType="String" >
@@ -711,7 +711,7 @@ FROM
 LEFT JOIN period_evaluation pr ON c.uid = pr.course_id
 LEFT JOIN period p ON pr.period_id = p.uid
 LEFT JOIN answer a ON p.uid = a.period_id
-where a.tenant_id=#{tid}
+where a.tenant_id=#{tenant_id}
   and c.status="1"
 </select>
 <!-- 课程列表-->
@@ -759,7 +759,7 @@ LEFT JOIN course_pkg cp ON t.uid = cp.teacher_id
 LEFT JOIN lecturer_evaluation l ON t.uid=l.teacher_id
 
 WHERE
-	t.tenant_id =#{tid} and cp.status="1"
+	t.tenant_id =#{tenant_id} and cp.status="1"
         <if test="pkg_grade_id!=null and pkg_grade_id!=''">
         AND cp.pkg_grade_id=#{pkg_grade_id}
     </if>
@@ -921,7 +921,7 @@ LEFT JOIN pkg_grade pg ON s.grade_id = pg.uid
 WHERE
 	g.type = 1
 AND s.uid = #{uid}
-and s.tenant_id=#{tid}
+and s.tenant_id=#{tenant_id}
     </select>
     <!--修改头像-->
     <update id="appUpdaetStudentHead" parameterType="com.qht.dto.AppStudentParameter">
