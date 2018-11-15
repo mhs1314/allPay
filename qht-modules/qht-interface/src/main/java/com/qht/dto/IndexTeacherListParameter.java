@@ -4,7 +4,26 @@ import java.io.Serializable;
 
 public class IndexTeacherListParameter  implements Serializable {
     //运营商id
-    private String tid;
+    private String tenant_id;
+
+    public String getTenant_id() {
+        return tenant_id;
+    }
+
+    public void setTenant_id(String tenant_id) {
+        this.tenant_id = tenant_id;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexTeacherListParameter{" +
+                "tenant_id='" + tenant_id + '\'' +
+                ", pkg_grade_id='" + pkg_grade_id + '\'' +
+                ", subject_id='" + subject_id + '\'' +
+                ", praise_number='" + praise_number + '\'' +
+                '}';
+    }
+
     //年级ID
     private String pkg_grade_id;
 
@@ -22,13 +41,7 @@ public class IndexTeacherListParameter  implements Serializable {
     private String praise_number;    
 
 
-    public String getTid() {
-		return tid;
-	}
 
-	public void setTid(String tid) {
-		this.tid = tid;
-	}
 
 	public String getSubject_id() {
         return subject_id;

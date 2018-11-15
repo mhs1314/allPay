@@ -3,6 +3,7 @@ package com.qht.mapper;
 import com.qht.dto.*;
 import com.qht.entity.Student;
 
+import com.qht.entity.Tag;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -29,83 +30,83 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 通过运营id查询首页banner
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<BannerDto> selectBanner(@Param("tenantId") String tenantId,@Param("type") String type);
+    List<BannerDto> selectBanner(@Param("tenant_id") String tenant_id,@Param("type") String type);
 
     /**
      * 通过运营id查询首页直播课程
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<LiveClassDto> selectLiveClass(String tenantId);
+    List<LiveClassDto> selectLiveClass(String tenant_id);
 
     /**
-     * 通过pkg_subject_id，pkg_grade_id，tenantId查询首页免费课程
+     * 通过pkg_subject_id，pkg_grade_id，tenant_id查询首页免费课程
      * @return
      */
     List<FreeClassDto> selectFreeClass(FreeClassParameter data);
 
     /**
      * 通过运营id查询首页试听排行榜
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<ListeningClassRankingDto> selectListeningClassRanking(String tenantId);
+    List<ListeningClassRankingDto> selectListeningClassRanking(String tenant_id);
 
     /**
      * 通过运营id查询首页试听列表
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<ListeningClassListDto> selectListeningClassList(String tenantId);
+    List<ListeningClassListDto> selectListeningClassList(String tenant_id);
 
     /**
      * 通过运营id查询首页老师排行榜
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<TeacherRankingDto> selectTeacherRanking(String tenantId);
+    List<TeacherRankingDto> selectTeacherRanking(String tenant_id);
 
     /**
      * 通过运营id查询首页老师集合
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<TeacherListDto> selectTeacherList(String tenantId);
+    List<TeacherListDto> selectTeacherList(String tenant_id);
 
     /**
      * 查询学生课程详情-课程包简介
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    CourseIntroDto selectCourseIntro(@Param("uid") String uid,@Param("tenantId") String tenantId);
+    CourseIntroDto selectCourseIntro(@Param("uid") String uid,@Param("tenant_id") String tenant_id);
 
     /**
      * 课程详情--课程包体系
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<CourseChapterDto> selectCourseChapter(@Param("uid")String uid, @Param("tenantId")String tenantId);
+    List<CourseChapterDto> selectCourseChapter(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
 
     /**
      * 课程详情--课程包评论
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<CourseEvaluationDto> selectCourseEvaluation(@Param("uid")String uid, @Param("tenantId")String tenantId);
+    List<CourseEvaluationDto> selectCourseEvaluation(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
 
     /**
      * 课程详情--教师信息
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    TeacherInfoDto selectTeacherInfo(@Param("uid")String uid, @Param("tenantId")String tenantId);
+    TeacherInfoDto selectTeacherInfo(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
 
     /**
      * 课程列表
@@ -124,48 +125,48 @@ public interface StudentMapper extends Mapper<Student> {
     /**
      * 名师详情--讲师简介
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<TopTeacherInfoDto> selectTopTeacherInfo(@Param("uid") String uid, @Param("tenantId") String tenantId);
+    List<TopTeacherInfoDto> selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 名师详情--全部课程
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<TeacherCourseDto> selectTeacherCourse(@Param("uid")String uid, @Param("tenantId") String tenantId);
+    List<TeacherCourseDto> selectTeacherCourse(@Param("uid")String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 名师详情--评论列表
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<TeacherEvaluationDto> selectTeacherEvaluation(@Param("uid")String uid, @Param("tenantId") String tenantId);
+    List<TeacherEvaluationDto> selectTeacherEvaluation(@Param("uid")String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 运营商--学校介绍
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    TenantSchoolDto selectTenantSchool(String tenantId);
+    TenantSchoolDto selectTenantSchool(String tenant_id);
 
     /**
      * 运营商--画册
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    TenantAlbumDto selectTenantAlbum(String tenantId);
+    TenantAlbumDto selectTenantAlbum(String tenant_id);
 
     /**
      * 学生端-个人中心--首页--我的课程详情介绍
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<IndexCourseDetailsDto> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
+    List<IndexCourseDetailsDto> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 学生端-个人中心--首页--我的课程列表
@@ -184,11 +185,11 @@ public interface StudentMapper extends Mapper<Student> {
     /**
      * 消息
      * @param uid
-     * @param tid
+     * @param tenant_id
      * @param isread
      * @return
      */
-    List<MyIndexMessageDto> selectMyIndexMessage(@Param("uid")String uid,@Param("tid")String tid,@Param("isread")String isread);
+    List<MyIndexMessageDto> selectMyIndexMessage(@Param("uid")String uid,@Param("tenant_id")String tenant_id,@Param("isread")String isread);
 
     /**
      * 刪除消息
@@ -213,10 +214,10 @@ public interface StudentMapper extends Mapper<Student> {
     /**
      * 查詢學生信息
      * @param uid
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    StudentInfoDto studentInfo(@Param("uid")String uid,@Param("tid")String tid);
+    StudentInfoDto studentInfo(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
 
     /**
      * 消费记录
@@ -228,24 +229,24 @@ public interface StudentMapper extends Mapper<Student> {
     /**
      * 近期合同
      * @param uid
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    List<IndexFutureCoruseDto> indexFutureCoruse(@Param("uid")String uid,@Param("tid")String tid);
+    List<IndexFutureCoruseDto> indexFutureCoruse(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
 
     /**
      * 名师资源
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    List<IndexTeacherDto> indexTeacher(String tid);
+    List<IndexTeacherDto> indexTeacher(String tenant_id);
 
     /**
      * 课程疑答
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    List<IndexAnswerDto> indexAnswer(String tid);
+    List<IndexAnswerDto> indexAnswer(String tenant_id);
 
     /**
      * 课程列表
@@ -285,25 +286,25 @@ public interface StudentMapper extends Mapper<Student> {
      * 学生端-个人中心--首页--我的收藏列表--取消收藏
      * @param uid
      * @param student_id
-     * @param tenantId
+     * @param tenant_id
      */
-    Integer updateMyIndexCancelcollect(@Param("uid") String uid, @Param("student_id") String student_id, @Param("tenantId") String tenantId);
+    Integer updateMyIndexCancelcollect(@Param("uid") String uid, @Param("student_id") String student_id, @Param("tenant_id") String tenant_id);
 
     /**
      * app我的课程答疑
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    List<IndexMyAnswerDto> selectIndexMyAnswer(@Param("uid") String uid, @Param("tenantId") String tenantId);
+    List<IndexMyAnswerDto> selectIndexMyAnswer(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * app我的课程答疑--答疑详情
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    IndexAnswerDetailsDto selectIndexAnswerDetails(@Param("uid") String uid, @Param("tenantId") String tenantId);
+    IndexAnswerDetailsDto selectIndexAnswerDetails(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 打赏---先判断问题是否被解决
@@ -362,8 +363,41 @@ public interface StudentMapper extends Mapper<Student> {
     /**
      * 个人中心学生信息
      * @param uid
-     * @param tid
+     * @param tenant_id
      * @return
      */
-    AppMyStudentInfoDto appMyStudentInfo(@Param("uid")String uid,@Param("tid")String tid);
+    AppMyStudentInfoDto appMyStudentInfo(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
+    /**
+     * app修改头像
+     * @param parameter
+     * @return
+     */
+    Integer appUpdaetStudentHead(AppStudentParameter parameter);
+
+    /**
+     * app修改学生昵称
+     * @param parameter
+     * @return
+     */
+    Integer appUpdaetStudentNickname(AppStudentParameter parameter);
+    /**
+     * app修改学生密码
+     * @param parameter
+     * @return
+     */
+   Integer  appUpdaetStudentPassword(AppStudentParameter parameter);
+
+    /**
+     * 查看监护人信息
+     * @param parameter
+     * @return
+     */
+    List<AppMyStudentGuardianDto>appMyStudentGuardian(AppStudentParameter parameter);
+
+    /**
+     * 查看兴趣标签
+     * @param parameter
+     * @return
+     */
+   List<TagDto> appMyStudentInterest (AppStudentParameter parameter);
 }

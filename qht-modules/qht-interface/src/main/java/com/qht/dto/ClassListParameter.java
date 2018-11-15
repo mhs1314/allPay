@@ -19,6 +19,29 @@ public class ClassListParameter implements Serializable {
     //当前页
     private String page;
 
+    public String getTenant_id() {
+        return tenant_id;
+    }
+
+    public void setTenant_id(String tenant_id) {
+        this.tenant_id = tenant_id;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassListParameter{" +
+                "pkt_type_id='" + pkt_type_id + '\'' +
+                ", pkg_subject_id='" + pkg_subject_id + '\'' +
+                ", pkg_grade_id='" + pkg_grade_id + '\'' +
+                ", newtime='" + newtime + '\'' +
+                ", price='" + price + '\'' +
+                ", page='" + page + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                '}';
+    }
+
+    private String tenant_id;
+
     public String getPkt_type_id() {
         return pkt_type_id;
     }
@@ -65,18 +88,6 @@ public class ClassListParameter implements Serializable {
 
     public void setPage(String page) {
         this.page = page;
-    }
-
-    @Override
-    public String toString() {
-        return "ClassListParameter{" +
-                "pkt_type_id='" + pkt_type_id + '\'' +
-                ", pkg_subject_id='" + pkg_subject_id + '\'' +
-                ", pkg_grade_id='" + pkg_grade_id + '\'' +
-                ", newtime='" + newtime + '\'' +
-                ", price='" + price + '\'' +
-                ", page='" + page + '\'' +
-                '}';
     }
 
 
