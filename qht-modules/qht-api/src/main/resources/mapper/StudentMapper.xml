@@ -480,7 +480,7 @@
 
     <!--运营商-画册-->
     <select id="selectTenantAlbum" parameterType="java.lang.String" resultType="com.qht.dto.TenantAlbumDto">
-        select a.uid,a.album,a.index from album a where tenant_id=#{tenant_id}
+        select a.uid,a.album,a.'index' from album a where tenant_id=#{tenant_id}
     </select>
 
     <!--学生端-个人中心-首页-我的课程列表-->
