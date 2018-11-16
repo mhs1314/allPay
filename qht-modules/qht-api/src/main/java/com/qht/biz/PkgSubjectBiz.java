@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.dto.PkgSubjectListDto;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgSubject;
 import com.qht.mapper.PkgSubjectMapper;
 import com.qht.mapper.StudentMapper;
@@ -26,7 +27,7 @@ public class PkgSubjectBiz extends BaseBiz<PkgSubjectMapper,PkgSubject> {
 		 * 查看所有科目
 		 * @return
 		 */
-		public List<PkgSubjectListDto> subjectList(){
-			return pkgSubjectMapper.subjectList();
+		public List<PkgSubjectListDto> subjectList(UidAndTenantID ut){
+			return pkgSubjectMapper.subjectList(ut);
 		}
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.qht.dto.AppStudentParameter;
 import com.qht.dto.CoursePkgListDto;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -24,6 +25,6 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * 查询所有课程包
 	 * @return
 	 */
-	List<CoursePkgListDto>courseTypeList();
+	List<CoursePkgListDto>courseTypeList(UidAndTenantID ut);
 	
 }

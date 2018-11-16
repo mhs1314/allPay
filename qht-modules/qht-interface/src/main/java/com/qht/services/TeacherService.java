@@ -2,9 +2,7 @@ package com.qht.services;
 
 import com.qht.RequestObject;
 import com.qht.ResultObject;
-import com.qht.dto.IndexMyCourseDto;
-import com.qht.dto.IndexMyCourseParameter;
-import com.qht.dto.LoginInfoDto;
+import com.qht.dto.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,6 +23,24 @@ public interface TeacherService {
 	 */
 	public ResultObject<String> login(@RequestBody RequestObject<LoginInfoDto> rquest);
 
+	/**
+	 * 教师端首页--我的课程包
+	 * @param requestObject
+	 * @return
+	 */
 	public ResultObject<List<IndexMyCourseDto>> indexMyCourse(@RequestBody RequestObject<IndexMyCourseParameter> requestObject);
 
+	/**
+	 * 教师端首页--我的课程包
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<List<IndexMyCourseListDto>> indexMyCourseList(@RequestBody RequestObject<IndexMyCourseListParameter> requestObject);
+
+	/**
+	 * 教师端首页--添加录播课程包
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<Void> indexAddLcourse(@RequestBody RequestObject<IndexAddLcourseParameter> requestObject);
 }

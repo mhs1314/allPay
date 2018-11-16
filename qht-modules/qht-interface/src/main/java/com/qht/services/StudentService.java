@@ -36,7 +36,7 @@ public interface StudentService {
      * 获取首页广告信息--App
      * @return
      */
-    public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<Void> requestObject);
+    public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<UidAndTenantID> requestObject);
     /**
      * 获取首页的直播课程
      * @return
@@ -129,21 +129,21 @@ public interface StudentService {
      * @param uid
      * @return
      */
-    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestBody RequestObject<String> uid);
+    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 名师详情--全部课程
      * @param uid
      * @return
      */
-    public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestBody RequestObject<String> uid);
+    public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 名师详情--评论列表
      * @param uid
      * @return
      */
-    public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestBody RequestObject<String> uid);
+    public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestBody RequestObject<UidAndTenantID> uid);
 
 
     /**学生端--通用--运营商*/
@@ -167,7 +167,7 @@ public interface StudentService {
      * @param req
      * @return
      */
-    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestBody RequestObject<String> req);
+    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestBody RequestObject<UidAndTenantID> req);
 
 
     /**
@@ -186,14 +186,14 @@ public interface StudentService {
      * 刪除消息
      * @return
      */
-    public ResultObject<Void> deleteMessage(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<Void> deleteMessage(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 查詢單個消息
      * @param requestObject
      * @return
      */
-    public ResultObject<MyIndexMessageDto>selectMessageById(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<MyIndexMessageDto>selectMessageById(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 学生端-个人中心--首页--兑换记录
@@ -206,7 +206,7 @@ public interface StudentService {
      * 學生信息
      * @return
      */
-    public  ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<String> requestObject);
+    public  ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 消息記錄
@@ -219,7 +219,7 @@ public interface StudentService {
      * 近期课程
      * @return
      */
-    public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(@RequestBody RequestObject<String> req);
+    public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(@RequestBody RequestObject<UidAndTenantID> req);
 
     /**
      *名师资源
@@ -249,7 +249,7 @@ public interface StudentService {
      * 学生端-个人中心--首页--兑换记录--课程详情
      * @return
      */
-    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(@RequestBody RequestObject<String> req);
+    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(@RequestBody RequestObject<UidAndTenantID> req);
 
     /**
      * 学生端-个人中心--首页--兑换记录--课程回看
@@ -274,26 +274,26 @@ public interface StudentService {
      * app我的课程答疑
      * @return
      */
-    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 名师详情-基本信息
      * @return
      */
-    public ResultObject<TeacherDetailsDto> teacherDetails(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<TeacherDetailsDto> teacherDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * app我的课程答疑--答疑详情
      * @return
      */
-    public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 
     /**
      * 名师详情-所有课程
      * @return
      */
-    public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * app我的课程答疑--答疑详情-打赏
@@ -317,13 +317,13 @@ public interface StudentService {
      * 我的收藏
      * @return
      */
-    public ResultObject<List<MyCollectlistDto>> myCollectlist(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<List<MyCollectlistDto>> myCollectlist(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /***
      * 个人中心学生信息
      * @return
      */
-    public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<String> requestObject);
+    public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * app修改学生头像

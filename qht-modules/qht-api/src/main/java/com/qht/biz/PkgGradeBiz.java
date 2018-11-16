@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.dto.GradetListDto;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgGrade;
 import com.qht.mapper.PkgGradeMapper;
 
@@ -25,7 +26,7 @@ public class PkgGradeBiz extends BaseBiz<PkgGradeMapper,PkgGrade> {
 	 * 所有包年级
 	 * @return
 	 */
-	public List<GradetListDto> gradetList(){
-		return pkgGradeMapper.gradetList();
+	public List<GradetListDto> gradetList(UidAndTenantID ut){
+		return pkgGradeMapper.gradetList(ut);
 	}
 }

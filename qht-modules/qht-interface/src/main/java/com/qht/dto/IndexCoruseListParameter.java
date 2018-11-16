@@ -13,6 +13,12 @@ public class IndexCoruseListParameter  implements Serializable {
     private String pkg_subject_id;
     //课程包课程id
     private String course_type_id;
+    //是否推荐首页
+    private String is_index;
+    //1、免费；2、试听
+    private String pkt_type_id;
+    //观看人数以上数据
+    private String apply;
 
     public String getTenant_id() {
         return tenant_id;
@@ -53,6 +59,31 @@ public class IndexCoruseListParameter  implements Serializable {
     public void setCourse_type_id(String course_type_id) {
         this.course_type_id = course_type_id;
     }
+    
+
+	public String getIs_index() {
+		return is_index;
+	}
+
+	public void setIs_index(String is_index) {
+		this.is_index = is_index;
+	}
+
+	public String getPkt_type_id() {
+		return pkt_type_id;
+	}
+
+	public void setPkt_type_id(String pkt_type_id) {
+		this.pkt_type_id = pkt_type_id;
+	}
+
+	public String getApply() {
+		return apply;
+	}
+
+	public void setApply(String apply) {
+		this.apply = apply;
+	}
 
 	@Override
 	public String toString() {

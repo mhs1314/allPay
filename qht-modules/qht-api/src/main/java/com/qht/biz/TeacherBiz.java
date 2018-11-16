@@ -71,4 +71,28 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
     public List<IndexMyCourseDto> selectIndexMyCourseDto(IndexMyCourseParameter data) {
         return teacherMapper.selectIndexMyCourseDto(data);
     }
+
+    /**
+     * 教师端首页--我的课程包
+     * @param data
+     * @return
+     */
+    public List<IndexMyCourseListDto> selectIndexMyCourseList(IndexMyCourseListParameter data) {
+        return teacherMapper.selectIndexMyCourseList(data);
+    }
+
+    /**
+     * 教师端首页--添加录播课程包
+     * @param data
+     * @return
+     */
+    public Integer insertIndexAddLcourse(IndexAddLcourseParameter data) {
+        return teacherMapper.insertIndexAddLcourse(data);
+    }
+    public Integer insertChapter(IndexAddLcourseParameter data) {
+        return teacherMapper.insertChapter(data);
+    }
+    public Integer insertPeriod(IndexAddLcourseParameter data) {
+        return teacherMapper.insertPeriod(data);
+    }
 }
