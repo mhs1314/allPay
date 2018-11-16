@@ -28,7 +28,7 @@ public class CommonController implements CommonService {
 	@Autowired
 	private PkgSubjectBiz pkgSubjectBiz;
 	@Autowired
-	private PkgGradeBiz pkgGradeBiz  ;
+	private PkgGradeBiz pkgGradeBiz;
 	@Autowired
 	private CoursePkgBiz coursePkgBiz;
 	   /**
@@ -52,6 +52,7 @@ public class CommonController implements CommonService {
 	@Override
 	@PostMapping("/common/subjectList")
     @ResponseBody
+		 List<PkgSubjectListDto> dto=pkgSubjectBiz.subjectList();
 	public ResultObject<List<PkgSubjectListDto>> subjectList(@RequestBody  RequestObject<UidAndTenantID> requestObject) {
 		 List<PkgSubjectListDto> dto=pkgSubjectBiz.subjectList(requestObject.getData());
 	        ResultObject< List<PkgSubjectListDto>> resultObj=new ResultObject<>();
@@ -64,6 +65,8 @@ public class CommonController implements CommonService {
 	@Override
 	@PostMapping("/common/gradetList")
     @ResponseBody
+
+
 	public ResultObject<List<GradetListDto>> gradetList(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		 List<GradetListDto> dto=pkgGradeBiz.gradetList(requestObject.getData());
 	        ResultObject< List<GradetListDto>> resultObj=new ResultObject<>();
@@ -76,6 +79,8 @@ public class CommonController implements CommonService {
 	@Override
 	@PostMapping("/common/courseTypeList")
     @ResponseBody
+
+
 	public ResultObject<List<CoursePkgListDto>> courseTypeList(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		 List<CoursePkgListDto> dto=coursePkgBiz.courseTypeList(requestObject.getData());
 	        ResultObject< List<CoursePkgListDto>> resultObj=new ResultObject<>();

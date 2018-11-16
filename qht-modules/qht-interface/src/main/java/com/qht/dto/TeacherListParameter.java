@@ -16,14 +16,6 @@ public class TeacherListParameter implements Serializable {
         this.tenant_id = tenant_id;
     }
 
-    public Integer getIs_index() {
-        return is_index;
-    }
-
-    public void setIs_index(Integer is_index) {
-        this.is_index = is_index;
-    }
-
     public Integer getLimit() {
         return limit;
     }
@@ -32,30 +24,29 @@ public class TeacherListParameter implements Serializable {
         this.limit = limit;
     }
 
-    public Integer getIs_school() {
-        return is_school;
+
+    public String getSchool_id() {
+        return school_id;
     }
 
-    public void setIs_school(Integer is_school) {
-        this.is_school = is_school;
+    public void setSchool_id(String school_id) {
+        this.school_id = school_id;
     }
 
     @Override
     public String toString() {
         return "TeacherListParameter{" +
                 "tenant_id='" + tenant_id + '\'' +
-                ", is_index=" + is_index +
                 ", limit=" + limit +
-                ", is_school=" + is_school +
+                ", school_id='" + school_id + '\'' +
                 '}';
     }
 
     private String tenant_id;
 
-    private Integer is_index;
 
     private Integer limit;
 
-    private Integer is_school;
+    private String school_id;
 
 }

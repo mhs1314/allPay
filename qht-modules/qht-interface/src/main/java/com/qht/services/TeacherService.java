@@ -3,7 +3,10 @@ package com.qht.services;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.dto.IndexMyCourseDto;
+import com.qht.dto.IndexMyCourseParameter;
 import com.qht.dto.LoginInfoDto;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -20,8 +23,8 @@ public interface TeacherService {
 	 * @param rquest
 	 * @return
 	 */
-	public ResultObject<String> login(RequestObject<LoginInfoDto> rquest);
+	public ResultObject<String> login(@RequestBody RequestObject<LoginInfoDto> rquest);
 
-	public ResultObject<List<IndexMyCourseDto>> indexMyCourse();
+	public ResultObject<List<IndexMyCourseDto>> indexMyCourse(@RequestBody RequestObject<IndexMyCourseParameter> requestObject);
 
 }

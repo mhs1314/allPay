@@ -25,7 +25,6 @@ public class PkgSubjectBiz extends BaseBiz<PkgSubjectMapper,PkgSubject> {
 	  private PkgSubjectMapper pkgSubjectMapper;
 	 /**
 		 * 查看所有科目
-		 * @param parameter
 		 * @return
 		 */
 		public List<PkgSubjectListDto> subjectList(UidAndTenantID ut){

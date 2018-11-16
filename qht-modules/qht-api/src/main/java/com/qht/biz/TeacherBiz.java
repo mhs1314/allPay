@@ -1,14 +1,11 @@
 package com.qht.biz;
 
-import com.qht.dto.AppTeacherCourseDto;
-import com.qht.dto.AppTeacherEvaluationDto;
-import com.qht.dto.TeacherDetailsDto;
+import com.qht.dto.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
-import com.qht.dto.TeacherDto;
 import com.qht.entity.Teacher;
 import com.qht.mapper.StudentMapper;
 import com.qht.mapper.TeacherMapper;
@@ -66,4 +63,12 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
        return teacherMapper.teacherEvaluation(uid,tid,eval);
    }
 
+    /**
+     * 教师|端首页--我的课程
+     * @param data
+     * @return
+     */
+    public List<IndexMyCourseDto> selectIndexMyCourseDto(IndexMyCourseParameter data) {
+        return teacherMapper.selectIndexMyCourseDto(data);
+    }
 }

@@ -12,7 +12,7 @@
         <result property="head" column="head"/>
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
-        <result property="school" column="school"/>
+        <result property="school" column="school_id"/>
         <result property="clazz" column="clazz"/>
         <result property="account" column="account"/>
         <result property="password" column="password"/>
@@ -115,21 +115,12 @@
 	    t.intr,t.integral,t.sex,t.nickname,t.back_img,s.school_name
 	    from teacher t inner join school s on t.school_id=s.uid
 	    where t.tenant_id=#{tenant_id}
-	    <if test="is_index!=null and is_index!=''">
-            <if test="is_index==1">
-                and t.is_index=1
-            </if>
+	    <if test="school_id!=null and school_id!=''">
+            and s.uid=#{school_id}
         </if>
-        <if test="is_school!=null and is_school!=''">
-            <if test="is_school==1">
-                and t.is_school=1
-            </if>
-        </if>
+        order by t.praise_number desc
         <if test="limit!=null and limit!=''">
             limit 0,${limit}
-        </if>
-        <if test="limit==null and limit==''">
-            limit 0,6
         </if>
 	    )as a ,
 	    ( select count(course_pkg.uid) as pkg_count from course_pkg where tenant_id=#{tenant_id} and status="1" )as b

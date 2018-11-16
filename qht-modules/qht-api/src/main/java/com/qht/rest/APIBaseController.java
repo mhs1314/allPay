@@ -33,7 +33,8 @@ public class APIBaseController <Biz extends BaseBiz,Entity>{
 	    public HttpServletRequest getRequest() {
 	    	return request;
 	    }
-	    
+
+	    /*
 	    
 
 	    /**
@@ -60,7 +61,7 @@ public class APIBaseController <Biz extends BaseBiz,Entity>{
 	        baseBiz.insertSelective(entity);
 	        return new ObjectRestResponse<Entity>();
 	    }
-
+        
 	    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
 	    @ResponseBody
 	    public ObjectRestResponse<Entity> get(@PathVariable String id){
@@ -98,4 +99,5 @@ public class APIBaseController <Biz extends BaseBiz,Entity>{
 	    public String getCurrentUserName(){
 	        return BaseContextHandler.getUsername();
 	    }
+	    */
 }
