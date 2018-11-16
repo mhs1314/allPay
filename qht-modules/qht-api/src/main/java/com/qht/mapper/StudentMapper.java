@@ -148,10 +148,9 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 运营商--学校介绍
-     * @param tenant_id
      * @return
      */
-    TenantSchoolDto selectTenantSchool(String tenant_id);
+    TenantSchoolDto selectTenantSchool(UidAndTenantID data);
 
     /**
      * 运营商--画册

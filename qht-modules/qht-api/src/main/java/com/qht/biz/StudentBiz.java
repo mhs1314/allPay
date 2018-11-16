@@ -199,11 +199,10 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 运营商--学校介绍
-     * @param tenant_id
      * @return
      */
-    public TenantSchoolDto selectTenantSchool(String tenant_id) {
-        return studentMapper.selectTenantSchool(tenant_id);
+    public TenantSchoolDto selectTenantSchool(UidAndTenantID data) {
+        return studentMapper.selectTenantSchool(data);
     }
 
     /**

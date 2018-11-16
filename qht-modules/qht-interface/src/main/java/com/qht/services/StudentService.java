@@ -151,7 +151,7 @@ public interface StudentService {
      * 运营商--学校介绍
      * @return
      */
-    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<Void> uid);
+    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 运营商--画册

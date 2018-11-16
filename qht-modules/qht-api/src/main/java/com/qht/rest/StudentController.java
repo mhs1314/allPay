@@ -367,8 +367,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("tenantSchool")
     @ResponseBody
-    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<Void> requestObject) {
-        TenantSchoolDto tenantSchoolDto=studentBiz.selectTenantSchool(getTenantId());
+    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+        TenantSchoolDto tenantSchoolDto=studentBiz.selectTenantSchool(requestObject.getData());
         ResultObject<TenantSchoolDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
