@@ -26,9 +26,10 @@ public class CommonController implements CommonService {
 	@Autowired
 	private PkgSubjectBiz pkgSubjectBiz;
 	@Autowired
-	private PkgGradeBiz pkgGradeBiz  ;
+	private PkgGradeBiz pkgGradeBiz;
 	@Autowired
 	private CoursePkgBiz coursePkgBiz;
+
 	@Override
 	@PostMapping("/common/subjectList")
     @ResponseBody

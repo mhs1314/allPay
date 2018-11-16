@@ -1,11 +1,8 @@
 package com.qht.mapper;
 
-import com.qht.dto.AppTeacherCourseDto;
-import com.qht.dto.AppTeacherEvaluationDto;
-import com.qht.dto.TeacherDetailsDto;
+import com.qht.dto.*;
 import org.apache.ibatis.annotations.Param;
 
-import com.qht.dto.TeacherDto;
 import com.qht.entity.Teacher;
 
 import org.springframework.stereotype.Repository;
@@ -54,4 +51,11 @@ public interface TeacherMapper extends Mapper<Teacher> {
      * @return
      */
     List<AppTeacherEvaluationDto> teacherEvaluation(@Param("uid")String uid, @Param("tid")String tid,@Param("eval")Integer eval);
+
+	/**
+	 * 教师|端首页--我的课程
+	 * @param data
+	 * @return
+	 */
+    List<IndexMyCourseDto> selectIndexMyCourseDto(IndexMyCourseParameter data);
 }
