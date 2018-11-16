@@ -475,7 +475,7 @@
     <select id="selectTenantSchool" resultType="com.qht.dto.TenantSchoolDto" parameterType="com.qht.dto.UidAndTenantID">
         select
           uid,intr,culture,school_name,banner
-        from school where tenant_id=#{tenant_id} and school_id=#{school_id}
+        from school where tenant_id=#{tenant_id} and uid=#{school_id}
     </select>
 
     <!--运营商-画册-->
