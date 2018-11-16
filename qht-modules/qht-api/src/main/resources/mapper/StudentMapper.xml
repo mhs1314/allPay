@@ -182,10 +182,10 @@
           cp.pkg_name,
           pe.comments_star,
           pe.comments_content,
-          count(s.name),
+          count(s.name)
         from
-           period_evaluation pe inner join student s on s.uid=pe.student_id
-           inner join course_pkg cp on pe.course_id=cp.uid
+           period_evaluation pe left join student s on s.uid=pe.student_id
+           left join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--课程详情-课程包评论good-->
@@ -198,7 +198,7 @@
         cp.pkg_name,
         pe.comments_star,
         pe.comments_content,
-        count(s.name),
+        count(s.name)
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
@@ -214,7 +214,7 @@
         cp.pkg_name,
         pe.comments_star,
         pe.comments_content,
-        count(s.name),
+        count(s.name)
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
@@ -232,7 +232,7 @@
         cp.pkg_name,
         pe.comments_star,
         pe.comments_content,
-        count(s.name),
+        count(s.name)
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
@@ -272,12 +272,12 @@
     <!--课程列表-->
     <select id="selectCourseList" resultType="com.qht.dto.CourseListDto" parameterType="com.qht.dto.CourseListParameter">
         select
-            cp.cover,
-            cp.uid,
-            cp.pkg_name,
-            cp.total_price,
-            t.nickname,
-            p.begin
+        cp.cover,
+        cp.uid,
+        cp.pkg_name,
+        cp.total_price,
+        t.nickname,
+        p.begin
         from course_pkg cp
         inner join chapter c on cp.uid=c.course_id
         inner join period p on p.chapter_id=c.uid
@@ -288,6 +288,9 @@
         <if test="pkt_type_id!=null and pkt_type_id!=''">
               and cp.pkt_type_id=#{pkt_tyepe_id}
           </if>
+        <if test="is_goods!=null and is_goods!=''">
+            and cp.is_goods=${is_goods}
+        </if>
           <if test="pkg_subject_id!=null and pkg_subject_id!=''">
               and cp.pkg_subject_id=#{pkg_subject_id}
           </if>
@@ -477,7 +480,7 @@
 
     <!--运营商-画册-->
     <select id="selectTenantAlbum" parameterType="java.lang.String" resultType="com.qht.dto.TenantAlbumDto">
-        select uid,album,index from album where tenant_id=#{tenant_id}
+        select a.uid,a.album,a.index from album a where tenant_id=#{tenant_id}
     </select>
 
     <!--学生端-个人中心-首页-我的课程列表-->

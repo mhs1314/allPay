@@ -157,7 +157,7 @@ public interface StudentService {
      * 运营商--画册
      * @return
      */
-    public ResultObject<TenantAlbumDto> tenantAlbum(@RequestBody RequestObject<Void> uid);
+    public ResultObject<List<TenantAlbumDto>> tenantAlbum(@RequestBody RequestObject<Void> uid);
 
 
     public ResultObject<List<MyIndexCourseDto>> myIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject);

@@ -211,7 +211,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public TenantAlbumDto selectTenantAlbum(String tenant_id) {
+    public List<TenantAlbumDto> selectTenantAlbum(String tenant_id) {
         return studentMapper.selectTenantAlbum(tenant_id);
     }
 
