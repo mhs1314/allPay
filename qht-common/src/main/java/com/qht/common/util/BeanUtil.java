@@ -3,6 +3,8 @@ package com.qht.common.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,25 @@ import org.slf4j.LoggerFactory;
 public class BeanUtil {
 	private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 	
+	/**
+	 * 复制list到目标list中,实体类可以不一致，只拷贝属性值
+	 * @param target
+	 * @param sourceList
+	 */
+	public static <Target,Source> List<Target> copyList(Class<Target> target,List<Source> sourceList) {
+		List<Target> list = new ArrayList<Target>();
+		try {
+			for(Source source : sourceList) {
+				Target targetObj = target.newInstance();
+				copyFields(targetObj,source);
+				list.add(targetObj);
+			}			
+		} catch (Exception e) {
+			 logger.error("复制成员变量出错！", e);
+	         throw new RuntimeException(e);
+		} 
+		return list;
+	}
 	/**
      * 复制所有成员变量
      * target目标对象
