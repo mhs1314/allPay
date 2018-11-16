@@ -328,9 +328,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("courseTeacherInfo")
     @ResponseBody
 
-    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> request) {
-        List<TopTeacherInfoDto> topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(request.getData().getUid(),getTenantId());
-        ResultObject<List<TopTeacherInfoDto>> resultObject=new ResultObject<>();
+    public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> request) {
+        TopTeacherInfoDto topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(request.getData().getUid(),getTenantId());
+        ResultObject<TopTeacherInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(topTeacherInfoDtos);

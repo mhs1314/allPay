@@ -173,7 +173,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<TopTeacherInfoDto> selectTopTeacherInfo(String uid, String tenant_id) {
+    public TopTeacherInfoDto selectTopTeacherInfo(String uid, String tenant_id) {
         return studentMapper.selectTopTeacherInfo(uid,tenant_id);
     }
 

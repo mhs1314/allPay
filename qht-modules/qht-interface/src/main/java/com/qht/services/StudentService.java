@@ -129,7 +129,7 @@ public interface StudentService {
      * @param uid
      * @return
      */
-    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> uid);
+    public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 名师详情--全部课程

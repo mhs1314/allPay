@@ -128,7 +128,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
-    List<TopTeacherInfoDto> selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
+    TopTeacherInfoDto selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 名师详情--全部课程
