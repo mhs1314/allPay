@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.dto.CoursePkgListDto;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
 import com.qht.mapper.CoursePkgMapper;
 import com.qht.mapper.StudentMapper;
@@ -26,7 +27,7 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 	 * 查询所有课程包
 	 * @return
 	 */
-	public List<CoursePkgListDto> courseTypeList(){
-		return coursePkgMapper.courseTypeList();
+	public List<CoursePkgListDto> courseTypeList(UidAndTenantID ut){
+		return coursePkgMapper.courseTypeList(ut);
 	}
 }

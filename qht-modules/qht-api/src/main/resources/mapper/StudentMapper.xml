@@ -26,7 +26,7 @@
     
     <!--查询banner-->
     <select id="selectBanner" resultType="com.qht.dto.BannerDto">
-        select uid,image,link,sort from banner where tenantId=#{tenant_id} and type=#{type}
+        select uid,image,link,sort from banner where tenant_Id=#{tenant_id} and type=#{type}
     </select>
     <!--查询首页直播课程信息-->
     <select id="selectLiveClass" resultType="com.qht.dto.LiveClassDto" parameterType="java.lang.String">
@@ -719,7 +719,7 @@ FROM
 LEFT JOIN teacher t ON c.teacher_id = t.uid
 LEFT JOIN pkg_subject p ON c.pkg_subject_id = p.uid
 WHERE
-	c.tenant_id =#{tenant_id} and cp.status="1"
+	c.tenant_id =#{tenant_id} and c.status="1"
         <if test="play_type_id!=null and play_type_id!=''">
             AND c.play_type_id =#{play_type_id}
         </if>
@@ -818,7 +818,7 @@ WHERE
 
     <!--app我的课程答疑-->
     <select id="selectIndexMyAnswer" resultType="com.qht.dto.IndexMyAnswerDto">
-        select  a.uid,a.type,ask.questtion,p.name,cp.cover
+        select  a.uid,a.type,ask.question,p.name,cp.cover
         from answer a
         left join course_ask ask on a.ask_id=ask.uid
         left join period p on p.uid=a.period_id
@@ -929,7 +929,7 @@ and s.tenant_id=#{tenant_id}
     <!--app查看学生监护人-->
     <select id="appMyStudentGuardian" resultType="com.qht.dto.AppMyStudentGuardianDto" parameterType="com.qht.dto.AppStudentParameter">
        SELECT
-	g.`call` AS CALL,
+	g.`call` AS `call`,
 	g.uid AS uid,
 	g.phone AS phone,
 	g.type AS type

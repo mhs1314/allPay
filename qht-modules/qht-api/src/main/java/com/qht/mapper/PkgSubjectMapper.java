@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.qht.dto.AppStudentParameter;
 import com.qht.dto.PkgSubjectListDto;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgSubject;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -25,6 +26,6 @@ public interface PkgSubjectMapper extends Mapper<PkgSubject> {
 	 * @param parameter
 	 * @return
 	 */
-	List<PkgSubjectListDto> subjectList();
+	List<PkgSubjectListDto> subjectList(UidAndTenantID ut);
 	
 }

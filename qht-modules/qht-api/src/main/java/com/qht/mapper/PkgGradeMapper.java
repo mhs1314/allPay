@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.qht.dto.GradetListDto;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgGrade;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -23,6 +24,6 @@ public interface PkgGradeMapper extends Mapper<PkgGrade> {
 	 * 所有包年级
 	 * @return
 	 */
-	List<GradetListDto> gradetList();
+	List<GradetListDto> gradetList(UidAndTenantID ut);
 	
 }
