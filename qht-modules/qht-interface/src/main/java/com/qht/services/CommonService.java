@@ -11,6 +11,7 @@ import com.qht.dto.GradetListDto;
 import com.qht.dto.LoginInfoDto;
 import com.qht.dto.PkgSubjectListDto;
 import com.qht.dto.StudentDto;
+import com.qht.dto.UidAndTenantID;
 
 /**
  * 公共
@@ -26,7 +27,7 @@ public interface CommonService {
 	 * @param requestObject
 	 * @return
 	 */
-	public ResultObject<List<PkgSubjectListDto>> subjectList(@RequestBody RequestObject<Void> requestObject);
+	public ResultObject<List<PkgSubjectListDto>> subjectList(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 	/**
 	 * 所有年级
@@ -34,7 +35,7 @@ public interface CommonService {
 	 * @param requestObject
 	 * @return
 	 */
-	public ResultObject<List<GradetListDto>> gradetList(@RequestBody RequestObject<Void> requestObject);
+	public ResultObject<List<GradetListDto>> gradetList(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 	/**
 	 * 所有课程包
@@ -42,6 +43,6 @@ public interface CommonService {
 	 * @param requestObject
 	 * @return
 	 */
-	public ResultObject<List<CoursePkgListDto>> courseTypeList(@RequestBody RequestObject<Void> requestObject);
+	public ResultObject<List<CoursePkgListDto>> courseTypeList(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 }

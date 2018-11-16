@@ -19,6 +19,7 @@ import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
 import com.github.wxiaoqi.security.common.msg.TableResultResponse;
 
 import com.github.wxiaoqi.security.common.util.Query;
+import com.qht.auth.util.RequestContextUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +32,26 @@ public class APIBaseController <Biz extends BaseBiz,Entity>{
 
 	    public HttpServletRequest getRequest() {
 	    	return request;
+	    }
+	    
+	    
+
+	    /**
+
+	     * 得到tenant_id
+	     * @return
+	     *
+	     *  */
+	    public String getTenantId(){
+	    	/*
+	        String tenant_id=null;
+	        TeacherDto studentDto=(TeacherDto)request.getSession().getAttribute("user_session_key");
+	        if (studentDto!=null){
+	            tenant_id=studentDto.getTenant_id();
+	        }
+	        return tenant_id == null ? "11": tenant_id;
+	        */    	
+	    	return RequestContextUtil.getTenantId();
 	    }
 	    
 	    @RequestMapping(value = "",method = RequestMethod.POST)
