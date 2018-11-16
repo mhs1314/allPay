@@ -11,8 +11,7 @@
         <result property="nickname" column="nickname"/>
         <result property="head" column="head"/>
         <result property="sex" column="sex"/>
-        <result property="age" column="age"/>
-        <result property="school" column="school"/>
+        <result property="age" column="age"/>       
         <result property="clazz" column="clazz"/>
         <result property="mobile" column="mobile"/>
         <result property="cert" column="cert"/>
