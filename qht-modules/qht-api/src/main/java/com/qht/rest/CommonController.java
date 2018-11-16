@@ -52,7 +52,6 @@ public class CommonController implements CommonService {
 	@Override
 	@PostMapping("/common/subjectList")
     @ResponseBody
-		 List<PkgSubjectListDto> dto=pkgSubjectBiz.subjectList();
 	public ResultObject<List<PkgSubjectListDto>> subjectList(@RequestBody  RequestObject<UidAndTenantID> requestObject) {
 		 List<PkgSubjectListDto> dto=pkgSubjectBiz.subjectList(requestObject.getData());
 	        ResultObject< List<PkgSubjectListDto>> resultObj=new ResultObject<>();
