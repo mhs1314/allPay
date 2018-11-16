@@ -64,7 +64,7 @@ public class MyIndexBuyRecordModel implements Serializable {
 
     @Override
     public String toString() {
-        return "MyIndexBuyRecordDto{" +
+        return "MyIndexBuyRecordModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

@@ -1,20 +1,32 @@
 package com.qht.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * @ClassName CourseEvaluationParameter
- * @Author Zuoxh
- * @Data 2018/11/15 0015 下午 9:24
- */
 public class CourseEvaluationModel implements Serializable {
 
-    public String getTenant_id() {
-        return tenant_id;
+    //学生头像
+    private String head;
+    //评论id
+    private String uid;
+    //评论时间
+    private Date comments_time;
+    //课程包名称
+    private String pkg_name;
+    //评论星级
+    private String comments_stat;
+    //评论内容
+    private String comments_content;
+    //学生姓名
+    private String name;
+
+
+    public String getHead() {
+        return head;
     }
 
-    public void setTenant_id(String tenant_id) {
-        this.tenant_id = tenant_id;
+    public void setHead(String head) {
+        this.head = head;
     }
 
     public String getUid() {
@@ -25,48 +37,57 @@ public class CourseEvaluationModel implements Serializable {
         this.uid = uid;
     }
 
-    public String getEval() {
-        return eval;
+    public Date getComments_time() {
+        return comments_time;
     }
 
-    public void setEval(String eval) {
-        this.eval = eval;
+    public void setComments_time(Date comments_time) {
+        this.comments_time = comments_time;
     }
 
-    public String getPage() {
-        return page;
+    public String getPkg_name() {
+        return pkg_name;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setPkg_name(String pkg_name) {
+        this.pkg_name = pkg_name;
     }
 
-    public String getLimit() {
-        return limit;
+    public String getComments_stat() {
+        return comments_stat;
     }
 
-    public void setLimit(String limit) {
-        this.limit = limit;
+    public void setComments_stat(String comments_stat) {
+        this.comments_stat = comments_stat;
+    }
+
+    public String getComments_content() {
+        return comments_content;
+    }
+
+    public void setComments_content(String comments_content) {
+        this.comments_content = comments_content;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "CourseEvaluationParameter{" +
-                "tenant_id='" + tenant_id + '\'' +
+        return "CourseEvaluationModel{" +
+                "head='" + head + '\'' +
                 ", uid='" + uid + '\'' +
-                ", eval='" + eval + '\'' +
-                ", page='" + page + '\'' +
-                ", limit='" + limit + '\'' +
+                ", comments_time=" + comments_time +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", comments_stat='" + comments_stat + '\'' +
+                ", comments_content='" + comments_content + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 
-    private String tenant_id;
-
-    private String uid;
-
-    private String eval;
-
-    private String page="1";
-
-    private String limit="10";
 }

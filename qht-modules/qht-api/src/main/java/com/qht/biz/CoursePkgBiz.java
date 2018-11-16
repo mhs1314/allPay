@@ -11,6 +11,8 @@ import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
 import com.qht.mapper.CoursePkgMapper;
 import com.qht.mapper.StudentMapper;
+import com.qht.model.CoursePkgListModel;
+import com.qht.model.UidAndTenantIDParam;
 
 /**
  * 课程包
@@ -27,7 +29,7 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 	 * 查询所有课程包
 	 * @return
 	 */
-	public List<CoursePkgListDto> courseTypeList(UidAndTenantID ut){
+	public List<CoursePkgListModel> courseTypeList(UidAndTenantIDParam ut){
 		return coursePkgMapper.courseTypeList(ut);
 	}
 }

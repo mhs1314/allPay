@@ -62,7 +62,7 @@ public class MyIndexBuyRecordCourseBackModel implements Serializable {
 
     @Override
     public String toString() {
-        return "MyIndexBuyRecourdCourseBackDto{" +
+        return "MyIndexBuyRecourdCourseBackModel{" +
                 "effective_time=" + effective_time +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

@@ -76,7 +76,7 @@ public class IndexCoruseListModel  implements Serializable {
 
 	@Override
 	public String toString() {
-		return "IndexCoruseListDto [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", play_type_id="
+		return "IndexCoruseListModel [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", play_type_id="
 				+ play_type_id + ", nickname=" + nickname + ", subject_name=" + subject_name + ", apply_number="
 				+ apply_number + "]";
 	}

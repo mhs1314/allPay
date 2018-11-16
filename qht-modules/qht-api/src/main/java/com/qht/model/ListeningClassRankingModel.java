@@ -69,7 +69,7 @@ public class ListeningClassRankingModel implements Serializable {
 
     @Override
     public String toString() {
-        return "ListeningClassRankingDto{" +
+        return "ListeningClassRankingModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

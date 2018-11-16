@@ -8,6 +8,8 @@ import com.qht.dto.AppStudentParameter;
 import com.qht.dto.CoursePkgListDto;
 import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
+import com.qht.model.CoursePkgListModel;
+import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -25,6 +27,6 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * 查询所有课程包
 	 * @return
 	 */
-	List<CoursePkgListDto>courseTypeList(UidAndTenantID ut);
+	List<CoursePkgListModel>courseTypeList(UidAndTenantIDParam ut);
 	
 }

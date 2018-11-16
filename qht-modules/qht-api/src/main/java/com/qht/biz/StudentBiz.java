@@ -1,7 +1,8 @@
 package com.qht.biz;
 
 import com.qht.RequestObject;
-import com.qht.dto.*;
+import com.qht.dto.StudentDto;
+import com.qht.model.*;
 
 import com.qht.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<BannerDto> selectBanner(String tenant_id,String type) {
+    public List<BannerModel> selectBanner(String tenant_id,String type) {
         return studentMapper.selectBanner(tenant_id,type);
     }
 
@@ -54,7 +55,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<LiveClassDto> selectLiveClass(String tenant_id) {
+    public List<LiveClassModel> selectLiveClass(String tenant_id) {
         return studentMapper.selectLiveClass(tenant_id);
     }
 
@@ -62,7 +63,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * 查询首页的免费课程
      * @return
      */
-    public List<FreeClassDto> selectFreeClass(FreeClassParameter data) {
+    public List<FreeClassModel> selectFreeClass(FreeClassParam data) {
         return studentMapper.selectFreeClass(data);
     }
 
@@ -71,7 +72,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<ListeningClassRankingDto> selectListeningClassRanking(String tenant_id) {
+    public List<ListeningClassRankingModel> selectListeningClassRanking(String tenant_id) {
         return studentMapper.selectListeningClassRanking(tenant_id);
     }
 
@@ -80,7 +81,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<ListeningClassListDto> selectListeningClassList(String tenant_id) {
+    public List<ListeningClassListModel> selectListeningClassList(String tenant_id) {
         return studentMapper.selectListeningClassList(tenant_id);
     }
 
@@ -89,7 +90,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<TeacherRankingDto> selectTeacherRanking(String tenant_id) {
+    public List<TeacherRankingModel> selectTeacherRanking(String tenant_id) {
         return studentMapper.selectTeacherRanking(tenant_id);
     }
 
@@ -97,7 +98,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * 查询首页老师集合
      * @return
      */
-    public List<TeacherListDto> selectTeacherList(TeacherListParameter data) {
+    public List<TeacherListModel> selectTeacherList(TeacherListParam data) {
         return studentMapper.selectTeacherList(data);
     }
 
@@ -107,7 +108,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public CourseIntroDto selectCourseIntro(String uid, String tenant_id) {
+    public CourseIntroModel selectCourseIntro(String uid, String tenant_id) {
 
         return studentMapper.selectCourseIntro(uid,tenant_id);
     }
@@ -118,7 +119,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<CourseChapterDto> selectCourseChapter(String uid, String tenant_id) {
+    public List<CourseChapterModel> selectCourseChapter(String uid, String tenant_id) {
         return studentMapper.selectCourseChapter(uid,tenant_id);
     }
 
@@ -126,16 +127,16 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * 课程详情--课程包评论
      * @return
      */
-    public List<CourseEvaluationDto> selectCourseEvaluation(CourseEvaluationParameter data) {
+    public List<CourseEvaluationModel> selectCourseEvaluation(CourseEvaluationParam data) {
         return studentMapper.selectCourseEvaluation(data);
     }
-    public List<CourseEvaluationDto> selectCourseEvaluationGood(CourseEvaluationParameter data) {
+    public List<CourseEvaluationModel> selectCourseEvaluationGood(CourseEvaluationParam data) {
         return studentMapper.selectCourseEvaluationGood(data);
     }
-    public List<CourseEvaluationDto> selectCourseEvaluationMid(CourseEvaluationParameter data) {
+    public List<CourseEvaluationModel> selectCourseEvaluationMid(CourseEvaluationParam data) {
         return studentMapper.selectCourseEvaluationMid(data);
     }
-    public List<CourseEvaluationDto> selectCourseEvaluationBad(CourseEvaluationParameter data) {
+    public List<CourseEvaluationModel> selectCourseEvaluationBad(CourseEvaluationParam data) {
         return studentMapper.selectCourseEvaluationBad(data);
     }
 
@@ -145,7 +146,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public TeacherInfoDto selectTeacherInfo(String uid, String tenant_id) {
+    public TeacherInfoModel selectTeacherInfo(String uid, String tenant_id) {
         return studentMapper.selectTeacherInfo(uid,tenant_id);
     }
 
@@ -154,7 +155,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public List<CourseListDto> selectCourseList(CourseListParameter data) {
+    public List<CourseListModel> selectCourseList(CourseListParam data) {
         return studentMapper.selectCourseList(data);
     }
 
@@ -163,7 +164,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public List<TopTeacherListDto> selectTopTeacherList(TopTeacherListParameter data) {
+    public List<TopTeacherListModel> selectTopTeacherList(TopTeacherListParam data) {
         return studentMapper.selectTopTeacherList(data);
     }
 
@@ -173,7 +174,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<TopTeacherInfoDto> selectTopTeacherInfo(String uid, String tenant_id) {
+    public List<TopTeacherInfoModel> selectTopTeacherInfo(String uid, String tenant_id) {
         return studentMapper.selectTopTeacherInfo(uid,tenant_id);
     }
 
@@ -183,7 +184,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<TeacherCourseDto> selectTeacherCourse(String uid, String tenant_id) {
+    public List<TeacherCourseModel> selectTeacherCourse(String uid, String tenant_id) {
         return studentMapper.selectTeacherCourse(uid,tenant_id);
     }
 
@@ -193,7 +194,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<TeacherEvaluationDto> selectTeacherEvaluation(String uid, String tenant_id) {
+    public List<TeacherEvaluationModel> selectTeacherEvaluation(String uid, String tenant_id) {
         return studentMapper.selectTeacherEvaluation(uid,tenant_id);
     }
 
@@ -202,7 +203,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public TenantSchoolDto selectTenantSchool(String tenant_id) {
+    public TenantSchoolModel selectTenantSchool(String tenant_id) {
         return studentMapper.selectTenantSchool(tenant_id);
     }
 
@@ -211,7 +212,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public TenantAlbumDto selectTenantAlbum(String tenant_id) {
+    public TenantAlbumModel selectTenantAlbum(String tenant_id) {
         return studentMapper.selectTenantAlbum(tenant_id);
     }
 
@@ -221,7 +222,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<IndexCourseDetailsDto> selectIndexCourseDetails(String uid, String tenant_id) {
+    public List<IndexCourseDetailsModel> selectIndexCourseDetails(String uid, String tenant_id) {
         return studentMapper.selectIndexCourseDetails(uid,tenant_id);
     }
 
@@ -230,7 +231,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param paramter
      * @return
      */
-    public List<MyIndexMessageDto> selectMyIndexMessage(RequestObject<MyIndexMessageParamter> paramter) {
+    public List<MyIndexMessageModel> selectMyIndexMessage(RequestObject<MyIndexMessageParam> paramter) {
         return studentMapper.selectMyIndexMessage(paramter.getData().getUid(), paramter.getData().getTenant_id(), paramter.getData().getIsread());
     }
 
@@ -250,7 +251,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param uid
      * @return
      */
-    public MyIndexMessageDto selectMessageById(String uid) {
+    public MyIndexMessageModel selectMessageById(String uid) {
         return studentMapper.selectMessageById(uid);
     }
 
@@ -259,7 +260,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParameter data) {
+    public List<MyIndexCourseModel> selectMyIndexCourse(MyIndexCourseParam data) {
         return studentMapper.selectMyIndexCourse(data);
     }
 
@@ -268,7 +269,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public List<MyIndexCourseAnswerDto> selectMyIndexCourseAnswer(MyIndexCourseAnswerParameter data) {
+    public List<MyIndexCourseAnswerModel> selectMyIndexCourseAnswer(MyIndexCourseAnswerParam data) {
         return studentMapper.selectMyIndexCourseAnswer(data);
     }
 
@@ -277,7 +278,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public List<MyIndexBuyRecordDto> selectMyIndexBuyRecourd(MyIndexBuyRecordParameter data) {
+    public List<MyIndexBuyRecordModel> selectMyIndexBuyRecourd(MyIndexBuyRecordParam data) {
         return studentMapper.selectMyIndexBuyRecord(data);
     }
 
@@ -290,7 +291,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public StudentInfoDto studentInfo(String uid,String tenant_id){
+    public StudentInfoModel studentInfo(String uid,String tenant_id){
         return  studentMapper.studentInfo(uid,tenant_id);
     }
 
@@ -299,7 +300,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-    public List<MyIndexMyintegralDetailDto> myIndexMyintegralDetail(RequestObject<MyIndexMyintegralDetailParameter> parameter){
+    public List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(RequestObject<MyIndexMyintegralDetailParam> parameter){
         return  studentMapper.myIndexMyintegralDetail(parameter.getData());
     }
 
@@ -309,7 +310,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-   public List<IndexFutureCoruseDto> indexFutureCoruse(String uid,String tenant_id){
+   public List<IndexFutureCoruseModel> indexFutureCoruse(String uid,String tenant_id){
        return studentMapper.indexFutureCoruse(uid,tenant_id);
    }
 
@@ -318,7 +319,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<IndexTeacherDto> indexTeacher(String tenant_id){
+    public List<IndexTeacherModel> indexTeacher(String tenant_id){
        return  studentMapper.indexTeacher(tenant_id);
     }
     /**
@@ -326,7 +327,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-  public  List<IndexAnswerDto> indexAnswer(String tenant_id){
+  public  List<IndexAnswerModel> indexAnswer(String tenant_id){
         return studentMapper.indexAnswer(tenant_id);
   }
     /**
@@ -334,7 +335,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-  public   List<IndexCoruseListDto> indexCoruseList(IndexCoruseListParameter parameter){
+  public   List<IndexCoruseListModel> indexCoruseList(IndexCoruseListParam parameter){
         return studentMapper.indexCoruseList(parameter);
   }
 
@@ -343,7 +344,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-  public   List<IndexTeacherListDto> indexTeacherList(IndexTeacherListParameter parameter){
+  public   List<IndexTeacherListModel> indexTeacherList(IndexTeacherListParam parameter){
         return studentMapper.indexTeacherList(parameter);
   }
 
@@ -352,7 +353,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param uid
      * @return
      */
-    public List<MyIndexBuyRecordCourseDetailsDto> selectMyIndexBuyRecordDetails(String uid) {
+    public List<MyIndexBuyRecordCourseDetailsModel> selectMyIndexBuyRecordDetails(String uid) {
         return studentMapper.selectMyIndexBuyRecordDetails(uid);
     }
 
@@ -361,7 +362,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public List<MyIndexBuyRecordCourseBackDto> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParameter data) {
+    public List<MyIndexBuyRecordCourseBackModel> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParam data) {
 
         return studentMapper.selectMyIndexBuyRecordCourseBack(data);
     }
@@ -371,7 +372,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public List<MyIndexMycollectDto> selectMyIndexMycollect(MyIndexMycollectParameter data) {
+    public List<MyIndexMycollectModel> selectMyIndexMycollect(MyIndexMycollectParam data) {
         return studentMapper.selectMyIndexMycollect(data);
     }
 
@@ -393,7 +394,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public List<IndexMyAnswerDto> selectIndexMyAnswer(String uid, String tenant_id) {
+    public List<IndexMyAnswerModel> selectIndexMyAnswer(String uid, String tenant_id) {
         return studentMapper.selectIndexMyAnswer(uid,tenant_id);
     }
 
@@ -403,7 +404,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public IndexAnswerDetailsDto selectIndexAnswerDetails(String uid, String tenant_id) {
+    public IndexAnswerDetailsModel selectIndexAnswerDetails(String uid, String tenant_id) {
         return studentMapper.selectIndexAnswerDetails(uid,tenant_id);
     }
 
@@ -473,7 +474,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param data
      * @return
      */
-    public Integer insertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParameter data) {
+    public Integer insertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParam data) {
         return studentMapper.indsertAppendAskAnswer(data);
     }
     /**
@@ -482,7 +483,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param tenant_id
      * @return
      */
-    public AppMyStudentInfoDto appMyStudentInfo(String uid,String tenant_id){
+    public AppMyStudentInfoModel appMyStudentInfo(String uid,String tenant_id){
         return studentMapper.appMyStudentInfo(uid,tenant_id);
     }
     /**
@@ -490,7 +491,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-   public  Integer appUpdaetStudentHead(AppStudentParameter parameter){
+   public  Integer appUpdaetStudentHead(AppStudentParam parameter){
         return studentMapper.appUpdaetStudentHead(parameter);
     }
     /**
@@ -498,7 +499,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-    public Integer appUpdaetStudentNickname(AppStudentParameter parameter){
+    public Integer appUpdaetStudentNickname(AppStudentParam parameter){
         return studentMapper.appUpdaetStudentNickname(parameter);
     }
     /**
@@ -506,7 +507,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-   public Integer  appUpdaetStudentPassword(AppStudentParameter parameter){
+   public Integer  appUpdaetStudentPassword(AppStudentParam parameter){
        return studentMapper.appUpdaetStudentPassword(parameter);
    }
     /**
@@ -514,7 +515,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-   public List<AppMyStudentGuardianDto>appMyStudentGuardian(AppStudentParameter parameter){
+   public List<AppMyStudentGuardianModel>appMyStudentGuardian(AppStudentParam parameter){
        return  studentMapper.appMyStudentGuardian(parameter);
    }
     /**
@@ -522,7 +523,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-   public List<TagDto> appMyStudentInterest (AppStudentParameter parameter){
+   public List<TagModel> appMyStudentInterest (AppStudentParam parameter){
         return  studentMapper.appMyStudentInterest(parameter);
     }
 }

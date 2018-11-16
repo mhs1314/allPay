@@ -36,7 +36,7 @@ public class GuardianModel  implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GuardianDto [gid=" + gid + ", call=" + call + ", phone=" + phone + "]";
+		return "GuardianModel [gid=" + gid + ", call=" + call + ", phone=" + phone + "]";
 	}
     
     

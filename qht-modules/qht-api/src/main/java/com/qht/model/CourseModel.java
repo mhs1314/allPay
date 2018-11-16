@@ -16,7 +16,7 @@ public class CourseModel implements Serializable {
 
     @Override
     public String toString() {
-        return "CourseDto{" +
+        return "CourseModel{" +
                 "pkg_name='" + pkg_name + '\'' +
                 '}';
     }

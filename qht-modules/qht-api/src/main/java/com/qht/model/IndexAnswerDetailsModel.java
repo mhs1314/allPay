@@ -206,7 +206,7 @@ public class IndexAnswerDetailsModel implements Serializable {
 
     @Override
     public String toString() {
-        return "IndexAnswerDetailsDto{" +
+        return "IndexAnswerDetailsModel{" +
                 "answer_time=" + answer_time +
                 ", teacher_name='" + teacher_name + '\'' +
                 ", question='" + question + '\'' +

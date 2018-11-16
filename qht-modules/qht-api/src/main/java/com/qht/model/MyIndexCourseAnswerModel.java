@@ -135,7 +135,7 @@ public class MyIndexCourseAnswerModel implements Serializable {
 
     @Override
     public String toString() {
-        return "MyIndexCourseAnswerDto{" +
+        return "MyIndexCourseAnswerModel{" +
                 "answer_file_name='" + answer_file_name + '\'' +
                 ", answer_time='" + answer_time + '\'' +
                 ", file_url='" + file_url + '\'' +

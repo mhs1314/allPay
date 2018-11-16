@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 /**
  * 老师列表
  */
-public class TeacherListDto implements Serializable {
+public class TeacherListModel implements Serializable {
     //老师介绍
     private String intr;
     //学校名称
@@ -80,7 +80,7 @@ public class TeacherListDto implements Serializable {
 
     @Override
     public String toString() {
-        return "TeacherListDto{" +
+        return "TeacherListModel{" +
                 "intr='" + intr + '\'' +
                 ", school='" + school + '\'' +
                 ", integral=" + integral +

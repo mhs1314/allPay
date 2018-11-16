@@ -11,6 +11,8 @@ import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgSubject;
 import com.qht.mapper.PkgSubjectMapper;
 import com.qht.mapper.StudentMapper;
+import com.qht.model.PkgSubjectListModel;
+import com.qht.model.UidAndTenantIDParam;
 
 /**
  * 课程包科目
@@ -27,7 +29,7 @@ public class PkgSubjectBiz extends BaseBiz<PkgSubjectMapper,PkgSubject> {
 		 * 查看所有科目
 		 * @return
 		 */
-		public List<PkgSubjectListDto> subjectList(UidAndTenantID ut){
+		public List<PkgSubjectListModel> subjectList(UidAndTenantIDParam ut){
 			return pkgSubjectMapper.subjectList(ut);
 		}
 }

@@ -70,7 +70,7 @@ public class LiveClassModel implements Serializable {
 
     @Override
     public String toString() {
-        return "LiveClassDto{" +
+        return "LiveClassModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", level_name='" + level_name + '\'' +

@@ -8,6 +8,8 @@ import com.qht.dto.AppStudentParameter;
 import com.qht.dto.PkgSubjectListDto;
 import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgSubject;
+import com.qht.model.PkgSubjectListModel;
+import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -26,6 +28,6 @@ public interface PkgSubjectMapper extends Mapper<PkgSubject> {
 	 * @param parameter
 	 * @return
 	 */
-	List<PkgSubjectListDto> subjectList(UidAndTenantID ut);
+	List<PkgSubjectListModel> subjectList(UidAndTenantIDParam ut);
 	
 }

@@ -1,11 +1,12 @@
 package com.qht.biz;
 
-import com.qht.dto.*;
+import com.qht.model.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
+import com.qht.dto.TeacherDto;
 import com.qht.entity.Teacher;
 import com.qht.mapper.StudentMapper;
 import com.qht.mapper.TeacherMapper;
@@ -39,7 +40,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param tid
      * @return
      */
-   public TeacherDetailsDto teacherDetails(String uid,String tid){
+   public TeacherDetailsModel teacherDetails(String uid,String tid){
        return teacherMapper.teacherDetails(uid,tid);
    }
     /**
@@ -48,7 +49,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param tid
      * @return
      */
-   public List<AppTeacherCourseDto>  appTeacherCourseDto  (String uid,String tid){
+   public List<AppTeacherCourseModel>  appTeacherCourseDto  (String uid,String tid){
         return teacherMapper.appTeacherCourseDto(uid,tid);
     }
 
@@ -59,7 +60,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param eval
      * @return
      */
-   public  List<AppTeacherEvaluationDto> teacherEvaluation(String uid,String tid,Integer eval){
+   public  List<AppTeacherEvaluationModel> teacherEvaluation(String uid,String tid,Integer eval){
        return teacherMapper.teacherEvaluation(uid,tid,eval);
    }
 
@@ -68,7 +69,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param data
      * @return
      */
-    public List<IndexMyCourseDto> selectIndexMyCourseDto(IndexMyCourseParameter data) {
+    public List<IndexMyCourseModel> selectIndexMyCourseDto(IndexMyCourseParam data) {
         return teacherMapper.selectIndexMyCourseDto(data);
     }
 }

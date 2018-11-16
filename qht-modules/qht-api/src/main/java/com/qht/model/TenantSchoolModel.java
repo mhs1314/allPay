@@ -56,7 +56,7 @@ public class TenantSchoolModel implements Serializable {
 
     @Override
     public String toString() {
-        return "TenantSchoolDto{" +
+        return "TenantSchoolModel{" +
                 "uid='" + uid + '\'' +
                 ", intr='" + intr + '\'' +
                 ", culture='" + culture + '\'' +

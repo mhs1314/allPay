@@ -23,7 +23,7 @@ public class TopCourseModel implements Serializable {
 
     @Override
     public String toString() {
-        return "TopCourseDto{" +
+        return "TopCourseModel{" +
                 "cover='" + cover + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +
                 ", begin=" + begin +

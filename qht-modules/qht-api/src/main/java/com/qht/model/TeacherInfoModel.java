@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class TeacherInfoDto implements Serializable {
+public class TeacherInfoModel implements Serializable {
     private String uid;
 
     private BigDecimal integral;
@@ -22,7 +22,7 @@ public class TeacherInfoDto implements Serializable {
 
     @Override
     public String toString() {
-        return "TeacherInfoDto{" +
+        return "TeacherInfoModel{" +
                 "uid='" + uid + '\'' +
                 ", integral='" + integral + '\'' +
                 ", nickname='" + nickname + '\'' +

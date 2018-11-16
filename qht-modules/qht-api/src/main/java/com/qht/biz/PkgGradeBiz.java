@@ -10,6 +10,8 @@ import com.qht.dto.GradetListDto;
 import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgGrade;
 import com.qht.mapper.PkgGradeMapper;
+import com.qht.model.GradetListModel;
+import com.qht.model.UidAndTenantIDParam;
 
 /**
  * 课程包年级
@@ -26,7 +28,7 @@ public class PkgGradeBiz extends BaseBiz<PkgGradeMapper,PkgGrade> {
 	 * 所有包年级
 	 * @return
 	 */
-	public List<GradetListDto> gradetList(UidAndTenantID ut){
+	public List<GradetListModel> gradetList(UidAndTenantIDParam ut){
 		return pkgGradeMapper.gradetList(ut);
 	}
 }

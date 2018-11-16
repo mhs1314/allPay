@@ -24,7 +24,7 @@ public class TeacherCourseModel implements Serializable {
 
     @Override
     public String toString() {
-        return "TeacherCourseDto{" +
+        return "TeacherCourseModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

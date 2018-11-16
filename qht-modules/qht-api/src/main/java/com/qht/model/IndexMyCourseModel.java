@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @ClassName IndexMyCourseDto
+ * @ClassName IndexMyCourseModel
  * @Author Zuoxh
  * @Data 2018/11/14 0014 下午 9:43
  */
@@ -68,7 +68,7 @@ public class IndexMyCourseModel implements Serializable {
 
     @Override
     public String toString() {
-        return "IndexMyCourseDto{" +
+        return "IndexMyCourseModel{" +
                 "uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +
                 ", play_type_id='" + play_type_id + '\'' +

@@ -20,7 +20,7 @@ public class CourseChapterModel implements Serializable {
 
     @Override
     public String toString() {
-        return "CourseChapterDto{" +
+        return "CourseChapterModel{" +
                 "uid='" + uid + '\'' +
                 ", name='" + name + '\'' +
                 ", period=" + period +

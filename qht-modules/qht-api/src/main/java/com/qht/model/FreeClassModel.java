@@ -69,7 +69,7 @@ public class FreeClassModel implements Serializable {
 
     @Override
     public String toString() {
-        return "FreeClassDto{" +
+        return "FreeClassModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

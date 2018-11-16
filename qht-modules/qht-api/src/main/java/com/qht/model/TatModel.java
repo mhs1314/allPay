@@ -26,7 +26,7 @@ public class TatModel  implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TatDto [tid=" + tid + ", tname=" + tname + "]";
+		return "TatModel [tid=" + tid + ", tname=" + tname + "]";
 	}
     
     

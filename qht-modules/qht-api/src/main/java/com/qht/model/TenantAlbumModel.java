@@ -35,7 +35,7 @@ public class TenantAlbumModel implements Serializable {
 
     @Override
     public String toString() {
-        return "TenantAlbumDto{" +
+        return "TenantAlbumModel{" +
                 "uid='" + uid + '\'' +
                 ", album='" + album + '\'' +
                 ", index='" + index + '\'' +

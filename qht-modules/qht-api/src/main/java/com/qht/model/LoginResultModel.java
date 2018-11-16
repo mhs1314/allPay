@@ -20,7 +20,7 @@ public class LoginResultModel implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "LoginResultDto [token=" + token + "]";
+		return "LoginResultModel [token=" + token + "]";
 	}  
 	
 	

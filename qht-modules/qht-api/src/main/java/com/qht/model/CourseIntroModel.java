@@ -108,7 +108,7 @@ public class CourseIntroModel implements Serializable {
 
     @Override
     public String toString() {
-        return "CourseIntroDto{" +
+        return "CourseIntroModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

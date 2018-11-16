@@ -25,7 +25,7 @@ public class ClassModel implements Serializable {
 
     @Override
     public String toString() {
-        return "ClassDto{" +
+        return "ClassModel{" +
                 "pid='" + pid + '\'' +
                 ", period_name='" + period_name + '\'' +
                 ", video_file='" + video_file + '\'' +

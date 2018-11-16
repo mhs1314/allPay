@@ -25,11 +25,11 @@
     </select>
     
     <!--查询banner-->
-    <select id="selectBanner" resultType="com.qht.dto.BannerDto">
+    <select id="selectBanner" resultType="com.qht.model.BannerModel">
         select uid,image,link,sort from banner where tenant_Id=#{tenant_id} and type=#{type}
     </select>
     <!--查询首页直播课程信息-->
-    <select id="selectLiveClass" resultType="com.qht.dto.LiveClassDto" parameterType="java.lang.String">
+    <select id="selectLiveClass" resultType="com.qht.model.LiveClassModel" parameterType="java.lang.String">
         select
           cp.cover,
           p.uid,
@@ -62,7 +62,7 @@
         inner join pkg_level pl on cp.pkg_level_id=pl.uid
     </sql>
     <!--首页查询免费课程-->
-    <select id="selectFreeClass" resultType="com.qht.dto.FreeClassDto" parameterType="com.qht.dto.FreeClassParameter">
+    <select id="selectFreeClass" resultType="com.qht.model.FreeClassModel" parameterType="com.qht.model.FreeClassParam">
         <include refid="selectClassMessageFromCourse_PKG"/>
         where cp.tenant_id=#{tenant_id}
         and cp.status="1"
@@ -83,19 +83,19 @@
     </select>
     
     <!--查询首页试听课程排行榜-->
-    <select id="selectListeningClassRanking" resultType="com.qht.dto.ListeningClassRankingDto" parameterType="java.lang.String">
+    <select id="selectListeningClassRanking" resultType="com.qht.model.ListeningClassRankingModel" parameterType="java.lang.String">
         <include refid="selectClassMessageFromCourse_PKG"/>
         where
         cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1"
     </select>
     <!--查询首页试听课程列表-->
-    <select id="selectListeningClassList" resultType="com.qht.dto.ListeningClassListDto" parameterType="java.lang.String">
+    <select id="selectListeningClassList" resultType="com.qht.model.ListeningClassListModel" parameterType="java.lang.String">
         <include refid="selectClassMessageFromCourse_PKG"/>
         where
         cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1"
     </select>
     <!--查询首页老师排行榜-->
-    <select id="selectTeacherRanking" resultType="com.qht.dto.TeacherRankingDto" parameterType="java.lang.String">
+    <select id="selectTeacherRanking" resultType="com.qht.model.TeacherRankingModel" parameterType="java.lang.String">
         select
           s.school_name,
           t.nickname
@@ -107,7 +107,7 @@
     </select>
     
      <!--查询首页老师集合-->
-    <select id="selectTeacherList" resultType="com.qht.dto.TeacherListDto" parameterType="com.qht.dto.TeacherListParameter">
+    <select id="selectTeacherList" resultType="com.qht.model.TeacherListModel" parameterType="com.qht.model.TeacherListParam">
        select
         a.intr,a.integral,a.sex,a.nickname,a.back_img,a.school_name,b.pkg_count
       from
@@ -127,7 +127,7 @@
     </select>
 
     <!--查询学生课程详情-课程包简介-->
-    <select id="selectCourseIntro" resultType="com.qht.dto.CourseIntroDto">
+    <select id="selectCourseIntro" resultType="com.qht.model.CourseIntroModel">
        select
         cp.cover,
         cp.uid,
@@ -148,10 +148,10 @@
 		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     
-    <resultMap id="selectCourseChapterAndClass" type="com.qht.dto.CourseChapterDto">
+    <resultMap id="selectCourseChapterAndClass" type="com.qht.model.CourseChapterModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
-        <collection property="period" ofType="com.qht.dto.ClassDto">
+        <collection property="period" ofType="com.qht.model.ClassModel">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>
             <result property="video_file" column="video_file"/>
@@ -173,7 +173,7 @@
         where c.course_id=#{uid} and c.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--课程详情-课程包评论-->
-    <select id="selectCourseEvaluation" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
+    <select id="selectCourseEvaluation" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
           s.head,
           s.name,
@@ -189,7 +189,7 @@
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--课程详情-课程包评论good-->
-    <select id="selectCourseEvaluationGood" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
+    <select id="selectCourseEvaluationGood" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
         s.head,
         s.name,
@@ -205,7 +205,7 @@
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &gt;4
     </select>
     <!--课程详情-课程包评论mid-->
-    <select id="selectCourseEvaluationMid" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
+    <select id="selectCourseEvaluationMid" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
         s.head,
         s.name,
@@ -223,7 +223,7 @@
         and pe.comments_star &lt;=4 and pe.comments_star &gt;2
     </select>
     <!--课程详情-课程包评论bad-->
-    <select id="selectCourseEvaluationBad" resultType="com.qht.dto.CourseEvaluationDto" parameterType="com.qht.dto.CourseEvaluationParameter">
+    <select id="selectCourseEvaluationBad" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
         s.head,
         s.name,
@@ -239,14 +239,14 @@
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;=2
     </select>
     
-    <resultMap id="selectTeacherInfoAndCourse" type="com.qht.dto.TeacherInfoDto">
+    <resultMap id="selectTeacherInfoAndCourse" type="com.qht.model.TeacherInfoModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="integral" column="integral"/>
         <result property="back_img" column="back_img"/>
         <result property="nickname" column="nickname"/>
         <result property="school_name" column="school_name"/>
         <result property="subject_name" column="subject_name"/>
-        <collection property="course" ofType="com.qht.dto.CourseDto">
+        <collection property="course" ofType="com.qht.model.CourseModel">
             <result property="pkg_name" column="pkg_name"/>
         </collection>
     </resultMap>
@@ -270,7 +270,7 @@
     </select>
     
     <!--课程列表-->
-    <select id="selectCourseList" resultType="com.qht.dto.CourseListDto" parameterType="com.qht.dto.CourseListParameter">
+    <select id="selectCourseList" resultType="com.qht.model.CourseListModel" parameterType="com.qht.model.CourseListParam">
         select
             cp.cover,
             cp.uid,
@@ -318,7 +318,7 @@
         </if>
     </select>
     
-    <resultMap id="selectTopTeacherListAndTopTeacherCourse" type="com.qht.dto.TopTeacherListDto">
+    <resultMap id="selectTopTeacherListAndTopTeacherCourse" type="com.qht.model.TopTeacherListModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="intr" column="intr"/>
         <result property="integral" column="integral"/>
@@ -328,14 +328,14 @@
         <result property="subject_name" column="subject_name"/>
         <result property="grade_name" column="grade_name"/>
         <result property="course_count" column="course_count"/>
-        <collection property="courses" ofType="com.qht.dto.TopCourseDto">
+        <collection property="courses" ofType="com.qht.model.TopCourseModel">
             <result property="pkg_name" column="pkg_name"/>
             <result property="cover" column="cover"/>
             <result property="begin" column="begin"/>
         </collection>
     </resultMap>
     <!--名师列表-->
-    <select id="selectTopTeacherList" resultMap="selectTopTeacherListAndTopTeacherCourse" parameterType="com.qht.dto.TopTeacherListParameter">
+    <select id="selectTopTeacherList" resultMap="selectTopTeacherListAndTopTeacherCourse" parameterType="com.qht.model.TopTeacherListParam">
         select
           a.uid,
           a.intr,
@@ -401,7 +401,7 @@
 			where cp.tenant_id=#{tenant_id} and cp.status="1" ) as b
     </select>
     
-     <resultMap id="selectTopTeacherInfoAndCourse" type="com.qht.dto.TopTeacherInfoDto">
+     <resultMap id="selectTopTeacherInfoAndCourse" type="com.qht.model.TopTeacherInfoModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="integral" column="integral"/>
         <result property="back_img" column="back_img"/>
@@ -411,7 +411,7 @@
         <result property="intr" column="intr"/>
         <result property="create_time" column="create_time"/>
         <result property="praise_number" column="praise_number"/>
-        <collection property="course" ofType="com.qht.dto.CourseDto">
+        <collection property="course" ofType="com.qht.model.CourseModel">
             <result property="pkg_name" column="pkg_name"/>
         </collection>
     </resultMap>
@@ -437,7 +437,7 @@
     </select>
 
     <!--名师详情-全部课程-->
-    <select id="selectTeacherCourse" resultType="com.qht.dto.TeacherCourseDto">
+    <select id="selectTeacherCourse" resultType="com.qht.model.TeacherCourseModel">
         select
           cp.cover,
           cp.uid,
@@ -453,7 +453,7 @@
         where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--名师详情-评论列表-->
-    <select id="selectTeacherEvaluation" resultType="com.qht.dto.TeacherEvaluationDto">
+    <select id="selectTeacherEvaluation" resultType="com.qht.model.TeacherEvaluationModel">
         select
           pe.uid,
           pe.comments_time,
@@ -469,19 +469,19 @@
     </select>
     
      <!--运营商-学校介绍-->
-    <select id="selectTenantSchool" resultType="com.qht.dto.TenantSchoolDto" parameterType="java.lang.String">
+    <select id="selectTenantSchool" resultType="com.qht.model.TenantSchoolModel" parameterType="java.lang.String">
         select
           uid,intr,culture,school_name,banner
         from school where tenant_id=#{tenant_id}
     </select>
 
     <!--运营商-画册-->
-    <select id="selectTenantAlbum" parameterType="java.lang.String" resultType="com.qht.dto.TenantAlbumDto">
+    <select id="selectTenantAlbum" parameterType="java.lang.String" resultType="com.qht.model.TenantAlbumModel">
         select uid,album,index from album where tenant_id=#{tenant_id}
     </select>
 
     <!--学生端-个人中心-首页-我的课程列表-->
-    <select id="selectMyIndexCourse" resultType="com.qht.dto.MyIndexCourseDto" parameterType="com.qht.dto.MyIndexCourseParameter">
+    <select id="selectMyIndexCourse" resultType="com.qht.model.MyIndexCourseModel" parameterType="com.qht.model.MyIndexCourseParam">
         select
           cp.pkg_name,c.name as chapter_name,p.name,p.video_file,p.begin
         from buy_record br
@@ -502,7 +502,7 @@
     </select>
 
     <!--学生端-个人中心-首页-我的课程详情介绍-->
-    <select id="selectIndexCourseDetails" resultType="com.qht.dto.IndexCourseDetailsDto">
+    <select id="selectIndexCourseDetails" resultType="com.qht.model.IndexCourseDetailsModel">
         select p.uid,p.name,p.video_file,p.begin
         from period p left join chapter c on p.chapter_id=c.uid
         left join course_pkg cp on c.course_id=cp.uid
@@ -511,7 +511,7 @@
     </select>
     
     <!-- 消息-->
-    <select id="selectMyIndexMessage"  resultType="com.qht.dto.MyIndexMessageDto">
+    <select id="selectMyIndexMessage"  resultType="com.qht.model.MyIndexMessageModel">
       select  t.back_img as head,
 				m.uid as uid,m.isread as isread,
 				t.`name` as nickname,
@@ -527,11 +527,11 @@
     </select>
 
     <!--删除消息-->
-    <delete id="deleteMessage" parameterType="String">
+    <delete id="deleteMessage" parameterType="java.lang.String">
         delete FROM message where uid=#{uid}
     </delete>
     <!--学生端-个人中心-首页-课程答疑-->
-    <select id="selectMyIndexCourseAnswer" resultType="com.qht.dto.MyIndexCourseAnswerDto" parameterType="com.qht.dto.MyIndexCourseAnswerParameter">
+    <select id="selectMyIndexCourseAnswer" resultType="com.qht.model.MyIndexCourseAnswerModel" parameterType="com.qht.model.MyIndexCourseAnswerParam">
         select
           an.answer_file_name,an.answer_time,an.answer,an.answer_file_url,an.uid,
           ask.question,ask.question_attach,ask.question_url,
@@ -557,12 +557,12 @@
         </if>
     </select>
     
-     <select id="selectMessageById" parameterType="String">
+     <select id="selectMessageById" parameterType="java.lang.String">
       select * FROM message where uid=#{uid}
     </select>
 
     <!--学生端-个人中心-首页-兑换记录-->
-    <select id="selectMyIndexBuyRecord" resultType="com.qht.dto.MyIndexBuyRecordDto" parameterType="com.qht.dto.MyIndexBuyRecordParameter">
+    <select id="selectMyIndexBuyRecord" resultType="com.qht.model.MyIndexBuyRecordModel" parameterType="com.qht.model.MyIndexBuyRecordParam">
         select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin from buy_record br
           left join course_pkg cp on br.course_pkg_id=cp.uid
           left join teacher t on cp.teacher_id=t.uid
@@ -581,7 +581,7 @@
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
-    <resultMap id="studentInfoMap" type="com.qht.dto.StudentInfoDto">
+    <resultMap id="studentInfoMap" type="com.qht.model.StudentInfoModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result column="head" property="head"/>
         <result column="school_id" property="schoolId"/>
@@ -592,11 +592,11 @@
         <result column="clazz" property="clazz"/>
         <result column="clanzzName" property="clanzzName"/>
         <result column="age" property="age"/>
-        <collection property="tatDtos" ofType="com.qht.dto.TatDto">
+        <collection property="tatDtos" ofType="com.qht.model.TatModel">
             <id column="tid" property="tid"/>
             <result column="tname" property="tname"/>
         </collection>
-        <collection property="guardianDtos" ofType="com.qht.dto.GuardianDto">
+        <collection property="guardianDtos" ofType="com.qht.model.GuardianModel">
             <id column="gid" property="gid"/>
             <result column="call" property="call"/>
             <result column="phone" property="phone"/>
@@ -633,7 +633,7 @@ WHERE
 	s.uid = #{uid} AND s.tenant_id =#{tenant_id}
     </select>
 <!--消费记录-->
-    <select id="myIndexMyintegralDetail"  resultType="com.qht.dto.MyIndexMyintegralDetailDto" parameterType="com.qht.dto.MyIndexMyintegralDetailParameter">
+    <select id="myIndexMyintegralDetail"  resultType="com.qht.model.MyIndexMyintegralDetailModel" parameterType="com.qht.model.MyIndexMyintegralDetailParam">
         SELECT
         b.uid AS uid,
         c.pkg_name AS pkg_name,
@@ -657,7 +657,7 @@ WHERE
     </select>
     
      <!--近期课程-->
-    <select id="indexFutureCoruse" resultType="com.qht.dto.IndexFutureCoruseDto">
+    <select id="indexFutureCoruse" resultType="com.qht.model.IndexFutureCoruseModel">
 SELECT
 	c.cover,
 	c.uid,
@@ -674,7 +674,7 @@ LEFT JOIN student  s   ON s.uid= b.student_id
  where s.uid=#{uid} and s.tenant_id =#{tenant_id}
     </select>
 <!--名师资源-->
-    <select id="indexTeacher" resultType="com.qht.dto.IndexTeacherDto" parameterType="String">
+    <select id="indexTeacher" resultType="com.qht.model.IndexTeacherModel" parameterType="java.lang.String">
         SELECT
 	t.uid,
 	t.nickname,
@@ -689,7 +689,7 @@ WHERE
 	t.tenant_id = #{tenant_id}
     </select>
     <!--课程答疑-->
-<select id="indexAnswer" resultType="com.qht.dto.IndexAnswerDto" parameterType="String" >
+<select id="indexAnswer" resultType="com.qht.model.IndexAnswerModel" parameterType="java.lang.String" >
     SELECT
 	c.cover as cover,
 	a.uid as uid,
@@ -706,7 +706,7 @@ where a.tenant_id=#{tenant_id}
   and c.status="1"
 </select>
 <!-- 课程列表-->
- <select id="indexCoruseList" resultType="com.qht.dto.IndexCoruseListDto" parameterType="com.qht.dto.IndexCoruseListParameter">
+ <select id="indexCoruseList" resultType="com.qht.model.IndexCoruseListModel" parameterType="com.qht.model.IndexCoruseListParam">
         SELECT
 	c.uid,
 	c.pkg_name,
@@ -734,7 +734,7 @@ WHERE
         </if>
     </select>
     <!--名师资源列表-->
-    <select id="indexTeacherList" resultType="com.qht.dto.IndexTeacherListDto" parameterType="com.qht.dto.IndexTeacherListParameter">
+    <select id="indexTeacherList" resultType="com.qht.model.IndexTeacherListModel" parameterType="com.qht.model.IndexTeacherListParam">
 SELECT
 	t.uid as uid,
 	t.nickname as nickname,
@@ -763,10 +763,10 @@ WHERE
 	GROUP BY t.uid
     </select>
 
-    <resultMap id="selectMyIndexBuyRecordDetailsAndPeriod" type="com.qht.dto.MyIndexBuyRecordCourseDetailsDto">
+    <resultMap id="selectMyIndexBuyRecordDetailsAndPeriod" type="com.qht.model.MyIndexBuyRecordCourseDetailsModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
-        <collection property="period" ofType="com.qht.dto.ClassDto">
+        <collection property="period" ofType="com.qht.model.ClassModel">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>
             <result property="video_file" column="video_file"/>
@@ -775,7 +775,7 @@ WHERE
     </resultMap>
 
     <!--学生端-个人中心-首页-兑换记录-课程详情-->
-    <select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="String">
+    <select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="java.lang.String">
         select c.uid,c.name,p.uid as pid,p.name as period_name,p.begin,p.video_file
         from course_pkg cp
         left join chapter c on cp.uid=c.course_id
@@ -784,7 +784,7 @@ WHERE
     </select>
 
     <!--学生端-个人中心-首页-兑换记录-课程回看-->
-    <select id="selectMyIndexBuyRecordCourseBack" resultType="com.qht.dto.MyIndexBuyRecordCourseBackDto" parameterType="com.qht.dto.MyIndexBuyRecordCourseBackParameter">
+    <select id="selectMyIndexBuyRecordCourseBack" resultType="com.qht.model.MyIndexBuyRecordCourseBackModel" parameterType="com.qht.model.MyIndexBuyRecordCourseBackParam">
         select
         p.effective_time,p.uid,p.name,p.video_file,p.begin,cp.pkg_name,t.nickname
         from period p
@@ -799,7 +799,7 @@ WHERE
         </if>
     </select>
     <!--学生端-个人中心-首页-我的收藏列表-->
-    <select id="selectMyIndexMycollect" parameterType="com.qht.dto.MyIndexMycollectParameter" resultType="com.qht.dto.MyIndexMycollectDto">
+    <select id="selectMyIndexMycollect" parameterType="com.qht.model.MyIndexMycollectParam" resultType="com.qht.model.MyIndexMycollectModel">
         select cp.cover,cp.pkg_name,cp.pkt_type_id,t.nickname,c.collect_time
         from course_pkg cp
         left join teacher t on cp.teacher_id=t.uid
@@ -817,7 +817,7 @@ WHERE
     </update>
 
     <!--app我的课程答疑-->
-    <select id="selectIndexMyAnswer" resultType="com.qht.dto.IndexMyAnswerDto">
+    <select id="selectIndexMyAnswer" resultType="com.qht.model.IndexMyAnswerModel">
         select  a.uid,a.type,ask.question,p.name,cp.cover
         from answer a
         left join course_ask ask on a.ask_id=ask.uid
@@ -827,7 +827,7 @@ WHERE
         where a.student_id=#{uid} and a.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--app我的课程答疑-答疑详情-->
-    <select id="selectIndexAnswerDetails" resultType="com.qht.dto.IndexAnswerDetailsDto">
+    <select id="selectIndexAnswerDetails" resultType="com.qht.model.IndexAnswerDetailsModel">
         select
         a.answer_time,
         a.answer_file_url,
@@ -889,11 +889,11 @@ WHERE
     </insert>
 
     <!--我的课程答疑-答疑详情-追问回答-->
-    <update id="indsertAppendAskAnswer" parameterType="com.qht.dto.IndexAnswerDetailsAppendAnswerParameter">
+    <update id="indsertAppendAskAnswer" parameterType="com.qht.model.IndexAnswerDetailsAppendAnswerParam">
         update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}
     </update>
     <!--编辑个人信息-->
-    <select id="appMyStudentInfo" resultType="com.qht.dto.AppMyStudentInfoDto">
+    <select id="appMyStudentInfo" resultType="com.qht.model.AppMyStudentInfoModel">
 SELECT
 	s.head AS head,
 	s.uid AS uid,
@@ -915,19 +915,19 @@ AND s.uid = #{uid}
 and s.tenant_id=#{tenant_id}
     </select>
     <!--修改头像-->
-    <update id="appUpdaetStudentHead" parameterType="com.qht.dto.AppStudentParameter">
+    <update id="appUpdaetStudentHead" parameterType="com.qht.model.AppStudentParam">
       update student set head=#{head} where uid=#{uid} and  tenant_id=#{tenant_id}
     </update>
     <!--修改昵称-->
-    <update id="appUpdaetStudentNickname" parameterType="com.qht.dto.AppStudentParameter">
+    <update id="appUpdaetStudentNickname" parameterType="com.qht.model.AppStudentParam">
       update student set nickname=#{nickname} where uid=#{uid} and  tenant_id=#{tenant_id}
     </update>
     <!--修改密码-->
-    <update id="appUpdaetStudentPassword" parameterType="com.qht.dto.AppStudentParameter">
+    <update id="appUpdaetStudentPassword" parameterType="com.qht.model.AppStudentParam">
       update student set password=#{password} where uid=#{uid} and  tenant_id=#{tenant_id}
     </update>
     <!--app查看学生监护人-->
-    <select id="appMyStudentGuardian" resultType="com.qht.dto.AppMyStudentGuardianDto" parameterType="com.qht.dto.AppStudentParameter">
+    <select id="appMyStudentGuardian" resultType="com.qht.model.AppMyStudentGuardianModel" parameterType="com.qht.model.AppStudentParam">
        SELECT
 	g.`call` AS `call`,
 	g.uid AS uid,
@@ -938,7 +938,7 @@ and s.tenant_id=#{tenant_id}
     LEFT JOIN guardian g ON s.uid = g.student_id
     </select>
     <!--app查看学生兴趣标签-->
-    <select id="appMyStudentInterest" resultType="com.qht.dto.TagDto" parameterType="com.qht.dto.AppStudentParameter">
+    <select id="appMyStudentInterest" resultType="com.qht.model.TagModel" parameterType="com.qht.model.AppStudentParam">
       SELECT
             tag.uid as uid,
             tag.tag_name as tag_name

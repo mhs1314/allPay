@@ -99,5 +99,5 @@ public class APIBaseController <Biz extends BaseBiz,Entity>{
 	    public String getCurrentUserName(){
 	        return BaseContextHandler.getUsername();
 	    }
-	    */
+	   
 }

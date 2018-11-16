@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class CourseListDto implements Serializable {
+public class CourseListModel implements Serializable {
     //课程包封面
     private String cover;
     //课程包uid
@@ -68,7 +68,7 @@ public class CourseListDto implements Serializable {
 
     @Override
     public String toString() {
-        return "CourseListDto{" +
+        return "CourseListModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

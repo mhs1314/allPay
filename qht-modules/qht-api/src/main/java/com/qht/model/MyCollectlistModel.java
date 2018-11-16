@@ -87,7 +87,7 @@ public class MyCollectlistModel implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MyCollectlistDto [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", total_price="
+		return "MyCollectlistModel [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", total_price="
 				+ total_price + ", comments_star=" + comments_star + ", pkg_id=" + pkg_id + ", praise_number="
 				+ praise_number + ", apply_number=" + apply_number + "]";
 	}

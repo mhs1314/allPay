@@ -55,7 +55,7 @@ public class StudentModel implements Serializable {
 
     @Override
     public String toString() {
-        return "StudentDto{" +
+        return "StudentModel{" +
                 "uid='" + uid + '\'' +
                 ", studentId='" + studentId + '\'' +
                 ", schoolid='" + schoolid + '\'' +

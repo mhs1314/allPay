@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 /**
  * 课程列表
  */
-public class ClassListDto implements Serializable {
+public class ClassListModel implements Serializable {
     //课程包封面
     private String cover;
 
@@ -83,7 +83,7 @@ public class ClassListDto implements Serializable {
 
     @Override
     public String toString() {
-        return "ClassListDto{" +
+        return "ClassListModel{" +
                 "cover='" + cover + '\'' +
                 ", tenant_id='" + tenant_id + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

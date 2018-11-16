@@ -9,7 +9,7 @@
         <result property="tenantId" column="tenant_id"/>
         <result property="name" column="name"/>
     </resultMap>
-    <select id="gradetList" resultType="com.qht.dto.GradetListDto" parameterType="com.qht.dto.UidAndTenantID">
+    <select id="gradetList" resultType="com.qht.model.GradetListModel" parameterType="com.qht.model.UidAndTenantIDParam">
     	select uid,name as grade_name from pkg_grade where tenant_id=#{tenant_id}
     </select>
 

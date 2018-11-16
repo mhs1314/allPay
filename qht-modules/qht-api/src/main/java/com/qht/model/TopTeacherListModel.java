@@ -107,7 +107,7 @@ public class TopTeacherListModel implements Serializable {
 
     @Override
     public String toString() {
-        return "TopTeacherListDto{" +
+        return "TopTeacherListModel{" +
                 "uid='" + uid + '\'' +
                 ", intr='" + intr + '\'' +
                 ", integral='" + integral + '\'' +

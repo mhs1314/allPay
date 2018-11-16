@@ -41,7 +41,7 @@ WHERE
 	account = #{account} and password=#{password}
     </select>
     <!--名师详细-基本信息-->
-    <select id="teacherDetails" resultType="com.qht.dto.TeacherDetailsDto">
+    <select id="teacherDetails" resultType="com.qht.model.TeacherDetailsModel">
         SELECT
 	t.uid AS uid,
 	t.intr as intr,
@@ -62,7 +62,7 @@ GROUP BY t.uid
 
     </select>
     <!--名师详细-所有课程包-->
-    <select id="teacherCourse" resultType="com.qht.dto.AppTeacherCourseDto">
+    <select id="teacherCourse" resultType="com.qht.dto.AppTeacherCourseModel">
  SELECT
 	c.cover as cover ,
 	c.uid as uid,
@@ -79,7 +79,7 @@ GROUP BY c.uid
 
     </select>
 
-    <select id="teacherEvaluation" resultType="com.qht.dto.AppTeacherEvaluationDto">
+    <select id="teacherEvaluation" resultType="com.qht.dto.AppTeacherEvaluationModel">
       SELECT
 	s.head as head,
 	l.uid as uid,
@@ -109,7 +109,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     </select>
 
     <!--教师|端首页-我的课程-->
-    <select id="selectIndexMyCourseDto" parameterType="com.qht.dto.IndexMyCourseParameter" resultType="com.qht.dto.IndexMyCourseDto">
+    <select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
         select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.chapter_name,p.video_file,p.begin
         from course_pkg cp left join chapter c on cp.uid=c.course_id
         left join period p on p.chapter_id=c.uid

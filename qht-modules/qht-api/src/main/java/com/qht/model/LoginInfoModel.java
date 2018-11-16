@@ -38,7 +38,7 @@ public class LoginInfoModel implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "LoginInfoDto [tenantId=" + tenantId + ", account=" + account + ", password=" + password + "]";
+		return "LoginInfoModel [tenantId=" + tenantId + ", account=" + account + ", password=" + password + "]";
 	}
     
     

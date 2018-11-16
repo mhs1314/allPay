@@ -55,7 +55,7 @@ public class MyIndexMycollectModel implements Serializable {
 
     @Override
     public String toString() {
-        return "MyIndexMycollectDto{" +
+        return "MyIndexMycollectModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +

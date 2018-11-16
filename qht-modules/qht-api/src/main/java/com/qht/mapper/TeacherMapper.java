@@ -1,8 +1,9 @@
 package com.qht.mapper;
 
-import com.qht.dto.*;
+import com.qht.model.*;
 import org.apache.ibatis.annotations.Param;
 
+import com.qht.dto.TeacherDto;
 import com.qht.entity.Teacher;
 
 import org.springframework.stereotype.Repository;
@@ -34,14 +35,14 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @param tid
 	 * @return
 	 */
-	TeacherDetailsDto teacherDetails(@Param("uid")String uid,@Param("tid")String tid);
+	TeacherDetailsModel teacherDetails(@Param("uid")String uid,@Param("tid")String tid);
     /**
      * 名师详情-所有课程
      * @param uid
      * @param tid
      * @return
      */
-    List<AppTeacherCourseDto> appTeacherCourseDto  (@Param("uid")String uid, @Param("tid")String tid);
+    List<AppTeacherCourseModel> appTeacherCourseDto  (@Param("uid")String uid, @Param("tid")String tid);
 
     /**
      * 名师详情-所有评论
@@ -50,12 +51,12 @@ public interface TeacherMapper extends Mapper<Teacher> {
      * @param eval
      * @return
      */
-    List<AppTeacherEvaluationDto> teacherEvaluation(@Param("uid")String uid, @Param("tid")String tid,@Param("eval")Integer eval);
+    List<AppTeacherEvaluationModel> teacherEvaluation(@Param("uid")String uid, @Param("tid")String tid,@Param("eval")Integer eval);
 
 	/**
 	 * 教师|端首页--我的课程
 	 * @param data
 	 * @return
 	 */
-    List<IndexMyCourseDto> selectIndexMyCourseDto(IndexMyCourseParameter data);
+    List<IndexMyCourseModel> selectIndexMyCourseDto(IndexMyCourseParam data);
 }

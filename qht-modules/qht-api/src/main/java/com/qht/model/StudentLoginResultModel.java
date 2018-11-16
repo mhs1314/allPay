@@ -43,7 +43,7 @@ public class StudentLoginResultModel extends LoginResultModel {
 	}
 	@Override
 	public String toString() {
-		return "StudentLoginResultDto [uid=" + uid + ", schoolId=" + schoolId + ", nickname=" + nickname + ", tenantId="
+		return "StudentLoginResultModel [uid=" + uid + ", schoolId=" + schoolId + ", nickname=" + nickname + ", tenantId="
 				+ tenantId + "]";
 	}
 	

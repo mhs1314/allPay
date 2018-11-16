@@ -44,7 +44,7 @@ public class TeacherModel implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TeacherDto{" +
+		return "TeacherModel{" +
 				"uid='" + uid + '\'' +
 				", schoolid='" + schoolid + '\'' +
 				", nickname='" + nickname + '\'' +

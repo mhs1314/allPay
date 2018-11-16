@@ -19,7 +19,7 @@
         <result property="content" column="content"/>
         <result property="cover" column="cover"/>
     </resultMap>
-    <select id="courseTypeList" resultType="com.qht.dto.CoursePkgListDto" parameterType="com.qht.dto.UidAndTenantID">
+    <select id="courseTypeList" resultType="com.qht.model.CoursePkgListModel" parameterType="com.qht.model.UidAndTenantIDParam">
     	select uid ,pkg_name   from course_pkg where tenant_id=#{tenant_id}
     </select>
 

@@ -50,7 +50,7 @@ public class BannerModel implements Serializable {
 
     @Override
     public String toString() {
-        return "BannerDto{" +
+        return "BannerModel{" +
                 "image='" + image + '\'' +
                 ", uid='" + uid + '\'' +
                 ", link='" + link + '\'' +

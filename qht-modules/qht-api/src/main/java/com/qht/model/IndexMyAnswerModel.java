@@ -39,7 +39,7 @@ public class IndexMyAnswerModel implements Serializable {
 
     @Override
     public String toString() {
-        return "IndexMyAnswerDto{" +
+        return "IndexMyAnswerModel{" +
                 "cover='" + cover + '\'' +
                 ", uid='" + uid + '\'' +
                 ", question='" + question + '\'' +

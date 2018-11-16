@@ -47,7 +47,7 @@ public class IndexCourseDetailsModel implements Serializable {
 
     @Override
     public String toString() {
-        return "IndexCourseDetailsDto{" +
+        return "IndexCourseDetailsModel{" +
                 "uid='" + uid + '\'' +
                 ", name='" + name + '\'' +
                 ", video_file='" + video_file + '\'' +

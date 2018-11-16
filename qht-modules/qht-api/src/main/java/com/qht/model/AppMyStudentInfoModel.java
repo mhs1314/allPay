@@ -96,7 +96,7 @@ public class AppMyStudentInfoModel implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AppMyStudentInfoDto [head=" + head + ", uid=" + uid + ", phone=" + phone + ", integral=" + integral
+		return "AppMyStudentInfoModel [head=" + head + ", uid=" + uid + ", phone=" + phone + ", integral=" + integral
 				+ ", sex=" + sex + ", name=" + name + ", nickname=" + nickname + ", school_name=" + school_name
 				+ ", grade_name=" + grade_name + "]";
 	}

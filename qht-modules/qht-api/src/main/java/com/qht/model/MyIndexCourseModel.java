@@ -54,7 +54,7 @@ public class MyIndexCourseModel {
 
     @Override
     public String toString() {
-        return "MyIndexCourseDto{" +
+        return "MyIndexCourseModel{" +
                 "uid='" + uid + '\'' +
                 ", pkg_name='" + pkg_name + '\'' +
                 ", name='" + name + '\'' +

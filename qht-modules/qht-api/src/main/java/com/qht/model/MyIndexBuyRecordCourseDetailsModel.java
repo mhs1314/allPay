@@ -7,7 +7,7 @@ public class MyIndexBuyRecordCourseDetailsModel {
 
     @Override
     public String toString() {
-        return "MyIndexBuyRecordCourseDetailsDto{" +
+        return "MyIndexBuyRecordCourseDetailsModel{" +
                 "uid='" + uid + '\'' +
                 ", name='" + name + '\'' +
                 ", period=" + period +

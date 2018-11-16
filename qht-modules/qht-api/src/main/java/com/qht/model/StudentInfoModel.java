@@ -26,9 +26,9 @@ public class StudentInfoModel implements Serializable {
     //年紀名稱
     private String age;
     //標簽集合
-    private List<TatModel> tatDtos =new ArrayList<>();
+    private List<TatModel> tatModels =new ArrayList<>();
     //監護人
-    private List<GuardianModel> guardianDtos=new ArrayList<>();
+    private List<GuardianModel> guardianModels=new ArrayList<>();
 
     public String getUid() {
         return uid;
@@ -112,10 +112,10 @@ public class StudentInfoModel implements Serializable {
 
 	@Override
 	public String toString() {
-		return "StudentInfoDto [uid=" + uid + ", head=" + head + ", schoolid=" + schoolid + ", sex=" + sex + ", name="
+		return "StudentInfoModel [uid=" + uid + ", head=" + head + ", schoolid=" + schoolid + ", sex=" + sex + ", name="
 				+ name + ", nickname=" + nickname + ", school_name=" + school_name + ", calnzz=" + calnzz
-				+ ", clanzzName=" + clanzzName + ", age=" + age + ", tatDtos=" + tatDtos + ", guardianDtos="
-				+ guardianDtos + "]";
+				+ ", clanzzName=" + clanzzName + ", age=" + age + ", tatModels=" + tatModels + ", guardianModels="
+				+ guardianModels + "]";
 	}
     
     
