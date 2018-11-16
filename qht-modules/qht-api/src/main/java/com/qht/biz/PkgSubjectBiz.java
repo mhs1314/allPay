@@ -29,6 +29,7 @@ public class PkgSubjectBiz extends BaseBiz<PkgSubjectMapper,PkgSubject> {
 		 * 查看所有科目
 		 * @return
 		 */
+
 		public List<PkgSubjectListModel> subjectList(UidAndTenantIDParam ut){
 			return pkgSubjectMapper.subjectList(ut);
 		}

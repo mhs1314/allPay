@@ -35,6 +35,7 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @param tid
 	 * @return
 	 */
+
 	TeacherDetailsModel teacherDetails(@Param("uid")String uid,@Param("tid")String tid);
     /**
      * 名师详情-所有课程
@@ -42,6 +43,7 @@ public interface TeacherMapper extends Mapper<Teacher> {
      * @param tid
      * @return
      */
+
     List<AppTeacherCourseModel> appTeacherCourseDto  (@Param("uid")String uid, @Param("tid")String tid);
 
     /**
@@ -51,6 +53,7 @@ public interface TeacherMapper extends Mapper<Teacher> {
      * @param eval
      * @return
      */
+
     List<AppTeacherEvaluationModel> teacherEvaluation(@Param("uid")String uid, @Param("tid")String tid,@Param("eval")Integer eval);
 
 	/**
@@ -58,5 +61,24 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @param data
 	 * @return
 	 */
+
     List<IndexMyCourseModel> selectIndexMyCourseDto(IndexMyCourseParam data);
+
+	/**
+	 * 教师端首页--我的课程包
+	 * @param data
+	 * @return
+	 */
+	List<IndexMyCourseListDto> selectIndexMyCourseList(IndexMyCourseListParameter data);
+
+	/**
+	 * 教师端首页--添加录播课程包
+	 * @param data
+	 * @return
+	 */
+	Integer insertIndexAddLcourse(IndexAddLcourseParameter data);
+
+    Integer insertChapter(IndexAddLcourseParameter data);
+
+    Integer insertPeriod(IndexAddLcourseParameter data);
 }
