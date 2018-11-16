@@ -8,7 +8,8 @@ public class UidAndTenantID implements Serializable {
 	//运营id
 	private String tenant_id;
 	private String token;
-
+	private String school_id;
+	
 	@Override
 	public String toString() {
 		return "UidAndTenantID{" +
@@ -27,7 +28,7 @@ public class UidAndTenantID implements Serializable {
 		this.school_id = school_id;
 	}
 
-	private String school_id;
+	
 	public String getUid() {
 		return uid;
 	}
