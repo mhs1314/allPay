@@ -394,7 +394,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         }
         
         BeanUtil.copyFields(dto, topTeacherInfoDtos);
-        ResultObject<TopTeacherInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
