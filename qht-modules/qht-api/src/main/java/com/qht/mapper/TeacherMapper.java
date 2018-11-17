@@ -81,4 +81,20 @@ public interface TeacherMapper extends Mapper<Teacher> {
     Integer insertChapter(IndexAddLcourseParam data);
 
     Integer insertPeriod(IndexAddLcourseParam data);
+    /**
+     * 教师端首页--添加直播课程包
+     * @param param
+     * @return
+     */
+	Integer insertIndexAddZcourse(IndexAddZcourseParam param);
+
+	Integer insertChapterZ(IndexAddZcourseParam param);
+
+	Integer insertPeriodZ(IndexAddZcourseParam param);
+	/**
+	 * 教师端首页--课程答疑列表
+	 * @param param
+	 * @return
+	 */
+	List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param);
 }

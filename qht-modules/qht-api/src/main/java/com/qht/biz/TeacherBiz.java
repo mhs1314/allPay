@@ -96,4 +96,29 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
     public Integer insertPeriod(IndexAddLcourseParam data) {
         return teacherMapper.insertPeriod(data);
     }
+    /**
+     * 教师端首页--添加直播课程包
+     * @param param
+     * @return
+     */
+	public Integer insertIndexAddZcourse(IndexAddZcourseParam param) {
+		
+		return teacherMapper.insertIndexAddZcourse(param);
+	}
+	public Integer insertChapterZ(IndexAddZcourseParam param) {
+
+		return teacherMapper.insertChapterZ(param);
+	}
+	public Integer insertPeriodZ(IndexAddZcourseParam param) {
+		return teacherMapper.insertPeriodZ(param);
+	}
+	
+	/**
+	 * 教师端首页--课程答疑列表
+	 * @param param
+	 * @return
+	 */
+	public List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param) {
+		return teacherMapper.selectIndexCourseAnswer(param);
+	}
 }

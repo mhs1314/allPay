@@ -141,14 +141,64 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     <!--教师端首页-添加录播课程包-->
     <insert id="insertIndexAddLcourse" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into course_pkg
-        (uid,teacher_id,tenant_id,course_type_id,pkg_subject_id,pkg_edition_id,pkg_grade_id,pkg_level_id,pkg_name,play_type_id,min,max,content,cover,status)
-        value (#{uid},#{teacher_id},#{tenant_id},#{course_type_id},#{pkg_subject_id},#{pkg_edition_id},#{pkg_grade_id},#{pkg_level_id},#{pkg_name},#{play_type_id},${min},${max},#{content},#{cover},"0")
+        (uid,teacher_id,tenant_id,course_type_id,pkg_subject_id,pkg_edition_id,pkg_grade_id,pkg_level_id,pkg_name,play_type_id,min,max,content,cover,status,creat_time)
+        value (#{uid},#{teacher_id},#{tenant_id},#{course_type_id},#{pkg_subject_id},#{pkg_edition_id},#{pkg_grade_id},#{pkg_level_id},#{pkg_name},#{play_type_id},${min},${max},#{content},#{cover},"0", current_timestamp())
     </insert>
     <insert id="insertChapter" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into chapter(uid,tenant_id,name,course_id) value(#{chapter_uid},#{tenant_id},#{chapter_name},#{uid})
-        </insert>
+    </insert>
     <insert id="insertPeriod" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
     </insert>
+    
+    <!-- 教师端首页--添加录播课程包 -->
+    <select id="insertIndexAddZcourse" resultType="com.qht.model.IndexAddZcourseParam">
+    	insert into course_pkg
+    	(uid,teacher_id,tenant_id,course_type_id,pkg_subject_id,pkg_edition_id,pkg_grade_id,pkg_level_id,pkg_name,play_type_id,min,max,content,cover,status,creat_time) 
+    	value (#{uid},#{teacher_id},#{tenant_id},#{course_type_id},#{pkg_subject_id},#{pkg_edition_id},#{pkg_grade_id},#{pkg_level_id},#{pkg_name},#{play_type_id},${min},${max},#{content},#{cover},"0", current_timestamp())
+    </select>
+    <insert id="insertChapterZ" parameterType="com.qht.model.IndexAddZcourseParam">
+        insert into chapter(uid,tenant_id,name,course_id) value(#{chapter_uid},#{tenant_id},#{chapter_name},#{uid})
+    </insert>
+    <insert id="insertPeriodZ" parameterType="com.qht.model.IndexAddLcourseParam">
+        insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
+    </insert>
+    <!-- 教师端首页--课程答疑列表 -->
+    <select id="selectIndexCourseAnswer" parameterType="com.qht.model.IndexCourseAnswerParam" resultType="com.qht.model.IndexCourseAnswerModel">
+    	select 
+    		a.answer_file_name,
+    		a.answer_time,
+    		ca.question,
+    		c.name as chapter_name,
+    		p.video_file,
+    		a.answer_file_url,
+    		ca.question_attach,
+    		s.head,
+    		a.uid,
+    		cp.pkg_name,
+    		ca.question_url,
+    		a.answer,
+    		s.nickname,
+    		p.name,
+    		p.begin,
+    		t.nickname as teacher_nickname 
+    	from answer a 
+	    	left join course_ask ca on a.ask_id=ca.uid 
+	    	left join period p on p.uid=a.period_id 
+	    	left join chapter c on c.uid=p.chapter_id 
+	    	left join course_pkg cp on cp.uid=c.course_id 
+	    	left join student s on s.uid=a.student_id 
+	    	left join teacher t on t.uid=cp.teacher_id 
+	    where 
+	    	t.uid=#{uid} and a.tenant_id=#{tenant_id} 
+	    	<if test="answer!=null and answer!=''">
+	    		<if test="answer=='1'">
+	    			and a.type=1
+	    		</if>
+	    		<if test="answer=='2'">
+	    			and a.type=2
+	    		</if>
+	    	</if>
+    </select>
 
 </mapper>

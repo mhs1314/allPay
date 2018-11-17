@@ -17,6 +17,9 @@ import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
 import com.qht.entity.Teacher;
 import com.qht.model.IndexAddLcourseParam;
+import com.qht.model.IndexAddZcourseParam;
+import com.qht.model.IndexCourseAnswerModel;
+import com.qht.model.IndexCourseAnswerParam;
 import com.qht.model.IndexMyCourseListModel;
 import com.qht.model.IndexMyCourseListParam;
 import com.qht.model.IndexMyCourseModel;
@@ -123,6 +126,57 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
         resultObject.setMsg("创建成功审核中");
         return resultObject;
     }
+
+	@Override
+	@PostMapping("indexAddZcourse")
+    @ResponseBody
+	public ResultObject<Void> indexAddZcourse(RequestObject<IndexAddZcourseParameter> requestObject) {
+		ResultObject<Void> resultObject=new ResultObject<>();
+		String uid="course_pkg"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        requestObject.getData().setUid(uid);
+        IndexAddZcourseParam param=new IndexAddZcourseParam();
+        BeanUtil.copyFields(param, requestObject.getData());
+        Integer indexAddcourseLine=teacherBiz.insertIndexAddZcourse(param);
+        String chapter_uid="course_pkg"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        requestObject.getData().setChapter_uid(chapter_uid);
+        Integer indexChapterLine=teacherBiz.insertChapterZ(param);
+        String period_uid="course_pkg"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        requestObject.getData().setChapter_uid(period_uid);
+        Integer indexPeriodLine=teacherBiz.insertPeriodZ(param);
+        if((indexAddcourseLine+indexChapterLine+indexPeriodLine)==3) {
+        	resultObject.setMsg("创建成功");
+        	resultObject.setCode("0");
+        	return resultObject;
+        }
+        resultObject.setMsg("创建失败");
+    	resultObject.setCode("1");
+		return resultObject;
+	}
+
+	@Override
+	@PostMapping("indexCourseAnswer")
+    @ResponseBody
+	public ResultObject<List<IndexCourseAnswerDto>> indexCourseAnswer(
+			RequestObject<IndexCourseAnswerParameter> requestObject) {
+		IndexCourseAnswerParam param=new IndexCourseAnswerParam();
+		ResultObject<List<IndexCourseAnswerDto>> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null) {
+			resultObject.setData(new ArrayList<>());
+			return resultObject;
+		}
+		BeanUtil.copyFields(param, requestObject.getData());
+		PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
+		List<IndexCourseAnswerModel> indexCourseAnswerModels=teacherBiz.selectIndexCourseAnswer(param);
+		if(indexCourseAnswerModels==null) {
+			resultObject.setData(new ArrayList<>());
+			return resultObject;
+		}
+		List<IndexCourseAnswerDto> list = BeanUtil.copyList(IndexCourseAnswerDto.class, indexCourseAnswerModels);
+		resultObject.setData(list);
+		resultObject.setMsg("成功");
+		resultObject.setCode("1");
+		return resultObject;
+	}
 
 
 }
