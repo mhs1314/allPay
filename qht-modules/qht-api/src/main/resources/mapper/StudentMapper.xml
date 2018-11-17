@@ -795,7 +795,7 @@ WHERE
             AND c.apply =#{apply}
         </if>
          <if test="key!=null and key!=''">
-            AND c.key =#{key}
+            AND c.key CONCAT('%',#{key},'%')
         </if>
     </select>
     <!--名师资源列表-->
