@@ -19,8 +19,19 @@ public class IndexCoruseListParameter  implements Serializable {
     private String pkt_type_id;
     //观看人数以上数据
     private String apply;
+    //搜索关键字
+    private String key;
+    
 
-    public String getTenant_id() {
+    public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getTenant_id() {
         return tenant_id;
     }
 

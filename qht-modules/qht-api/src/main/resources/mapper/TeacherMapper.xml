@@ -62,7 +62,7 @@ GROUP BY t.uid
 
     </select>
     <!--名师详细-所有课程包-->
-    <select id="teacherCourse" resultType="com.qht.dto.AppTeacherCourseModel">
+    <select id="teacherCourse" resultType="com.qht.model.AppTeacherCourseModel">
  SELECT
 	c.cover as cover ,
 	c.uid as uid,
@@ -79,7 +79,7 @@ GROUP BY c.uid
 
     </select>
 
-    <select id="teacherEvaluation" resultType="com.qht.dto.AppTeacherEvaluationModel">
+    <select id="teacherEvaluation" resultType="com.qht.model.AppTeacherEvaluationModel">
       SELECT
 	s.head as head,
 	l.uid as uid,
@@ -100,7 +100,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
           and  l.comments_star &lt;=4
             </if>
             <if test="eval=2">
-                and  l.comments_star &gt;4 and l.comments_star&lt;=8
+                and  l.comments_star &gt;4 and l.comments_star &lt;=8
             </if>
             <if test="eval=3">
                 and  l.comments_star &gt;8
@@ -129,7 +129,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     </select>
 
     <!--教师端首页-我的课程包-->
-    <select id="selectIndexMyCourseList" resultType="com.qht.dto.IndexMyCourseDto" parameterType="com.qht.dto.IndexMyCourseParameter">
+    <select id="selectIndexMyCourseList" resultType="com.qht.model.IndexMyCourseModel" parameterType="com.qht.model.IndexMyCourseParam">
         select
         cp.cover,pl.name as course_type_name,cp.uid,cp.pkg_name,cp.create_time,cp.pkg_level_id
         from course_pkg cp left join pkg_level pl on cp.course_type_id=pl.uid
@@ -139,15 +139,15 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         </if>
     </select>
     <!--教师端首页-添加录播课程包-->
-    <insert id="insertIndexAddLcourse" parameterType="com.qht.dto.IndexAddLcourseParameter">
+    <insert id="insertIndexAddLcourse" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into course_pkg
         (uid,teacher_id,tenant_id,course_type_id,pkg_subject_id,pkg_edition_id,pkg_grade_id,pkg_level_id,pkg_name,play_type_id,min,max,content,cover,status)
         value (#{uid},#{teacher_id},#{tenant_id},#{course_type_id},#{pkg_subject_id},#{pkg_edition_id},#{pkg_grade_id},#{pkg_level_id},#{pkg_name},#{play_type_id},${min},${max},#{content},#{cover},"0")
     </insert>
-    <insert id="insertChapter" parameterType="com.qht.dto.IndexAddLcourseParameter">
+    <insert id="insertChapter" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into chapter(uid,tenant_id,name,course_id) value(#{chapter_uid},#{tenant_id},#{chapter_name},#{uid})
         </insert>
-    <insert id="insertPeriod" parameterType="com.qht.dto.IndexAddLcourseParameter">
+    <insert id="insertPeriod" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
     </insert>
 
