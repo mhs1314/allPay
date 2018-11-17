@@ -12,5 +12,30 @@
         <result property="begin" column="begin"/>
         <result property="over" column="over"/>
     </resultMap>
+    
+    <select id="indexMycourseTable" resultType="com.qht.model.IndexMyCourseTableModel" parameterType="com.qht.model.IndexMyCourseTableParam">
+    SELECT
+	pd.uid AS uid,
+	cg.pkg_name AS pkg_name,
+	pd.`name` AS `name`,
+	cr.`name` AS chapter_name,
+	pd.video_file AS video_file,
+	pd.`begin` AS `begin`
+
+
+FROM
+	period pd
+INNER JOIN chapter cr ON pd.chapter_id = cr.uid
+INNER JOIN course_pkg cg ON cr.course_id = cg.uid
+INNER JOIN buy_record brd ON cg.uid = brd.course_pkg_id
+INNER JOIN student st ON brd.student_id = st.uid
+WHERE
+	st.uid = #{uid} 
+	and st.tenant_id=#{tenant_id} 
+	<if test="play_type_id!=null and play_type_id!=''">
+	and cg.play_type_id=#{play_type_id}
+	</if>
+	
+    </select>
 
 </mapper>

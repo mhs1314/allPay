@@ -12,9 +12,19 @@ public class MyIndexCourseParam implements Serializable {
 
     private String course_type_id;
 
-    private String okg_subject_id;
+    private String pkg_subject_id;
+    
+    private String play_type_id;
 
-    private String now_time= DateTime.now().toString("yyyy-MM-dd");
+    public String getPlay_type_id() {
+		return play_type_id;
+	}
+
+	public void setPlay_type_id(String play_type_id) {
+		this.play_type_id = play_type_id;
+	}
+
+	private String now_time= DateTime.now().toString("yyyy-MM-dd");
     private String  page="1";
     private String limit="10";
 
@@ -31,7 +41,7 @@ public class MyIndexCourseParam implements Serializable {
         return "MyIndexCourseParam{" +
                 "uid='" + uid + '\'' +
                 ", course_type_id='" + course_type_id + '\'' +
-                ", okg_subject_id='" + okg_subject_id + '\'' +
+                ", okg_subject_id='" + pkg_subject_id + '\'' +
                 ", now_time='" + now_time + '\'' +
                 ", page='" + page + '\'' +
                 ", limit='" + limit + '\'' +
@@ -57,15 +67,17 @@ public class MyIndexCourseParam implements Serializable {
         this.course_type_id = course_type_id;
     }
 
-    public String getOkg_subject_id() {
-        return okg_subject_id;
-    }
+   
 
-    public void setOkg_subject_id(String okg_subject_id) {
-        this.okg_subject_id = okg_subject_id;
-    }
+    public String getPkg_subject_id() {
+		return pkg_subject_id;
+	}
 
-    public String getNow_time() {
+	public void setPkg_subject_id(String pkg_subject_id) {
+		this.pkg_subject_id = pkg_subject_id;
+	}
+
+	public String getNow_time() {
         return now_time;
     }
 
