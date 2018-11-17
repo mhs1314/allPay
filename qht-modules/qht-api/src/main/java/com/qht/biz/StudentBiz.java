@@ -231,8 +231,8 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param paramter
      * @return
      */
-    public List<MyIndexMessageModel> selectMyIndexMessage(RequestObject<MyIndexMessageParam> paramter) {
-        return studentMapper.selectMyIndexMessage(paramter.getData().getUid(), paramter.getData().getTenant_id(), paramter.getData().getIsread());
+    public List<MyIndexMessageModel> selectMyIndexMessage(MyIndexMessageParam paramter) {
+        return studentMapper.selectMyIndexMessage(paramter.getUid(), paramter.getTenant_id(), paramter.getIsread());
     }
 
     /**
@@ -300,8 +300,8 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param parameter
      * @return
      */
-    public List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(RequestObject<MyIndexMyintegralDetailParam> parameter){
-        return  studentMapper.myIndexMyintegralDetail(parameter.getData());
+    public List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(MyIndexMyintegralDetailParam parameter){
+        return  studentMapper.myIndexMyintegralDetail(parameter);
     }
 
     /**

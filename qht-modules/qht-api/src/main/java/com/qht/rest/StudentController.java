@@ -22,7 +22,9 @@ import com.qht.auth.util.RequestContextUtil;
 import com.qht.biz.CollectBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
+import com.qht.common.util.BeanUtil;
 import com.qht.entity.Student;
+import com.qht.model.*;
 import com.qht.services.StudentService;
 
 @Controller
@@ -86,9 +88,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<Void> requestObject) {
         //通过session取到运营的id
         System.out.println(getTenantId());
-        List<BannerDto> list=studentBiz.selectBanner(getTenantId(),"1");
+        List<BannerModel> list=studentBiz.selectBanner(getTenantId(),"1");
+        List<BannerDto> lists = BeanUtil.copyList(BannerDto.class, list);
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
-        resultObject.setData(list);
+        resultObject.setData(lists);
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         return resultObject;
@@ -98,10 +101,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<UidAndTenantID> requestObject) {
         //通过session取到运营的id
-
-        List<BannerDto> list=studentBiz.selectBanner(requestObject.getData().getTenant_id(),"2");
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        List<BannerModel> list=studentBiz.selectBanner(param.getTenant_id(),"2");
+       List<BannerDto> lists = BeanUtil.copyList(BannerDto.class, list);
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
-        resultObject.setData(list);
+        resultObject.setData(lists);
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         return resultObject;
@@ -111,12 +116,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<Void> requestObject) {
         //查询首页直播课程
-
-        List<LiveClassDto> list=studentBiz.selectLiveClass(getTenantId());
+        List<LiveClassModel> list=studentBiz.selectLiveClass(getTenantId());
+        List<LiveClassDto> lists = BeanUtil.copyList(LiveClassDto.class, list);
         ResultObject<List<LiveClassDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
     }
 
@@ -126,15 +131,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<FreeClassDto>> freeClass(@RequestBody RequestObject<FreeClassParameter> requestObject) {
         //requestObject.getData().setTenant_id(getTenantId());
     	//TODO
-        FreeClassParameter fcp = new FreeClassParameter();
-       
-        fcp.setTenant_id("11");
+        FreeClassParam fcp = new FreeClassParam();
+        BeanUtil.copyFields(fcp, requestObject.getData());
         //查询免费课程
-        List<FreeClassDto> list= studentBiz.selectFreeClass(fcp);
+        List<FreeClassModel> list= studentBiz.selectFreeClass(fcp);
+        List<FreeClassDto> lists = BeanUtil.copyList(FreeClassDto.class, list);
         ResultObject<List<FreeClassDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
     }
 
@@ -143,11 +148,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<Void> requestObject) {
         //查询试听排行榜
-        List<ListeningClassRankingDto> list=studentBiz.selectListeningClassRanking(getTenantId());
+        List<ListeningClassRankingModel> list=studentBiz.selectListeningClassRanking(getTenantId());
+        List<ListeningClassRankingDto> lists = BeanUtil.copyList(ListeningClassRankingDto.class, list);
         ResultObject<List<ListeningClassRankingDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
     }
 
@@ -156,11 +162,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<Void> requestObject) {
         //查询
-        List<ListeningClassListDto> list=studentBiz.selectListeningClassList(getTenantId());
+    	
+        List<ListeningClassListModel> list=studentBiz.selectListeningClassList(getTenantId());
+        List<ListeningClassListDto> lists = BeanUtil.copyList(ListeningClassListDto.class, list);
         ResultObject<List<ListeningClassListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
     }
 
@@ -169,11 +177,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<Void> requestObject) {
         //查询
-        List<TeacherRankingDto> list=studentBiz.selectTeacherRanking(getTenantId());
+        List<TeacherRankingModel> list=studentBiz.selectTeacherRanking(getTenantId());
+        List<TeacherRankingDto> lists = BeanUtil.copyList(TeacherRankingDto.class, list);
         ResultObject<List<TeacherRankingDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
     }
 
@@ -181,14 +190,16 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("indexTeacherList")
     @ResponseBody
     public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<TeacherListParameter> requestObject) {
-
+    	TeacherListParam param=new TeacherListParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
         requestObject.getData().setTenant_id(this.getTenantId());
         //查询
-        List<TeacherListDto> list=studentBiz.selectTeacherList(requestObject.getData());
+        List<TeacherListModel> list=studentBiz.selectTeacherList(param);
+       List<TeacherListDto> lists = BeanUtil.copyList(TeacherListDto.class, list);
         ResultObject<List<TeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
     }
 
@@ -197,11 +208,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<CourseIntroDto> courseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
         //通过课程包的uid和运营的id查询
-        CourseIntroDto courseIntroDto=studentBiz.selectCourseIntro(requestObject.getData().getUid(),getTenantId());
+    	CourseIntroParam param=new CourseIntroParam();
+    	BeanUtil.copyFields(param,  requestObject.getData());
+        CourseIntroModel courseIntroModel=studentBiz.selectCourseIntro(param.getUid(),param.getTenant_id());
+        CourseIntroDto dto=new CourseIntroDto();
+        BeanUtil.copyFields(dto,courseIntroModel);
         ResultObject<CourseIntroDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(courseIntroDto);
+        resultObject.setData(dto);
         return resultObject;
     }
 
@@ -209,11 +224,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("courseChapter")
     @ResponseBody
     public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
-        List<CourseChapterDto> courseChapterDtos=studentBiz.selectCourseChapter(requestObject.getData().getUid(),getTenantId());
+    	CourseIntroParam param=new CourseIntroParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        List<CourseChapterModel> courseChapterDtos=studentBiz.selectCourseChapter(param.getUid(),param.getTenant_id());
+        List<CourseChapterDto> list = BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
+        BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
         ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(courseChapterDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -222,50 +241,57 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseEvaluationParameter> requestObject) {
         ResultObject<List<CourseEvaluationDto>> resultObject=new ResultObject<>();
+        CourseEvaluationParam param=new CourseEvaluationParam();
         if(requestObject.getData().getEval()==null&&requestObject.getData().getEval()==""){
-            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
-            List<CourseEvaluationDto> courseEvaluationDtos=studentBiz.selectCourseEvaluation(requestObject.getData());
-            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtos);
-            List<CourseEvaluationDto> courseEvaluationDtosGood=studentBiz.selectCourseEvaluationGood(requestObject.getData());
-            List<CourseEvaluationDto> courseEvaluationDtosMid=studentBiz.selectCourseEvaluationMid(requestObject.getData());
-            List<CourseEvaluationDto> courseEvaluationDtosBad=studentBiz.selectCourseEvaluationBad(requestObject.getData());
+        	
+        	BeanUtil.copyFields(param, requestObject.getData());
+            PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
+            List<CourseEvaluationModel> courseEvaluationDtos=studentBiz.selectCourseEvaluation(param);
+            List<CourseEvaluationDto> list = BeanUtil.copyList(CourseEvaluationDto.class, courseEvaluationDtos);
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(list);
+            List<CourseEvaluationModel> courseEvaluationDtosGood=studentBiz.selectCourseEvaluationGood(param);
+            List<CourseEvaluationModel> courseEvaluationDtosMid=studentBiz.selectCourseEvaluationMid(param);
+            List<CourseEvaluationModel> courseEvaluationDtosBad=studentBiz.selectCourseEvaluationBad(param);
             resultObject.setCode("0");
             resultObject.setMsg("成功");
             resultObject.setCount(count.getTotal());
             resultObject.setCount_good(courseEvaluationDtosGood.size());
             resultObject.setCount_mid(courseEvaluationDtosMid.size());
             resultObject.setCount_mid(courseEvaluationDtosBad.size());
-            resultObject.setData(courseEvaluationDtos);
+            resultObject.setData(list);
             return resultObject;
         }
         if(requestObject.getData().getEval().equals("3")){
-            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
-            List<CourseEvaluationDto> courseEvaluationDtosGood=studentBiz.selectCourseEvaluationGood(requestObject.getData());
-            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtosGood);
+            PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
+            List<CourseEvaluationModel> courseEvaluationDtosGood=studentBiz.selectCourseEvaluationGood(param);
+            List<CourseEvaluationDto> list = BeanUtil.copyList(CourseEvaluationDto.class, courseEvaluationDtosGood);
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(list);
             resultObject.setCode("0");
             resultObject.setMsg("成功");
             resultObject.setCount(count.getTotal());
-            resultObject.setData(courseEvaluationDtosGood);
+            resultObject.setData(list);
             return resultObject;
         }
         if(requestObject.getData().getEval().equals("2")){
-            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
-            List<CourseEvaluationDto> courseEvaluationDtosMid=studentBiz.selectCourseEvaluationMid(requestObject.getData());
-            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtosMid);
+            PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
+            List<CourseEvaluationModel> courseEvaluationDtosMid=studentBiz.selectCourseEvaluationMid(param);
+            List<CourseEvaluationDto> list = BeanUtil.copyList(CourseEvaluationDto.class, courseEvaluationDtosMid);
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(list);
             resultObject.setCode("0");
             resultObject.setMsg("成功");
             resultObject.setCount(count.getTotal());
-            resultObject.setData(courseEvaluationDtosMid);
+            resultObject.setData(list);
             return resultObject;
         }
         if(requestObject.getData().getEval().equals("1")){
-            PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
-            List<CourseEvaluationDto> courseEvaluationDtosBad=studentBiz.selectCourseEvaluationMid(requestObject.getData());
-            PageInfo<CourseEvaluationDto> count=new PageInfo<>(courseEvaluationDtosBad);
+            PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
+            List<CourseEvaluationModel> courseEvaluationDtosBad=studentBiz.selectCourseEvaluationMid(param);
+           List<CourseEvaluationDto> list = BeanUtil.copyList(CourseEvaluationDto.class, courseEvaluationDtosBad);
+            PageInfo<CourseEvaluationDto> count=new PageInfo<>(list);
             resultObject.setCode("0");
             resultObject.setMsg("成功");
             resultObject.setCount(count.getTotal());
-            resultObject.setData(courseEvaluationDtosBad);
+            resultObject.setData(list);
             return resultObject;
         }
         resultObject.setCode("1");
@@ -277,11 +303,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("teacherInfo")
     @ResponseBody
     public ResultObject<TeacherInfoDto> teacherInfo(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
-        TeacherInfoDto teacherInfoDto=studentBiz.selectTeacherInfo(requestObject.getData().getUid(),getTenantId());
+    	CourseIntroParam param=new CourseIntroParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        TeacherInfoModel teacherInfoModel=studentBiz.selectTeacherInfo(param.getUid(),param.getTenant_id());
+        TeacherInfoDto dto=new TeacherInfoDto();
+        BeanUtil.copyFields(dto, teacherInfoModel);
         ResultObject<TeacherInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(teacherInfoDto);
+        resultObject.setData(dto);
         return resultObject;
     }
 
@@ -292,16 +322,19 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<CourseListDto>> courseList(@RequestBody RequestObject<CourseListParameter> requestObject) {
         //使用分页插件
-        PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()), Integer.parseInt(requestObject.getData().getLimit()));
+    	CourseListParam param=new CourseListParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
         requestObject.getData().setTenant_id(getTenantId());
-        List<CourseListDto> courseListDtos=studentBiz.selectCourseList(requestObject.getData());
+        List<CourseListModel> courseListDtos=studentBiz.selectCourseList(param);
+        List<CourseListDto> list = BeanUtil.copyList(CourseListDto.class, courseListDtos);
         //得到总条数
-        PageInfo<CourseListDto> count=new PageInfo<>(courseListDtos);
+        PageInfo<CourseListDto> count=new PageInfo<>(list);
         ResultObject<List<CourseListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(courseListDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -309,18 +342,20 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("teacherList")
     @ResponseBody
     public ResultObject<List<TopTeacherListDto>> topTeacherList(@RequestBody RequestObject<TopTeacherListParameter> requestObject) {
-        System.out.println();
+    	TopTeacherListParam param=new TopTeacherListParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
         //使用分页插件
-        PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()), Integer.parseInt(requestObject.getData().getLimit()));
+        PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
         requestObject.getData().setTenant_id(getTenantId());
-        List<TopTeacherListDto> topTeacherListDtos=studentBiz.selectTopTeacherList(requestObject.getData());
+        List<TopTeacherListModel> topTeacherListDtos=studentBiz.selectTopTeacherList(param);
+       List<TopTeacherListDto> list = BeanUtil.copyList(TopTeacherListDto.class, topTeacherListDtos);
         //得到总条数
-        PageInfo<TopTeacherListDto> count=new PageInfo<>(topTeacherListDtos);
+        PageInfo<TopTeacherListDto> count=new PageInfo<>(list);
         ResultObject<List<TopTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(topTeacherListDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -329,11 +364,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
 
     public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> request) {
-        List<TopTeacherInfoDto> topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(request.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, request.getData());
+        List<TopTeacherInfoModel> topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(param.getUid(),param.getTenant_id());
+       List<TopTeacherInfoDto> list = BeanUtil.copyList(TopTeacherInfoDto.class, topTeacherInfoDtos);
         ResultObject<List<TopTeacherInfoDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(topTeacherInfoDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -343,12 +381,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestBody RequestObject<UidAndTenantID> request) {
-        List<TeacherCourseDto> teacherCourseDtos=studentBiz.selectTeacherCourse(request.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, request.getData());
+        List<TeacherCourseModel> teacherCourseDtos=studentBiz.selectTeacherCourse(param.getUid(),param.getTenant_id());
+       List<TeacherCourseDto> list = BeanUtil.copyList(TeacherCourseDto.class, teacherCourseDtos);
         ResultObject<List<TeacherCourseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(teacherCourseDtos);
-        resultObject.setCount((long) teacherCourseDtos.size());
+        resultObject.setData(list);
+        resultObject.setCount((long) list.size());
         return resultObject;
     }
 
@@ -358,11 +399,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestBody RequestObject<UidAndTenantID> request) {
-        List<TeacherEvaluationDto> teacherEvaluationDtos=studentBiz.selectTeacherEvaluation(request.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, request.getData());
+        List<TeacherEvaluationModel> teacherEvaluationDtos=studentBiz.selectTeacherEvaluation(param.getUid(),param.getTenant_id());
+        List<TeacherEvaluationDto> list = BeanUtil.copyList(TeacherEvaluationDto.class, teacherEvaluationDtos);
         ResultObject<List<TeacherEvaluationDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(teacherEvaluationDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -370,11 +414,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("tenantSchool")
     @ResponseBody
     public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<Void> requestObject) {
-        TenantSchoolDto tenantSchoolDto=studentBiz.selectTenantSchool(getTenantId());
+    	
+        TenantSchoolModel tenantSchoolDto=studentBiz.selectTenantSchool(getTenantId());
+        TenantSchoolDto dto=new TenantSchoolDto();
+        BeanUtil.copyFields(dto, tenantSchoolDto);
         ResultObject<TenantSchoolDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(tenantSchoolDto);
+        resultObject.setData(dto);
         return resultObject;
     }
 
@@ -382,11 +429,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("tenantAlbum")
     @ResponseBody
     public ResultObject<TenantAlbumDto> tenantAlbum(@RequestBody RequestObject<Void> requestObject) {
-        TenantAlbumDto tenantAlbumDto=studentBiz.selectTenantAlbum(getTenantId());
+        TenantAlbumModel tenantAlbumDto=studentBiz.selectTenantAlbum(getTenantId());
+        TenantAlbumDto dto=new TenantAlbumDto();
+        BeanUtil.copyFields(dto, tenantAlbumDto);
         ResultObject<TenantAlbumDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(tenantAlbumDto);
+        resultObject.setData(dto);
         return resultObject;
     }
 
@@ -395,15 +444,17 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<MyIndexCourseDto>> myIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject) {
         //使用分页插件
-        PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()), Integer.parseInt(requestObject.getData().getLimit()));
+    	MyIndexCourseParam param=new MyIndexCourseParam();
+        PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
         requestObject.getData().setTenant_id(getTenantId());
-        List<MyIndexCourseDto> myIndexCourseDtos=studentBiz.selectMyIndexCourse(requestObject.getData());
-        PageInfo<MyIndexCourseDto> count=new PageInfo<>(myIndexCourseDtos);
+        List<MyIndexCourseModel> myIndexCourseDtos=studentBiz.selectMyIndexCourse(param);
+       List<MyIndexCourseDto> list = BeanUtil.copyList(MyIndexCourseDto.class, myIndexCourseDtos);
+        PageInfo<MyIndexCourseDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexCourseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(myIndexCourseDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -413,28 +464,33 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestBody RequestObject<UidAndTenantID> req) {
-        List<IndexCourseDetailsDto> indexCourseDetailsDtos=studentBiz.selectIndexCourseDetails(req.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, req.getData());
+        List<IndexCourseDetailsModel> indexCourseDetailsDtos=studentBiz.selectIndexCourseDetails(param.getUid(),param.getTenant_id());
+        List<IndexCourseDetailsDto> list = BeanUtil.copyList(IndexCourseDetailsDto.class, indexCourseDetailsDtos);
         ResultObject<List<IndexCourseDetailsDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(indexCourseDetailsDtos);
+        resultObject.setData(list);
         return resultObject;
     }
     @Override
     @PostMapping("myIndexMessage")
     @ResponseBody
     public ResultObject<List<MyIndexMessageDto>> myIndexMessage(@RequestBody RequestObject<MyIndexMessageParamter> paramter) {
-        Integer p=Integer.parseInt(paramter.getData().getPage());
-        Integer l=Integer.parseInt(paramter.getData().getLimit());
+    	MyIndexMessageParam param=new MyIndexMessageParam();
+        Integer p=Integer.parseInt(param.getPage());
+        Integer l=Integer.parseInt(param.getLimit());
         paramter.getData().setIsread(getTenantId());
         PageHelper.startPage(p,l);
-        List<MyIndexMessageDto> list=studentBiz.selectMyIndexMessage(paramter);
-        PageInfo<MyIndexMessageDto> count=new PageInfo<>(list);
+        List<MyIndexMessageModel> list=studentBiz.selectMyIndexMessage(param);
+        List<MyIndexMessageDto> lists = BeanUtil.copyList(MyIndexMessageDto.class, list);
+        PageInfo<MyIndexMessageDto> count=new PageInfo<>(lists);
         ResultObject<List<MyIndexMessageDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
 
     }
@@ -465,11 +521,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<MyIndexMessageDto> selectMessageById(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-        MyIndexMessageDto dto=studentBiz.selectMessageById(requestObject.getData().getUid());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        MyIndexMessageModel dto=studentBiz.selectMessageById(param.getUid());
+        MyIndexMessageDto dtod=new MyIndexMessageDto();
+        BeanUtil.copyFields(dtod, dto);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(dtod);
         return resultObject;
     }
 
@@ -478,15 +538,18 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(@RequestBody RequestObject<MyIndexBuyRecordParameter> requestObject) {
         //使用分页插件
-        PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
+    	MyIndexBuyRecordParam param=new MyIndexBuyRecordParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()) );
         requestObject.getData().setTenant_id(getTenantId());
-        List<MyIndexBuyRecordDto> myIndexBuyRecordDtos=studentBiz.selectMyIndexBuyRecourd(requestObject.getData());
-        PageInfo<MyIndexBuyRecordDto> count=new PageInfo<>(myIndexBuyRecordDtos);
+        List<MyIndexBuyRecordModel> myIndexBuyRecordDtos=studentBiz.selectMyIndexBuyRecourd(param);
+        List<MyIndexBuyRecordDto> list = BeanUtil.copyList(MyIndexBuyRecordDto.class, myIndexBuyRecordDtos);
+        PageInfo<MyIndexBuyRecordDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexBuyRecordDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(myIndexBuyRecordDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -496,7 +559,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-        StudentInfoDto dto=studentBiz.studentInfo(requestObject.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        StudentInfoModel model=studentBiz.studentInfo(param.getUid(),param.getTenant_id());
+        StudentInfoDto dto=new StudentInfoDto();
+        BeanUtil.copyFields(dto, model);
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -508,17 +575,20 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/myIndexMyintegralDetail")
     @ResponseBody
     public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(@RequestBody RequestObject<MyIndexMyintegralDetailParameter> parameter) {
-        parameter.getData().setTenant_id(getTenantId());
-        Integer p=Integer.parseInt(parameter.getData().getPage());
-        Integer l=Integer.parseInt(parameter.getData().getLimit());
+    	MyIndexMyintegralDetailParam param=new MyIndexMyintegralDetailParam();
+    	BeanUtil.copyFields(param, parameter.getData());
+    	parameter.getData().setTenant_id(getTenantId());
+        Integer p=Integer.parseInt(param.getPage());
+        Integer l=Integer.parseInt(param.getLimit());
         PageHelper.startPage(p,l);
-        List<MyIndexMyintegralDetailDto> list=studentBiz.myIndexMyintegralDetail(parameter);
-        PageInfo<MyIndexMyintegralDetailDto> count=new PageInfo<>(list);
+        List<MyIndexMyintegralDetailModel> list=studentBiz.myIndexMyintegralDetail(param);
+       List<MyIndexMyintegralDetailDto> lists = BeanUtil.copyList(MyIndexMyintegralDetailDto.class, list);
+        PageInfo<MyIndexMyintegralDetailDto> count=new PageInfo<>(lists);
         ResultObject<List<MyIndexMyintegralDetailDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(list);
+        resultObject.setData(lists);
         return resultObject;
     }
 
@@ -527,15 +597,18 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(@RequestBody RequestObject<MyIndexCourseAnswerParameter> requestObject) {
         //使用分页插件
+    	MyIndexCourseAnswerParam param=new MyIndexCourseAnswerParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
         requestObject.getData().setTenant_id(getTenantId());
-        List<MyIndexCourseAnswerDto> myIndexCourseAnswerDtos=studentBiz.selectMyIndexCourseAnswer(requestObject.getData());
-        PageInfo<MyIndexCourseAnswerDto> count=new PageInfo<>(myIndexCourseAnswerDtos);
+        List<MyIndexCourseAnswerModel> myIndexCourseAnswerDtos=studentBiz.selectMyIndexCourseAnswer(param);
+       List<MyIndexCourseAnswerDto> list = BeanUtil.copyList(MyIndexCourseAnswerDto.class, myIndexCourseAnswerDtos);
+        PageInfo<MyIndexCourseAnswerDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexCourseAnswerDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(myIndexCourseAnswerDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -549,11 +622,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(@RequestBody RequestObject<UidAndTenantID> req) {
-        List<IndexFutureCoruseDto> dto=studentBiz.indexFutureCoruse(req.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, req.getData());
+        List<IndexFutureCoruseModel> dto=studentBiz.indexFutureCoruse(param.getUid(),param.getTenant_id());
+       List<IndexFutureCoruseDto> list = BeanUtil.copyList(IndexFutureCoruseDto.class, dto);
         ResultObject<List<IndexFutureCoruseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -561,11 +637,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexTeacher")
     @ResponseBody
     public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<Void> req) {
-        List<IndexTeacherDto> dto=studentBiz.indexTeacher(getTenantId());
+        List<IndexTeacherModel> dto=studentBiz.indexTeacher(getTenantId());
+       List<IndexTeacherDto> list = BeanUtil.copyList(IndexTeacherDto.class, dto);
         ResultObject<List<IndexTeacherDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(list);
        return  resultObject;
     }
 
@@ -573,11 +650,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexAnswer")
     @ResponseBody
     public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<Void> req) {
-        List<IndexAnswerDto> dto=studentBiz.indexAnswer(getTenantId());
+    	
+        List<IndexAnswerModel> dto=studentBiz.indexAnswer(getTenantId());
+        List<IndexAnswerDto> list = BeanUtil.copyList(IndexAnswerDto.class, dto);
         ResultObject<List<IndexAnswerDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(list);
         return  resultObject;
     }
 
@@ -586,13 +665,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<IndexCoruseListDto>> indexCoruseList(@RequestBody RequestObject<IndexCoruseListParameter> parameter) {        System.out.println("-------------"+parameter);
 
-
-        parameter.getData().setTenant_id(getTenantId());
-        List<IndexCoruseListDto> dto=studentBiz.indexCoruseList(parameter.getData());
+    IndexCoruseListParam param=new IndexCoruseListParam();
+    BeanUtil.copyFields(param, parameter.getData());
+        List<IndexCoruseListModel> dto=studentBiz.indexCoruseList(param);
+      List<IndexCoruseListDto> list = BeanUtil.copyList(IndexCoruseListDto.class, dto);
         ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(list);
         return  resultObject;
     }
 
@@ -600,14 +680,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexTeacherList")
     @ResponseBody
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter) {
-        parameter.getData().setTenant_id(getTenantId());
-    	IndexTeacherListParameter para = new IndexTeacherListParameter();
-    	para.setTenant_id("11");
-        List<IndexTeacherListDto> dto=studentBiz.indexTeacherList(para);
+    	IndexTeacherListParam param=new IndexTeacherListParam();
+    	BeanUtil.copyFields(IndexTeacherListDto.class,parameter.getData());
+        List<IndexTeacherListModel> dto=studentBiz.indexTeacherList(param);
+       List<IndexTeacherListDto> list = BeanUtil.copyList(IndexTeacherListDto.class, dto);
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(list);
         return  resultObject;
     }
 
@@ -617,11 +697,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(@RequestBody RequestObject<UidAndTenantID> req) {
-        List<MyIndexBuyRecordCourseDetailsDto> myIndexBuyRecordCourseDetailsDtos=studentBiz.selectMyIndexBuyRecordDetails(req.getData().getUid());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, req.getData());
+        List<MyIndexBuyRecordCourseDetailsModel> myIndexBuyRecordCourseDetailsDtos=studentBiz.selectMyIndexBuyRecordDetails(param.getUid());
+       List<MyIndexBuyRecordCourseDetailsDto> list = BeanUtil.copyList(MyIndexBuyRecordCourseDetailsDto.class, myIndexBuyRecordCourseDetailsDtos);
         ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(myIndexBuyRecordCourseDetailsDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -630,14 +713,17 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(@RequestBody RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject) {
         requestObject.getData().setTenant_id(getTenantId());
+        MyIndexBuyRecordCourseBackParam param=new MyIndexBuyRecordCourseBackParam();
+        BeanUtil.copyFields(param, requestObject.getData());
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()));
-        List<MyIndexBuyRecordCourseBackDto> myIndexBuyRecordCourseBackDtos=studentBiz.selectMyIndexBuyRecordCourseBack(requestObject.getData());
-        PageInfo<MyIndexBuyRecordCourseBackDto> count=new PageInfo<>(myIndexBuyRecordCourseBackDtos);
+        List<MyIndexBuyRecordCourseBackModel> myIndexBuyRecordCourseBackDtos=studentBiz.selectMyIndexBuyRecordCourseBack(param);
+        List<MyIndexBuyRecordCourseBackDto> list = BeanUtil.copyList(MyIndexBuyRecordCourseBackDto.class, myIndexBuyRecordCourseBackDtos);
+        PageInfo<MyIndexBuyRecordCourseBackDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexBuyRecordCourseBackDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setCount(count.getTotal());
-        resultObject.setData(myIndexBuyRecordCourseBackDtos);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -645,13 +731,17 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("myIndexMycollect")
     @ResponseBody
     public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(@RequestBody RequestObject<MyIndexMycollectParameter> requestObject) {
-        requestObject.getData().setTenant_id(getTenantId());
+    	MyIndexMycollectParam param=new MyIndexMycollectParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+    	requestObject.getData().setTenant_id(getTenantId());
         PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),Integer.parseInt(requestObject.getData().getLimit()) );
-        List<MyIndexMycollectDto> myIndexMycollectDtos=studentBiz.selectMyIndexMycollect(requestObject.getData());
-        PageInfo<MyIndexMycollectDto> count=new PageInfo<>(myIndexMycollectDtos);
+        List<MyIndexMycollectModel> myIndexMycollectDtos=studentBiz.selectMyIndexMycollect(param);
+       List<MyIndexMycollectDto> list = BeanUtil.copyList(MyIndexMycollectDto.class, myIndexMycollectDtos);
+        PageInfo<MyIndexMycollectDto> count=new PageInfo<>(list);
         ResultObject<List<MyIndexMycollectDto>> resultObject=new ResultObject<>();
         resultObject.setCount(count.getTotal());
         resultObject.setCode("0");
+        resultObject.setData(list);
         resultObject.setMsg("成功");
         return null;
     }
@@ -661,10 +751,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
 
     public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<MyIndexCanceCollectParameter> requestObject) {
+    	MyIndexCanceCollectParam param=new MyIndexCanceCollectParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
         ResultObject<Void> resultObject=new ResultObject<>();
-        String uid = requestObject.getData().getUid();
+        String uid =param.getUid();
 
-        String student_id = requestObject.getData().getStudent_id();
+        String student_id =param.getStudent_id();
         Integer updateLine=studentBiz.updateMyIndexCancelcollect(uid,student_id,getTenantId());
         if(updateLine>0){
 
@@ -684,11 +776,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-        List<IndexMyAnswerDto> indexMyAnswerDtos=studentBiz.selectIndexMyAnswer(requestObject.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        List<IndexMyAnswerModel> models=studentBiz.selectIndexMyAnswer(param.getUid(),param.getTenant_id());
+        List<IndexMyAnswerDto> list = BeanUtil.copyList(IndexMyAnswerDto.class, models);
         ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(indexMyAnswerDtos);
+        resultObject.setData(list);
         return resultObject;
     }
     /**
@@ -701,11 +796,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<TeacherDetailsDto> teacherDetails(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-        TeacherDetailsDto teacherDetailsDto=teacherBiz.teacherDetails(requestObject.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        TeacherDetailsModel model=teacherBiz.teacherDetails(param.getUid(),param.getTenant_id());
+        TeacherDetailsDto dto=new TeacherDetailsDto();
         ResultObject<TeacherDetailsDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(teacherDetailsDto);
+        resultObject.setData(dto);
         return resultObject;
     }
 
@@ -715,11 +813,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(@RequestBody RequestObject<UidAndTenantID> requestObject){
-        IndexAnswerDetailsDto indexAnswerDetailsDto=studentBiz.selectIndexAnswerDetails(requestObject.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        IndexAnswerDetailsModel model=studentBiz.selectIndexAnswerDetails(param.getUid(),param.getTenant_id());
+        IndexAnswerDetailsDto dto=new IndexAnswerDetailsDto();
+        BeanUtil.copyFields(dto, model);
         ResultObject<IndexAnswerDetailsDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(indexAnswerDetailsDto);
+        resultObject.setData(dto);
         return resultObject;
     }
 
@@ -733,11 +835,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
 
     public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-        List<AppTeacherCourseDto> dto=teacherBiz.appTeacherCourseDto(requestObject.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        List<AppTeacherCourseModel> dto=teacherBiz.appTeacherCourseDto(param.getUid(),param.getTenant_id());
+        List<AppTeacherCourseDto> list = BeanUtil.copyList(AppTeacherCourseDto.class, dto);
         ResultObject<List<AppTeacherCourseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(list);
         return resultObject;
     }
     /**
@@ -748,12 +853,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/teacherEvaluation")
     @ResponseBody
     public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation1(@RequestBody RequestObject<TeacherEvaluationDto> requestObject) {
-
-        List<AppTeacherEvaluationDto> dto=teacherBiz.teacherEvaluation(requestObject.getData().getUid(),getTenantId(),requestObject.getData().getEval());
+    	TeacherEvaluationModel  param=new TeacherEvaluationModel();
+        List<AppTeacherEvaluationModel> dto=teacherBiz.teacherEvaluation(param.getUid(),getTenantId(),param.getEval());
+        List<AppTeacherEvaluationDto> list = BeanUtil.copyList(AppTeacherEvaluationDto.class, dto);
         ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(list);
         return resultObject;
     }
 
@@ -761,9 +867,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/indexAnswerDetailsAppendAnswer")
     @ResponseBody
     public ResultObject<Void> indexAnswerDetailsAppendAnswer(@RequestBody RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject) {
-
+    	IndexAnswerDetailsAppendAnswerParam param=new IndexAnswerDetailsAppendAnswerParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
         requestObject.getData().setTanant_id(getTenantId());
-        Integer appendAskAnswer=studentBiz.insertAppendAskAnswer(requestObject.getData());
+        Integer appendAskAnswer=studentBiz.insertAppendAskAnswer(param);
         ResultObject<Void> resultObject=new ResultObject<>();
         if(appendAskAnswer==1){
 
@@ -842,13 +949,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
 
     public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-
-
-        AppMyStudentInfoDto dto=studentBiz.appMyStudentInfo(requestObject.getData().getUid(),getTenantId());
+    	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	BeanUtil.copyFields(param, requestObject.getData());
+        AppMyStudentInfoModel dto=studentBiz.appMyStudentInfo(param.getUid(),param.getTenant_id());
+        AppMyStudentInfoDto dtod=new AppMyStudentInfoDto();
         ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
-        resultObject.setData(dto);
+        resultObject.setData(dtod);
         return resultObject;
     }
 
@@ -860,17 +968,19 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/myStudentInfoEditHead")
     @ResponseBody
-    public ResultObject<Void> myStudentInfoEditHead(@RequestBody  ResultObject<AppStudentParameter> resultObject) {
+    public ResultObject<Void> myStudentInfoEditHead(@RequestBody  RequestObject<AppStudentParameter> resultObject) {
+    	AppStudentParam param=new AppStudentParam();
+    	BeanUtil.copyFields(param, resultObject.getData());
         resultObject.getData().setTenant_id(this.getTenantId());
-       Integer result= studentBiz.appUpdaetStudentHead(resultObject.getData());
-        ResultObject<Void> resultObj=new ResultObject<>();
+       Integer result= studentBiz.appUpdaetStudentHead(param);
+       ResultObject<Void> resultObj=new ResultObject<>();
         if (result>=0){
-            resultObject.setCode("0");
-            resultObject.setMsg("成功");
+        	resultObj.setCode("0");
+        	resultObj.setMsg("成功");
             return resultObj;
         }else{
-            resultObject.setCode("1");
-            resultObject.setMsg("失败");
+        	resultObj.setCode("1");
+        	resultObj.setMsg("失败");
             return resultObj;
         }
     }
@@ -883,17 +993,19 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/myStudentInfoEditNickname")
     @ResponseBody
-    public ResultObject<Void> myStudentInfoEditNickname(@RequestBody  ResultObject<AppStudentParameter> resultObject) {
+    public ResultObject<Void> myStudentInfoEditNickname(@RequestBody  RequestObject<AppStudentParameter> resultObject) {
+    	AppStudentParam param=new AppStudentParam();
+    	BeanUtil.copyFields(param, resultObject.getData());
         resultObject.getData().setTenant_id(this.getTenantId());
-        Integer result= studentBiz.appUpdaetStudentNickname(resultObject.getData());
+        Integer result= studentBiz.appUpdaetStudentNickname(param);
         ResultObject<Void> resultObj=new ResultObject<>();
         if (result>=0){
-            resultObject.setCode("0");
-            resultObject.setMsg("成功");
+        	resultObj.setCode("0");
+        	resultObj.setMsg("成功");
             return resultObj;
         }else{
-            resultObject.setCode("1");
-            resultObject.setMsg("失败");
+        	resultObj.setCode("1");
+        	resultObj.setMsg("失败");
             return resultObj;
         }
     }
@@ -906,17 +1018,19 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/myStudentInfoEditPs")
     @ResponseBody
-    public ResultObject<Void> myStudentInfoEditPs(ResultObject<AppStudentParameter> resultObject) {
+    public ResultObject<Void> myStudentInfoEditPs(RequestObject<AppStudentParameter> resultObject) {
+    	AppStudentParam param=new AppStudentParam();
+    	BeanUtil.copyFields(param, resultObject.getData());
         resultObject.getData().setTenant_id(this.getTenantId());
-        Integer result= studentBiz.appUpdaetStudentPassword(resultObject.getData());
+        Integer result= studentBiz.appUpdaetStudentPassword(param);
         ResultObject<Void> resultObj=new ResultObject<>();
         if (result>=0){
-            resultObject.setCode("0");
-            resultObject.setMsg("成功");
+        	resultObj.setCode("0");
+        	resultObj.setMsg("成功");
             return resultObj;
         }else{
-            resultObject.setCode("1");
-            resultObject.setMsg("失败");
+        	resultObj.setCode("1");
+        	resultObj.setMsg("失败");
             return resultObj;
         }
     }
@@ -929,13 +1043,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/myStudentGuardian")
     @ResponseBody
-    public ResultObject<List<AppMyStudentGuardianDto>> myStudentGuardian(ResultObject<AppStudentParameter> resultObject) {
-
-        List<AppMyStudentGuardianDto> dto=studentBiz.appMyStudentGuardian(resultObject.getData());
+    public ResultObject<List<AppMyStudentGuardianDto>> myStudentGuardian(RequestObject<AppStudentParameter> resultObject) {
+    	AppStudentParam param=new AppStudentParam();
+    	BeanUtil.copyFields(param, resultObject.getData());
+        List<AppMyStudentGuardianModel> dto=studentBiz.appMyStudentGuardian(param);
+       List<AppMyStudentGuardianDto> list = BeanUtil.copyList(AppMyStudentGuardianDto.class, dto);
         ResultObject< List<AppMyStudentGuardianDto>> resultObj=new ResultObject<>();
         resultObj.setCode("0");
         resultObj.setMsg("成功");
-        resultObj.setData(dto);
+        resultObj.setData(list);
         return resultObj;
     }
 

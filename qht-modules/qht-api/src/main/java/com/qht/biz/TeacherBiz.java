@@ -78,7 +78,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param data
      * @return
      */
-    public List<IndexMyCourseListDto> selectIndexMyCourseList(IndexMyCourseListParameter data) {
+    public List<IndexMyCourseListModel> selectIndexMyCourseList(IndexMyCourseListParam data) {
         return teacherMapper.selectIndexMyCourseList(data);
     }
 
@@ -87,13 +87,13 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param data
      * @return
      */
-    public Integer insertIndexAddLcourse(IndexAddLcourseParameter data) {
+    public Integer insertIndexAddLcourse(IndexAddLcourseParam data) {
         return teacherMapper.insertIndexAddLcourse(data);
     }
-    public Integer insertChapter(IndexAddLcourseParameter data) {
+    public Integer insertChapter(IndexAddLcourseParam data) {
         return teacherMapper.insertChapter(data);
     }
-    public Integer insertPeriod(IndexAddLcourseParameter data) {
+    public Integer insertPeriod(IndexAddLcourseParam data) {
         return teacherMapper.insertPeriod(data);
     }
 }

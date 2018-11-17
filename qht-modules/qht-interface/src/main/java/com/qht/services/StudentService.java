@@ -330,28 +330,28 @@ public interface StudentService {
      * @param resultObject
      * @return
      */
-     public ResultObject<Void> myStudentInfoEditHead(@RequestBody ResultObject<AppStudentParameter> resultObject);
+     public ResultObject<Void> myStudentInfoEditHead(@RequestBody RequestObject<AppStudentParameter> resultObject);
 
     /**
      * app修改学生昵称
      * @param resultObject
      * @return
      */
-    public ResultObject<Void> myStudentInfoEditNickname(@RequestBody ResultObject<AppStudentParameter> resultObject);
+    public ResultObject<Void> myStudentInfoEditNickname(@RequestBody RequestObject<AppStudentParameter> resultObject);
 
     /**
      * app修改学生密码
      * @param resultObject
      * @return
      */
-    public ResultObject<Void> myStudentInfoEditPs(@RequestBody ResultObject<AppStudentParameter> resultObject);
+    public ResultObject<Void> myStudentInfoEditPs(@RequestBody RequestObject<AppStudentParameter> resultObject);
 
     /**
      * 查看监护人信息
      * @param resultObject
      * @return
      */
-    public ResultObject<List<AppMyStudentGuardianDto>>myStudentGuardian(@RequestBody ResultObject<AppStudentParameter> resultObject);
+    public ResultObject<List<AppMyStudentGuardianDto>>myStudentGuardian(@RequestBody RequestObject<AppStudentParameter> resultObject);
 
 //    /**
 //     * 查看学生兴趣标签
