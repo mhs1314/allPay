@@ -901,7 +901,7 @@ WHERE
         inner join teacher t on t.uid=cp.teacher_id
         inner join student s on  s.uid=br.student_id
         where p.tenant_id=#{tenant_id} and br.student_id=#{uid} and cp.status="1"
-        <if test="pkg_subject_id!=null and pkg_subject_id!==''">
+        <if test="pkg_subject_id!=null and pkg_subject_id !=''">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
     </select>
