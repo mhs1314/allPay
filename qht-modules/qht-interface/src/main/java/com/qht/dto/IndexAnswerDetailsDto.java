@@ -29,6 +29,7 @@ public class IndexAnswerDetailsDto implements Serializable {
     private String back_img;
     private Integer praise_number;
 
+
     public String getTeacher_id() {
 		return teacher_id;
 	}
