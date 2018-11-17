@@ -445,8 +445,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("tenantSchool")
     @ResponseBody
-
-
     public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<Void> requestObject) {
     	
         TenantSchoolModel tenantSchoolDto=studentBiz.selectTenantSchool(getTenantId());
@@ -771,7 +769,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexBuyrecordCourseDetails")
     @ResponseBody
-
     public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(@RequestBody RequestObject<UidAndTenantID> req) {
 
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
