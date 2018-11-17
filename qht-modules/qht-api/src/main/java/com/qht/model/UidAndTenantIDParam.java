@@ -8,6 +8,13 @@ public class UidAndTenantIDParam implements Serializable {
 	//运营id
 	private String tenant_id;
 	private String token;
+	private String school_id;
+	public String getSchool_id() {
+		return school_id;
+	}
+	public void setSchool_id(String school_id) {
+		this.school_id = school_id;
+	}
 	public String getUid() {
 		return uid;
 	}
