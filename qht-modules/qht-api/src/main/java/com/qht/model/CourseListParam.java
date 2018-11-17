@@ -47,27 +47,27 @@ public class CourseListParam implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "CourseListParam{" +
-                "pkt_tyepe_id=" + pkt_type_id +
-                ", pkg_subject_id='" + pkg_subject_id + '\'' +
-                ", pkg_grade_id='" + pkg_grade_id + '\'' +
-                ", newtime='" + newtime + '\'' +
-                ", price='" + price + '\'' +
-                ", play_type_id='" + play_type_id + '\'' +
-                ", course_type_id='" + course_type_id + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                ", limit='" + limit + '\'' +
-                ", page='" + page + '\'' +
-                '}';
-    }
+	public String toString() {
+		return "CourseListParam [pkt_type_id=" + pkt_type_id + ", pkg_subject_id=" + pkg_subject_id + ", pkg_grade_id="
+				+ pkg_grade_id + ", newtime=" + newtime + ", price=" + price + ", play_type_id=" + play_type_id
+				+ ", course_type_id=" + course_type_id + ", tenant_id=" + tenant_id + ", limit=" + limit + ", page="
+				+ page + ", is_goods=" + is_goods + "]";
+	}
 
     private String tenant_id;
     private String limit;
     //当前页
     private String page;
 
+    public String getIs_goods() {
+		return is_goods;
+	}
 
+	public void setIs_goods(String is_goods) {
+		this.is_goods = is_goods;
+	}
+
+	private String is_goods;
 
     public Integer getPkt_type_id() {
         return pkt_type_id;
