@@ -796,7 +796,7 @@ WHERE
             AND c.apply =#{apply}
         </if>
          <if test="key!=null and key!=''">
-            AND c.key CONCAT('%',#{key},'%')
+            AND c.pkg_name like CONCAT('%',#{key},'%')
         </if>
     </select>
     <!--名师资源列表-->
