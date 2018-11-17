@@ -393,7 +393,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         	return resultObject;
         }
         BeanUtil.copyFields(dto, topTeacherInfoDtos);
-        
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
