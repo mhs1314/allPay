@@ -508,7 +508,6 @@
     <select id="selectTenantSchool" resultType="com.qht.model.TenantSchoolModel" parameterType="java.lang.String">
         select
           uid,intr,culture,school_name,banner
-
         from school where tenant_id=#{tenant_id} and uid=#{school_id}
     </select>
 
