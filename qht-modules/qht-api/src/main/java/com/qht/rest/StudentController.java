@@ -837,7 +837,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setCode("0");
         resultObject.setData(list);
         resultObject.setMsg("成功");
-        return null;
+        return resultObject;
     }
 
     @Override
