@@ -382,12 +382,18 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
 
     public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> request) {
+    	ResultObject<TopTeacherInfoDto> resultObject=new ResultObject<>();
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, request.getData());
         TopTeacherInfoModel topTeacherInfoDtos= studentBiz.selectTopTeacherInfo(param.getUid(),param.getTenant_id());
         TopTeacherInfoDto dto =new TopTeacherInfoDto();
+        if(topTeacherInfoDtos==null) {
+        	resultObject.setCode("1");
+        	resultObject.setMsg("没有数据");
+        	return resultObject;
+        }
         BeanUtil.copyFields(dto, topTeacherInfoDtos);
-        ResultObject<TopTeacherInfoDto> resultObject=new ResultObject<>();
+        
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);
