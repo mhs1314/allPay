@@ -40,7 +40,7 @@ FROM
 WHERE
 	account = #{account} and password=#{password}
     </select>
-    <!--名师详细-基本信息-->
+    <!--名师详细基本信息-->
     <select id="teacherDetails" resultType="com.qht.model.TeacherDetailsModel">
         SELECT
 	t.uid AS uid,
@@ -61,7 +61,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 GROUP BY t.uid
 
     </select>
-    <!--名师详细-所有课程包-->
+    <!--名师详细所有课程包-->
     <select id="appTeacherCourseDto" resultType="com.qht.model.AppTeacherCourseModel">
  SELECT
 	c.cover as cover ,
@@ -73,8 +73,9 @@ GROUP BY t.uid
 	c.total_price
 FROM
 	course_pkg c
-LEFT JOIN period_evaluation p ON c.uid=p.course_id
-where t.uid=#{uid} and t.tenant_id=#{tid} and c.type='1'
+inner JOIN period_evaluation p ON c.uid=p.course_id
+inner JOIN teacher t  on c.teacher_id=t.uid
+where t.uid=#{uid} and t.tenant_id=#{tid}
 GROUP BY c.uid
 
     </select>
@@ -95,20 +96,20 @@ LEFT JOIN teacher t ON l.teacher_id = t.uid
 LEFT JOIN period_evaluation pev ON t.uid = pev.student_id
 LEFT JOIN period pd ON pev.period_id = pd.uid
 where t.uid=#{uid} and t.tenant_id=#{tid}
-        <if test="eval!=null and eval!=''">
-            <if test="eval=1">
-          and  l.comments_star &lt;=4
+        
+            <if test="eval==1">
+          and  l.comments_star &lt;4
             </if>
-            <if test="eval=2">
-                and  l.comments_star &gt;4 and l.comments_star &lt;=8
+            <if test="eval==2">
+                and  l.comments_star &gt;=4 and l.comments_star &lt;8
             </if>
-            <if test="eval=3">
-                and  l.comments_star &gt;8
+            <if test="eval==3">
+                and  l.comments_star &gt;=8
             </if>
-        </if>
+     
     </select>
 
-    <!--教师|端首页-我的课程-->
+    <!--教师|端首页我的课程-->
     <select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
         select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.chapter_name,p.video_file,p.begin
         from course_pkg cp left join chapter c on cp.uid=c.course_id
@@ -128,7 +129,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         </if>
     </select>
 
-    <!--教师端首页-我的课程包-->
+    <!--教师端首页我的课程包-->
     <select id="selectIndexMyCourseList" resultType="com.qht.model.IndexMyCourseModel" parameterType="com.qht.model.IndexMyCourseParam">
         select
         cp.cover,pl.name as course_type_name,cp.uid,cp.pkg_name,cp.create_time,cp.pkg_level_id
@@ -138,7 +139,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
             cp.course_type_id=#{course_type_id}
         </if>
     </select>
-    <!--教师端首页-添加录播课程包-->
+    <!--教师端首页添加录播课程包-->
     <insert id="insertIndexAddLcourse" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into course_pkg
         (uid,teacher_id,tenant_id,course_type_id,pkg_subject_id,pkg_edition_id,pkg_grade_id,pkg_level_id,pkg_name,play_type_id,min,max,content,cover,status,creat_time)
@@ -151,7 +152,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
     </insert>
     
-    <!-- 教师端首页--添加录播课程包 -->
+    <!-- 教师端首页添加录播课程包 -->
     <select id="insertIndexAddZcourse" resultType="com.qht.model.IndexAddZcourseParam">
     	insert into course_pkg
     	(uid,teacher_id,tenant_id,course_type_id,pkg_subject_id,pkg_edition_id,pkg_grade_id,pkg_level_id,pkg_name,play_type_id,min,max,content,cover,status,creat_time) 
@@ -163,7 +164,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     <insert id="insertPeriodZ" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
     </insert>
-    <!-- 教师端首页--课程答疑列表 -->
+    <!-- 教师端首页课程答疑列表 -->
     <select id="selectIndexCourseAnswer" parameterType="com.qht.model.IndexCourseAnswerParam" resultType="com.qht.model.IndexCourseAnswerModel">
     	select 
     		a.answer_file_name,

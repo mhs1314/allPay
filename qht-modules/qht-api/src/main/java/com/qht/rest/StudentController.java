@@ -1000,7 +1000,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             resultObject.setData(new ArrayList<>());
             return resultObject;
     	}
+    	System.out.println(requestObject.getData());
+    	
     	BeanUtil.copyFields(param, requestObject.getData());
+    	System.out.println(param);
         List<AppTeacherEvaluationModel> dto=teacherBiz.teacherEvaluation(param.getUid(),getTenantId(),param.getEval());
         if(dto.size()==0) {
         	ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();

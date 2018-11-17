@@ -18,8 +18,16 @@ public class TeacherEvaluationDto implements Serializable {
     private String comments_content;
     //学生姓名
     private String name;
+    private String tenant_id;
     //积分
     private Integer eval;
+    
+	public String getTenant_id() {
+		return tenant_id;
+	}
+	public void setTenant_id(String tenant_id) {
+		this.tenant_id = tenant_id;
+	}
 	public String getHead() {
 		return head;
 	}

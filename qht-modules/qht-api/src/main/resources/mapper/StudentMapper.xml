@@ -130,7 +130,7 @@
 	    ( select count(course_pkg.uid) as pkg_count from course_pkg where tenant_id=#{tenant_id} and status="1" )as b
     </select>
 
-    <!--查询学生课程详情-课程包简介-->
+    <!--查询学生课程详情课程包简介-->
 
     <select id="selectCourseIntro" resultType="com.qht.model.CourseIntroModel">
        select
@@ -165,7 +165,7 @@
             <result property="begin" column="begin"/>
         </collection>
     </resultMap>
-    <!--课程详情-课程包体系-->
+    <!--课程详情课程包体系-->
     <select id="selectCourseChapter" resultMap="selectCourseChapterAndClass">
         select
           c.uid,
@@ -179,7 +179,7 @@
           inner join course_pkg cp on cp.uid=c.course_id
         where c.course_id=#{uid} and c.tenant_id=#{tenant_id} and cp.status="1"
     </select>
-    <!--课程详情-课程包评论-->
+    <!--课程详情课程包评论-->
 
     <select id="selectCourseEvaluation" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
@@ -199,7 +199,7 @@
            inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1"
     </select>
-    <!--课程详情-课程包评论good-->
+    <!--课程详情课程包评论good-->
 
     <select id="selectCourseEvaluationGood" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
@@ -217,7 +217,7 @@
         inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &gt;4
     </select>
-    <!--课程详情-课程包评论mid-->
+    <!--课程详情课程包评论mid-->
 
     <select id="selectCourseEvaluationMid" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
@@ -237,7 +237,7 @@
         and cp.status="1"
         and pe.comments_star &lt;=4 and pe.comments_star &gt;2
     </select>
-    <!--课程详情-课程包评论bad-->
+    <!--课程详情课程包评论bad-->
 
     <select id="selectCourseEvaluationBad" resultType="com.qht.model.CourseEvaluationModel" parameterType="com.qht.model.CourseEvaluationParam">
         select
@@ -270,7 +270,7 @@
         </collection>
     </resultMap>
 
-    <!--课程详情-教师信息-->
+    <!--课程详情教师信息-->
     <select id="selectTeacherInfo" resultMap="selectTeacherInfoAndCourse">
         select
           t.uid,
@@ -444,7 +444,7 @@
             <result property="pkg_name" column="pkg_name"/>
         </collection>
     </resultMap>
-    <!--名师详情-讲师简介-->
+    <!--名师详情讲师简介-->
 
     <select id="selectTopTeacherInfo" resultMap="selectTopTeacherInfoAndCourse">
         select
@@ -466,7 +466,7 @@
         where t.tenant_id=#{tenant_id} and t.uid=#{uid} and cp.status="1"
     </select>
 
-    <!--名师详情-全部课程-->
+    <!--名师详情全部课程-->
 
     <select id="selectTeacherCourse" resultType="com.qht.model.TeacherCourseModel">
         select
@@ -483,8 +483,7 @@
         inner join period p on p.chapter_id=c.uid
         where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
     </select>
-    <!--名师详情-评论列表-->
-
+    <!--名师详情评论列表-->
     <select id="selectTeacherEvaluation" resultType="com.qht.model.TeacherEvaluationModel">
         select
           pe.uid,
@@ -500,7 +499,7 @@
         where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     
-     <!--运营商-学校介绍-->
+     <!--运营商学校介绍-->
 
     <select id="selectTenantSchool" resultType="com.qht.model.TenantSchoolModel" parameterType="com.qht.model.UidAndTenantIDParam">
         select
@@ -508,14 +507,14 @@
         from school where tenant_id=#{tenant_id} and uid=#{school_id}
     </select>
 
-    <!--运营商-画册-->
+    <!--运营商画册-->
 
     <select id="selectTenantAlbum" parameterType="java.lang.String" resultType="com.qht.model.TenantAlbumModel">
 
         select a.uid,a.album,a.`index` from album a where tenant_id=#{tenant_id}
     </select>
 
-    <!--学生端-个人中心-首页-我的课程列表-->
+    <!--学生端个人中心首页我的课程列表-->
 
     <select id="selectMyIndexCourse" resultType="com.qht.model.MyIndexCourseModel" parameterType="com.qht.model.MyIndexCourseParam">
         select
@@ -540,7 +539,7 @@
         </if>
     </select>
 
-    <!--学生端-个人中心-首页-我的课程详情介绍-->
+    <!--学生端个人中心首页我的课程详情介绍-->
 
     <select id="selectIndexCourseDetails" resultType="com.qht.model.IndexCourseDetailsModel">
         select p.uid,p.name,p.video_file,p.begin
@@ -601,11 +600,11 @@
     </select>
     
 
-     <select id="selectMessageById" parameterType="java.lang.String">
+     <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="java.lang.String">
       select * FROM message where uid=#{uid}
     </select>
 
-    <!--学生端-个人中心-首页-兑换记录-->
+    <!--学生端个人中心首页兑换记录-->
 
     <select id="selectMyIndexBuyRecord" resultType="com.qht.model.MyIndexBuyRecordModel" parameterType="com.qht.model.MyIndexBuyRecordParam">
         select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin from buy_record br
@@ -793,7 +792,7 @@ WHERE
             AND c.pkt_type_id =#{pkt_type_id}
         </if>
          <if test="apply!=null and apply!=''">
-            AND c.apply =#{apply}
+            AND c.apply_number =#{apply}
         </if>
          <if test="key!=null and key!=''">
             AND c.pkg_name like CONCAT('%',#{key},'%')
@@ -843,7 +842,7 @@ WHERE
         </collection>
     </resultMap>
 
-    <!--学生端-个人中心-首页-兑换记录-课程详情-->
+    <!--学生端个人中心首页兑换记录课程详情-->
 
     <select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="java.lang.String">
         select c.uid,c.name,p.uid as pid,p.name as period_name,p.begin,p.video_file
@@ -853,7 +852,7 @@ WHERE
         where cp.uid=#{uid} and cp.status="1"
     </select>
 
-    <!--学生端-个人中心-首页-兑换记录-课程回看-->
+    <!--学生端个人中心首页兑换记录课程回看-->
 
     <select id="selectMyIndexBuyRecordCourseBack" resultType="com.qht.model.MyIndexBuyRecordCourseBackModel" parameterType="com.qht.model.MyIndexBuyRecordCourseBackParam">
         select
@@ -869,7 +868,7 @@ WHERE
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
     </select>
-    <!--学生端-个人中心-首页-我的收藏列表-->
+    <!--学生端个人中心首页我的收藏列表-->
 
     <select id="selectMyIndexMycollect" parameterType="com.qht.model.MyIndexMycollectParam" resultType="com.qht.model.MyIndexMycollectModel">
         select cp.cover,cp.pkg_name,cp.pkt_type_id,t.nickname,c.collect_time
@@ -899,7 +898,7 @@ WHERE
         inner join course_pkg cp on c.course_id=cp.uid
         where a.student_id=#{uid} and a.tenant_id=#{tenant_id} and cp.status="1"
     </select>
-    <!--app我的课程答疑-答疑详情-->
+    <!--app我的课程答疑答疑详情-->
 
     <select id="selectIndexAnswerDetails" resultType="com.qht.model.IndexAnswerDetailsModel">
         select
@@ -939,7 +938,7 @@ WHERE
     <select id="selectAnswerType" parameterType="java.lang.String" resultType="java.lang.Integer">
         select type from answer where uid=#{answer_id}
     </select>
-    <!--打赏-判断学生余额-->
+    <!--打赏判断学生余额-->
     <select id="selectStudentBalance" parameterType="java.lang.String" resultType="java.lang.Integer">
         select balance from student where uid=#{student_id}
     </select>
@@ -962,7 +961,7 @@ WHERE
         insert into integrallist(uid,name,value,type,teacher_id) value(#{uid},"老师收到打赏",#{value},1,#{teacher_id})
     </insert>
 
-    <!--我的课程答疑-答疑详情-追问回答-->
+    <!--我的课程答疑答疑详情追问回答-->
 
     <update id="indsertAppendAskAnswer" parameterType="com.qht.model.IndexAnswerDetailsAppendAnswerParam">
         update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}

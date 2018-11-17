@@ -28,7 +28,6 @@ where
 ct.student_id =#{uid}
 AND
 ct.tenant_id = #{tid}
-and c.type='1'
 
 GROUP BY
 	ct.uid
