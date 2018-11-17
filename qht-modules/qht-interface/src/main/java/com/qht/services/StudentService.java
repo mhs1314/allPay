@@ -129,7 +129,7 @@ public interface StudentService {
      * @param uid
      * @return
      */
-    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> uid);
+    public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 名师详情--全部课程
@@ -151,13 +151,13 @@ public interface StudentService {
      * 运营商--学校介绍
      * @return
      */
-    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<Void> uid);
+    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 运营商--画册
      * @return
      */
-    public ResultObject<TenantAlbumDto> tenantAlbum(@RequestBody RequestObject<Void> uid);
+    public ResultObject<List<TenantAlbumDto>> tenantAlbum(@RequestBody RequestObject<Void> uid);
 
 
     public ResultObject<List<MyIndexCourseDto>> myIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject);

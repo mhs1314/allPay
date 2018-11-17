@@ -129,6 +129,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<TopTeacherInfoModel> selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
@@ -137,6 +138,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<TeacherCourseModel> selectTeacherCourse(@Param("uid")String uid, @Param("tenant_id") String tenant_id);
 
     /**
@@ -145,13 +147,14 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<TeacherEvaluationModel> selectTeacherEvaluation(@Param("uid")String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 运营商--学校介绍
-     * @param tenant_id
      * @return
      */
+
     TenantSchoolModel selectTenantSchool(String tenant_id);
 
     /**
@@ -159,6 +162,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     TenantAlbumModel selectTenantAlbum(String tenant_id);
 
     /**
@@ -167,6 +171,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<IndexCourseDetailsModel> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
@@ -174,6 +179,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param data
      * @return
      */
+
     List<MyIndexCourseModel> selectMyIndexCourse(MyIndexCourseParam data);
 
     /**
@@ -181,6 +187,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param data
      * @return
      */
+
     List<MyIndexCourseAnswerModel> selectMyIndexCourseAnswer(MyIndexCourseAnswerParam data);
 
     /**
@@ -190,6 +197,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param isread
      * @return
      */
+
     List<MyIndexMessageModel> selectMyIndexMessage(@Param("uid")String uid,@Param("tenant_id")String tenant_id,@Param("isread")String isread);
 
     /**
@@ -204,6 +212,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param uid
      * @return
      */
+
     MyIndexMessageModel selectMessageById(String uid);
 
     /**
@@ -211,6 +220,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param data
      * @return
      */
+
     List<MyIndexBuyRecordModel> selectMyIndexBuyRecord(MyIndexBuyRecordParam data);
     /**
      * 查詢學生信息
@@ -218,6 +228,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     StudentInfoModel studentInfo(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
 
     /**
@@ -225,6 +236,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param parameter
      * @return
      */
+
     List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(MyIndexMyintegralDetailParam parameter);
 
     /**
@@ -233,6 +245,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<IndexFutureCoruseModel> indexFutureCoruse(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
 
     /**
@@ -240,6 +253,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<IndexTeacherModel> indexTeacher(String tenant_id);
 
     /**
@@ -247,6 +261,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<IndexAnswerModel> indexAnswer(String tenant_id);
 
     /**
@@ -254,12 +269,14 @@ public interface StudentMapper extends Mapper<Student> {
      * @param parameter
      * @return
      */
+
     List<IndexCoruseListModel> indexCoruseList(IndexCoruseListParam parameter);
     /**
      * 名师资源列表
      * @param parameter
      * @return
      */
+
     List<IndexTeacherListModel> indexTeacherList(IndexTeacherListParam parameter);
 
     /**
@@ -267,6 +284,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param uid
      * @return
      */
+
     List<MyIndexBuyRecordCourseDetailsModel> selectMyIndexBuyRecordDetails(String uid);
 
     /**
@@ -274,6 +292,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param data
      * @return
      */
+
     List<MyIndexBuyRecordCourseBackModel> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParam data);
 
     /**
@@ -281,6 +300,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param data
      * @return
      */
+
     List<MyIndexMycollectModel> selectMyIndexMycollect(MyIndexMycollectParam data);
 
     /**
@@ -297,6 +317,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     List<IndexMyAnswerModel> selectIndexMyAnswer(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
@@ -305,6 +326,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     IndexAnswerDetailsModel selectIndexAnswerDetails(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
@@ -359,6 +381,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param data
      * @return
      */
+
     Integer indsertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParam data);
 
     /**
@@ -367,12 +390,14 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
+
     AppMyStudentInfoModel appMyStudentInfo(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
     /**
      * app修改头像
      * @param parameter
      * @return
      */
+
     Integer appUpdaetStudentHead(AppStudentParam parameter);
 
     /**
@@ -380,12 +405,14 @@ public interface StudentMapper extends Mapper<Student> {
      * @param parameter
      * @return
      */
+
     Integer appUpdaetStudentNickname(AppStudentParam parameter);
     /**
      * app修改学生密码
      * @param parameter
      * @return
      */
+
    Integer  appUpdaetStudentPassword(AppStudentParam parameter);
 
     /**
@@ -393,6 +420,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param parameter
      * @return
      */
+
     List<AppMyStudentGuardianModel>appMyStudentGuardian(AppStudentParam parameter);
 
     /**
@@ -400,5 +428,6 @@ public interface StudentMapper extends Mapper<Student> {
      * @param parameter
      * @return
      */
+
    List<TagModel> appMyStudentInterest (AppStudentParam parameter);
 }
