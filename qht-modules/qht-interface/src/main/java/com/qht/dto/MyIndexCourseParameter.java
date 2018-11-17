@@ -12,7 +12,28 @@ public class MyIndexCourseParameter implements Serializable {
 
     private String course_type_id;
 
-    private String okg_subject_id;
+    public String getPkg_subject_() {
+        return pkg_subject_;
+    }
+
+    public void setPkg_subject_(String pkg_subject_) {
+        this.pkg_subject_ = pkg_subject_;
+    }
+
+    @Override
+    public String toString() {
+        return "MyIndexCourseParameter{" +
+                "uid='" + uid + '\'' +
+                ", course_type_id='" + course_type_id + '\'' +
+                ", pkg_subject_='" + pkg_subject_ + '\'' +
+                ", now_time='" + now_time + '\'' +
+                ", page='" + page + '\'' +
+                ", limit='" + limit + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                '}';
+    }
+
+    private String pkg_subject_;
 
     private String now_time= DateTime.now().toString("yyyy-MM-dd");
     private String  page="1";
@@ -24,19 +45,6 @@ public class MyIndexCourseParameter implements Serializable {
 
     public void setTenant_id(String tenant_id) {
         this.tenant_id = tenant_id;
-    }
-
-    @Override
-    public String toString() {
-        return "MyIndexCourseParameter{" +
-                "uid='" + uid + '\'' +
-                ", course_type_id='" + course_type_id + '\'' +
-                ", okg_subject_id='" + okg_subject_id + '\'' +
-                ", now_time='" + now_time + '\'' +
-                ", page='" + page + '\'' +
-                ", limit='" + limit + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                '}';
     }
 
     private String tenant_id;
@@ -55,14 +63,6 @@ public class MyIndexCourseParameter implements Serializable {
 
     public void setCourse_type_id(String course_type_id) {
         this.course_type_id = course_type_id;
-    }
-
-    public String getOkg_subject_id() {
-        return okg_subject_id;
-    }
-
-    public void setOkg_subject_id(String okg_subject_id) {
-        this.okg_subject_id = okg_subject_id;
     }
 
     public String getNow_time() {

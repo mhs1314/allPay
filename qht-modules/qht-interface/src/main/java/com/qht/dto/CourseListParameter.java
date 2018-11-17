@@ -18,6 +18,38 @@ public class CourseListParameter implements Serializable {
     //播放类型 1直播 2录播
     private String play_type_id;
 
+    private String tenant_id;
+    private String limit;
+    //当前页
+    private String page;
+
+
+    public String getIs_goods() {
+        return is_goods;
+    }
+
+    public void setIs_goods(String is_goods) {
+        this.is_goods = is_goods;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseListParameter{" +
+                "pkt_type_id=" + pkt_type_id +
+                ", pkg_subject_id='" + pkg_subject_id + '\'' +
+                ", pkg_grade_id='" + pkg_grade_id + '\'' +
+                ", newtime='" + newtime + '\'' +
+                ", price='" + price + '\'' +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", limit='" + limit + '\'' +
+                ", page='" + page + '\'' +
+                ", is_goods='" + is_goods + '\'' +
+                ", course_type_id='" + course_type_id + '\'' +
+                '}';
+    }
+
+    private String is_goods;
 
     //课程包类型id
     private String course_type_id;
@@ -45,28 +77,6 @@ public class CourseListParameter implements Serializable {
     public void setPage(String page) {
         this.page = page;
     }
-
-    @Override
-    public String toString() {
-        return "CourseListParameter{" +
-                "pkt_tyepe_id=" + pkt_type_id +
-                ", pkg_subject_id='" + pkg_subject_id + '\'' +
-                ", pkg_grade_id='" + pkg_grade_id + '\'' +
-                ", newtime='" + newtime + '\'' +
-                ", price='" + price + '\'' +
-                ", play_type_id='" + play_type_id + '\'' +
-                ", course_type_id='" + course_type_id + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                ", limit='" + limit + '\'' +
-                ", page='" + page + '\'' +
-                '}';
-    }
-
-    private String tenant_id;
-    private String limit;
-    //当前页
-    private String page;
-
 
 
     public Integer getPkt_type_id() {

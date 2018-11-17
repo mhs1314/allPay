@@ -17,8 +17,8 @@ public class BeanUtilTest {
 		source.setPassword("123456");
 		source.setSex(5);
 
-		
-		
+
+
 		Student source2 = new Student();
 		source2.setAccount("ytg222");
 		source2.setPassword("123456");
@@ -26,10 +26,10 @@ public class BeanUtilTest {
 		List<Student> list = new ArrayList<Student>();
 		list.add(source);
 		list.add(source2);
-		
+
 		BeanUtil.copyFields(source2, source);
 		List<Student> list2 = BeanUtil.copyList(Student.class, list);
-		
+
 		System.out.println(list2);
 
 //		BeanUtil.copyFields(target, source);
