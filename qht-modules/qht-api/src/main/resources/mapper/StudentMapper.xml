@@ -649,13 +649,13 @@
           and br.tenant_id=#{tenant_id}
           and cp.status="1"
 
-        <if test="pkg_subject_id not null and pkg_subject_id !=''">
+        <if test="pkg_subject_id !=''">
               and cp.pkg_subject_id=#{pkg_subject_id}
           </if>
-          <if test="play_type_id !='' and play_type_id != null">
+          <if test="play_type_id !=''">
             and cp.play_type_id=#{play_type_id}
           </if>
-        <if test="pkt_type_id != null and pkt_type_id != ''">
+        <if test="pkt_type_id != ''">
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
@@ -897,11 +897,11 @@ WHERE
         from period p
         inner join chapter c on c.uid=p.chapter_id
         inner join course_pkg cp on cp.uid=c.course_id
-        inner join buy_recourd br on br.course_pkg_id=cp.uid
+        inner join buy_record br on br.course_pkg_id=cp.uid
         inner join teacher t on t.uid=cp.teacher_id
         inner join student s on  s.uid=br.student_id
         where p.tenant_id=#{tenant_id} and br.student_id=#{uid} and cp.status="1"
-        <if test="pkg_subject_id !=null and pkg_subject_id !=''">
+        <if test="pkg_subject_id !=''">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
     </select>
@@ -915,7 +915,7 @@ WHERE
         inner join collect c on c.course_pkg_id=cp.uid
         inner join student s on s.uid=c.student_id
         where s.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
-        <if test="pkt_type_id!='' and pkt_type_id!=null">
+        <if test="pkt_type_id !=''">
             and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
