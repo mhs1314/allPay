@@ -43,4 +43,18 @@ public interface TeacherService {
 	 * @return
 	 */
 	public ResultObject<Void> indexAddLcourse(@RequestBody RequestObject<IndexAddLcourseParameter> requestObject);
+	
+	/**
+	 * 教师端首页--添加直播课程包
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<Void> indexAddZcourse(@RequestBody RequestObject<IndexAddZcourseParameter> requestObject);
+	
+	/**
+	 * 教师端首页--课程答疑列表
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<List<IndexCourseAnswerDto>> indexCourseAnswer(@RequestBody RequestObject<IndexCourseAnswerParameter> requestObject);
 }

@@ -68,19 +68,16 @@
     <select id="selectFreeClass" resultType="com.qht.model.FreeClassModel" parameterType="com.qht.model.FreeClassParam">
         <include refid="selectClassMessageFromCourse_PKG"/>
         where cp.tenant_id=#{tenant_id}
-        and cp.status="1"
-        and cp.pkt_type_id="1"
+        and cp.status="1" 
+        and cp.pkt_type_id="1" 
         <if test="pkg_subject_id=='' and pkg_subject_id==null">
             and cp.pkg_subject_id='1'
         </if>
         <if test="pkg_subject_id!='' and pkg_subject_id!=null">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
-        <if test="pkg_grade_id=='' and pkg_grade_id==null">
-            and cp.pkg_grade_id='1'
-        </if>
         <if test="pkg_grade_id!=null and pkg_grade_id!=''">
-            and cp.pkg_grade_id=${pkg_grade_id}
+            and cp.pkg_grade_id=#{pkg_grade_id}
         </if>
 
     </select>
