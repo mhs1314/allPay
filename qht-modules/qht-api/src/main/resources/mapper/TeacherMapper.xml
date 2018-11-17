@@ -151,7 +151,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
     </insert>
     
-    <!-- 教师端首页--添加录播课程包 -->
+    <!-- 教师端首页-添加录播课程包 -->
     <select id="insertIndexAddZcourse" resultType="com.qht.model.IndexAddZcourseParam">
     	insert into course_pkg
     	(uid,teacher_id,tenant_id,course_type_id,pkg_subject_id,pkg_edition_id,pkg_grade_id,pkg_level_id,pkg_name,play_type_id,min,max,content,cover,status,creat_time) 
@@ -163,7 +163,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     <insert id="insertPeriodZ" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
     </insert>
-    <!-- 教师端首页--课程答疑列表 -->
+    <!-- 教师端首页-课程答疑列表 -->
     <select id="selectIndexCourseAnswer" parameterType="com.qht.model.IndexCourseAnswerParam" resultType="com.qht.model.IndexCourseAnswerModel">
     	select 
     		a.answer_file_name,
