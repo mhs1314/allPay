@@ -625,7 +625,7 @@
         where br.student_id=#{uid}
           and br.tenant_id=#{tenant_id}
           and cp.status="1"
-        <if test="pkg_subject_id!=null and pkg_subject_id !=''">
+        <if test="pkg_subject_id not null and pkg_subject_id !=''">
               and cp.pkg_subject_id=#{pkg_subject_id}
           </if>
           <if test="play_type_id !='' and play_type_id != null">
