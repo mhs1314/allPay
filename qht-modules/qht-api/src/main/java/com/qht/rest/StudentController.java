@@ -382,10 +382,17 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
 
     public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> request) {
+    	ResultObject<TopTeacherInfoDto> resultObject=new ResultObject<>();
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, request.getData());
         TopTeacherInfoModel topTeacherInfoDtos= studentBiz.selectTopTeacherInfo(param.getUid(),param.getTenant_id());
         TopTeacherInfoDto dto =new TopTeacherInfoDto();
+        if(topTeacherInfoDtos==null) {
+        	resultObject.setCode("1");
+        	resultObject.setMsg("没有数据");
+        	return resultObject;
+        }
+        
         BeanUtil.copyFields(dto, topTeacherInfoDtos);
         ResultObject<TopTeacherInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -831,7 +838,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setCode("0");
         resultObject.setData(list);
         resultObject.setMsg("成功");
-        return null;
+
+        return resultObject;
     }
 
     @Override
@@ -846,16 +854,18 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
         String student_id =param.getStudent_id();
         Integer updateLine=studentBiz.updateMyIndexCancelcollect(uid,student_id,getTenantId());
-        if(updateLine>0){
 
-            resultObject.setCode("0");
-            resultObject.setMsg("取消成功");
-            return resultObject;
-        }else{
-            resultObject.setCode("2");
-            resultObject.setMsg("服务器异常");
-            return resultObject;
-        }
+
+
+
+
+
+
+
+
+        resultObject.setCode("0");
+        resultObject.setMsg("取消成功");
+        return resultObject;
     }
 
     @Override

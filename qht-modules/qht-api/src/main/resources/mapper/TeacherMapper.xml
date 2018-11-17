@@ -164,6 +164,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     <insert id="insertPeriodZ" parameterType="com.qht.model.IndexAddLcourseParam">
         insert into period(uid,tenant_id,name,chapter_id) value(#{period_uid},#{tenant_id},#{name},#{chapter_uid})
     </insert>
+
     <!-- 教师端首页课程答疑列表 -->
     <select id="selectIndexCourseAnswer" parameterType="com.qht.model.IndexCourseAnswerParam" resultType="com.qht.model.IndexCourseAnswerModel">
     	select 
