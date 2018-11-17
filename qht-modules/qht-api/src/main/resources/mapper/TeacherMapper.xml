@@ -115,13 +115,13 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         from course_pkg cp left join chapter c on cp.uid=c.course_id
         left join period p on p.chapter_id=c.uid
         where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id}
-        <if test="play_type_id!=null and play_type_id!=''">
+        <if test="play_type_id!=null and play_type_id !=''">
             and cp.play_type_id=#{play_type_id}
         </if>
-        <if test="course_type_id!=null and course_type_id!=''">
+        <if test="course_type_id!=null and course_type_id !=''">
             and cp.course_type_id=#{course_type_id}
         </if>
-        <if test="pkg_subject_id!=null and pkg_subject_id!=''">
+        <if test="pkg_subject_id !=null and pkg_subject_id !=''">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
         <if test="now_time!=null and now_time!=''">
