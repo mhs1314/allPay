@@ -505,7 +505,7 @@
     
      <!--运营商-学校介绍-->
 
-    <select id="selectTenantSchool" resultType="com.qht.model.TenantSchoolModel" parameterType="java.lang.String">
+    <select id="selectTenantSchool" resultType="com.qht.model.TenantSchoolModel" parameterType="com.qht.model.UidAndTenantIDParam">
         select
           uid,intr,culture,school_name,banner
         from school where tenant_id=#{tenant_id} and uid=#{school_id}

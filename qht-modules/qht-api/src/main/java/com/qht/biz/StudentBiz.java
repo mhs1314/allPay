@@ -191,7 +191,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @return
      */
 
-    public List<TopTeacherInfoModel> selectTopTeacherInfo(String uid, String tenant_id) {
+    public TopTeacherInfoModel selectTopTeacherInfo(String uid, String tenant_id) {
         return studentMapper.selectTopTeacherInfo(uid,tenant_id);
     }
 
@@ -222,8 +222,8 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      */
 
 
-    public TenantSchoolModel selectTenantSchool(String tenant_id) {
-        return studentMapper.selectTenantSchool(tenant_id);
+    public TenantSchoolModel selectTenantSchool(UidAndTenantIDParam param) {
+        return studentMapper.selectTenantSchool(param);
     }
 
     /**
@@ -232,7 +232,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @return
      */
 
-    public TenantAlbumModel selectTenantAlbum(String tenant_id) {
+    public List<TenantAlbumModel> selectTenantAlbum(String tenant_id) {
         return studentMapper.selectTenantAlbum(tenant_id);
     }
 

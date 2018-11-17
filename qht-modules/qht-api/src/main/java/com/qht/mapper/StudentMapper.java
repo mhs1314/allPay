@@ -130,7 +130,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
 
-    List<TopTeacherInfoModel> selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
+    TopTeacherInfoModel selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 名师详情--全部课程
@@ -155,7 +155,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
 
-    TenantSchoolModel selectTenantSchool(String tenant_id);
+    TenantSchoolModel selectTenantSchool(UidAndTenantIDParam param);
 
     /**
      * 运营商--画册
@@ -163,7 +163,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
 
-    TenantAlbumModel selectTenantAlbum(String tenant_id);
+    List<TenantAlbumModel> selectTenantAlbum(String tenant_id);
 
     /**
      * 学生端-个人中心--首页--我的课程详情介绍

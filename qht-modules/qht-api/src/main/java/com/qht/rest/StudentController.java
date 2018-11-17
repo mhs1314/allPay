@@ -366,7 +366,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> request) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, request.getData());
-        TopTeacherInfoModel topTeacherInfoDtos=studentBiz.selectTopTeacherInfo(param.getUid(),param.getTenant_id());
+        TopTeacherInfoModel topTeacherInfoDtos= studentBiz.selectTopTeacherInfo(param.getUid(),param.getTenant_id());
         TopTeacherInfoDto dto =new TopTeacherInfoDto();
         BeanUtil.copyFields(dto, topTeacherInfoDtos);
         ResultObject<TopTeacherInfoDto> resultObject=new ResultObject<>();
