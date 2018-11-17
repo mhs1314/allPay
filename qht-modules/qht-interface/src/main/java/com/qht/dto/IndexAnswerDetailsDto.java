@@ -11,6 +11,7 @@ public class IndexAnswerDetailsDto implements Serializable {
     private String school_name;
     private String period_name;
     private String answer_file_url;
+    private String teacher_id;
     private Integer type;
     private String append_ask_answer;
     private String cover;
@@ -28,7 +29,15 @@ public class IndexAnswerDetailsDto implements Serializable {
     private String back_img;
     private Integer praise_number;
 
-    public Date getAnswer_time() {
+    public String getTeacher_id() {
+		return teacher_id;
+	}
+
+	public void setTeacher_id(String teacher_id) {
+		this.teacher_id = teacher_id;
+	}
+
+	public Date getAnswer_time() {
         return answer_time;
     }
 

@@ -1055,9 +1055,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     }
 
     @Override
-    @GetMapping("/app/indexAnswerDetailsExceptional")
+    @PostMapping("app/indexAnswerDetailsExceptional")
     @ResponseBody
     public ResultObject<Void> indexAnswerDetailsExceptional(@RequestBody RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject) {
+    	if(requestObject.getData()==null) {
+    		ResultObject<Void> r=new ResultObject<>();
+            r.setCode("1");
+            r.setMsg("没有参数"); 
+            return r;
+    	}
         ResultObject<Void> resultObject=new ResultObject<>();
         //先检测问题的type是否被解决
         Integer type=studentBiz.selectAnswerType(requestObject.getData().getAnswer_id());
@@ -1066,7 +1072,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         }
         //在判断学生的积分余额
         Integer balance=studentBiz.selectStudentBalance(requestObject.getData().getStudent_id());
-        if(balance<requestObject.getData().getValue()){
+        if(balance==null||balance<requestObject.getData().getValue()){
+        			resultObject.setCode("1");
             return resultObject.setMsg("余额不足");
         }
         //判断学生是否已经打赏
