@@ -200,7 +200,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @param uid
      * @param tenant_id
      * @return
-     */    public List<TeacherCourseDto> selectTeacherCourse(String uid, String tenant_id) {
+     */
     public List<TeacherCourseModel> selectTeacherCourse(String uid, String tenant_id) {
         return studentMapper.selectTeacherCourse(uid,tenant_id);
     }
