@@ -178,8 +178,8 @@
           p.video_file,
           p.begin
         from
-          chapter c left join period p on c.uid=p.chapter_id
-          left join course_pkg cp on cp.uid=c.course_id
+          chapter c inner join period p on c.uid=p.chapter_id
+          inner join course_pkg cp on cp.uid=c.course_id
         where c.course_id=#{uid} and c.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--课程详情-课程包评论-->
@@ -198,8 +198,8 @@
         from
 
 
-           period_evaluation pe left join student s on s.uid=pe.student_id
-           left join course_pkg cp on pe.course_id=cp.uid
+           period_evaluation pe inner join student s on s.uid=pe.student_id
+           inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--课程详情-课程包评论good-->
@@ -524,9 +524,9 @@
         select
           cp.pkg_name,c.name as chapter_name,p.name,p.video_file,p.begin
         from buy_record br
-          left join course_pkg cp on br.course_pkg_id=cp.uid
-          left join chapter c on cp.uid=c.course_id
-          left join period p on c.uid=p.chapter_id
+          inner join course_pkg cp on br.course_pkg_id=cp.uid
+          inner join chapter c on cp.uid=c.course_id
+          inner join period p on c.uid=p.chapter_id
         where br.tenant_id=#{tenant_id} and br.student_id=#{uid} and cp.status="1"
         <if test="course_type_id!=null and course_type_id!=''">
             and cp.course_type_id=#{course_type_id}
@@ -534,7 +534,10 @@
         <if test="pkg_subject_id!=null and pkg_subject_id!=''">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
-          and c.bgin like CONCAT(#{now_time},'%')
+        <if test="now_time!=null and now_time!=''">
+        and p.begin like CONCAT(#{now_time},'%')
+        </if>
+          
         <if test="play_type_id!=null and play_type_id!=''">
             and cp.play_type_id=#{play_type_id}
         </if>
@@ -544,8 +547,8 @@
 
     <select id="selectIndexCourseDetails" resultType="com.qht.model.IndexCourseDetailsModel">
         select p.uid,p.name,p.video_file,p.begin
-        from period p left join chapter c on p.chapter_id=c.uid
-        left join course_pkg cp on c.course_id=cp.uid
+        from period p inner join chapter c on p.chapter_id=c.uid
+        inner join course_pkg cp on c.course_id=cp.uid
         where
         p.tenant_id=#{tenant_id} and p.uid=#{uid} and cp.status="1"
     </select>
@@ -559,8 +562,8 @@
 				m.time as time,
 				m.content as content
       FROM message m
-							LEFT JOIN `user`  u  ON m.uid=u.uid
-							LEFT JOIN teacher t  ON m.tenant_id=t.tenant_id
+							inner JOIN `user`  u  ON m.uid=u.uid
+							inner JOIN teacher t  ON m.tenant_id=t.tenant_id
       where m.uid=#{uid} AND t.tenant_id=#{tenant_id}
       <if test="isread!=null and isread!=''">
           and m.isread=#{isread}
@@ -583,12 +586,12 @@
           cp.pkg_name,
           t.nickname as teacher_nickname,
           s.nickname
-        from answer an left join course_ask ask on an.ask_id=ask.uid
-          left join period p on an.period_id=p.uid
-          left join chapter c on p.chapter_id=c.uid
-          left join course_pkg cp on c.course_id=cp.uid
-          left join teacher t on cp.teacher_id=t.uid
-          left join student s on an.student_id=s.uid
+        from answer an inner join course_ask ask on an.ask_id=ask.uid
+          inner join period p on an.period_id=p.uid
+          inner join chapter c on p.chapter_id=c.uid
+          inner join course_pkg cp on c.course_id=cp.uid
+          inner join teacher t on cp.teacher_id=t.uid
+          inner join student s on an.student_id=s.uid
         where an.student_id=#{uid} and an.tenant_id=#{tenant_id} and cp.status="1"
         <if test="answer != '' and answer!=null">
             <if test="answer=='1'">
@@ -609,10 +612,10 @@
 
     <select id="selectMyIndexBuyRecord" resultType="com.qht.model.MyIndexBuyRecordModel" parameterType="com.qht.model.MyIndexBuyRecordParam">
         select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin from buy_record br
-          left join course_pkg cp on br.course_pkg_id=cp.uid
-          left join teacher t on cp.teacher_id=t.uid
-          left join chapter c on cp.uid=c.course_id
-          left join period p on c.uid=p.chapter_id
+          inner join course_pkg cp on br.course_pkg_id=cp.uid
+          inner join teacher t on cp.teacher_id=t.uid
+          inner join chapter c on cp.uid=c.course_id
+          inner join period p on c.uid=p.chapter_id
         where br.student_id=#{uid}
           and br.tenant_id=#{tenant_id}
           and cp.status="1"
@@ -672,11 +675,11 @@ SELECT
 	g.phone  as phone
 FROM
 	student s
-LEFT JOIN school sc ON s.school_id = sc.uid
-LEFT JOIN guardian g ON s.uid = g.student_id
-LEFT JOIN interest_label i ON s.uid = i.student_id
-LEFT JOIN tag t ON i.tag_id = t.uid
-LEFT JOIN pkg_grade p ON s.grade_id = p.uid
+inner JOIN school sc ON s.school_id = sc.uid
+inner JOIN guardian g ON s.uid = g.student_id
+inner JOIN interest_label i ON s.uid = i.student_id
+inner JOIN tag t ON i.tag_id = t.uid
+inner JOIN pkg_grade p ON s.grade_id = p.uid
 WHERE
 	s.uid = #{uid} AND s.tenant_id =#{tenant_id}
     </select>
@@ -690,7 +693,7 @@ WHERE
         b.time AS time
         FROM
         buy_record b
-        LEFT JOIN course_pkg c ON b.course_pkg_id = c.uid
+        inner JOIN course_pkg c ON b.course_pkg_id = c.uid
         WHERE
         b.student_id =#{uid}
         AND b.tenant_id =#{tenant_id}
@@ -717,10 +720,10 @@ SELECT
 	c.apply_number
 FROM
 	course_pkg c
-LEFT JOIN teacher t ON c.teacher_id = t.uid
-LEFT JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
-LEFT JOIN buy_record b ON c.uid=b.course_pkg_id
-LEFT JOIN student  s   ON s.uid= b.student_id
+inner JOIN teacher t ON c.teacher_id = t.uid
+inner JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
+inner JOIN buy_record b ON c.uid=b.course_pkg_id
+inner JOIN student  s   ON s.uid= b.student_id
  where s.uid=#{uid} and s.tenant_id =#{tenant_id}
     </select>
 <!--名师资源-->
@@ -734,8 +737,8 @@ LEFT JOIN student  s   ON s.uid= b.student_id
 	t.back_img
 FROM
 	teacher t
-LEFT JOIN pkg_subject p ON t.subject_id = p.uid
-LEFT JOIN school s ON t.school_id = s.uid
+inner JOIN pkg_subject p ON t.subject_id = p.uid
+inner JOIN school s ON t.school_id = s.uid
 WHERE
 	t.tenant_id = #{tenant_id}
     </select>
@@ -751,9 +754,9 @@ WHERE
 
 FROM
 	course_pkg c
-LEFT JOIN period_evaluation pr ON c.uid = pr.course_id
-LEFT JOIN period p ON pr.period_id = p.uid
-LEFT JOIN answer a ON p.uid = a.period_id
+inner JOIN period_evaluation pr ON c.uid = pr.course_id
+inner JOIN period p ON pr.period_id = p.uid
+inner JOIN answer a ON p.uid = a.period_id
 where a.tenant_id=#{tenant_id}
   and c.status="1"
 </select>
@@ -769,8 +772,8 @@ where a.tenant_id=#{tenant_id}
 	c.apply_number
 FROM
 	course_pkg c
-LEFT JOIN teacher t ON c.teacher_id = t.uid
-LEFT JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+inner JOIN teacher t ON c.teacher_id = t.uid
+inner JOIN pkg_subject p ON c.pkg_subject_id = p.uid
 WHERE
 	c.tenant_id =#{tenant_id} and c.status="1"
         <if test="play_type_id!=null and play_type_id!=''">
@@ -812,9 +815,9 @@ SELECT
         COUNT(p.uid) AS course_count
 FROM
 	teacher t
-LEFT JOIN pkg_subject p ON t.subject_id = p.uid
-LEFT JOIN course_pkg cp ON t.uid = cp.teacher_id
-LEFT JOIN lecturer_evaluation l ON t.uid=l.teacher_id
+inner JOIN pkg_subject p ON t.subject_id = p.uid
+inner JOIN course_pkg cp ON t.uid = cp.teacher_id
+inner JOIN lecturer_evaluation l ON t.uid=l.teacher_id
 
 WHERE
 	t.tenant_id =#{tenant_id} and cp.status="1"
@@ -848,8 +851,8 @@ WHERE
     <select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="java.lang.String">
         select c.uid,c.name,p.uid as pid,p.name as period_name,p.begin,p.video_file
         from course_pkg cp
-        left join chapter c on cp.uid=c.course_id
-        left join period p on c.uid=p.chapter_id
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on c.uid=p.chapter_id
         where cp.uid=#{uid} and cp.status="1"
     </select>
 
@@ -859,11 +862,11 @@ WHERE
         select
         p.effective_time,p.uid,p.name,p.video_file,p.begin,cp.pkg_name,t.nickname
         from period p
-        left join chapter c on c.uid=p.chapter_id
-        left join course_pkg cp on cp.uid=c.course_id
-        left join buy_recourd br on br.course_pkg_id=cp.uid
-        left join teacher t on t.uid=cp.teacher_id
-        left join student s on  s.uid=br.student_id
+        inner join chapter c on c.uid=p.chapter_id
+        inner join course_pkg cp on cp.uid=c.course_id
+        inner join buy_recourd br on br.course_pkg_id=cp.uid
+        inner join teacher t on t.uid=cp.teacher_id
+        inner join student s on  s.uid=br.student_id
         where p.tenant_id=#{tenant_id} and br.student_id=#{uid} and cp.status="1"
         <if test="pkg_subject_id!=null and pkg_subject_id!==''">
             and cp.pkg_subject_id=#{pkg_subject_id}
@@ -874,9 +877,9 @@ WHERE
     <select id="selectMyIndexMycollect" parameterType="com.qht.model.MyIndexMycollectParam" resultType="com.qht.model.MyIndexMycollectModel">
         select cp.cover,cp.pkg_name,cp.pkt_type_id,t.nickname,c.collect_time
         from course_pkg cp
-        left join teacher t on cp.teacher_id=t.uid
-        left join collect c on c.course_pkg_id=cp.uid
-        left join student s on s.uid=c.student_id
+        inner join teacher t on cp.teacher_id=t.uid
+        inner join collect c on c.course_pkg_id=cp.uid
+        inner join student s on s.uid=c.student_id
         where s.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
         <if test="pkt_type_id!='' and pkt_type_id!=null">
             and cp.pkt_type_id=#{pkt_type_id}
@@ -893,10 +896,10 @@ WHERE
     <select id="selectIndexMyAnswer" resultType="com.qht.model.IndexMyAnswerModel">
         select  a.uid,a.type,ask.question,p.name,cp.cover
         from answer a
-        left join course_ask ask on a.ask_id=ask.uid
-        left join period p on p.uid=a.period_id
-        left join chapter c on c.uid=p.chapter_id
-        left join course_pkg cp on c.course_id=cp.uid
+        inner join course_ask ask on a.ask_id=ask.uid
+        inner join period p on p.uid=a.period_id
+        inner join chapter c on c.uid=p.chapter_id
+        inner join course_pkg cp on c.course_id=cp.uid
         where a.student_id=#{uid} and a.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--app我的课程答疑-答疑详情-->
@@ -919,20 +922,20 @@ WHERE
         cp.cover,
         cp.pkg_name,
         t.name as teacher_name,
-        t.back_img
+        t.back_img,
         s.school_name,
         ps.name as subject_name,
         st.head,
         st.name as student_name
         from answer a
-        left join course_ask ask on a.ask_id=ask.uid
-        left join period p on p.uid=a.period_id
-        left join chapter c on c.uid=p.chapter_id
-        left join course_pkg cp on cp.uid=c.course_id
-        left join teacher t on t.uid=cp.teacher_id
-        left join school s on t.school_id=s.uid
-        left join pkg_subject ps on cp.pkg_subject_id=ps.uid
-        left join student st on st.uid=a.student_id
+        inner join course_ask ask on a.ask_id=ask.uid
+        inner join period p on p.uid=a.period_id
+        inner join chapter c on c.uid=p.chapter_id
+        inner join course_pkg cp on cp.uid=c.course_id
+        inner join teacher t on t.uid=cp.teacher_id
+        inner join school s on t.school_id=s.uid
+        inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
+        inner join student st on st.uid=a.student_id
         where a.uid=#{uid} and a.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!--打赏-先判断问题是否被解决-->
@@ -982,9 +985,9 @@ SELECT
 	pg.`name` AS grade_name
 FROM
 	student s
-LEFT JOIN school sl ON s.school_id = sl.uid
-LEFT JOIN guardian g ON s.uid = g.student_id
-LEFT JOIN pkg_grade pg ON s.grade_id = pg.uid
+inner JOIN school sl ON s.school_id = sl.uid
+inner JOIN guardian g ON s.uid = g.student_id
+inner JOIN pkg_grade pg ON s.grade_id = pg.uid
 WHERE
 	g.type = 1
 AND s.uid = #{uid}
@@ -1015,7 +1018,7 @@ and s.tenant_id=#{tenant_id}
 	g.type AS type
     FROM
         student s
-    LEFT JOIN guardian g ON s.uid = g.student_id
+    inner JOIN guardian g ON s.uid = g.student_id
     </select>
     <!--app查看学生兴趣标签-->
 

@@ -12,20 +12,30 @@ public class MyIndexCourseParameter implements Serializable {
 
     private String course_type_id;
 
-    public String getPkg_subject_() {
-        return pkg_subject_;
-    }
+    private String play_type_id;
 
-    public void setPkg_subject_(String pkg_subject_) {
-        this.pkg_subject_ = pkg_subject_;
-    }
+    public String getPlay_type_id() {
+		return play_type_id;
+	}
 
-    @Override
+	public void setPlay_type_id(String play_type_id) {
+		this.play_type_id = play_type_id;
+	}
+
+    public String getPkg_subject_id() {
+		return pkg_subject_id;
+	}
+
+	public void setPkg_subject_id(String pkg_subject_id) {
+		this.pkg_subject_id = pkg_subject_id;
+	}
+
+	@Override
     public String toString() {
         return "MyIndexCourseParameter{" +
                 "uid='" + uid + '\'' +
                 ", course_type_id='" + course_type_id + '\'' +
-                ", pkg_subject_='" + pkg_subject_ + '\'' +
+                ", pkg_subject_='" + pkg_subject_id+ '\'' +
                 ", now_time='" + now_time + '\'' +
                 ", page='" + page + '\'' +
                 ", limit='" + limit + '\'' +
@@ -33,7 +43,7 @@ public class MyIndexCourseParameter implements Serializable {
                 '}';
     }
 
-    private String pkg_subject_;
+    private String pkg_subject_id;
 
     private String now_time= DateTime.now().toString("yyyy-MM-dd");
     private String  page="1";

@@ -359,5 +359,7 @@ public interface StudentService {
 //     * @return
 //     */
 //    public ResultObject<List<TagDto>> myStudentInterest(@RequestBody ResultObject<AppStudentParameter> resultObject);
+    
+    public ResultObject<List<IndexMyCourseTableDto>> indexMycourseTable(@RequestBody RequestObject<IndexMyCourseTableParameter> resultObject);
 }
 

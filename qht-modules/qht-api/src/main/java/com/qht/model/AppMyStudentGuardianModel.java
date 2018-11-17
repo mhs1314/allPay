@@ -43,4 +43,10 @@ public class AppMyStudentGuardianModel implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+	@Override
+	public String toString() {
+		return "AppMyStudentGuardianModel [call=" + call + ", uid=" + uid + ", phone=" + phone + ", type=" + type + "]";
+	}
+    
 }

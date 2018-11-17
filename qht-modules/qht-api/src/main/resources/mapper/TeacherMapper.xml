@@ -62,13 +62,13 @@ GROUP BY t.uid
 
     </select>
     <!--名师详细-所有课程包-->
-    <select id="teacherCourse" resultType="com.qht.model.AppTeacherCourseModel">
+    <select id="appTeacherCourseDto" resultType="com.qht.model.AppTeacherCourseModel">
  SELECT
 	c.cover as cover ,
 	c.uid as uid,
 	c.pkg_name as pkg_name,
 	c.apply_number as apply_number,
-AVG( p.comments_star) as comments_star,
+	AVG( p.comments_star) as comments_star,
 	SUM(p.praise_number) as praise_number,
 	c.total_price
 FROM

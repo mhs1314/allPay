@@ -1,6 +1,7 @@
 
 package com.qht.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.auth.util.RequestContextUtil;
 import com.qht.biz.CollectBiz;
+import com.qht.biz.PeriodBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
@@ -41,7 +43,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     
     @Autowired
     private HttpServletRequest request;
-
+    
+    @Autowired
+    private PeriodBiz periodBiz;
 
 
     @Override
@@ -102,8 +106,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<UidAndTenantID> requestObject) {
         //通过session取到运营的id
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if(requestObject.getData()==null) {
+            ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
+            resultObject.setData(new ArrayList<>());
+            resultObject.setCode("1");
+            resultObject.setMsg("没有参数哦");
+            return resultObject;
+    	}
     	BeanUtil.copyFields(param, requestObject.getData());
         List<BannerModel> list=studentBiz.selectBanner(param.getTenant_id(),"2");
+        if(list.size()==0) {
+        	ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
+            resultObject.setData(new ArrayList<>());
+            resultObject.setCode("0");
+            resultObject.setMsg("没有数据");
+            return resultObject;
+        }
        List<BannerDto> lists = BeanUtil.copyList(BannerDto.class, list);
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
         resultObject.setData(lists);
@@ -558,12 +576,24 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("studentInfo")
     @ResponseBody
-
-
     public ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if(requestObject.getData()==null) {
+    		  ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
+    	        resultObject.setCode("1");
+    	        resultObject.setMsg("没接收到参数");
+    	        resultObject.setData(new StudentInfoDto());
+    	        return resultObject;
+    	}
     	BeanUtil.copyFields(param, requestObject.getData());
         StudentInfoModel model=studentBiz.studentInfo(param.getUid(),param.getTenant_id());
+        if(model==null) {
+        	ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
+	        resultObject.setCode("0");
+	        resultObject.setMsg("成功");
+	        resultObject.setData(new StudentInfoDto());
+	        return resultObject;
+        }
         StudentInfoDto dto=new StudentInfoDto();
         BeanUtil.copyFields(dto, model);
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
@@ -625,8 +655,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     public ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(@RequestBody RequestObject<UidAndTenantID> req) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if(req.getData()==null) {
+    		 ResultObject<List<IndexFutureCoruseDto>> resultObject=new ResultObject<>();
+    	        resultObject.setCode("1");
+    	        resultObject.setMsg("没有接收到参数");
+    	        resultObject.setData(new ArrayList<>());
+    	        return resultObject;
+    	}
     	BeanUtil.copyFields(param, req.getData());
         List<IndexFutureCoruseModel> dto=studentBiz.indexFutureCoruse(param.getUid(),param.getTenant_id());
+        if(dto.size()==0) {
+        	ResultObject<List<IndexFutureCoruseDto>> resultObject=new ResultObject<>();
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            resultObject.setData(new ArrayList<>());
+            return resultObject;
+        }
        List<IndexFutureCoruseDto> list = BeanUtil.copyList(IndexFutureCoruseDto.class, dto);
         ResultObject<List<IndexFutureCoruseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -640,6 +684,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<Void> req) {
         List<IndexTeacherModel> dto=studentBiz.indexTeacher(getTenantId());
+        if(dto.size()==0) {
+        	 ResultObject<List<IndexTeacherDto>> resultObject=new ResultObject<>();
+             resultObject.setCode("0");
+             resultObject.setMsg("没有数据哦");
+             resultObject.setData(new ArrayList<>());
+            return  resultObject;
+        }
        List<IndexTeacherDto> list = BeanUtil.copyList(IndexTeacherDto.class, dto);
         ResultObject<List<IndexTeacherDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -654,6 +705,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<Void> req) {
     	
         List<IndexAnswerModel> dto=studentBiz.indexAnswer(getTenantId());
+        if(dto.size()==0) {
+        	ResultObject<List<IndexAnswerDto>> resultObject=new ResultObject<>();
+            resultObject.setCode("0");
+            resultObject.setMsg("没有数据哦");
+            resultObject.setData(new ArrayList<>());
+            return  resultObject;
+        }
         List<IndexAnswerDto> list = BeanUtil.copyList(IndexAnswerDto.class, dto);
         ResultObject<List<IndexAnswerDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -668,8 +726,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<IndexCoruseListDto>> indexCoruseList(@RequestBody RequestObject<IndexCoruseListParameter> parameter) {        System.out.println("-------------"+parameter);
 
     IndexCoruseListParam param=new IndexCoruseListParam();
+    if(parameter.getData()==null) {
+    	 ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
+         resultObject.setCode("1");
+         resultObject.setMsg("没有接收到参数");
+         resultObject.setData(new ArrayList<>());
+         return  resultObject;
+    }
     BeanUtil.copyFields(param, parameter.getData());
         List<IndexCoruseListModel> dto=studentBiz.indexCoruseList(param);
+        if(dto.size()==0) {
+        	 ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
+             resultObject.setCode("0");
+             resultObject.setMsg("没有数据哦");
+             resultObject.setData(new ArrayList<>());
+             return  resultObject;
+        }
       List<IndexCoruseListDto> list = BeanUtil.copyList(IndexCoruseListDto.class, dto);
         ResultObject<List<IndexCoruseListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -683,8 +755,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter) {
     	IndexTeacherListParam param=new IndexTeacherListParam();
-    	BeanUtil.copyFields(IndexTeacherListDto.class,parameter.getData());
+    	if(parameter.getData()==null) {
+    		ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
+            resultObject.setCode("1");
+            resultObject.setMsg("没有接收到参数哦");
+            resultObject.setData(new ArrayList<>());
+            return  resultObject;
+    	}
+    	BeanUtil.copyFields(param,parameter.getData());
         List<IndexTeacherListModel> dto=studentBiz.indexTeacherList(param);
+        if(dto.size()==0) {
+    		ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
+            resultObject.setCode("0");
+            resultObject.setMsg("成功");
+            resultObject.setData(new ArrayList<>());
+            return  resultObject;
+    	}
        List<IndexTeacherListDto> list = BeanUtil.copyList(IndexTeacherListDto.class, dto);
         ResultObject<List<IndexTeacherListDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -779,8 +865,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if(requestObject.getData()==null) {
+    		 ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
+    	        resultObject.setCode("1");
+    	        resultObject.setMsg("参数错误"); 
+    	        resultObject.setData(new ArrayList<>());
+    	        return resultObject;
+    	}
     	BeanUtil.copyFields(param, requestObject.getData());
         List<IndexMyAnswerModel> models=studentBiz.selectIndexMyAnswer(param.getUid(),param.getTenant_id());
+        if(models.size()==0) {
+        	 ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
+             resultObject.setCode("0");
+             resultObject.setMsg("没有数据");
+             resultObject.setData(new ArrayList<>());
+             return resultObject;
+        }
         List<IndexMyAnswerDto> list = BeanUtil.copyList(IndexMyAnswerDto.class, models);
         ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -799,9 +899,25 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     public ResultObject<TeacherDetailsDto> teacherDetails(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if( requestObject.getData()==null) {
+    		ResultObject<TeacherDetailsDto> resultObject=new ResultObject<>();
+            resultObject.setCode("1");
+            resultObject.setMsg("参数不对");
+            resultObject.setData(new TeacherDetailsDto());
+            return resultObject;
+    	}
     	BeanUtil.copyFields(param, requestObject.getData());
         TeacherDetailsModel model=teacherBiz.teacherDetails(param.getUid(),param.getTenant_id());
+        if(model==null) {
+        	 ResultObject<TeacherDetailsDto> resultObject=new ResultObject<>();
+             resultObject.setCode("0");
+             resultObject.setMsg("成功");
+             resultObject.setData(new TeacherDetailsDto());
+             return resultObject;
+        }
+       
         TeacherDetailsDto dto=new TeacherDetailsDto();
+        BeanUtil.copyFields(dto, model);
         ResultObject<TeacherDetailsDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -819,6 +935,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     	BeanUtil.copyFields(param, requestObject.getData());
         IndexAnswerDetailsModel model=studentBiz.selectIndexAnswerDetails(param.getUid(),param.getTenant_id());
         IndexAnswerDetailsDto dto=new IndexAnswerDetailsDto();
+        if(model==null) {
+        	ResultObject<IndexAnswerDetailsDto> resultObject=new ResultObject<>();
+            resultObject.setCode("0");
+            resultObject.setMsg("没有数据");
+            resultObject.setData(new IndexAnswerDetailsDto());
+            return resultObject;
+        }
         BeanUtil.copyFields(dto, model);
         ResultObject<IndexAnswerDetailsDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -838,8 +961,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if(requestObject.getData()==null) {
+    		  ResultObject<List<AppTeacherCourseDto>> resultObject=new ResultObject<>();
+    	        resultObject.setCode("1");
+    	        resultObject.setMsg("参数不对");
+    	        resultObject.setData(new ArrayList<>());
+    	        return resultObject;
+    	}
     	BeanUtil.copyFields(param, requestObject.getData());
         List<AppTeacherCourseModel> dto=teacherBiz.appTeacherCourseDto(param.getUid(),param.getTenant_id());
+        if(dto.size()==0) {
+        	 ResultObject<List<AppTeacherCourseDto>> resultObject=new ResultObject<>();
+             resultObject.setCode("0");
+             resultObject.setMsg("没有数据");
+             resultObject.setData(new ArrayList<>());
+             return resultObject;
+        }
         List<AppTeacherCourseDto> list = BeanUtil.copyList(AppTeacherCourseDto.class, dto);
         ResultObject<List<AppTeacherCourseDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -856,7 +993,22 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation1(@RequestBody RequestObject<TeacherEvaluationDto> requestObject) {
     	TeacherEvaluationModel  param=new TeacherEvaluationModel();
+    	if(requestObject.getData()==null) {
+    		ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();
+            resultObject.setCode("1");
+            resultObject.setMsg("没有参数哦");
+            resultObject.setData(new ArrayList<>());
+            return resultObject;
+    	}
+    	BeanUtil.copyFields(param, requestObject.getData());
         List<AppTeacherEvaluationModel> dto=teacherBiz.teacherEvaluation(param.getUid(),getTenantId(),param.getEval());
+        if(dto.size()==0) {
+        	ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();
+            resultObject.setCode("0");
+            resultObject.setMsg("没有数据");
+            resultObject.setData(new ArrayList<>());
+            return resultObject;
+        }
         List<AppTeacherEvaluationDto> list = BeanUtil.copyList(AppTeacherEvaluationDto.class, dto);
         ResultObject<List<AppTeacherEvaluationDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -870,6 +1022,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
     public ResultObject<Void> indexAnswerDetailsAppendAnswer(@RequestBody RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject) {
     	IndexAnswerDetailsAppendAnswerParam param=new IndexAnswerDetailsAppendAnswerParam();
+    	if(requestObject.getData()==null) {
+    		ResultObject<Void> resultObject=new ResultObject<>();
+            resultObject.setCode("1");
+            resultObject.setMsg("没有参数");
+            return resultObject;
+    	}
     	BeanUtil.copyFields(param, requestObject.getData());
         requestObject.getData().setTanant_id(getTenantId());
         Integer appendAskAnswer=studentBiz.insertAppendAskAnswer(param);
@@ -880,6 +1038,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             resultObject.setMsg("回答成功");
             return resultObject;
         }
+        
         return resultObject.setMsg("稍后重试");
     }
 
@@ -935,7 +1094,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
 
     public ResultObject<List<MyCollectlistDto>> myCollectlist(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-
+	   
 
         List<MyCollectlistDto> dto=collectBiz.myCollectlist(requestObject.getData().getUid(),getTenantId());
         ResultObject<List<MyCollectlistDto>> resultObject=new ResultObject<>();
@@ -952,9 +1111,24 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if(requestObject.getData()==null) {
+    		 ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
+    		 resultObject.setCode("1");
+    	       resultObject.setMsg("没有参数");
+    	        resultObject.setData(new AppMyStudentInfoDto());
+    	        return resultObject;
+    	}
     	BeanUtil.copyFields(param, requestObject.getData());
         AppMyStudentInfoModel dto=studentBiz.appMyStudentInfo(param.getUid(),param.getTenant_id());
+        if(dto==null) {
+        	 ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
+    		 resultObject.setCode("0");
+    	       resultObject.setMsg("没有数据");
+    	        resultObject.setData(new AppMyStudentInfoDto());
+    	        return resultObject;
+        }
         AppMyStudentInfoDto dtod=new AppMyStudentInfoDto();
+        BeanUtil.copyFields(dtod, dto);
         ResultObject<AppMyStudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -971,6 +1145,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/myStudentInfoEditHead")
     @ResponseBody
     public ResultObject<Void> myStudentInfoEditHead(@RequestBody  RequestObject<AppStudentParameter> resultObject) {
+    	if(resultObject.getData()==null) {
+    		 ResultObject<Void> resultObj=new ResultObject<>();
+    		 resultObj.setCode("1");
+         	resultObj.setMsg("没有参数");
+             return resultObj;
+    	}
     	AppStudentParam param=new AppStudentParam();
     	BeanUtil.copyFields(param, resultObject.getData());
         resultObject.getData().setTenant_id(this.getTenantId());
@@ -996,6 +1176,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/myStudentInfoEditNickname")
     @ResponseBody
     public ResultObject<Void> myStudentInfoEditNickname(@RequestBody  RequestObject<AppStudentParameter> resultObject) {
+    	if(resultObject.getData()==null) {
+    		 ResultObject<Void> resultObj=new ResultObject<>();
+    		 resultObj.setCode("0");
+         	resultObj.setMsg("没有参数");
+             return resultObj;
+    	}
     	AppStudentParam param=new AppStudentParam();
     	BeanUtil.copyFields(param, resultObject.getData());
         resultObject.getData().setTenant_id(this.getTenantId());
@@ -1020,7 +1206,13 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/myStudentInfoEditPs")
     @ResponseBody
-    public ResultObject<Void> myStudentInfoEditPs(RequestObject<AppStudentParameter> resultObject) {
+    public ResultObject<Void> myStudentInfoEditPs(@RequestBody RequestObject<AppStudentParameter> resultObject) {
+    	if(resultObject.getData()==null) {
+   		 ResultObject<Void> resultObj=new ResultObject<>();
+   		 resultObj.setCode("0");
+        	resultObj.setMsg("没有参数");
+            return resultObj;
+   	}
     	AppStudentParam param=new AppStudentParam();
     	BeanUtil.copyFields(param, resultObject.getData());
         resultObject.getData().setTenant_id(this.getTenantId());
@@ -1045,10 +1237,25 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/myStudentGuardian")
     @ResponseBody
-    public ResultObject<List<AppMyStudentGuardianDto>> myStudentGuardian(RequestObject<AppStudentParameter> resultObject) {
+    public ResultObject<List<AppMyStudentGuardianDto>> myStudentGuardian(@RequestBody RequestObject<AppStudentParameter> resultObject) {
+    	if(resultObject.getData()==null) {
+    		 ResultObject< List<AppMyStudentGuardianDto>> resultObj=new ResultObject<>();
+             resultObj.setCode("0");
+             resultObj.setMsg("成功");
+             resultObj.setData(new ArrayList<>());
+             return resultObj;
+    	}
     	AppStudentParam param=new AppStudentParam();
     	BeanUtil.copyFields(param, resultObject.getData());
         List<AppMyStudentGuardianModel> dto=studentBiz.appMyStudentGuardian(param);
+        System.out.println(dto);
+        if(dto.size()==0) {
+        	 ResultObject< List<AppMyStudentGuardianDto>> resultObj=new ResultObject<>();
+             resultObj.setCode("0");
+             resultObj.setMsg("成功");
+             resultObj.setData(new ArrayList<>());
+             return resultObj;
+        }
        List<AppMyStudentGuardianDto> list = BeanUtil.copyList(AppMyStudentGuardianDto.class, dto);
         ResultObject< List<AppMyStudentGuardianDto>> resultObj=new ResultObject<>();
         resultObj.setCode("0");
@@ -1056,6 +1263,38 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObj.setData(list);
         return resultObj;
     }
+    /**
+     * 学生在线课程的课表
+     */
+	@Override
+	@PostMapping("app/indexMycourseTable")
+    @ResponseBody
+	public ResultObject<List<IndexMyCourseTableDto>> indexMycourseTable(@RequestBody RequestObject<IndexMyCourseTableParameter> parameter) {
+		if(parameter.getData()==null) {
+			ResultObject<List<IndexMyCourseTableDto>> resultObj=new ResultObject<>();
+	        resultObj.setCode("1");
+	        resultObj.setMsg("没有收到参数");
+	        resultObj.setData(new ArrayList<>());
+	        return resultObj;
+		}
+		IndexMyCourseTableParam param=new IndexMyCourseTableParam();
+		System.out.println("======================"+parameter.getData());
+		BeanUtil.copyFields(param, parameter.getData());
+		List<IndexMyCourseTableModel> list = periodBiz.indexMycourseTable(param);
+		if(parameter.getData()==null) {
+			ResultObject<List<IndexMyCourseTableDto>> resultObj=new ResultObject<>();
+	        resultObj.setCode("0");
+	        resultObj.setMsg("没哟数据");
+	        resultObj.setData(new ArrayList<>());
+	        return resultObj;
+		}
+		List<IndexMyCourseTableDto> lists = BeanUtil.copyList(IndexMyCourseTableDto.class, list);
+		ResultObject<List<IndexMyCourseTableDto>> resultObj=new ResultObject<>();
+        resultObj.setCode("0");
+        resultObj.setMsg("成功");
+        resultObj.setData(lists);
+        return resultObj;
+	}
 
 //    /**
 //     * 查看学生兴趣标签
