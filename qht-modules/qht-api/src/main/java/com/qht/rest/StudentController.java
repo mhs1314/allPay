@@ -852,16 +852,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
         String student_id =param.getStudent_id();
         Integer updateLine=studentBiz.updateMyIndexCancelcollect(uid,student_id,getTenantId());
-        if(updateLine>0){
-
-            resultObject.setCode("0");
-            resultObject.setMsg("取消成功");
-            return resultObject;
-        }else{
-            resultObject.setCode("2");
-            resultObject.setMsg("服务器异常");
-            return resultObject;
-        }
+        resultObject.setCode("0");
+        resultObject.setMsg("取消成功");
+        return resultObject;
     }
 
     @Override
