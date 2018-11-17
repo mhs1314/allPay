@@ -25,6 +25,9 @@ public class BeanUtil {
 	 */
 	public static <Target,Source> List<Target> copyList(Class<Target> target,List<Source> sourceList) {
 		List<Target> list = new ArrayList<Target>();
+		if(sourceList == null || sourceList.size() == 0) {
+			return list;
+		}
 		try {
 			for(Source source : sourceList) {
 				Target targetObj = target.newInstance();
@@ -43,6 +46,9 @@ public class BeanUtil {
      * source 源对象
      */
     public static void copyFields(Object target,Object source) {
+    	if(target == null || source == null) {
+    		return;
+    	}
         try {
             for (Field field : source.getClass().getDeclaredFields()) {
                 // 若不为 static 成员变量，则进行复制操作
