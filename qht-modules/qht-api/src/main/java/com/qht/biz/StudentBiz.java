@@ -329,6 +329,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @return
      */
 
+
     public List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(MyIndexMyintegralDetailParam parameter){
         return  studentMapper.myIndexMyintegralDetail(parameter);
     }

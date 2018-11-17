@@ -785,6 +785,7 @@ WHERE
         <if test="course_type_id!=null and course_type_id!=''">
             AND c.course_type_id =#{course_type_id}
         </if>
+
          <if test="is_index!=null and is_index!=''">
             AND c.is_index =#{is_index}
         </if>
