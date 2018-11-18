@@ -10,6 +10,7 @@ import com.qht.biz.PeriodBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
+import com.qht.common.util.IdGenUtil;
 import com.qht.dto.*;
 import com.qht.dto.CourseChapterDto;
 import com.qht.entity.Student;
@@ -24,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tk.mybatis.mapper.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -1336,9 +1335,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 		MyIndexCourseCelcollectParam param=new MyIndexCourseCelcollectParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		//收藏 插入数据需要生成一个collect表的主键
-		String str="collect"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-		param.setId(str);
+        String collect="collect";
+        String id=IdGenUtil.getUid(collect);
+		param.setId(id);
 		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
+		if(updateLine<1){
+            resultObject.setCode("1");
+            resultObject.setMsg("失败");
+            return resultObject;
+        }
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
 		return resultObject;

@@ -128,8 +128,8 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 			return resultObject;
 		}
 		IndexMessageParam param=new IndexMessageParam();
-		PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
 		BeanUtil.copyFields(param, requestObject.getData());
+		PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
 		List<IndexMessageModel> indexMessageModels=teacherBiz.selectIndexMessage(param);
 		if(indexMessageModels==null) {
 			resultObject.setData(new ArrayList<>());
