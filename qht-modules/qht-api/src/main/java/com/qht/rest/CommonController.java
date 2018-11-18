@@ -30,6 +30,7 @@ import com.qht.dto.GradetListDto;
 import com.qht.dto.InsertCoursePkgParameter;
 import com.qht.dto.PkgSubjectListDto;
 import com.qht.dto.SelectOpenRangeAllDto;
+import com.qht.dto.SelectPkgDto;
 import com.qht.dto.SelectPkgEditionAllDto;
 import com.qht.dto.SelectPkgLevelAllDto;
 import com.qht.dto.UidAndTenantID;
@@ -42,6 +43,7 @@ import com.qht.model.PkgSubjectListModel;
 import com.qht.model.SelectOpenRangeAllModel;
 import com.qht.model.SelectPkgEditionAllModel;
 import com.qht.model.SelectPkgLevelAllModel;
+import com.qht.model.SelectPkgModel;
 import com.qht.model.UidAndTenantIDParam;
 import com.qht.services.CommonService;
 
@@ -50,8 +52,6 @@ import com.qht.services.CommonService;
 public class CommonController implements CommonService {
 	@Autowired
 	private PkgSubjectBiz pkgSubjectBiz;
-    @Autowired
-    private ChapterBiz chapterBiz;
 	@Autowired
 	private PkgGradeBiz pkgGradeBiz;
 	@Autowired
@@ -79,6 +79,7 @@ public class CommonController implements CommonService {
 		 */
 		return RequestContextUtil.getTenantId();
 	}
+
 	/**
 	 * 科目
 	 */
@@ -87,7 +88,7 @@ public class CommonController implements CommonService {
 	@ResponseBody
 	public ResultObject<List<PkgSubjectListDto>> subjectList(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		UidAndTenantIDParam param = new UidAndTenantIDParam();
-		if(requestObject.getData()==null) {
+		if (requestObject.getData() == null) {
 			ResultObject<List<PkgSubjectListDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("1");
 			resultObj.setMsg("传入参数为空");
@@ -96,7 +97,7 @@ public class CommonController implements CommonService {
 		}
 		BeanUtil.copyFields(param, requestObject.getData());
 		List<PkgSubjectListModel> dto = pkgSubjectBiz.subjectList(param);
-		if(dto.size()==0) {
+		if (dto.size() == 0) {
 			ResultObject<List<PkgSubjectListDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("0");
 			resultObj.setMsg("没有数据哦");
@@ -110,6 +111,7 @@ public class CommonController implements CommonService {
 		resultObj.setData(list);
 		return resultObj;
 	}
+
 	/**
 	 * 课程包年级
 	 */
@@ -118,7 +120,7 @@ public class CommonController implements CommonService {
 	@ResponseBody
 
 	public ResultObject<List<GradetListDto>> gradetList(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-		if(requestObject.getData()==null) {
+		if (requestObject.getData() == null) {
 			ResultObject<List<GradetListDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("1");
 			resultObj.setMsg("传入参数为空");
@@ -128,7 +130,7 @@ public class CommonController implements CommonService {
 		UidAndTenantIDParam param = new UidAndTenantIDParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		List<GradetListModel> dto = pkgGradeBiz.gradetList(param);
-		if(dto.size()==0) {
+		if (dto.size() == 0) {
 			ResultObject<List<GradetListDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("0");
 			resultObj.setMsg("没有数据哦");
@@ -142,6 +144,7 @@ public class CommonController implements CommonService {
 		resultObj.setData(list);
 		return resultObj;
 	}
+
 	/**
 	 * 课程包类别
 	 */
@@ -151,7 +154,7 @@ public class CommonController implements CommonService {
 
 	public ResultObject<List<CoursePkgListDto>> courseTypeList(
 			@RequestBody RequestObject<UidAndTenantID> requestObject) {
-		if(requestObject.getData()==null) {
+		if (requestObject.getData() == null) {
 			ResultObject<List<CoursePkgListDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("1");
 			resultObj.setMsg("传入参数为空");
@@ -163,7 +166,7 @@ public class CommonController implements CommonService {
 		BeanUtil.copyFields(param, requestObject.getData());
 
 		List<CoursePkgListModel> dto = coursePkgBiz.courseTypeList(param);
-		if(dto.size()==0) {
+		if (dto.size() == 0) {
 			ResultObject<List<CoursePkgListDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("0");
 			resultObj.setMsg("没有数据哦");
@@ -177,6 +180,7 @@ public class CommonController implements CommonService {
 		resultObj.setData(list);
 		return resultObj;
 	}
+
 	/**
 	 * 课程包版本
 	 */
@@ -184,8 +188,9 @@ public class CommonController implements CommonService {
 	@Override
 	@PostMapping("/common/pkgEditionList")
 	@ResponseBody
-	public ResultObject<List<SelectPkgEditionAllDto>> pkgEditionAll(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-		if(requestObject.getData()==null) {
+	public ResultObject<List<SelectPkgEditionAllDto>> pkgEditionAll(
+			@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		if (requestObject.getData() == null) {
 			ResultObject<List<SelectPkgEditionAllDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("1");
 			resultObj.setMsg("传入参数为空");
@@ -197,7 +202,7 @@ public class CommonController implements CommonService {
 		BeanUtil.copyFields(param, requestObject.getData());
 
 		List<SelectPkgEditionAllModel> dto = pkgEditionBiz.selectPkgEditionAll(param);
-		if(dto.size()==0) {
+		if (dto.size() == 0) {
 			ResultObject<List<SelectPkgEditionAllDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("0");
 			resultObj.setMsg("没有数据哦");
@@ -211,14 +216,16 @@ public class CommonController implements CommonService {
 		resultObj.setData(list);
 		return resultObj;
 	}
+
 	/**
 	 * 所有课程范围
 	 */
 	@Override
 	@PostMapping("/common/openRange")
 	@ResponseBody
-	public ResultObject<List<SelectOpenRangeAllDto>> selectOpenRangeAll(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-		if(requestObject.getData()==null) {
+	public ResultObject<List<SelectOpenRangeAllDto>> selectOpenRangeAll(
+			@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		if (requestObject.getData() == null) {
 			ResultObject<List<SelectOpenRangeAllDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("1");
 			resultObj.setMsg("传入参数为空");
@@ -230,7 +237,7 @@ public class CommonController implements CommonService {
 		BeanUtil.copyFields(param, requestObject.getData());
 
 		List<SelectOpenRangeAllModel> dto = openRangeBiz.selectOpenRangeAll(param);
-		if(dto.size()==0) {
+		if (dto.size() == 0) {
 			ResultObject<List<SelectOpenRangeAllDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("0");
 			resultObj.setMsg("没有数据哦");
@@ -244,14 +251,16 @@ public class CommonController implements CommonService {
 		resultObj.setData(list);
 		return resultObj;
 	}
+
 	/**
 	 * 所有班级
 	 */
 	@Override
 	@PostMapping("/common/classList")
 	@ResponseBody
-	public ResultObject<List<SelectPkgLevelAllDto>> selectPkgLevelAll(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-		if(requestObject.getData()==null) {
+	public ResultObject<List<SelectPkgLevelAllDto>> selectPkgLevelAll(
+			@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		if (requestObject.getData() == null) {
 			ResultObject<List<SelectPkgLevelAllDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("1");
 			resultObj.setMsg("传入参数为空");
@@ -263,7 +272,7 @@ public class CommonController implements CommonService {
 		BeanUtil.copyFields(param, requestObject.getData());
 
 		List<SelectPkgLevelAllModel> dto = pkgLevelBiz.selectPkgLevelAll(param);
-		if(dto.size()==0) {
+		if (dto.size() == 0) {
 			ResultObject<List<SelectPkgLevelAllDto>> resultObj = new ResultObject<>();
 			resultObj.setCode("0");
 			resultObj.setMsg("没有数据哦");
@@ -276,94 +285,6 @@ public class CommonController implements CommonService {
 		resultObj.setMsg("成功");
 		resultObj.setData(list);
 		return resultObj;
-	}
-	/**
-	 * app添加课程包
-	 */
-	@Override
-	@PostMapping("common/appIndexAddLCourse")
-    @ResponseBody
-	public ResultObject<Void> appIndexAddLCourse(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
-		if(requestObject.getData()==null) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("没有参数");
-			robj.setCode("1");
-		}
-		
-		InsertCoursePkgParam param=new InsertCoursePkgParam();
-		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
-		BeanUtil.copyFields(param, requestObject.getData());
-		param.setUid(IdGenUtil.getUid("ss"));
-		param.setEasy(easy);
-		param.setStatus("1");
-		param.setCreat_time(new Date());
-		Integer result = coursePkgBiz.indexAddLCourse(param);
-		if(result==null||result<=0) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加失败");
-			robj.setCode("1");
-		}
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加成功");
-			robj.setCode("0");
-			return robj;
-	}
-	/**
-	 * app添加章节
-	 */
-	@Override
-	@PostMapping("common/indexAddLCourse")
-    @ResponseBody
-	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject) {
-		if(requestObject.getData()==null) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("没有参数");
-			robj.setCode("1");
-		}
-		AppInsertChapterParam param=new AppInsertChapterParam();
-		BeanUtil.copyFields(param, requestObject.getData());
-		
-		Integer result = chapterBiz.appInsertChapter(param);
-		if(result==null||result<=0) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加失败");
-			robj.setCode("1");
-		}
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加成功");
-			robj.setCode("0");
-			return robj;
-	}
-	/**
-	 * app修改课程包
-	 */
-	@Override
-	@PostMapping("common/indexEditLCourse")
-    @ResponseBody
-	public ResultObject<Void> appUpdateCoursePkgByid(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
-		if(requestObject.getData()==null) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("没有参数");
-			robj.setCode("1");
-		}
-		InsertCoursePkgParam param=new InsertCoursePkgParam();
-		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
-		BeanUtil.copyFields(param, requestObject.getData());
-		param.setEasy(easy);
-		param.setStatus("1");
-		param.setCreat_time(new Date());
-		Integer result = coursePkgBiz.appUpdateCoursePkgByid(param);
-		if(result==null||result<=0) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("修改失败");
-			robj.setCode("1");
-		}
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("修改成功");
-			robj.setCode("0");
-			return robj;
-	
-
 	}
 
 }

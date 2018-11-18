@@ -113,4 +113,44 @@ VALUES
     	inner join period p on p.chapter_id=c.uid 
     	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
     </select>
+    <!-- 课程包章节课时信息resultMap1 -->
+    <resultMap type="com.qht.model.SelectPkgModel" id="pkg">
+	    <id column="uid" property="uid"/>
+	    <result column="pkg_name" property="pkg_name"/>
+	    <collection property="chapter" javaType="com.qht.model.SelectChModel" resultMap="ch" >
+	    </collection>
+    </resultMap>
+      <!-- 课程包章节课时信息resultMap2 -->
+     <resultMap type="com.qht.model.SelectChModel" id="ch">
+	    <id column="c_id" property="c_id"/>
+	    <result column="name" property="name"/>
+	    <collection property="period" javaType="com.qht.model.SelectPerModel" resultMap="per" >
+	    </collection>
+    </resultMap>
+      <!-- 课程包章节课时信息resultMap3 -->
+    <resultMap type="com.qht.model.SelectPerModel" id="per">
+	    <id column="pid" property="pid"/>
+	    <result column="period_name" property="period_name"/>
+	  	<result column="video_file" property="video_file"/> 	
+	  	<result column="begin" property="begin"/> 
+    </resultMap>
+      
+    <!-- 课程包章节课时信息 -->
+    <select id="selectPkgChPer" resultMap="pkg" parameterType="com.qht.model.UidAndTenantIDParam">
+    	SELECT
+			c.uid AS uid,
+			c.pkg_name AS pkg_name,
+			cr.uid AS c_id,
+			cr.`name` AS name,
+			p.uid AS pid,
+			p.`name` AS period_name,
+			p.video_file,
+			p.`begin`
+		FROM
+			course_pkg c
+		LEFT  JOIN teacher t on c.uid=c.teacher_id
+		left  JOIN chapter cr ON cr.course_id = c.uid
+		LEFT JOIN period p ON p.chapter_id = p.chapter_id
+		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
+    </select>
 </mapper>

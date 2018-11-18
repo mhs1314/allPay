@@ -2,7 +2,8 @@ package com.qht.rest;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.biz.ChapterBiz;
@@ -33,29 +34,12 @@ import com.qht.common.util.IdGenUtil;
 import com.qht.entity.Teacher;
 import com.qht.mapper.CoursePkgMapper;
 
-import com.qht.model.AppInsertChapterParam;
-import com.qht.model.CourseChapterModel;
-
-
-import com.qht.model.IndexCourseAnswerModel;
-import com.qht.model.IndexCourseAnswerParam;
-import com.qht.model.IndexMessageModel;
-import com.qht.model.IndexMessageParam;
-import com.qht.model.IndexMyCourseDetailsModel;
-import com.qht.model.IndexMyCourseListModel;
-import com.qht.model.IndexMyCourseListParam;
-import com.qht.model.IndexMyCourseModel;
-import com.qht.model.IndexMyCourseParam;
-import com.qht.model.InsertCoursePkgParam;
-import com.qht.model.UidAndTenantIDParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 
 @Controller
@@ -67,7 +51,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
     private CoursePkgBiz coursePkgBiz;
 
     @Autowired
-
+    private ChapterBiz chapterBiz;
 
     private MessageBiz messageBiz;
     @Autowired
@@ -267,6 +251,131 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		resultObject.setData(list);
 		resultObject.setCode("0");
 		return resultObject;
+	}
+	/**
+	 * app添加课程包
+	 */
+	@Override
+	@PostMapping("common/appIndexAddLCourse")
+    @ResponseBody
+	public ResultObject<UidAndTenantID> appIndexAddLCourse(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
+		if(requestObject.getData()==null) {
+			ResultObject<UidAndTenantID> robj=new ResultObject<>();
+			robj.setMsg("没有参数");
+			robj.setCode("1");
+		}
+		
+		InsertCoursePkgParam param=new InsertCoursePkgParam();
+		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
+		BeanUtil.copyFields(param, requestObject.getData());
+		param.setUid(IdGenUtil.getUid("ss"));
+		param.setEasy(easy);
+		param.setStatus("1");
+		param.setCreat_time(new Date());
+		Integer result = coursePkgBiz.indexAddLCourse(param);
+		if(result==null||result<=0) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("添加失败");
+			robj.setCode("1");
+		}
+			ResultObject<UidAndTenantID> robj=new ResultObject<>();
+			UidAndTenantID uid=new UidAndTenantID();
+			uid.setUid(param.getUid());
+			robj.setMsg("添加成功");
+			robj.setData(uid);
+			robj.setCode("0");
+			return robj;
+	}
+	/**
+	 * app添加章节
+	 */
+	@Override
+	@PostMapping("common/indexAddLCourse")
+    @ResponseBody
+	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject) {
+		if(requestObject.getData()==null) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("没有参数");
+			robj.setCode("1");
+		}
+		AppInsertChapterParam param=new AppInsertChapterParam();
+		BeanUtil.copyFields(param, requestObject.getData());
+		
+		Integer result = chapterBiz.appInsertChapter(param);
+		if(result==null||result<=0) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("添加失败");
+			robj.setCode("1");
+		}
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("添加成功");
+			robj.setCode("0");
+			return robj;
+	}
+	/**
+	 * app修改课程包
+	 */
+	@Override
+	@PostMapping("common/indexEditLCourse")
+    @ResponseBody
+	public ResultObject<Void> appUpdateCoursePkgByid(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
+		if(requestObject.getData()==null) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("没有参数");
+			robj.setCode("1");
+		}
+		InsertCoursePkgParam param=new InsertCoursePkgParam();
+		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
+		BeanUtil.copyFields(param, requestObject.getData());
+		param.setEasy(easy);
+		param.setStatus("1");
+		param.setCreat_time(new Date());
+		Integer result = coursePkgBiz.appUpdateCoursePkgByid(param);
+		if(result==null||result<=0) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("修改失败");
+			robj.setCode("1");
+		}
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("修改成功");
+			robj.setCode("0");
+			return robj;
+	}
+	/**
+	 * 课程包章节课时信息
+	 */
+	@Override
+	@PostMapping("common/indexAddLCourseChapterperiod")
+    @ResponseBody
+	public ResultObject<List<SelectPkgDto>> selectPkgDto(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		if(requestObject.getData()==null) {
+			ResultObject<List<SelectPkgDto>> resultObj = new ResultObject<>();
+			resultObj.setCode("1");
+			resultObj.setMsg("传入参数为空");
+			resultObj.setData(new ArrayList<>());
+			return resultObj;
+		}
+		UidAndTenantIDParam param = new UidAndTenantIDParam();
+
+		BeanUtil.copyFields(param, requestObject.getData());
+
+		List<SelectPkgModel> models = coursePkgBiz.selectPkgModel(param);
+		if(models.size()==0) {
+			ResultObject<List<SelectPkgDto>> resultObj = new ResultObject<>();
+			resultObj.setCode("0");
+			resultObj.setMsg("没有数据哦");
+			resultObj.setData(new ArrayList<>());
+			return resultObj;
+		}
+		List<SelectPkgDto> list = new ArrayList<SelectPkgDto>();		
+		for(SelectPkgModel model : models) {
+			list.add(model.toDto());
+		}
+		ResultObject<List<SelectPkgDto>> resultObj = new ResultObject<>();
+		resultObj.setCode("0");
+		resultObj.setMsg("成功");
+		resultObj.setData(list);
+		return resultObj;
 	}
 	
 }
