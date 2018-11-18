@@ -189,7 +189,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 		m.content
     	from message m 
     		left join student s on m.from_id=s.uid 
-    	where m.to_id=#{uid} and tenant_id=#{tenant_id} 
+    	where m.to_id=#{uid} and m.tenant_id=#{tenant_id}
     	<if test="isread !=null and isread !=''">
     		m.isread=${isread}
     	</if>
