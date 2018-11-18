@@ -10,5 +10,33 @@
         <result property="studentId" column="student_id"/>
         <result property="coursePkgId" column="course_pkg_id"/>
     </resultMap>
+    <select id="myCollectlist" resultType="com.qht.dto.MyCollectlistDto">
+            SELECT
+        c.cover as cover,
+        ct.uid as uid,
+        c.total_price as  praise_number,
+        c.pkg_name as pkg_name,
+      ct.course_pkg_id as pkg_id,
+    SUM(p.praise_number) praise_number,
+    AVG(p.comments_star) comments_star,
+        c.apply_number as apply_number
+    FROM
+	collect ct
+LEFT JOIN period_evaluation p ON ct.course_pkg_id=p.course_id
+LEFT JOIN course_pkg c  on ct.course_pkg_id=c.uid
+where
+ct.student_id =#{uid}
+AND
+ct.tenant_id = #{tid}
+
+GROUP BY
+	ct.uid
+
+    </select>
+    
+    <!-- 学生端-个人中心-首页-课程详情-收藏 -->
+    <insert id="updateMyIndexCourseCelcollect" parameterType="com.qht.model.MyIndexCourseCelcollectParam">
+    	insert into collect(uid,tenant_id,student_id,course_pkg_id,is_collect) value(#{id},#{tenant_id},#{student_id},#{uid},1)
+    </insert>
 
 </mapper>

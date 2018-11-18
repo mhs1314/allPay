@@ -11,6 +11,8 @@ public class FreeClassParameter implements Serializable {
     //课程包年级
     private String pkg_grade_id;
 
+    private String tenant_id;
+
     public String getTenant_id() {
         return tenant_id;
     }
@@ -28,7 +30,8 @@ public class FreeClassParameter implements Serializable {
                 '}';
     }
 
-    private String tenant_id;
+
+
 
     public String getPkg_subject_id() {
         return pkg_subject_id;

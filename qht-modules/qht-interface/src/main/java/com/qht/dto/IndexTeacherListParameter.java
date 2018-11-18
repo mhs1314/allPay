@@ -5,12 +5,6 @@ import java.io.Serializable;
 public class IndexTeacherListParameter  implements Serializable {
     //运营商id
     private String tenant_id;
-    //年级ID
-    private String grade_id;
-    //科目ID
-    private String subject_id;
-    // 大于点赞数
-    private String praise_number;
 
     public String getTenant_id() {
         return tenant_id;
@@ -20,15 +14,36 @@ public class IndexTeacherListParameter  implements Serializable {
         this.tenant_id = tenant_id;
     }
 
-    public String getGrade_id() {
-        return grade_id;
+    @Override
+    public String toString() {
+        return "IndexTeacherListParameter{" +
+                "tenant_id='" + tenant_id + '\'' +
+                ", pkg_grade_id='" + pkg_grade_id + '\'' +
+                ", subject_id='" + subject_id + '\'' +
+                ", praise_number='" + praise_number + '\'' +
+                '}';
     }
 
-    public void setGrade_id(String grade_id) {
-        this.grade_id = grade_id;
+    //年级ID
+    private String pkg_grade_id;
+
+    public String getPkg_grade_id() {
+        return pkg_grade_id;
     }
 
-    public String getSubject_id() {
+    public void setPkg_grade_id(String pkg_grade_id) {
+        this.pkg_grade_id = pkg_grade_id;
+    }
+
+    //科目ID
+    private String subject_id;
+    // 大于点赞数
+    private String praise_number;    
+
+
+
+
+	public String getSubject_id() {
         return subject_id;
     }
 

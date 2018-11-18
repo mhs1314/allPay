@@ -5,6 +5,12 @@ import java.io.Serializable;
 public class QhtAuthenticationRequest implements Serializable {
 	
 	private static final long serialVersionUID = 8929021628526939143L;
+	
+	/**
+	 * 请求ID，便于跟踪业务数据
+	 */
+	private String requestId;
+	
 	//登录账号
 	private String account;
 	//登录密码
@@ -30,5 +36,13 @@ public class QhtAuthenticationRequest implements Serializable {
 	public void setType(int type) {
 		this.type = type;
 	}
+	public String getRequestId() {
+		return requestId;
+	}
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
+	
+	
 
 }

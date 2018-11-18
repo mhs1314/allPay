@@ -10,8 +10,48 @@ public class TeacherDto implements Serializable {
     //昵称
     private String nickname;
     //运营方id
-    private String tenantId;
+    private String tenant_id;
+  //用户名
+    private String name;
     
+    private String account;
+    
+    
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getTenant_id() {
+		return tenant_id;
+	}
+
+	public void setTenant_id(String tenant_id) {
+		this.tenant_id = tenant_id;
+	}
+
+	@Override
+	public String toString() {
+		return "TeacherDto{" +
+				"uid='" + uid + '\'' +
+				", schoolid='" + schoolid + '\'' +
+				", nickname='" + nickname + '\'' +
+				", tenant_id='" + tenant_id + '\'' +
+				'}';
+	}
+
 	public String getUid() {
 		return uid;
 	}
@@ -30,17 +70,6 @@ public class TeacherDto implements Serializable {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getTenantId() {
-		return tenantId;
-	}
-	public void setTenantId(String tenantId) {
-		this.tenantId = tenantId;
-	}
-	@Override
-	public String toString() {
-		return "TeacherDto [uid=" + uid + ", schoolid=" + schoolid + ", nickname=" + nickname + ", tenantId=" + tenantId
-				+ "]";
-	}
-    
-    
+
+
 }

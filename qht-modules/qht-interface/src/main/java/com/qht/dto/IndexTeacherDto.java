@@ -53,4 +53,12 @@ public class IndexTeacherDto implements Serializable {
     public void setBack_img(String back_img) {
         this.back_img = back_img;
     }
+
+	@Override
+	public String toString() {
+		return "IndexTeacherDto [uid=" + uid + ", nickname=" + nickname + ", subject_name=" + subject_name
+				+ ", school_name=" + school_name + ", back_img=" + back_img + "]";
+	}
+    
+    
 }

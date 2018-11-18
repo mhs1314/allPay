@@ -9,5 +9,16 @@
         <result property="tenantId" column="tenant_id"/>
         <result property="name" column="name"/>
     </resultMap>
+    <!-- app添加章节 -->
+    <insert id="appInsertChapter" parameterType="com.qht.model.AppInsertChapterParam">
+    INSERT INTO chapter (
+	uid,
+	tenant_id,
+	NAME,
+	course_id
+	)
+	VALUES
+		(#{uid}, #{tenant_id},#{chapter_name},#{course_id})
+    </insert>
 
 </mapper>

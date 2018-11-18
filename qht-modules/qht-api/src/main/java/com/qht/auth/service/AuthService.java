@@ -1,6 +1,9 @@
 package com.qht.auth.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.qht.auth.util.QhtAuthenticationRequest;
+import com.qht.dto.LoginResultDto;
 
 /**
  * 权限验证
@@ -8,7 +11,7 @@ import com.qht.auth.util.QhtAuthenticationRequest;
  * @date Nov 10, 2018 6:04:16 PM
  */
 public interface AuthService {
-	String login(QhtAuthenticationRequest authenticationRequest) throws Exception;
+	LoginResultDto login(QhtAuthenticationRequest authenticationRequest,HttpServletRequest request) throws Exception;
 	String refresh(String oldToken) throws Exception;
 	void validate(String token) throws Exception;
 }

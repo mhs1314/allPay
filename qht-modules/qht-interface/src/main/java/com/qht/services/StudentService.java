@@ -3,9 +3,8 @@ package com.qht.services;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.dto.*;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -23,62 +22,54 @@ public interface StudentService {
      * @param requestObject
      * @return
      */
-    public ResultObject<StudentDto> login(RequestObject<LoginInfoDto> requestObject);
+    public ResultObject<StudentDto> login(@RequestBody RequestObject<LoginInfoDto> requestObject);
 
     /**
      * 获取首页广告信息
-     * @param req
      * @return
      */
-    public ResultObject<List<BannerDto>> banner(HttpServletRequest req);
+    public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<Void> requestObject);
     /**
      * 获取首页广告信息--App
-     * @param req
      * @return
      */
-    public ResultObject<List<BannerDto>> indexBanner(HttpServletRequest req);
+    public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<UidAndTenantID> requestObject);
     /**
      * 获取首页的直播课程
-     * @param req
      * @return
      */
-    public ResultObject<List<LiveClassDto>> liveClass(HttpServletRequest req);
+    public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页免费课程
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<FreeClassDto>> freeClass(RequestObject<FreeClassParameter> requestObject,HttpServletRequest req);
+    public ResultObject<List<FreeClassDto>> freeClass(@RequestBody RequestObject<FreeClassParameter> requestObject);
 
     /**
      * 获取首页试听课程排行榜
-     *  @param req
      * @return
      */
-    public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(HttpServletRequest req);
+    public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页试听课程列表
-     * @param req
      * @return
      */
-    public ResultObject<List<ListeningClassListDto>> listeningClassList(HttpServletRequest req);
+    public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页老师排行榜
-     * @param req
      * @return
      */
-    public ResultObject<List<TeacherRankingDto>> teacherRanking(HttpServletRequest req);
+    public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页老师集合
-     * @param req
      * @return
      */
-    public ResultObject<List<TeacherListDto>> teacherList(HttpServletRequest req);
+    public ResultObject<List<TeacherListDto>> teacherList(@RequestBody RequestObject<TeacherListParameter> requestObject);
 
 
     /**学生端课程*/
@@ -87,43 +78,37 @@ public interface StudentService {
     /**
      * 课程详情--课程包简介
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<CourseIntroDto> courseIntro(RequestObject<CourseIntroParameter> requestObject,HttpServletRequest req);
+    public ResultObject<CourseIntroDto> courseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject);
 
     /**
      * 课程详情--课程包体系
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<CourseChapterDto>> courseChapter(RequestObject<CourseIntroParameter> requestObject,HttpServletRequest req);
+    public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<CourseIntroParameter> requestObject);
 
     /**
      * 课程详情--课程包评论
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(RequestObject<CourseIntroParameter> requestObject,HttpServletRequest req);
+    public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseEvaluationParameter> requestObject);
 
     /**
      * 课程详情--教师信息
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<TeacherInfoDto> teacherInfo(RequestObject<CourseIntroParameter> requestObject,HttpServletRequest req);
+    public ResultObject<TeacherInfoDto> teacherInfo(@RequestBody RequestObject<CourseIntroParameter> requestObject);
 
     /**
      * 课程列表
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<CourseListDto>> courseList(RequestObject<CourseListParameter >requestObject,
-                                                        HttpServletRequest req);
+    public ResultObject<List<CourseListDto>> courseList(@RequestBody RequestObject<CourseListParameter >requestObject);
 
     /**学生端--通用--名师*/
 
@@ -131,187 +116,261 @@ public interface StudentService {
     /**
      * 名师列表
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<TopTeacherListDto>> topTeacherList(RequestObject<TopTeacherListParameter> requestObject,
-                                                                HttpServletRequest req);
+    public ResultObject<List<TopTeacherListDto>> topTeacherList(@RequestBody RequestObject<TopTeacherListParameter> requestObject);
 
     /**名师详情--讲师简介*/
     /**
      * 名师详情--讲师简介
      * @param uid
-     * @param req
      * @return
      */
-    public ResultObject<List<TopTeacherInfoDto>> topTeacherInfo(@RequestParam("uid") String uid, HttpServletRequest req);
+    public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 名师详情--全部课程
      * @param uid
-     * @param req
      * @return
      */
-    public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestParam("uid") String uid, HttpServletRequest req);
+    public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 名师详情--评论列表
      * @param uid
-     * @param req
      * @return
      */
-    public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestParam("uid") String uid, HttpServletRequest req);
+    public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestBody RequestObject<UidAndTenantID> uid);
 
 
     /**学生端--通用--运营商*/
     /**
      * 运营商--学校介绍
-     * @param req
      * @return
      */
-    public ResultObject<TenantSchoolDto> tenantSchool(HttpServletRequest req);
+    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<UidAndTenantID> uid);
 
     /**
      * 运营商--画册
-     * @param req
      * @return
      */
-    public ResultObject<TenantAlbumDto> tenantAlbum(HttpServletRequest req);
+    public ResultObject<List<TenantAlbumDto>> tenantAlbum(@RequestBody RequestObject<Void> uid);
 
 
-    public ResultObject<List<MyIndexCourseDto>> myIndexCourse(RequestObject<MyIndexCourseParameter> requestObject,
-                                                              HttpServletRequest req);
+    public ResultObject<List<MyIndexCourseDto>> myIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject);
 
     /**
      * 学生端-个人中心--首页--我的课程详情介绍
-     * @param uid
      * @param req
      * @return
      */
-    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestParam("uid")String uid,HttpServletRequest req);
+    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestBody RequestObject<UidAndTenantID> req);
 
 
     /**
      * 学生端-个人中心--首页--课程答疑
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(RequestObject<MyIndexCourseAnswerParameter> requestObject,
-                                                                          HttpServletRequest req);
+    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(@RequestBody RequestObject<MyIndexCourseAnswerParameter> requestObject);
     /**
      * 學生個人中心消息
-     * @param req
      * @return
      */
-    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(HttpServletRequest req,RequestObject<MyIndexMessageParamter> paramter);
+    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(@RequestBody RequestObject<MyIndexMessageParamter> paramter);
 
     /**
      * 刪除消息
-     * @param uid
      * @return
      */
-    public ResultObject<Integer> deleteMessage(String uid);
+    public ResultObject<Void> deleteMessage(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 查詢單個消息
-     * @param uid
+     * @param requestObject
      * @return
      */
-    public ResultObject<MyIndexMessageDto>selectMessageById(String uid);
+    public ResultObject<MyIndexMessageDto>selectMessageById(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 学生端-个人中心--首页--兑换记录
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(RequestObject<MyIndexBuyRecordParameter> requestObject,
-                                                                    HttpServletRequest req);
+    public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(@RequestBody RequestObject<MyIndexBuyRecordParameter> requestObject);
 
     /**
      * 學生信息
-     * @param reg
-     * @param uid
-     * @param tid
      * @return
      */
-    public  ResultObject<StudentInfoDto> studentInfo(HttpServletRequest reg,String uid,String tid);
+    public  ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 消息記錄
-     * @param reg
      * @param parameter
      * @return
      */
-    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(HttpServletRequest reg,RequestObject<MyIndexMyintegralDetailParameter> parameter);
+    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(@RequestBody RequestObject<MyIndexMyintegralDetailParameter> parameter);
 
     /**
      * 近期课程
-     * @param reg
-     * @param uid
-     * @param tid
      * @return
      */
-    public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(HttpServletRequest reg,String uid,String tid);
+    public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(@RequestBody RequestObject<UidAndTenantID> req);
 
     /**
      *名师资源
-     * @param reg
      * @return
      */
-    public ResultObject<List<IndexTeacherDto>> indexTeacher(HttpServletRequest reg);
+    public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<Void> req);
     /**
      *课程疑答
-     * @param reg
      * @return
      */
-    public ResultObject<List<IndexAnswerDto>> indexAnswer(HttpServletRequest reg);
+    public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<Void> req);
 
     /**
      * 课程列表
-     * @param reg
      * @param parameter
      * @return
      */
-    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(HttpServletRequest reg,RequestObject<IndexCoruseListParameter> parameter);
+    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(@RequestBody RequestObject<IndexCoruseListParameter> parameter);
     /**
      * 名师资源列表
-     * @param reg
      * @param parameter
      * @return
      */
-    public ResultObject<List<IndexTeacherListDto>> indexTeacherList(HttpServletRequest reg,RequestObject<IndexTeacherListParameter> parameter);
+    public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter);
 
     /**
      * 学生端-个人中心--首页--兑换记录--课程详情
-     * @param uid
      * @return
      */
-    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(String uid);
+    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(@RequestBody RequestObject<UidAndTenantID> req);
 
     /**
      * 学生端-个人中心--首页--兑换记录--课程回看
      * @return
      */
-    public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject,HttpServletRequest req);
+    public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(@RequestBody RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject);
 
     /**
      * 学生端-个人中心--首页--我的收藏列表
      * @param requestObject
-     * @param req
      * @return
      */
-    public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(RequestObject<MyIndexMycollectParameter>requestObject,HttpServletRequest req);
+    public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(@RequestBody RequestObject<MyIndexMycollectParameter>requestObject);
 
     /**
      * 学生端-个人中心--首页--取消收藏列表
-     * @param uid
-     * @param student_id
-     * @param req
      * @return
      */
-    public ResultObject<Void> myIndexCancelcollect(@RequestParam("uid") String uid,@RequestParam("student_id") String student_id,HttpServletRequest req);
-}
+    public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<MyIndexCanceCollectParameter> requestObject);
 
+    /**
+     * app我的课程答疑
+     * @return
+     */
+    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+    /**
+     * 名师详情-基本信息
+     * @return
+     */
+    public ResultObject<TeacherDetailsDto> teacherDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+    /**
+     * app我的课程答疑--答疑详情
+     * @return
+     */
+    public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+
+    /**
+     * 名师详情-所有课程
+     * @return
+     */
+    public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+    /**
+     * app我的课程答疑--答疑详情-打赏
+     * @return
+     */
+    public ResultObject<Void> indexAnswerDetailsExceptional(@RequestBody RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject);
+    /**
+     * 名师详情-所有评论
+     * @return
+     */
+    public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation1(@RequestBody RequestObject<TeacherEvaluationDto> requestObject);
+
+    /**
+     * 我的课程答疑--答疑详情-追问回答
+     * @param requestObject
+     * @return
+     */
+    public ResultObject<Void> indexAnswerDetailsAppendAnswer(@RequestBody RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject);
+
+    /**
+     * 我的收藏
+     * @return
+     */
+    public ResultObject<List<MyCollectlistDto>> myCollectlist(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+    /***
+     * 个人中心学生信息
+     * @return
+     */
+    public ResultObject<AppMyStudentInfoDto> appMyStudentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+    /**
+     * app修改学生头像
+     * @param resultObject
+     * @return
+     */
+     public ResultObject<Void> myStudentInfoEditHead(@RequestBody RequestObject<AppStudentParameter> resultObject);
+
+    /**
+     * app修改学生昵称
+     * @param resultObject
+     * @return
+     */
+    public ResultObject<Void> myStudentInfoEditNickname(@RequestBody RequestObject<AppStudentParameter> resultObject);
+
+    /**
+     * app修改学生密码
+     * @param resultObject
+     * @return
+     */
+    public ResultObject<Void> myStudentInfoEditPs(@RequestBody RequestObject<AppStudentParameter> resultObject);
+
+    /**
+     * 查看监护人信息
+     * @param resultObject
+     * @return
+     */
+    public ResultObject<List<AppMyStudentGuardianDto>>myStudentGuardian(@RequestBody RequestObject<AppStudentParameter> resultObject);
+
+//    /**
+//     * 查看学生兴趣标签
+//     * @param resultObject
+//     * @return
+//     */
+//    public ResultObject<List<TagDto>> myStudentInterest(@RequestBody ResultObject<AppStudentParameter> resultObject);
+    
+    public ResultObject<List<IndexMyCourseTableDto>> indexMycourseTable(@RequestBody RequestObject<IndexMyCourseTableParameter> resultObject);
+    
+    /**
+     * 学生端-个人中心--首页--课程详情--收藏
+     * @param requestObject
+     * @return
+     */
+    public ResultObject<Void> myIndexCourseCelcollect(@RequestBody RequestObject<MyIndexCourseCelcollectParameter> requestObject);
+
+    /**
+     * 学生端-个人中心--首页--我的课时详情介绍
+     * @param requestObject
+     * @return
+     */
+    public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
+}
 

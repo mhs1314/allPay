@@ -23,4 +23,11 @@ public class TatDto  implements Serializable {
     public void setTname(String tname) {
         this.tname = tname;
     }
+
+	@Override
+	public String toString() {
+		return "TatDto [tid=" + tid + ", tname=" + tname + "]";
+	}
+    
+    
 }

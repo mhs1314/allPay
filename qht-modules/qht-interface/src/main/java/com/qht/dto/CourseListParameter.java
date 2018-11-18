@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class CourseListParameter implements Serializable {
 
+
     //1免费2试听
-    private Integer pkt_tyepe_id;
+    private Integer pkt_type_id;
     //课程包科目
     private String pkg_subject_id;
     //课程包年级
@@ -17,6 +18,38 @@ public class CourseListParameter implements Serializable {
     //播放类型 1直播 2录播
     private String play_type_id;
 
+    private String tenant_id;
+    private String limit;
+    //当前页
+    private String page;
+
+
+    public String getIs_goods() {
+        return is_goods;
+    }
+
+    public void setIs_goods(String is_goods) {
+        this.is_goods = is_goods;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseListParameter{" +
+                "pkt_type_id=" + pkt_type_id +
+                ", pkg_subject_id='" + pkg_subject_id + '\'' +
+                ", pkg_grade_id='" + pkg_grade_id + '\'' +
+                ", newtime='" + newtime + '\'' +
+                ", price='" + price + '\'' +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", limit='" + limit + '\'' +
+                ", page='" + page + '\'' +
+                ", is_goods='" + is_goods + '\'' +
+                ", course_type_id='" + course_type_id + '\'' +
+                '}';
+    }
+
+    private String is_goods;
 
     //课程包类型id
     private String course_type_id;
@@ -45,35 +78,13 @@ public class CourseListParameter implements Serializable {
         this.page = page;
     }
 
-    @Override
-    public String toString() {
-        return "CourseListParameter{" +
-                "pkt_tyepe_id=" + pkt_tyepe_id +
-                ", pkg_subject_id='" + pkg_subject_id + '\'' +
-                ", pkg_grade_id='" + pkg_grade_id + '\'' +
-                ", newtime='" + newtime + '\'' +
-                ", price='" + price + '\'' +
-                ", play_type_id='" + play_type_id + '\'' +
-                ", course_type_id='" + course_type_id + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                ", limit='" + limit + '\'' +
-                ", page='" + page + '\'' +
-                '}';
+
+    public Integer getPkt_type_id() {
+        return pkt_type_id;
     }
 
-    private String tenant_id;
-    private String limit;
-    //当前页
-    private String page;
-
-
-
-    public Integer getPkt_tyepe_id() {
-        return pkt_tyepe_id;
-    }
-
-    public void setPkt_tyepe_id(Integer pkt_tyepe_id) {
-        this.pkt_tyepe_id = pkt_tyepe_id;
+    public void setPkt_type_id(Integer pkt_type_id) {
+        this.pkt_type_id = pkt_type_id;
     }
 
     public String getPkg_subject_id() {

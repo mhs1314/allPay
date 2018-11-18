@@ -1,6 +1,14 @@
 package com.qht.mapper;
 
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.qht.dto.GradetListDto;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.PkgGrade;
+import com.qht.model.GradetListModel;
+import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -12,7 +20,12 @@ import tk.mybatis.mapper.common.Mapper;
  * @date 2018-11-05 18:55:41
  * @Mapper
  */
-
+@Repository
 public interface PkgGradeMapper extends Mapper<PkgGrade> {
+	/**
+	 * 所有包年级
+	 * @return
+	 */
+	List<GradetListModel> gradetList(UidAndTenantIDParam ut);
 	
 }

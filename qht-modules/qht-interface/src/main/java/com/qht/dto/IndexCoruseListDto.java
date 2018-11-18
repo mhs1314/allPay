@@ -73,4 +73,13 @@ public class IndexCoruseListDto  implements Serializable {
     public void setApply_number(String apply_number) {
         this.apply_number = apply_number;
     }
+
+	@Override
+	public String toString() {
+		return "IndexCoruseListDto [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", play_type_id="
+				+ play_type_id + ", nickname=" + nickname + ", subject_name=" + subject_name + ", apply_number="
+				+ apply_number + "]";
+	}
+    
+    
 }

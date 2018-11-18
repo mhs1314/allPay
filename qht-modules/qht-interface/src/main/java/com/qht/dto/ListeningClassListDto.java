@@ -15,7 +15,7 @@ public class ListeningClassListDto implements Serializable {
     //班级名称
     private String level_name;
     //播放类型
-    private Integer play_type_id;
+    private String  play_type_id;
     //老师名字
     private String nickname;
 
@@ -43,13 +43,6 @@ public class ListeningClassListDto implements Serializable {
         this.pkg_name = pkg_name;
     }
 
-    public Integer getPlay_type_id() {
-        return play_type_id;
-    }
-
-    public void setPlay_type_id(Integer play_type_id) {
-        this.play_type_id = play_type_id;
-    }
 
     public String getNickname() {
         return nickname;

@@ -58,4 +58,12 @@ public class MyIndexMyintegralDetailParameter implements Serializable {
     public void setLimit(String limit) {
         this.limit = limit;
     }
+
+	@Override
+	public String toString() {
+		return "MyIndexMyintegralDetailParameter [uid=" + uid + ", tenant_id=" + tenant_id + ", begin_time="
+				+ begin_time + ", over_time=" + over_time + ", page=" + page + ", limit=" + limit + "]";
+	}
+    
+    
 }

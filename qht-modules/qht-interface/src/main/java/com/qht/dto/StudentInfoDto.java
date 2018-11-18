@@ -109,4 +109,14 @@ public class StudentInfoDto implements Serializable {
     public void setAge(String age) {
         this.age = age;
     }
+
+	@Override
+	public String toString() {
+		return "StudentInfoDto [uid=" + uid + ", head=" + head + ", schoolid=" + schoolid + ", sex=" + sex + ", name="
+				+ name + ", nickname=" + nickname + ", school_name=" + school_name + ", calnzz=" + calnzz
+				+ ", clanzzName=" + clanzzName + ", age=" + age + ", tatDtos=" + tatDtos + ", guardianDtos="
+				+ guardianDtos + "]";
+	}
+    
+    
 }

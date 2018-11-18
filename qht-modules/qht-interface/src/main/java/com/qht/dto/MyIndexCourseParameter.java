@@ -1,8 +1,10 @@
 package com.qht.dto;
 
+import org.joda.time.DateTime;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
+
 
 public class MyIndexCourseParameter implements Serializable {
 
@@ -10,9 +12,40 @@ public class MyIndexCourseParameter implements Serializable {
 
     private String course_type_id;
 
-    private String okg_subject_id;
+    private String play_type_id;
 
-    private String now_time;
+    public String getPlay_type_id() {
+		return play_type_id;
+	}
+
+	public void setPlay_type_id(String play_type_id) {
+		this.play_type_id = play_type_id;
+	}
+
+    public String getPkg_subject_id() {
+		return pkg_subject_id;
+	}
+
+	public void setPkg_subject_id(String pkg_subject_id) {
+		this.pkg_subject_id = pkg_subject_id;
+	}
+
+	@Override
+    public String toString() {
+        return "MyIndexCourseParameter{" +
+                "uid='" + uid + '\'' +
+                ", course_type_id='" + course_type_id + '\'' +
+                ", pkg_subject_='" + pkg_subject_id+ '\'' +
+                ", now_time='" + now_time + '\'' +
+                ", page='" + page + '\'' +
+                ", limit='" + limit + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                '}';
+    }
+
+    private String pkg_subject_id;
+
+    private String now_time= DateTime.now().toString("yyyy-MM-dd");
     private String  page="1";
     private String limit="10";
 
@@ -22,19 +55,6 @@ public class MyIndexCourseParameter implements Serializable {
 
     public void setTenant_id(String tenant_id) {
         this.tenant_id = tenant_id;
-    }
-
-    @Override
-    public String toString() {
-        return "MyIndexCourseParameter{" +
-                "uid='" + uid + '\'' +
-                ", course_type_id='" + course_type_id + '\'' +
-                ", okg_subject_id='" + okg_subject_id + '\'' +
-                ", now_time='" + now_time + '\'' +
-                ", page='" + page + '\'' +
-                ", limit='" + limit + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                '}';
     }
 
     private String tenant_id;
@@ -53,14 +73,6 @@ public class MyIndexCourseParameter implements Serializable {
 
     public void setCourse_type_id(String course_type_id) {
         this.course_type_id = course_type_id;
-    }
-
-    public String getOkg_subject_id() {
-        return okg_subject_id;
-    }
-
-    public void setOkg_subject_id(String okg_subject_id) {
-        this.okg_subject_id = okg_subject_id;
     }
 
     public String getNow_time() {
@@ -85,6 +97,11 @@ public class MyIndexCourseParameter implements Serializable {
 
     public void setLimit(String limit) {
         this.limit = limit;
+    }
+    public static void main(String[] args){
+        MyIndexCourseParameter a=new MyIndexCourseParameter();
+        a.setNow_time("2018-11-15");
+        System.out.println(a.getNow_time());
     }
 
 }

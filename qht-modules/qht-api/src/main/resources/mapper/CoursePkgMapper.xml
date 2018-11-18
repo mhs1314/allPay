@@ -19,5 +19,138 @@
         <result property="content" column="content"/>
         <result property="cover" column="cover"/>
     </resultMap>
-
+    <select id="courseTypeList" resultType="com.qht.model.CoursePkgListModel" parameterType="com.qht.model.UidAndTenantIDParam">
+    	select uid ,name   from course_type where tenant_id=#{tenant_id}
+    </select>
+    <!-- app添加直播课程包 -->
+    <insert id="indexAddLCourse" parameterType="com.qht.model.InsertCoursePkgParam" >
+    INSERT INTO course_pkg (
+	uid,
+	teacher_id,
+	tenant_id,
+	course_type_id,
+	pkg_subject_id,
+	pkg_edition_id,
+	pkg_grade_id,
+	pkg_level_id,
+	pkg_name,
+	play_type_id,
+	min,
+	max,
+	content,
+	cover,
+	pkt_type_id,
+	open_range_id,
+	easy,
+	`status`,
+	creat_time
+)
+VALUES
+	(
+		#{uid},
+		#{teacher_id},
+		#{tenant_id},
+		#{course_type_id},
+		#{pkg_subject_id},
+		#{pkg_edition_id},
+		#{pkg_grade_id},
+		#{pkg_level_id},
+		#{pkg_name},
+		#{play_type_id},
+		#{min},
+		#{max},
+		#{content},
+		#{cover},
+		#{pkt_type_id},
+		#{open_range_id},
+		#{easy},
+		#{status},
+		#{creat_time}
+	)
+    </insert>
+    <!-- 修改课程包 -->
+	<update id="appUpdateCoursePkgByid" parameterType="com.qht.model.InsertCoursePkgParam">
+		update course_pkg 
+	set	teacher_id=#{teacher_id},
+	set tenant_id=#{tenant_id},
+	set course_type_id=#{course_type_id},
+	set pkg_subject_id=#{pkg_subject_id},
+	set pkg_edition_id=#{pkg_edition_id},
+	set pkg_grade_id=#{pkg_grade_id},
+	set pkg_level_id=#{pkg_level_id},
+	set pkg_name=#{pkg_name},
+	set play_type_id=#{play_type_id},
+	set min=#{min},
+	set max=#{max},
+	set content=#{content},
+	set cover=#{cover}
+	where uid=#{uid}
+	</update>
+    
+    <!-- 教师|端首页-我的课程-详情介绍 -->
+    <select id="selectIndexMyCourseDetails" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.IndexMyCourseDetailsModel">
+    	select p.uid,cp.play_type_id,p.name,p.video_file,p.begin,cp.content 
+    	from course_pkg cp left join chapter c on c.course_id=cp.uid 
+    	left join period p on p.chapter_id=c.uid 
+    	where cp.uid=#{uid} and tenant_id=#{tenant_id}
+    </select>
+    <resultMap id="selectCourseChapterAndPeriod" type="com.qht.model.CourseChapterModel">
+    	<result property="uid" column="uid"/>
+    	<result property="name" column="name"/>
+    	<collection property="period" ofType="com.qht.model.ClassModel">
+            <result property="pid" column="pid"/>
+            <result property="period_name" column="period_name"/>
+            <result property="video_file" column="video_file"/>
+            <result property="begin" column="begin"/>
+        </collection>
+    </resultMap>
+    <!-- 课程详情-课程包体系y -->
+    <select id="selectCourseChapter" parameterType="com.qht.model.UidAndTenantIDParam" >
+    	select 
+    	c.uid,c.name,p.name as period_name,p.uid as pid,p.video_file,p.begin 
+    	from course_pkg cp 
+    	inner join chapter c on cp.uid=c.course_id 
+    	inner join period p on p.chapter_id=c.uid 
+    	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
+    </select>
+    <!-- 课程包章节课时信息resultMap1 -->
+    <resultMap type="com.qht.model.SelectPkgModel" id="pkg">
+	    <id column="uid" property="uid"/>
+	    <result column="pkg_name" property="pkg_name"/>
+	    <collection property="chapter" javaType="com.qht.model.SelectChModel" resultMap="ch" >
+	    </collection>
+    </resultMap>
+      <!-- 课程包章节课时信息resultMap2 -->
+     <resultMap type="com.qht.model.SelectChModel" id="ch">
+	    <id column="c_id" property="c_id"/>
+	    <result column="name" property="name"/>
+	    <collection property="period" javaType="com.qht.model.SelectPerModel" resultMap="per" >
+	    </collection>
+    </resultMap>
+      <!-- 课程包章节课时信息resultMap3 -->
+    <resultMap type="com.qht.model.SelectPerModel" id="per">
+	    <id column="pid" property="pid"/>
+	    <result column="period_name" property="period_name"/>
+	  	<result column="video_file" property="video_file"/> 	
+	  	<result column="begin" property="begin"/> 
+    </resultMap>
+      
+    <!-- 课程包章节课时信息 -->
+    <select id="selectPkgChPer" resultMap="pkg" parameterType="com.qht.model.UidAndTenantIDParam">
+    	SELECT
+			c.uid AS uid,
+			c.pkg_name AS pkg_name,
+			cr.uid AS c_id,
+			cr.`name` AS name,
+			p.uid AS pid,
+			p.`name` AS period_name,
+			p.video_file,
+			p.`begin`
+		FROM
+			course_pkg c
+		LEFT  JOIN teacher t on c.uid=c.teacher_id
+		left  JOIN chapter cr ON cr.course_id = c.uid
+		LEFT JOIN period p ON p.chapter_id = p.chapter_id
+		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
+    </select>
 </mapper>

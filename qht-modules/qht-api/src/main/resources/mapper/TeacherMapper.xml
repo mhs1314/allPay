@@ -11,8 +11,7 @@
         <result property="nickname" column="nickname"/>
         <result property="head" column="head"/>
         <result property="sex" column="sex"/>
-        <result property="age" column="age"/>
-        <result property="school" column="school"/>
+        <result property="age" column="age"/>       
         <result property="clazz" column="clazz"/>
         <result property="mobile" column="mobile"/>
         <result property="cert" column="cert"/>
@@ -29,7 +28,165 @@
     
     <!--登陆查询学生信息-->
     <select id="teacherLogin" resultType="com.qht.dto.TeacherDto">
-        select uid,nickname,tenant_id as tenantId,school_id as schoolId from teacher where account=#{account} and password=#{password}
+        SELECT
+	uid,
+	nickname,
+	tenant_id AS tenant_id,
+	school_id AS schoolId,
+	`name`,
+	`account`
+FROM
+	teacher
+WHERE
+	account = #{account} and password=#{password}
+    </select>
+    <!--名师详细基本信息-->
+    <select id="teacherDetails" resultType="com.qht.model.TeacherDetailsModel">
+        SELECT
+	t.uid AS uid,
+	t.intr as intr,
+	AVG(l.comments_star) AS integral,
+	sc.school_name as school_name,
+	ps.`name`  as subject_name,
+	t.nickname AS nickname,
+	t.back_img AS back_img,
+	t.praise_number AS praise_number
+FROM
+	teacher t
+LEFT JOIN pkg_subject p ON t.subject_id = p.uid
+LEFT JOIN lecturer_evaluation l ON t.uid = l.teacher_id
+LEFT JOIN school sc   on t.school_id=sc.uid
+LEFT JOIN pkg_subject ps ON t.subject_id=ps.uid
+where t.uid=#{uid} and t.tenant_id=#{tid}
+GROUP BY t.uid
+
+    </select>
+    <!--名师详细所有课程包-->
+    <select id="appTeacherCourseDto" resultType="com.qht.model.AppTeacherCourseModel">
+ SELECT
+	c.cover as cover ,
+	c.uid as uid,
+	c.pkg_name as pkg_name,
+	c.apply_number as apply_number,
+	AVG( p.comments_star) as comments_star,
+	SUM(p.praise_number) as praise_number,
+	c.total_price
+FROM
+	course_pkg c
+inner JOIN period_evaluation p ON c.uid=p.course_id
+inner JOIN teacher t  on c.teacher_id=t.uid
+where t.uid=#{uid} and t.tenant_id=#{tid}
+GROUP BY c.uid
+
+    </select>
+
+    <select id="teacherEvaluation" resultType="com.qht.model.AppTeacherEvaluationModel">
+      SELECT
+	s.head as head,
+	l.uid as uid,
+	l.comments_star,
+	s.`name` as name,
+	pd.`name` as period_name,
+	l.time as time ,
+	l.content as content
+FROM
+	student s
+LEFT JOIN lecturer_evaluation l ON s.uid = l.student_id
+LEFT JOIN teacher t ON l.teacher_id = t.uid
+LEFT JOIN period_evaluation pev ON t.uid = pev.student_id
+LEFT JOIN period pd ON pev.period_id = pd.uid
+where t.uid=#{uid} and t.tenant_id=#{tid}
+        
+            <if test="eval==1">
+          and  l.comments_star &lt;4
+            </if>
+            <if test="eval==2">
+                and  l.comments_star &gt;=4 and l.comments_star &lt;8
+            </if>
+            <if test="eval==3">
+                and  l.comments_star &gt;=8
+            </if>
+     
+    </select>
+
+    <!--教师|端首页我的课程-->
+    <select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
+        select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.chapter_name,p.video_file,p.begin
+        from course_pkg cp left join chapter c on cp.uid=c.course_id
+        left join period p on p.chapter_id=c.uid
+        where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id}
+        <if test="play_type_id!=null and play_type_id !=''">
+            and cp.play_type_id=#{play_type_id}
+        </if>
+        <if test="course_type_id!=null and course_type_id !=''">
+            and cp.course_type_id=#{course_type_id}
+        </if>
+        <if test="pkg_subject_id !=null and pkg_subject_id !=''">
+            and cp.pkg_subject_id=#{pkg_subject_id}
+        </if>
+        <if test="now_time!=null and now_time!=''">
+            and c.bgin like CONCAT(#{now_time},'%')
+        </if>
+    </select>
+
+    <!--教师端首页我的课程包-->
+    <select id="selectIndexMyCourseList" resultType="com.qht.model.IndexMyCourseModel" parameterType="com.qht.model.IndexMyCourseParam">
+        select
+        cp.cover,pl.name as course_type_name,cp.uid,cp.pkg_name,cp.create_time,cp.pkg_level_id
+        from course_pkg cp left join pkg_level pl on cp.course_type_id=pl.uid
+        where cp.tenant_id=#{tenant_id} and cp.teacher_id=#{uid}
+        <if test="course_type_id!=null and course_type_id!=''">
+            cp.course_type_id=#{course_type_id}
+        </if>
+    </select>
+
+    <!-- 教师端首页课程答疑列表 -->
+    <select id="selectIndexCourseAnswer" parameterType="com.qht.model.IndexCourseAnswerParam" resultType="com.qht.model.IndexCourseAnswerModel">
+    	select 
+    		a.answer_file_name,
+    		a.answer_time,
+    		ca.question,
+    		c.name as chapter_name,
+    		p.video_file,
+    		a.answer_file_url,
+    		ca.question_attach,
+    		s.head,
+    		a.uid,
+    		cp.pkg_name,
+    		ca.question_url,
+    		a.answer,
+    		s.nickname,
+    		p.name,
+    		p.begin,
+    		t.nickname as teacher_nickname 
+    	from answer a 
+	    	left join course_ask ca on a.ask_id=ca.uid 
+	    	left join period p on p.uid=a.period_id 
+	    	left join chapter c on c.uid=p.chapter_id 
+	    	left join course_pkg cp on cp.uid=c.course_id 
+	    	left join student s on s.uid=a.student_id 
+	    	left join teacher t on t.uid=cp.teacher_id 
+	    where 
+	    	t.uid=#{uid} and a.tenant_id=#{tenant_id} 
+	    	<if test="answer!=null and answer!=''">
+	    		<if test="answer=='1'">
+	    			and a.type=1
+	    		</if>
+	    		<if test="answer=='2'">
+	    			and a.type=2
+	    		</if>
+	    	</if>
+    </select>
+    
+    <!-- 教师端首页-我的消息 -->
+    <select id="selectIndexMessage" resultType="com.qht.model.IndexMessageModel" parameterType="com.qht.model.IndexMessageParam">
+    	select s.head,m.uid,m.isread,s.nickname,m.content 
+    	from message m 
+    		left join student s on m.from_id=s.uid 
+    	where m.to_id=#{uid} and tenant_id=#{tenant_id} 
+    	<if test="isread !=null and isread !=''">
+    		m.isread=${isread}
+    	</if>
     </select>
 
 </mapper>

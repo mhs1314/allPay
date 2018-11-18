@@ -63,4 +63,12 @@ public class IndexFutureCoruseDto  implements Serializable {
     public void setApply_number(String apply_number) {
         this.apply_number = apply_number;
     }
+
+	@Override
+	public String toString() {
+		return "IndexFutureCoruseDto [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", nickname="
+				+ nickname + ", subject_name=" + subject_name + ", apply_number=" + apply_number + "]";
+	}
+    
+    
 }

@@ -15,6 +15,11 @@ public class TopTeacherListParameter implements Serializable {
 
     private String tenant_id;
 
+    private String  page="1";
+
+
+    private String limit="10";
+
     public String getTenant_id() {
         return tenant_id;
     }
@@ -52,10 +57,6 @@ public class TopTeacherListParameter implements Serializable {
         this.limit = limit;
     }
 
-    private String  page="1";
-
-
-    private String limit="10";
 
 
     public String getPkg_subject_id() {

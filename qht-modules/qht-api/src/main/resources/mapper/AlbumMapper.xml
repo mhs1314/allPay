@@ -8,7 +8,7 @@
         <result property="uid" column="uid"/>
         <result property="tenantId" column="tenant_id"/>
         <result property="album" column="album"/>
-        <result property="`index`" column="`index`"/>
+        <result property="index" column="`index`"/>
     </resultMap>
 
 </mapper>
