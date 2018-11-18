@@ -270,7 +270,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		InsertCoursePkgParam param=new InsertCoursePkgParam();
 		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
 		BeanUtil.copyFields(param, requestObject.getData());
-		param.setUid(IdGenUtil.getUid("ss"));
+		param.setUid(IdGenUtil.getUid("KP"));
 		param.setEasy(easy);
 		param.setStatus("1");
 		param.setCreat_time(new Date());
@@ -302,7 +302,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		}
 		AppInsertChapterParam param=new AppInsertChapterParam();
 		BeanUtil.copyFields(param, requestObject.getData());
-		
+		param.setUid(IdGenUtil.getUid("ZJ"));
 		Integer result = chapterBiz.appInsertChapter(param);
 		if(result==null||result<=0) {
 			ResultObject<Void> robj=new ResultObject<>();
