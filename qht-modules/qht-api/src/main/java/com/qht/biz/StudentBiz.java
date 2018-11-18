@@ -412,13 +412,10 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 学生端-个人中心--首页--我的收藏列表--取消收藏
-     * @param uid
-     * @param student_id
-     * @param tenant_id
      */
-    public Integer updateMyIndexCancelcollect(String uid, String student_id, String tenant_id) {
+    public Integer updateMyIndexCancelcollect(MyIndexCanceCollectParam param) {
 
-        Integer num=studentMapper.updateMyIndexCancelcollect(uid,student_id,tenant_id);
+        Integer num=studentMapper.updateMyIndexCancelcollect(param);
         return num;
     }
 

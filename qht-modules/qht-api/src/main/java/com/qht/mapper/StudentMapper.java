@@ -303,11 +303,8 @@ public interface StudentMapper extends Mapper<Student> {
 
     /**
      * 学生端-个人中心--首页--我的收藏列表--取消收藏
-     * @param uid
-     * @param student_id
-     * @param tenant_id
      */
-    Integer updateMyIndexCancelcollect(@Param("uid") String uid, @Param("student_id") String student_id, @Param("tenant_id") String tenant_id);
+    Integer updateMyIndexCancelcollect(MyIndexCanceCollectParam param);
 
     /**
      * app我的课程答疑
