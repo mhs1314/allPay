@@ -844,13 +844,20 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @ResponseBody
 
     public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<MyIndexCanceCollectParameter> requestObject) {
-    	MyIndexCanceCollectParam param=new MyIndexCanceCollectParam();
-    	BeanUtil.copyFields(param, requestObject.getData());
         ResultObject<Void> resultObject=new ResultObject<>();
-        String uid =param.getUid();
-
-        String student_id =param.getStudent_id();
-        Integer updateLine=studentBiz.updateMyIndexCancelcollect(uid,student_id,getTenantId());
+    	MyIndexCanceCollectParam param=new MyIndexCanceCollectParam();
+        if(requestObject.getData()==null){
+            resultObject.setMsg("失败");
+            resultObject.setCode("1");
+            return resultObject;
+        }
+        BeanUtil.copyFields(param, requestObject.getData());
+        Integer updateLine=studentBiz.updateMyIndexCancelcollect(param);
+        if(updateLine<1){
+            resultObject.setMsg("取消失败");
+            resultObject.setCode("1");
+            return resultObject;
+        }
         resultObject.setCode("0");
         resultObject.setMsg("取消成功");
         return resultObject;

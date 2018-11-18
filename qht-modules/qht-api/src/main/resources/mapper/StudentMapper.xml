@@ -930,9 +930,8 @@ WHERE
     </select>
 
     <!--取消收藏-->
-    <update id="updateMyIndexCancelcollect">
-
-        update collect set is_collect='2' where uid=#{uid} and student_id=#{student_id} and tenant_id=#{tenant_id}
+    <update id="updateMyIndexCancelcollect" parameterType="com.qht.model.MyIndexCanceCollectParam">
+        update collect set is_collect=2 where uid=#{uid} and student_id=#{student_id} and tenant_id=#{tenant_id}
     </update>
 
     <!--app我的课程答疑-->
