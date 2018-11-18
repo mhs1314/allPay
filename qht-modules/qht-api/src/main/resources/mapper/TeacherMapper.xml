@@ -129,6 +129,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         </if>
     </select>
 
+
     <!--教师端首页我的课程包-->
     <select id="selectIndexMyCourseList" resultType="com.qht.model.IndexMyCourseModel" parameterType="com.qht.model.IndexMyCourseParam">
         select
