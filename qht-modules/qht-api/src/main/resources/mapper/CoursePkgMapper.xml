@@ -117,6 +117,7 @@ VALUES
     <resultMap type="com.qht.model.SelectPkgModel" id="pkg">
 	    <id column="uid" property="uid"/>
 	    <result column="pkg_name" property="pkg_name"/>
+	     <result column="play_type_id" property="play_type_id"/>
 	    <collection property="chapter" javaType="com.qht.model.SelectChModel" resultMap="ch" >
 	    </collection>
     </resultMap>
@@ -149,9 +150,9 @@ VALUES
 			p.`begin`
 		FROM
 			course_pkg c
-		LEFT  JOIN teacher t on c.uid=c.teacher_id
-		left  JOIN chapter cr ON cr.course_id = c.uid
-		LEFT JOIN period p ON p.chapter_id = p.chapter_id
+		LEFT   JOIN teacher t on c.uid=c.teacher_id
+		inner   JOIN chapter cr ON cr.course_id = c.uid
+		inner JOIN period p ON p.chapter_id = p.chapter_id
 		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
     </select>
 </mapper>
