@@ -19,9 +19,9 @@ public class CourseListParameter implements Serializable {
     private String play_type_id;
 
     private String tenant_id;
-    private String limit;
+    private String limit="10";
     //当前页
-    private String page;
+    private String page="0";
 
 
     public String getIs_goods() {
