@@ -10,6 +10,6 @@
         <result property="name" column="name"/>
     </resultMap>
 	<select id="selectPkgLevelAll" resultType="com.qht.model.SelectPkgLevelAllModel" parameterType="com.qht.model.UidAndTenantIDParam">
-	select uid ,name as class_name from open_range where tenant_id=#{tenant_id}
+	select uid ,name as class_name from pkg_level where tenant_id=#{tenant_id}
 	</select>
 </mapper>
