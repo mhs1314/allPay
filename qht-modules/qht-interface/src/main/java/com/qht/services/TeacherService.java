@@ -4,7 +4,6 @@ import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.dto.*;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -36,20 +35,6 @@ public interface TeacherService {
 	 * @return
 	 */
 	public ResultObject<List<IndexMyCourseListDto>> indexMyCourseList(@RequestBody RequestObject<IndexMyCourseListParameter> requestObject);
-
-	/**
-	 * 教师端首页--添加录播课程包
-	 * @param requestObject
-	 * @return
-	 */
-	public ResultObject<Void> indexAddLcourse(@RequestBody RequestObject<IndexAddLcourseParameter> requestObject);
-	
-	/**
-	 * 教师端首页--添加直播课程包
-	 * @param requestObject
-	 * @return
-	 */
-	public ResultObject<Void> indexAddZcourse(@RequestBody RequestObject<IndexAddZcourseParameter> requestObject);
 	
 	/**
 	 * 教师端首页--课程答疑列表

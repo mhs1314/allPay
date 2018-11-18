@@ -1,15 +1,12 @@
 package com.qht.biz;
 
-import com.qht.model.*;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.dto.TeacherDto;
 import com.qht.entity.Teacher;
-import com.qht.mapper.StudentMapper;
 import com.qht.mapper.TeacherMapper;
+import com.qht.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -81,37 +78,6 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
     public List<IndexMyCourseListModel> selectIndexMyCourseList(IndexMyCourseListParam data) {
         return teacherMapper.selectIndexMyCourseList(data);
     }
-
-    /**
-     * 教师端首页--添加录播课程包
-     * @param data
-     * @return
-     */
-    public Integer insertIndexAddLcourse(IndexAddLcourseParam data) {
-        return teacherMapper.insertIndexAddLcourse(data);
-    }
-    public Integer insertChapter(IndexAddLcourseParam data) {
-        return teacherMapper.insertChapter(data);
-    }
-    public Integer insertPeriod(IndexAddLcourseParam data) {
-        return teacherMapper.insertPeriod(data);
-    }
-    /**
-     * 教师端首页--添加直播课程包
-     * @param param
-     * @return
-     */
-	public Integer insertIndexAddZcourse(IndexAddZcourseParam param) {
-		
-		return teacherMapper.insertIndexAddZcourse(param);
-	}
-	public Integer insertChapterZ(IndexAddZcourseParam param) {
-
-		return teacherMapper.insertChapterZ(param);
-	}
-	public Integer insertPeriodZ(IndexAddZcourseParam param) {
-		return teacherMapper.insertPeriodZ(param);
-	}
 	
 	/**
 	 * 教师端首页--课程答疑列表
