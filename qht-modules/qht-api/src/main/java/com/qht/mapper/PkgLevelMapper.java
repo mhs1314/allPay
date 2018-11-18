@@ -25,11 +25,12 @@ public interface PkgLevelMapper extends Mapper<PkgLevel> {
 	 * @param param
 	 * @return
 	 */
+	 
 	List<SelectPkgLevelAllModel> selectPkgLevelAll(UidAndTenantIDParam param);
 	
 	/**
 	 * 查询积分
 	 */
-	String selectValue(String uid);
+	Integer selectValue(String uid);
 	
 }

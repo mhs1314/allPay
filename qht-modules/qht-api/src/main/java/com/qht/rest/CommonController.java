@@ -1,6 +1,7 @@
 package com.qht.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.auth.util.RequestContextUtil;
+import com.qht.biz.ChapterBiz;
 import com.qht.biz.CoursePkgBiz;
 import com.qht.biz.OpenRangeBiz;
 import com.qht.biz.PkgEditionBiz;
@@ -20,17 +22,22 @@ import com.qht.biz.PkgGradeBiz;
 import com.qht.biz.PkgLevelBiz;
 import com.qht.biz.PkgSubjectBiz;
 import com.qht.common.util.BeanUtil;
+import com.qht.common.util.IdGenUtil;
+import com.qht.dto.AppInsertChapterParameter;
 import com.qht.dto.AppMyStudentGuardianDto;
 import com.qht.dto.CoursePkgListDto;
 import com.qht.dto.GradetListDto;
+import com.qht.dto.InsertCoursePkgParameter;
 import com.qht.dto.PkgSubjectListDto;
 import com.qht.dto.SelectOpenRangeAllDto;
 import com.qht.dto.SelectPkgEditionAllDto;
 import com.qht.dto.SelectPkgLevelAllDto;
 import com.qht.dto.UidAndTenantID;
 import com.qht.mapper.PkgEditionMapper;
+import com.qht.model.AppInsertChapterParam;
 import com.qht.model.CoursePkgListModel;
 import com.qht.model.GradetListModel;
+import com.qht.model.InsertCoursePkgParam;
 import com.qht.model.PkgSubjectListModel;
 import com.qht.model.SelectOpenRangeAllModel;
 import com.qht.model.SelectPkgEditionAllModel;
@@ -43,6 +50,8 @@ import com.qht.services.CommonService;
 public class CommonController implements CommonService {
 	@Autowired
 	private PkgSubjectBiz pkgSubjectBiz;
+    @Autowired
+    private ChapterBiz chapterBiz;
 	@Autowired
 	private PkgGradeBiz pkgGradeBiz;
 	@Autowired
@@ -267,6 +276,94 @@ public class CommonController implements CommonService {
 		resultObj.setMsg("成功");
 		resultObj.setData(list);
 		return resultObj;
+	}
+	/**
+	 * app添加课程包
+	 */
+	@Override
+	@PostMapping("common/appIndexAddLCourse")
+    @ResponseBody
+	public ResultObject<Void> appIndexAddLCourse(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
+		if(requestObject.getData()==null) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("没有参数");
+			robj.setCode("1");
+		}
+		
+		InsertCoursePkgParam param=new InsertCoursePkgParam();
+		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
+		BeanUtil.copyFields(param, requestObject.getData());
+		param.setUid(IdGenUtil.getUid("ss"));
+		param.setEasy(easy);
+		param.setStatus("1");
+		param.setCreat_time(new Date());
+		Integer result = coursePkgBiz.indexAddLCourse(param);
+		if(result==null||result<=0) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("添加失败");
+			robj.setCode("1");
+		}
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("添加成功");
+			robj.setCode("0");
+			return robj;
+	}
+	/**
+	 * app添加章节
+	 */
+	@Override
+	@PostMapping("common/indexAddLCourse")
+    @ResponseBody
+	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject) {
+		if(requestObject.getData()==null) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("没有参数");
+			robj.setCode("1");
+		}
+		AppInsertChapterParam param=new AppInsertChapterParam();
+		BeanUtil.copyFields(param, requestObject.getData());
+		
+		Integer result = chapterBiz.appInsertChapter(param);
+		if(result==null||result<=0) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("添加失败");
+			robj.setCode("1");
+		}
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("添加成功");
+			robj.setCode("0");
+			return robj;
+	}
+	/**
+	 * app修改课程包
+	 */
+	@Override
+	@PostMapping("common/indexEditLCourse")
+    @ResponseBody
+	public ResultObject<Void> appUpdateCoursePkgByid(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
+		if(requestObject.getData()==null) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("没有参数");
+			robj.setCode("1");
+		}
+		InsertCoursePkgParam param=new InsertCoursePkgParam();
+		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
+		BeanUtil.copyFields(param, requestObject.getData());
+		param.setEasy(easy);
+		param.setStatus("1");
+		param.setCreat_time(new Date());
+		Integer result = coursePkgBiz.appUpdateCoursePkgByid(param);
+		if(result==null||result<=0) {
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("修改失败");
+			robj.setCode("1");
+		}
+			ResultObject<Void> robj=new ResultObject<>();
+			robj.setMsg("修改成功");
+			robj.setCode("0");
+			return robj;
+	
+
 	}
 
 }

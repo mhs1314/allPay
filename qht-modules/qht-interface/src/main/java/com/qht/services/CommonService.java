@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.qht.RequestObject;
 import com.qht.ResultObject;
+import com.qht.dto.AppInsertChapterParameter;
 import com.qht.dto.CoursePkgListDto;
 import com.qht.dto.GradetListDto;
+import com.qht.dto.InsertCoursePkgParameter;
 import com.qht.dto.LoginInfoDto;
 import com.qht.dto.PkgSubjectListDto;
 import com.qht.dto.SelectOpenRangeAllDto;
@@ -68,4 +70,19 @@ public interface CommonService {
 	 * @return
 	 */
 	public ResultObject<List<SelectPkgLevelAllDto>> selectPkgLevelAll(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	
+	/**
+	 * app添加录播课程包
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<Void> appIndexAddLCourse(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject);
+	/**
+	 * app添加章节
+	 */
+	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject);
+	/**
+	 * 修改课程包
+	 */
+	public ResultObject<Void> appUpdateCoursePkgByid(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject);
 }

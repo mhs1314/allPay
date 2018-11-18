@@ -35,7 +35,7 @@ public class PkgLevelBiz extends BaseBiz<PkgLevelMapper,PkgLevel> {
 	/**
 	 * 查询积分
 	 */
-	public String selectValue(String uid) {
+	public Integer selectValue(String uid) {
 	return 	pkgLevelMapper.selectValue(uid);
 	}
 }

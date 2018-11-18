@@ -22,6 +22,7 @@ import com.qht.biz.MessageBiz;
 import com.qht.biz.PkgLevelBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
+import com.qht.common.util.IdGenUtil;
 import com.qht.entity.Teacher;
 import com.qht.mapper.CoursePkgMapper;
 
@@ -58,8 +59,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
     private TeacherBiz teacherBiz;
     @Autowired
     private CoursePkgBiz coursePkgBiz;
-    @Autowired
-    private ChapterBiz chapterBiz;
+
     @Autowired
     private MessageBiz messageBiz;
     @Autowired
@@ -209,61 +209,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		resultObject.setCode("0");
 		return resultObject;
 	}
-	/**
-	 * app添加课程包
-	 */
-	@Override
-	@PostMapping("/app/appIndexAddLCourse")
-    @ResponseBody
-	public ResultObject<Void> appIndexAddLCourse(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
-		if(requestObject.getData()==null) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("没有参数");
-			robj.setCode("1");
-		}
-		
-		InsertCoursePkgParam param=new InsertCoursePkgParam();
-		String easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
-		BeanUtil.copyFields(param, requestObject.getData());
-		param.setEasy(Integer.parseInt(easy));
-		param.setStatus("1");
-		param.setCreat_time(new Date());
-		Integer result = coursePkgBiz.indexAddLCourse(param);
-		if(result==null||result<=0) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加失败");
-			robj.setCode("1");
-		}
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加成功");
-			robj.setCode("0");
-			return robj;
-	}
-	/**
-	 * app添加章节
-	 */
-	@Override
-	@PostMapping("app/indexAddLCourse")
-    @ResponseBody
-	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject) {
-		if(requestObject.getData()==null) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("没有参数");
-			robj.setCode("1");
-		}
-		AppInsertChapterParam param=new AppInsertChapterParam();
-		BeanUtil.copyFields(param, requestObject.getData());
-		Integer result = chapterBiz.appInsertChapter(param);
-		if(result==null||result<=0) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加失败");
-			robj.setCode("1");
-		}
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("添加成功");
-			robj.setCode("0");
-			return robj;
-	}
+	
 
 	@Override
 	@PostMapping("indexMessage")
@@ -383,36 +329,5 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		return resultObject;
 	}
 	
-	/**
-	 * app修改课程包
-	 */
-	@Override
-	@PostMapping("app/indexEditLCourse")
-    @ResponseBody
-	public ResultObject<Void> appUpdateCoursePkgByid(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject) {
-		if(requestObject.getData()==null) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("没有参数");
-			robj.setCode("1");
-		}
-		InsertCoursePkgParam param=new InsertCoursePkgParam();
-		String easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
-		BeanUtil.copyFields(param, requestObject.getData());
-		param.setEasy(Integer.parseInt(easy));
-		param.setStatus("1");
-		param.setCreat_time(new Date());
-		Integer result = coursePkgBiz.appUpdateCoursePkgByid(param);
-		if(result==null||result<=0) {
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("修改失败");
-			robj.setCode("1");
-		}
-			ResultObject<Void> robj=new ResultObject<>();
-			robj.setMsg("修改成功");
-			robj.setCode("0");
-			return robj;
 	
-
-	}
-
 }

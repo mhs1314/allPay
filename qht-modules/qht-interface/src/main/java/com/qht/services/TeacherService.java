@@ -90,21 +90,7 @@ public interface TeacherService {
 	 * @return
 	 */
 	public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<UidAndTenantID> requestObject);
-	
-		/**
-	 * app添加录播课程包
-	 * @param requestObject
-	 * @return
-	 */
-	public ResultObject<Void> appIndexAddLCourse(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject);
-	/**
-	 * app添加章节
-	 */
-	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject);
-	/**
-	 * 修改课程包
-	 */
-	public ResultObject<Void> appUpdateCoursePkgByid(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject);
+
 
 
 	
