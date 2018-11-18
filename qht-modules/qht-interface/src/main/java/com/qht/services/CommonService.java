@@ -13,6 +13,7 @@ import com.qht.dto.InsertCoursePkgParameter;
 import com.qht.dto.LoginInfoDto;
 import com.qht.dto.PkgSubjectListDto;
 import com.qht.dto.SelectOpenRangeAllDto;
+import com.qht.dto.SelectPkgDto;
 import com.qht.dto.SelectPkgEditionAllDto;
 import com.qht.dto.SelectPkgLevelAllDto;
 import com.qht.dto.StudentDto;
@@ -71,18 +72,5 @@ public interface CommonService {
 	 */
 	public ResultObject<List<SelectPkgLevelAllDto>> selectPkgLevelAll(@RequestBody RequestObject<UidAndTenantID> requestObject);
 	
-	/**
-	 * app添加录播课程包
-	 * @param requestObject
-	 * @return
-	 */
-	public ResultObject<Void> appIndexAddLCourse(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject);
-	/**
-	 * app添加章节
-	 */
-	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject);
-	/**
-	 * 修改课程包
-	 */
-	public ResultObject<Void> appUpdateCoursePkgByid(@RequestBody RequestObject<InsertCoursePkgParameter> requestObject);
+	
 }
