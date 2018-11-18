@@ -69,7 +69,7 @@ public class PostUtil {
     
 	public static void main(String[] args) {
 		String url = "http://139.159.198.250:8768/uid/idLeafKey";
-		String param = "{\"data\":\"order\"}";
+		String param = "{\"data\":\"orderww\"}";
 		String result = sendPost(url,param);
 		System.out.println(result);
 	}
