@@ -2,41 +2,22 @@ package com.qht.rest;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
-import com.qht.biz.ChapterBiz;
-import com.qht.biz.CoursePkgBiz;
-import com.qht.biz.MessageBiz;
-import com.qht.biz.PeriodBiz;
-import com.qht.biz.TeacherBiz;
+import com.qht.biz.*;
 import com.qht.common.util.BeanUtil;
+import com.qht.common.util.IdGenUtil;
 import com.qht.dto.*;
 import com.qht.dto.CourseChapterDto;
 import com.qht.entity.Teacher;
 import com.qht.model.*;
 import com.qht.services.TeacherService;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.qht.biz.ChapterBiz;
-
-import com.qht.biz.CoursePkgBiz;
-import com.qht.biz.MessageBiz;
-import com.qht.biz.PkgLevelBiz;
-import com.qht.biz.TeacherBiz;
-import com.qht.common.util.BeanUtil;
-import com.qht.common.util.IdGenUtil;
-import com.qht.entity.Teacher;
-import com.qht.mapper.CoursePkgMapper;
-
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,7 +35,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
     private PeriodBiz periodBiz;
     @Autowired
     private ChapterBiz chapterBiz;
-
+	@Autowired
     private MessageBiz messageBiz;
     @Autowired
     private PkgLevelBiz pkgLevelBiz;
