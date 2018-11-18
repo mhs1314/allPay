@@ -254,7 +254,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		param.setUid(IdGenUtil.getUid("KP"));
 		param.setEasy(easy);
 		param.setStatus("1");
-		param.setCreat_time(new Date());
+		param.setCreate_time(new Date());
 		Integer result = coursePkgBiz.indexAddLCourse(param);
 		if(result==null||result<=0) {
 			ResultObject<Void> robj=new ResultObject<>();
@@ -312,7 +312,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		BeanUtil.copyFields(param, requestObject.getData());
 		param.setEasy(easy);
 		param.setStatus("1");
-		param.setCreat_time(new Date());
+		param.setCreate_time(new Date());
 		Integer result = coursePkgBiz.appUpdateCoursePkgByid(param);
 		if(result==null||result<=0) {
 			ResultObject<Void> robj=new ResultObject<>();

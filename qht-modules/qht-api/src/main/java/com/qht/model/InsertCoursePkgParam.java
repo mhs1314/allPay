@@ -41,7 +41,41 @@ public class InsertCoursePkgParam implements Serializable {
 	//状态
 	private String status;
 	//创建时间
-	private Date creat_time;
+	private Date create_time;
+
+	public Date getCreate_time() {
+		return create_time;
+	}
+
+	public void setCreate_time(Date create_time) {
+		this.create_time = create_time;
+	}
+
+	@Override
+	public String toString() {
+		return "InsertCoursePkgParam{" +
+				"uid='" + uid + '\'' +
+				", teacher_id='" + teacher_id + '\'' +
+				", tenant_id='" + tenant_id + '\'' +
+				", course_type_id='" + course_type_id + '\'' +
+				", pkg_subject_id='" + pkg_subject_id + '\'' +
+				", pkg_edition_id='" + pkg_edition_id + '\'' +
+				", pkg_grade_id='" + pkg_grade_id + '\'' +
+				", pkg_level_id='" + pkg_level_id + '\'' +
+				", pkg_name='" + pkg_name + '\'' +
+				", play_type_id='" + play_type_id + '\'' +
+				", min='" + min + '\'' +
+				", max='" + max + '\'' +
+				", content='" + content + '\'' +
+				", cover='" + cover + '\'' +
+				", pkt_type_id='" + pkt_type_id + '\'' +
+				", open_range_id='" + open_range_id + '\'' +
+				", easy=" + easy +
+				", status='" + status + '\'' +
+				", create_time=" + create_time +
+				'}';
+	}
+
 	public String getUid() {
 		return uid;
 	}
@@ -149,12 +183,6 @@ public class InsertCoursePkgParam implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public Date getCreat_time() {
-		return creat_time;
-	}
-	public void setCreat_time(Date creat_time) {
-		this.creat_time = creat_time;
 	}
 	
 

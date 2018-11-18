@@ -80,7 +80,7 @@ GROUP BY c.uid
 
     </select>
 
-    <select id="teacherEvaluation" resultType="com.qht.model.AppTeacherEvaluationModel">
+    <select id="teacherEvaluation" resultType="com.qht.model.AppTeacherEvaluationModel" >
       SELECT
 	s.head as head,
 	l.uid as uid,
@@ -180,7 +180,12 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     
     <!-- 教师端首页-我的消息 -->
     <select id="selectIndexMessage" resultType="com.qht.model.IndexMessageModel" parameterType="com.qht.model.IndexMessageParam">
-    	select s.head,m.uid,m.isread,s.nickname,m.content 
+    	select
+		s.head,
+		m.uid,
+		m.isread,
+		s.nickname,
+		m.content
     	from message m 
     		left join student s on m.from_id=s.uid 
     	where m.to_id=#{uid} and tenant_id=#{tenant_id} 
