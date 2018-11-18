@@ -9,5 +9,7 @@
         <result property="tenantId" column="tenant_id"/>
         <result property="name" column="name"/>
     </resultMap>
-
+	<select id="selectPkgEditionAll" resultType="com.qht.model.SelectPkgEditionAllModel" parameterType="com.qht.model.UidAndTenantIDParam">
+	select uid ,name from pkg_edition where tenant_id=#{tenant_id}
+	</select>
 </mapper>

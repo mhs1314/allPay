@@ -10,6 +10,9 @@ import com.qht.dto.CoursePkgListDto;
 import com.qht.dto.GradetListDto;
 import com.qht.dto.LoginInfoDto;
 import com.qht.dto.PkgSubjectListDto;
+import com.qht.dto.SelectOpenRangeAllDto;
+import com.qht.dto.SelectPkgEditionAllDto;
+import com.qht.dto.SelectPkgLevelAllDto;
 import com.qht.dto.StudentDto;
 import com.qht.dto.UidAndTenantID;
 
@@ -38,11 +41,31 @@ public interface CommonService {
 	public ResultObject<List<GradetListDto>> gradetList(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 	/**
-	 * 所有课程包
+	 * 所有课程类别
 	 * 
 	 * @param requestObject
 	 * @return
 	 */
 	public ResultObject<List<CoursePkgListDto>> courseTypeList(@RequestBody RequestObject<UidAndTenantID> requestObject);
-
+	/**
+	 * 所有课程版本
+	 * 
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<List<SelectPkgEditionAllDto>> pkgEditionAll(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	/**
+	 * 所有课程包范围
+	 * 
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<List<SelectOpenRangeAllDto>> selectOpenRangeAll(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	/**
+	 * 所有班级
+	 * 
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<List<SelectPkgLevelAllDto>> selectPkgLevelAll(@RequestBody RequestObject<UidAndTenantID> requestObject);
 }

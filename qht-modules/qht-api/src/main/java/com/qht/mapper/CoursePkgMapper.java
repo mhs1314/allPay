@@ -9,6 +9,7 @@ import com.qht.dto.CoursePkgListDto;
 import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
 import com.qht.model.CoursePkgListModel;
+import com.qht.model.InsertCoursePkgParam;
 import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -28,5 +29,15 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * @return
 	 */
 	List<CoursePkgListModel>courseTypeList(UidAndTenantIDParam ut);
+	/**
+	 * 添加课程包
+	 * @param param
+	 * @return
+	 */
+	Integer indexAddLCourse(InsertCoursePkgParam param);
+	/**
+	 * 修改课程包信息
+	 */
+	Integer appUpdateCoursePkgByid(InsertCoursePkgParam param);
 	
 }

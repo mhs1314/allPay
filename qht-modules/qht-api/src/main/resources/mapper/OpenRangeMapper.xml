@@ -9,5 +9,8 @@
         <result property="tenantId" column="tenant_id"/>
         <result property="name" column="name"/>
     </resultMap>
-
+    <!-- 所有范围 -->
+	<select id="selectOpenRangeAll" resultType="com.qht.model.SelectOpenRangeAllModel" parameterType="com.qht.model.UidAndTenantIDParam">
+		select uid ,name from open_range where tenant_id=#{tenant_id}
+	</select>
 </mapper>

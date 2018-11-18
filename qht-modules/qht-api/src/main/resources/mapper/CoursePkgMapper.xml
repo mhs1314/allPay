@@ -20,7 +20,70 @@
         <result property="cover" column="cover"/>
     </resultMap>
     <select id="courseTypeList" resultType="com.qht.model.CoursePkgListModel" parameterType="com.qht.model.UidAndTenantIDParam">
-    	select uid ,pkg_name   from course_pkg where tenant_id=#{tenant_id}
+    	select uid ,name   from course_type where tenant_id=#{tenant_id}
     </select>
-
+    <!-- app添加直播课程包 -->
+    <insert id="indexAddLCourse" parameterType="com.qht.model.InsertCoursePkgParam" >
+    INSERT INTO course_pkg (
+	uid,
+	teacher_id,
+	tenant_id,
+	course_type_id,
+	pkg_subject_id,
+	pkg_edition_id,
+	pkg_grade_id,
+	pkg_level_id,
+	pkg_name,
+	play_type_id,
+	min,
+	max,
+	content,
+	cover,
+	pkt_type_id,
+	open_range_id,
+	easy,
+	`status`,
+	creat_time
+)
+VALUES
+	(
+		#{uid},
+		#{teacher_id},
+		#{tenant_id},
+		#{course_type_id},
+		#{pkg_subject_id},
+		#{pkg_edition_id},
+		#{pkg_grade_id},
+		#{pkg_level_id},
+		#{pkg_name},
+		#{play_type_id},
+		#{min},
+		#{max},
+		#{content},
+		#{cover},
+		#{pkt_type_id},
+		#{open_range_id},
+		#{easy},
+		#{status},
+		#{creat_time}
+	)
+    </insert>
+    <!-- 修改课程包 -->
+	<update id="appUpdateCoursePkgByid" parameterType="com.qht.model.InsertCoursePkgParam">
+		update course_pkg 
+	set	teacher_id=#{teacher_id},
+	set tenant_id=#{tenant_id},
+	set course_type_id=#{course_type_id},
+	set pkg_subject_id=#{pkg_subject_id},
+	set pkg_edition_id=#{pkg_edition_id},
+	set pkg_grade_id=#{pkg_grade_id},
+	set pkg_level_id=#{pkg_level_id},
+	set pkg_name=#{pkg_name},
+	set play_type_id=#{play_type_id},
+	set min=#{min},
+	set max=#{max},
+	set content=#{content},
+	set cover=#{cover}
+	where uid=#{uid}
+	</update>
 </mapper>

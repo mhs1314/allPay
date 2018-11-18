@@ -12,6 +12,7 @@ import com.qht.entity.CoursePkg;
 import com.qht.mapper.CoursePkgMapper;
 import com.qht.mapper.StudentMapper;
 import com.qht.model.CoursePkgListModel;
+import com.qht.model.InsertCoursePkgParam;
 import com.qht.model.UidAndTenantIDParam;
 
 /**
@@ -31,5 +32,19 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 	 */
 	public List<CoursePkgListModel> courseTypeList(UidAndTenantIDParam ut){
 		return coursePkgMapper.courseTypeList(ut);
+	}
+	/**
+	 * 添加课程包
+	 * @param param
+	 * @return
+	 */
+	public Integer indexAddLCourse(InsertCoursePkgParam param) {
+		return coursePkgMapper.indexAddLCourse(param);
+	}
+	/**
+	 * 修改课程包信息
+	 */
+	public Integer appUpdateCoursePkgByid(InsertCoursePkgParam param) {
+		return coursePkgMapper.appUpdateCoursePkgByid(param);
 	}
 }
