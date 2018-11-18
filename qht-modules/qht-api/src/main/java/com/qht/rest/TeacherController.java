@@ -122,7 +122,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
         return resultObject;
     }
 
-}
+
 	@Override
 	@PostMapping("indexCourseAnswer")
     @ResponseBody
@@ -269,5 +269,4 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		return resultObject;
 	}
 	
-}
 }
