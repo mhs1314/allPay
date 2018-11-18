@@ -7,10 +7,20 @@ import java.util.List;
 public class SelectPkgDto implements Serializable {
 	private  String uid;
 	private String pkg_name;
+	private String play_type_id;
 	private List<SelectChDto> chapterDto=new ArrayList<>();
 	public String getUid() {
 		return uid;
 	}
+	
+	public String getPlay_type_id() {
+		return play_type_id;
+	}
+
+	public void setPlay_type_id(String play_type_id) {
+		this.play_type_id = play_type_id;
+	}
+
 	public void setUid(String uid) {
 		this.uid = uid;
 	}

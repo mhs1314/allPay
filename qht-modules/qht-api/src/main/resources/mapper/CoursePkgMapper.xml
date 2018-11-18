@@ -139,6 +139,7 @@ VALUES
     <select id="selectPkgChPer" resultMap="pkg" parameterType="com.qht.model.UidAndTenantIDParam">
     	SELECT
 			c.uid AS uid,
+			c.play_type_id,
 			c.pkg_name AS pkg_name,
 			cr.uid AS c_id,
 			cr.`name` AS name,
