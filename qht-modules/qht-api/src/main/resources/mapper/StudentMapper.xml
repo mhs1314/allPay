@@ -1080,4 +1080,12 @@ and s.tenant_id=#{tenant_id}
         INNER JOIN student   s    on i.student_id=s.uid
      where  s.uid=#{uid} and  s.tenant_id=#{tenant_id}
     </select>
+    <!---->
+    <select id="selectMyIndexCourseDetails" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.MyIndexCourseDetailsModel">
+        select p.uid,cp.play_type_id,p.name,p.video_file,p.begin,cp.content
+        from period p
+        left join chapter c on p.chapter_id=c.uid
+        left join course_pkg cp on cp.uid=c.course_id
+        where p.uid=#{uid} and p.tenant_id=#{tenant_id}
+    </select>
 </mapper>

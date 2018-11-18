@@ -1,14 +1,11 @@
 package com.qht.services;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.qht.RequestObject;
+import com.qht.ResultObject;
 import com.qht.dto.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.qht.RequestObject;
-import com.qht.ResultObject;
+import java.util.List;
 
 
 /**
@@ -368,5 +365,12 @@ public interface StudentService {
      * @return
      */
     public ResultObject<Void> myIndexCourseCelcollect(@RequestBody RequestObject<MyIndexCourseCelcollectParameter> requestObject);
+
+    /**
+     * 学生端-个人中心--首页--我的课时详情介绍
+     * @param requestObject
+     * @return
+     */
+    public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
 }
 

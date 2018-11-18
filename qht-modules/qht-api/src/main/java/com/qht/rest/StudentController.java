@@ -1,37 +1,32 @@
 
 package com.qht.rest;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.qht.dto.*;
-import com.qht.dto.CourseChapterDto;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
-import com.qht.auth.util.RequestContextUtil;
 import com.qht.biz.CollectBiz;
 import com.qht.biz.PeriodBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
+import com.qht.dto.*;
+import com.qht.dto.CourseChapterDto;
 import com.qht.entity.Student;
 import com.qht.model.*;
 import com.qht.services.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("student")
@@ -1324,6 +1319,30 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
 		return null;
 	}
+
+    @Override
+    public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(RequestObject<UidAndTenantID> requestObject) {
+        ResultObject<MyIndexCourseDetailsDto> resultObject=new ResultObject<>();
+        if(requestObject.getData()==null){
+            resultObject.setCode("1");
+            resultObject.setData(new MyIndexCourseDetailsDto());
+            return resultObject;
+        }
+        UidAndTenantIDParam param=new UidAndTenantIDParam();
+        BeanUtil.copyFields(param,requestObject.getData());
+        MyIndexCourseDetailsModel data=studentBiz.selectMyIndexCourseDetails(param);
+        if(data==null){
+            resultObject.setCode("1");
+            resultObject.setData(new MyIndexCourseDetailsDto());
+            return resultObject;
+        }
+        MyIndexCourseDetailsDto dto = new MyIndexCourseDetailsDto();
+        BeanUtil.copyFields(dto,data);
+        resultObject.setCode("0");
+        resultObject.setData(dto);
+        resultObject.setMsg("成功");
+        return resultObject;
+    }
 
 //    /**
 //     * 查看学生兴趣标签
