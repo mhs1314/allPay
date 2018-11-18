@@ -8,6 +8,7 @@ import com.qht.ResultObject;
 import com.qht.dto.*;
 import com.qht.services.TeacherService;
 
+import org.bouncycastle.crypto.modes.CCMBlockCipher;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,8 @@ import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
 import com.qht.entity.Teacher;
 import com.qht.mapper.CoursePkgMapper;
-import co
+
+import com.qht.model.AppInsertChapterParam;
 import com.qht.model.CourseChapterModel;
 import com.qht.model.IndexAddLcourseParam;
 import com.qht.model.IndexAddZcourseParam;
@@ -56,11 +58,9 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
     @Autowired
     private CoursePkgBiz coursePkgBiz;
     @Autowired
-    
+    private ChapterBiz chapterBiz;
     @Autowired
     private MessageBiz messageBiz;
-    @Autowired
-    private CoursePkgBiz coursePkgBiz;
 
     @Override
     public ResultObject<String> login(RequestObject<LoginInfoDto> rquest) {
@@ -257,7 +257,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 			robj.setMsg("添加成功");
 			robj.setCode("0");
 			return robj;
-	
+	}
 
 	@Override
 	@PostMapping("indexMessage")
@@ -376,7 +376,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		resultObject.setCode("0");
 		return resultObject;
 	}
-	}
+	
 	/**
 	 * app修改课程包
 	 */
