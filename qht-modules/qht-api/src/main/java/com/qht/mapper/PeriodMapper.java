@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.qht.entity.Period;
+import com.qht.model.CourseChapterModel;
 import com.qht.model.IndexMyCourseTableModel;
 import com.qht.model.IndexMyCourseTableParam;
+import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -26,5 +28,11 @@ public interface PeriodMapper extends Mapper<Period> {
 	 * @return
 	 */
 	List<IndexMyCourseTableModel>indexMycourseTable(IndexMyCourseTableParam param);
+	/**
+	 * 通过章节id查课时
+	 * @param param
+	 * @return
+	 */
+	List<CourseChapterModel> selectPeriodByid(UidAndTenantIDParam param);
 	
 }

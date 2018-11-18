@@ -9,6 +9,7 @@ import com.qht.ResultObject;
 import com.qht.biz.ChapterBiz;
 import com.qht.biz.CoursePkgBiz;
 import com.qht.biz.MessageBiz;
+import com.qht.biz.PeriodBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
 import com.qht.dto.*;
@@ -49,7 +50,8 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
     private TeacherBiz teacherBiz;
     @Autowired
     private CoursePkgBiz coursePkgBiz;
-
+    @Autowired
+    private PeriodBiz periodBiz;
     @Autowired
     private ChapterBiz chapterBiz;
 
@@ -268,7 +270,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		InsertCoursePkgParam param=new InsertCoursePkgParam();
 		Integer easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
 		BeanUtil.copyFields(param, requestObject.getData());
-		param.setUid(IdGenUtil.getUid("ss"));
+		param.setUid(IdGenUtil.getUid("KP"));
 		param.setEasy(easy);
 		param.setStatus("1");
 		param.setCreat_time(new Date());
@@ -290,7 +292,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 	 * app添加章节
 	 */
 	@Override
-	@PostMapping("common/indexAddLCourse")
+	@PostMapping("common/indexAddLCourseChapter")
     @ResponseBody
 	public ResultObject<Void> appInsertChapter(@RequestBody RequestObject<AppInsertChapterParameter> requestObject) {
 		if(requestObject.getData()==null) {
@@ -300,7 +302,7 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		}
 		AppInsertChapterParam param=new AppInsertChapterParam();
 		BeanUtil.copyFields(param, requestObject.getData());
-		
+		param.setUid(IdGenUtil.getUid("ZJ"));
 		Integer result = chapterBiz.appInsertChapter(param);
 		if(result==null||result<=0) {
 			ResultObject<Void> robj=new ResultObject<>();
@@ -376,6 +378,56 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 		resultObj.setMsg("成功");
 		resultObj.setData(list);
 		return resultObj;
+	}
+
+	@Override
+	@PostMapping("common/indexCourseChapterInfo")
+    @ResponseBody
+	public ResultObject<List<CourseChapterDto>> selectChapterByid(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null) {
+			resultObject.setMsg("失败");
+			resultObject.setData(new ArrayList<>());
+			return resultObject;
+		}
+		UidAndTenantIDParam param=new UidAndTenantIDParam();
+		BeanUtil.copyFields(param, requestObject.getData());
+		List<CourseChapterModel> courseChapterDtos=chapterBiz.selectChapterByid(param);
+		if(courseChapterDtos==null) {
+			resultObject.setMsg("失败");
+			resultObject.setData(new ArrayList<>());
+			return resultObject;
+		}
+		List<CourseChapterDto> list=BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
+		resultObject.setMsg("成功");
+		resultObject.setData(list);
+		resultObject.setCode("0");
+		return resultObject;
+	}
+
+	@Override
+	@PostMapping("common/indexCoursePeriodInfo")
+    @ResponseBody
+	public ResultObject<List<CourseChapterDto>> selectPeriodByid(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null) {
+			resultObject.setMsg("失败");
+			resultObject.setData(new ArrayList<>());
+			return resultObject;
+		}
+		UidAndTenantIDParam param=new UidAndTenantIDParam();
+		BeanUtil.copyFields(param, requestObject.getData());
+		List<CourseChapterModel> courseChapterDtos=periodBiz.selectPeriodByid(param);
+		if(courseChapterDtos==null) {
+			resultObject.setMsg("失败");
+			resultObject.setData(new ArrayList<>());
+			return resultObject;
+		}
+		List<CourseChapterDto> list=BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
+		resultObject.setMsg("成功");
+		resultObject.setData(list);
+		resultObject.setCode("0");
+		return resultObject;
 	}
 	
 }
