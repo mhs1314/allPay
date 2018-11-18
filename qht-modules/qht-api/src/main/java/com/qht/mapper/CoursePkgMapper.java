@@ -12,6 +12,8 @@ import com.qht.entity.CoursePkg;
 import com.qht.model.CourseChapterModel;
 import com.qht.model.CoursePkgListModel;
 import com.qht.model.InsertCoursePkgParam;
+import com.qht.model.SelectPerModel;
+import com.qht.model.SelectPkgModel;
 import com.qht.model.IndexMyCourseDetailsModel;
 import com.qht.model.UidAndTenantIDParam;
 
@@ -55,7 +57,10 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * 修改课程包信息
 	 */
 	Integer appUpdateCoursePkgByid(InsertCoursePkgParam param);
-
+	/**
+	 * 课程包章节课时信息
+	 */
+	List<SelectPkgModel> selectPkgChPer(UidAndTenantIDParam param);
 
 	
 }

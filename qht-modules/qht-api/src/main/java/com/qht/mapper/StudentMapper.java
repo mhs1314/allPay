@@ -1,10 +1,8 @@
 package com.qht.mapper;
 
-import com.qht.model.*;
 import com.qht.dto.StudentDto;
 import com.qht.entity.Student;
-
-import com.qht.entity.Tag;
+import com.qht.model.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -430,4 +428,11 @@ public interface StudentMapper extends Mapper<Student> {
      */
 
    List<TagModel> appMyStudentInterest (AppStudentParam parameter);
+
+    /**
+     * 学生端-个人中心--首页--我的课时详情介绍
+     * @param param
+     * @return
+     */
+    MyIndexCourseDetailsModel selectMyIndexCourseDetails(UidAndTenantIDParam param);
 }
