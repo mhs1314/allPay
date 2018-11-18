@@ -12,4 +12,7 @@
 	<select id="selectPkgLevelAll" resultType="com.qht.model.SelectPkgLevelAllModel" parameterType="com.qht.model.UidAndTenantIDParam">
 	select uid ,name as class_name from pkg_level where tenant_id=#{tenant_id}
 	</select>
+	<select id="selectValue" resultType="java.lang.String" parameterType="java.lang.String">
+	select value from pkg_level where uid=#{uid}
+	</select>
 </mapper>

@@ -27,4 +27,9 @@ public interface PkgLevelMapper extends Mapper<PkgLevel> {
 	 */
 	List<SelectPkgLevelAllModel> selectPkgLevelAll(UidAndTenantIDParam param);
 	
+	/**
+	 * 查询积分
+	 */
+	String selectValue(String uid);
+	
 }

@@ -31,4 +31,11 @@ public class PkgLevelBiz extends BaseBiz<PkgLevelMapper,PkgLevel> {
 		return pkgLevelMapper.selectPkgLevelAll(param);
 				
 	}
+
+	/**
+	 * 查询积分
+	 */
+	public String selectValue(String uid) {
+	return 	pkgLevelMapper.selectValue(uid);
+	}
 }
