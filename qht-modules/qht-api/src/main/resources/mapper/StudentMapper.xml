@@ -67,13 +67,22 @@
     <!--首页查询免费课程-->
 
     <select id="selectFreeClass" resultType="com.qht.model.FreeClassModel" parameterType="com.qht.model.FreeClassParam">
-        <include refid="selectClassMessageFromCourse_PKG"/>
+        select
+        cp.cover,
+        cp.uid,
+        cp.pkg_name,
+        cp.play_type_id,
+        t.nickname,
+        pl.name as level_name,
+        pt.name as pkg_type_name
+        from course_pkg cp
+        inner join teacher t on cp.teacher_id=t.uid
+        inner join pkg_level pl on cp.pkg_level_id=pl.uid
+        inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
+        inner join pkg_type pt on pt.uid=cp.course_type_id
         where cp.tenant_id=#{tenant_id}
         and cp.status="1" 
-        and cp.pkt_type_id="1" 
-
-
-
+        and cp.pkt_type_id="1"
         <if test="pkg_subject_id!='' and pkg_subject_id!=null">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
@@ -88,13 +97,11 @@
     <select id="selectListeningClassRanking" resultType="com.qht.model.ListeningClassRankingModel" parameterType="java.lang.String">
         <include refid="selectClassMessageFromCourse_PKG"/>
         where
-
         cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1" limit 0,6
     </select>
     <!--查询首页试听课程列表-->
 
     <select id="selectListeningClassList" resultType="com.qht.model.ListeningClassListModel" parameterType="java.lang.String">
-
         select
           cp.cover,
           cp.uid,
@@ -120,8 +127,6 @@
         from
           teacher t inner join school s
         on
-
-
           t.school_id=s.uid 
         where t.tenant_id=#{tenant_id} 
         order by t.praise_number desc 
@@ -586,14 +591,15 @@
 
     <select id="selectMyIndexMessage"  resultType="com.qht.model.MyIndexMessageModel">
       select  t.back_img as head,
-				m.uid as uid,m.isread as isread,
+				m.uid as uid,
+                m.isread as isread,
 				t.`name` as nickname,
-				m.time as time,
-				m.content as content
+				m.time,
+				m.content
       FROM message m
-							inner JOIN `user`  u  ON m.uid=u.uid
-							inner JOIN teacher t  ON m.tenant_id=t.tenant_id
-      where m.uid=#{uid} AND t.tenant_id=#{tenant_id}
+		inner JOIN student  s  ON m.to_id=s.uid
+		inner JOIN teacher t  ON m.from_id=t.uid
+      where m.to_id=#{uid} AND m.tenant_id=#{tenant_id}
       <if test="isread!=null and isread!=''">
           and m.isread=#{isread}
       </if>
