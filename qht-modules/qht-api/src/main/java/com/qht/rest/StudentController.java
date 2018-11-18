@@ -1317,7 +1317,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 		String str="collect"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 		param.setId(str);
 		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
-		return null;
+		resultObject.setCode("0");
+		resultObject.setMsg("成功");
+		return resultObject;
 	}
 
     @Override
