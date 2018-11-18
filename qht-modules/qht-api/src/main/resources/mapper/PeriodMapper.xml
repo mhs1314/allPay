@@ -37,5 +37,17 @@ WHERE
 	</if>
 	
     </select>
+    <!-- 通过章节id查课时 -->
+<select id="selectPeriodByid" resultType="com.qht.model.CourseChapterModel" parameterType="com.qht.model.UidAndTenantIDParam">
+	SELECT
+		p.uid,
+		p.`name`
+	FROM
+		period p
+	LEFT JOIN  chapter c  on c.uid=p.chapter_id
+	WHERE
+		 c .uid = #{uid} 
+	and  c .tenant_id #{tenant_id}
 
+</select>
 </mapper>

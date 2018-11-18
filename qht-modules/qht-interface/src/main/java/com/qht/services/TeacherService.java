@@ -94,7 +94,13 @@ public interface TeacherService {
 	 * 课程包章节课时信息
 	 */
 	public ResultObject<List<SelectPkgDto>> selectPkgDto(@RequestBody RequestObject<UidAndTenantID> requestObject);
-
+	/**
+	 * 课程包id查章节
+	 */
+	public ResultObject<List<CourseChapterDto>> selectChapterByid(@RequestBody RequestObject<UidAndTenantID> requestObject);
 	
-
+	/**
+	 * 章节id查课时
+	 */
+	public ResultObject<List<CourseChapterDto>> selectPeriodByid(@RequestBody RequestObject<UidAndTenantID> requestObject);
 }

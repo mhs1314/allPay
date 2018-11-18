@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.entity.Period;
 import com.qht.mapper.PeriodMapper;
+import com.qht.model.CourseChapterModel;
 import com.qht.model.IndexMyCourseTableModel;
 import com.qht.model.IndexMyCourseTableParam;
+import com.qht.model.UidAndTenantIDParam;
 
 /**
  * 课时
@@ -33,4 +35,13 @@ public class PeriodBiz extends BaseBiz<PeriodMapper,Period> {
 	public List<IndexMyCourseTableModel>indexMycourseTable(IndexMyCourseTableParam param){
 		return periodMapper.indexMycourseTable(param);
 	}
+	/**
+	 * 通过章节id查课时
+	 * @param param
+	 * @return
+	 */
+	public List<CourseChapterModel> selectPeriodByid(UidAndTenantIDParam param){
+		return periodMapper.selectPeriodByid(param);
+	}
+	
 }
