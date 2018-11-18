@@ -111,7 +111,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 
     <!--教师|端首页我的课程-->
     <select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
-        select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.chapter_name,p.video_file,p.begin
+        select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin
         from course_pkg cp left join chapter c on cp.uid=c.course_id
         left join period p on p.chapter_id=c.uid
         where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id}
