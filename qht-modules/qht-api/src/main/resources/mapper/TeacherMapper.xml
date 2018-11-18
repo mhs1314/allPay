@@ -125,7 +125,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
         <if test="now_time!=null and now_time!=''">
-            and c.bgin like CONCAT(#{now_time},'%')
+            and p.begin like CONCAT(#{now_time},'%')
         </if>
     </select>
 

@@ -323,7 +323,6 @@
 
     <select id="selectCourseList" resultType="com.qht.model.CourseListModel" parameterType="com.qht.model.CourseListParam">
         select
-
         cp.cover,
         cp.uid,
         cp.pkg_name,
@@ -646,7 +645,8 @@
     <!--学生端个人中心首页兑换记录-->
 
     <select id="selectMyIndexBuyRecord" resultType="com.qht.model.MyIndexBuyRecordModel" parameterType="com.qht.model.MyIndexBuyRecordParam">
-        select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin from buy_record br
+        select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin
+        from buy_record br
           inner join course_pkg cp on br.course_pkg_id=cp.uid
           inner join teacher t on cp.teacher_id=t.uid
           inner join chapter c on cp.uid=c.course_id
@@ -654,14 +654,13 @@
         where br.student_id=#{uid}
           and br.tenant_id=#{tenant_id}
           and cp.status="1"
-
-        <if test="pkg_subject_id !=''">
+        <if test="pkg_subject_id !='' and pkg_subject_id != null">
               and cp.pkg_subject_id=#{pkg_subject_id}
           </if>
-          <if test="play_type_id !=''">
+          <if test="play_type_id !='' and play_type_id != null">
             and cp.play_type_id=#{play_type_id}
           </if>
-        <if test="pkt_type_id != ''">
+        <if test="pkt_type_id != '' and pkt_type_id != null">
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
@@ -866,7 +865,6 @@ WHERE
     <resultMap id="selectMyIndexBuyRecordDetailsAndPeriod" type="com.qht.model.MyIndexBuyRecordCourseDetailsModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
-
         <collection property="period" ofType="com.qht.model.ClassModel">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>

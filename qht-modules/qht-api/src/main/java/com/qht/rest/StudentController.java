@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tk.mybatis.mapper.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -340,6 +341,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //使用分页插件
     	CourseListParam param=new CourseListParam();
     	BeanUtil.copyFields(param, requestObject.getData());
+    	if(StringUtil.isEmpty(param.getPage())){
+    	    param.setPage("1");
+        }
+        if(StringUtil.isEmpty(param.getLimit())){
+            param.setLimit("10");
+        }
         PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
         requestObject.getData().setTenant_id(getTenantId());
         List<CourseListModel> courseListDtos=studentBiz.selectCourseList(param);
