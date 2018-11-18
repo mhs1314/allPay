@@ -1321,6 +1321,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 	}
 
     @Override
+    @PostMapping("myIndexCourseDetails")
+    @ResponseBody
     public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(RequestObject<UidAndTenantID> requestObject) {
         ResultObject<MyIndexCourseDetailsDto> resultObject=new ResultObject<>();
         if(requestObject.getData()==null){
