@@ -333,7 +333,7 @@
         inner join chapter c on cp.uid=c.course_id
         inner join period p on p.chapter_id=c.uid
         inner join teacher t on t.uid=cp.teacher_id
-        where 1=1
+        where
         and cp.tenant_id=#{tenant_id}
         and cp.status="1"
         <if test="pkt_type_id !=null and pkt_type_id!=''">
@@ -713,7 +713,7 @@ WHERE
         SELECT
         b.uid AS uid,
         c.pkg_name AS pkg_name,
-        c.total_priceas AS total_price,
+        c.total_price AS total_price,
         b.time AS time
         FROM
         buy_record b
