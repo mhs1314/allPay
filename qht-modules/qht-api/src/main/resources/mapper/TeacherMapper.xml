@@ -202,5 +202,16 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 	    		</if>
 	    	</if>
     </select>
+    
+    <!-- 教师端首页-我的消息 -->
+    <select id="selectIndexMessage" resultType="com.qht.model.IndexMessageModel" parameterType="com.qht.model.IndexMessageParam">
+    	select s.head,m.uid,m.isread,s.nickname,m.content 
+    	from message m 
+    		left join student s on m.from_id=s.uid 
+    	where m.to_id=#{uid} and tenant_id=#{tenant_id} 
+    	<if test="isread !=null and isread !=''">
+    		m.isread=${isread}
+    	</if>
+    </select>
 
 </mapper>

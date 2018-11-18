@@ -22,5 +22,32 @@
     <select id="courseTypeList" resultType="com.qht.model.CoursePkgListModel" parameterType="com.qht.model.UidAndTenantIDParam">
     	select uid ,pkg_name   from course_pkg where tenant_id=#{tenant_id}
     </select>
+    
+    <!-- 教师|端首页-我的课程-详情介绍 -->
+    <select id="selectIndexMyCourseDetails" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.IndexMyCourseDetailsModel">
+    	select p.uid,cp.play_type_id,p.name,p.video_file,p.begin,cp.content 
+    	from course_pkg cp left join chapter c on c.course_id=cp.uid 
+    	left join period p on p.chapter_id=c.uid 
+    	where cp.uid=#{uid} and tenant_id=#{tenant_id}
+    </select>
+    <resultMap id="selectCourseChapterAndPeriod" type="com.qht.model.CourseChapterModel">
+    	<result property="uid" column="uid"/>
+    	<result property="name" column="name"/>
+    	<collection property="period" ofType="com.qht.model.ClassModel">
+            <result property="pid" column="pid"/>
+            <result property="period_name" column="period_name"/>
+            <result property="video_file" column="video_file"/>
+            <result property="begin" column="begin"/>
+        </collection>
+    </resultMap>
+    <!-- 课程详情-课程包体系y -->
+    <select id="selectCourseChapter" parameterType="com.qht.model.UidAndTenantIDParam" >
+    	select 
+    	c.uid,c.name,p.name as period_name,p.uid as pid,p.video_file,p.begin 
+    	from course_pkg cp 
+    	inner join chapter c on cp.uid=c.course_id 
+    	inner join period p on p.chapter_id=c.uid 
+    	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
+    </select>
 
 </mapper>

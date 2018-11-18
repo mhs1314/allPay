@@ -1,12 +1,16 @@
 
 package com.qht.rest;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.qht.dto.*;
+import com.qht.dto.CourseChapterDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -246,7 +250,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     	BeanUtil.copyFields(param, requestObject.getData());
         List<CourseChapterModel> courseChapterDtos=studentBiz.selectCourseChapter(param.getUid(),param.getTenant_id());
         List<CourseChapterDto> list = BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
-        BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
         ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -853,20 +856,10 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
         String student_id =param.getStudent_id();
         Integer updateLine=studentBiz.updateMyIndexCancelcollect(uid,student_id,getTenantId());
-
-
-
-
-
-
-
-
-
         resultObject.setCode("0");
         resultObject.setMsg("取消成功");
         return resultObject;
     }
-
     @Override
     @PostMapping("/app/indexMyAnswer")
     @ResponseBody
@@ -1313,6 +1306,23 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObj.setMsg("成功");
         resultObj.setData(lists);
         return resultObj;
+	}
+
+	@Override
+	@PostMapping("myIndexCourseCelcollect")
+    @ResponseBody
+	public ResultObject<Void> myIndexCourseCelcollect(@RequestBody RequestObject<MyIndexCourseCelcollectParameter> requestObject) {
+		ResultObject<Void> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null) {
+			return resultObject.setMsg("失败");
+		}
+		MyIndexCourseCelcollectParam param=new MyIndexCourseCelcollectParam();
+		BeanUtil.copyFields(param, requestObject.getData());
+		//收藏 插入数据需要生成一个collect表的主键
+		String str="collect"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+		param.setId(str);
+		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
+		return null;
 	}
 
 //    /**

@@ -57,4 +57,41 @@ public interface TeacherService {
 	 * @return
 	 */
 	public ResultObject<List<IndexCourseAnswerDto>> indexCourseAnswer(@RequestBody RequestObject<IndexCourseAnswerParameter> requestObject);
+	
+	/**
+	 * 教师端首页--我的消息
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<List<IndexMessageDto>> indexMessage(@RequestBody RequestObject<IndexMessageParameter> requestObject);
+	/**
+	 * 教师端首页--删除我的消息
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<Void> indexDelMessage(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	/**
+	 * 教师端首页--我的消息--查看详情
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<IndexMessageDto> indexDelMessageDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	
+	/**
+	 * 教师|端首页--我的课程--详情介绍
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<IndexMyCourseDetailsDto> indexMyCourseDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	
+	/**
+	 * 课程详情-课程包体系y
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	
+	
+	
+
 }

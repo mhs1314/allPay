@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.entity.Collect;
 import com.qht.mapper.CollectMapper;
+import com.qht.model.MyIndexCourseCelcollectParam;
 
 import java.util.List;
 
@@ -32,4 +33,13 @@ public class CollectBiz extends BaseBiz<CollectMapper,Collect> {
         return collectMapper.myCollectlist(uid,tid);
 
     }
+    /**
+     * 学生端-个人中心--首页--课程详情--收藏
+     * @param param
+     * @return
+     */
+	public Integer insertMyIndexCourseCelcollect(MyIndexCourseCelcollectParam param) {
+		
+		return collectMapper.insertMyIndexCourseCelcollect(param);
+	}
 }
