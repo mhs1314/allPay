@@ -669,21 +669,15 @@
     <resultMap id="studentInfoMap" type="com.qht.model.StudentInfoModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result column="head" property="head"/>
-        <result column="school_id" property="schoolId"/>
+        <result column="integral" property="integral"/>
         <result column="sex" property="sex"/>
         <result column="name" property="name"/>
         <result column="nickname" property="nickname"/>
         <result column="school_name" property="school_name"/>
         <result column="clazz" property="clazz"/>
-        <result column="clanzzName" property="clanzzName"/>
+        <result column="grade_name" property="grade_name"/>
         <result column="age" property="age"/>
-
-        <collection property="tatDtos" ofType="com.qht.model.TatModel">
-            <id column="tid" property="tid"/>
-            <result column="tname" property="tname"/>
-        </collection>
-
-        <collection property="guardianDtos" ofType="com.qht.model.GuardianModel">
+        <collection property="gua" ofType="com.qht.model.GuardianModel">
             <id column="gid" property="gid"/>
             <result column="call" property="call"/>
             <result column="phone" property="phone"/>
@@ -695,17 +689,14 @@
 SELECT
 	s.uid as uid ,
 	s.head as head,
-	s.school_id as schoolId,
 	s.sex as sex,
 	s.`name` as `name`,
 	s.nickname as nickname,
 	sc.school_name as school_name,
 	s.clazz as clazz,
-	p.`name` as clanzzName,
+	p.`name` as grade_name,
 	s.age as age,
-
-	t.uid as tid,
-	t.tag_name as tname,
+	s.integral,
 	g.uid as gid,
 	g.`call` as `call`,
 	g.phone  as phone
@@ -713,8 +704,6 @@ FROM
 	student s
 inner JOIN school sc ON s.school_id = sc.uid
 inner JOIN guardian g ON s.uid = g.student_id
-inner JOIN interest_label i ON s.uid = i.student_id
-inner JOIN tag t ON i.tag_id = t.uid
 inner JOIN pkg_grade p ON s.grade_id = p.uid
 WHERE
 	s.uid = #{uid} AND s.tenant_id =#{tenant_id}

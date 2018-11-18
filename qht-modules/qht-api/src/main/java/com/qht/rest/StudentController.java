@@ -598,8 +598,16 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 	        resultObject.setData(new StudentInfoDto());
 	        return resultObject;
         }
+
         StudentInfoDto dto=new StudentInfoDto();
         BeanUtil.copyFields(dto, model);
+        List<GuardianDto> guardianDtos = new ArrayList<>();
+        for(int i=0;i<model.getGua().size();i++){
+            GuardianDto guardianDto = new GuardianDto();
+            BeanUtil.copyFields(guardianDto,model.getGua().get(i));
+            guardianDtos.add(guardianDto);
+        }
+        dto.setGuardian(guardianDtos);
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
