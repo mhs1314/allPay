@@ -19,6 +19,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.qht.biz.ChapterBiz;
+
+import com.qht.biz.CoursePkgBiz;
+import com.qht.biz.MessageBiz;
+import com.qht.biz.PkgLevelBiz;
+import com.qht.biz.TeacherBiz;
+import com.qht.common.util.BeanUtil;
+import com.qht.entity.Teacher;
+import com.qht.mapper.CoursePkgMapper;
+
+import com.qht.model.AppInsertChapterParam;
+import com.qht.model.CourseChapterModel;
+import com.qht.model.IndexCourseAnswerModel;
+import com.qht.model.IndexCourseAnswerParam;
+import com.qht.model.IndexMessageModel;
+import com.qht.model.IndexMessageParam;
+import com.qht.model.IndexMyCourseDetailsModel;
+import com.qht.model.IndexMyCourseListModel;
+import com.qht.model.IndexMyCourseListParam;
+import com.qht.model.IndexMyCourseModel;
+import com.qht.model.IndexMyCourseParam;
+import com.qht.model.InsertCoursePkgParam;
+import com.qht.model.UidAndTenantIDParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -36,6 +60,8 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
     private ChapterBiz chapterBiz;
     @Autowired
     private MessageBiz messageBiz;
+    @Autowired
+    private PkgLevelBiz pkgLevelBiz;
 
     @Override
     public ResultObject<String> login(RequestObject<LoginInfoDto> rquest) {
@@ -124,8 +150,11 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 			robj.setMsg("没有参数");
 			robj.setCode("1");
 		}
+
 		InsertCoursePkgParam param=new InsertCoursePkgParam();
+		String easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
 		BeanUtil.copyFields(param, requestObject.getData());
+		param.setEasy(Integer.parseInt(easy));
 		param.setStatus("1");
 		param.setCreat_time(new Date());
 		Integer result = coursePkgBiz.indexAddLCourse(param);
@@ -296,7 +325,9 @@ public class TeacherController extends APIBaseController<TeacherBiz,Teacher> imp
 			robj.setCode("1");
 		}
 		InsertCoursePkgParam param=new InsertCoursePkgParam();
+		String easy = pkgLevelBiz.selectValue(param.getPkg_level_id());
 		BeanUtil.copyFields(param, requestObject.getData());
+		param.setEasy(Integer.parseInt(easy));
 		param.setStatus("1");
 		param.setCreat_time(new Date());
 		Integer result = coursePkgBiz.appUpdateCoursePkgByid(param);
