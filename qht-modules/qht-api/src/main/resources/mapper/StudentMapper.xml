@@ -930,9 +930,8 @@ WHERE
     </select>
 
     <!--取消收藏-->
-    <update id="updateMyIndexCancelcollect">
-
-        update collect set is_collect='2' where uid=#{uid} and student_id=#{student_id} and tenant_id=#{tenant_id}
+    <update id="updateMyIndexCancelcollect" parameterType="com.qht.model.MyIndexCanceCollectParam">
+        update collect set is_collect=2 where uid=#{uid} and student_id=#{student_id} and tenant_id=#{tenant_id}
     </update>
 
     <!--app我的课程答疑-->
@@ -1079,5 +1078,13 @@ and s.tenant_id=#{tenant_id}
         INNER JOIN interest_label i ON tag_id=i.tag_id
         INNER JOIN student   s    on i.student_id=s.uid
      where  s.uid=#{uid} and  s.tenant_id=#{tenant_id}
+    </select>
+    <!---->
+    <select id="selectMyIndexCourseDetails" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.MyIndexCourseDetailsModel">
+        select p.uid,cp.play_type_id,p.name,p.video_file,p.begin,cp.content
+        from period p
+        left join chapter c on p.chapter_id=c.uid
+        left join course_pkg cp on cp.uid=c.course_id
+        where p.uid=#{uid} and p.tenant_id=#{tenant_id}
     </select>
 </mapper>

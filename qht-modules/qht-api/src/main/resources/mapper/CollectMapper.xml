@@ -36,7 +36,7 @@ GROUP BY
     
     <!-- 学生端-个人中心-首页-课程详情-收藏 -->
     <insert id="updateMyIndexCourseCelcollect" parameterType="com.qht.model.MyIndexCourseCelcollectParam">
-    	insert into collect(uid,tenant_id,student_id,course_pkg_id) value(#{id},#{tenant_id},#{student_id},#{uid})
+    	insert into collect(uid,tenant_id,student_id,course_pkg_id,is_collect) value(#{id},#{tenant_id},#{student_id},#{uid},1)
     </insert>
 
 </mapper>

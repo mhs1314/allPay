@@ -1,16 +1,12 @@
 package com.qht.biz;
 
-import com.qht.RequestObject;
-import com.qht.dto.StudentDto;
-import com.qht.model.*;
-
-import com.qht.entity.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
+import com.qht.dto.StudentDto;
 import com.qht.entity.Student;
 import com.qht.mapper.StudentMapper;
+import com.qht.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -416,13 +412,10 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 学生端-个人中心--首页--我的收藏列表--取消收藏
-     * @param uid
-     * @param student_id
-     * @param tenant_id
      */
-    public Integer updateMyIndexCancelcollect(String uid, String student_id, String tenant_id) {
+    public Integer updateMyIndexCancelcollect(MyIndexCanceCollectParam param) {
 
-        Integer num=studentMapper.updateMyIndexCancelcollect(uid,student_id,tenant_id);
+        Integer num=studentMapper.updateMyIndexCancelcollect(param);
         return num;
     }
 
@@ -572,6 +565,15 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
    public List<TagModel> appMyStudentInterest (AppStudentParam parameter){
         return  studentMapper.appMyStudentInterest(parameter);
+    }
+
+    /**
+     * 学生端-个人中心--首页--我的课时详情介绍
+     * @param param
+     * @return
+     */
+    public MyIndexCourseDetailsModel selectMyIndexCourseDetails(UidAndTenantIDParam param) {
+        return studentMapper.selectMyIndexCourseDetails(param);
     }
 }
 
