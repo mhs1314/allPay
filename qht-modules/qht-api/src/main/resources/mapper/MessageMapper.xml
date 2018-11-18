@@ -14,5 +14,16 @@
         <result property="attach" column="attach"/>
         <result property="type" column="type"/>
     </resultMap>
-
+	<!-- 教师端首页-我的消息-删除 -->
+	<delete id="deleteMessage" parameterType="com.qht.model.UidAndTenantIDParam">
+		delete from message where uid=#{uid} and tenant_id=#{tenant_id}
+	</delete>
+	
+	<!-- 教师端首页-我的消息 -->
+    <select id="selectIndexDelMessageDetails" resultType="com.qht.model.IndexMessageModel" parameterType="com.qht.model.IndexMessageParam">
+    	select s.head,m.uid,m.isread,s.nickname,m.content 
+    	from message m 
+    		left join student s on m.from_id=s.uid 
+    	where m.uid=#{uid} and tenant_id=#{tenant_id} 
+    </select>
 </mapper>

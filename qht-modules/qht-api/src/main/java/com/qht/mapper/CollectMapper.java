@@ -2,6 +2,7 @@ package com.qht.mapper;
 
 import com.qht.dto.MyCollectlistDto;
 import com.qht.entity.Collect;
+import com.qht.model.MyIndexCourseCelcollectParam;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -26,5 +27,11 @@ public interface CollectMapper extends Mapper<Collect> {
      * @return
      */
     List<MyCollectlistDto> myCollectlist(@Param("uid")String uid,@Param("tid")String tid);
+    /**
+     * 学生端-个人中心--首页--课程详情--收藏
+     * @param param
+     * @return
+     */
+	Integer insertMyIndexCourseCelcollect(MyIndexCourseCelcollectParam param);
 	
 }

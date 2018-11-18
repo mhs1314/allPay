@@ -97,4 +97,10 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @return
 	 */
 	List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param);
+	/**
+	 * 教师端首页--我的消息
+	 * @param param
+	 * @return
+	 */
+	List<IndexMessageModel> selectIndexMessage(IndexMessageParam param);
 }

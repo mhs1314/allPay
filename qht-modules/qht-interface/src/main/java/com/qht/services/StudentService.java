@@ -361,5 +361,12 @@ public interface StudentService {
 //    public ResultObject<List<TagDto>> myStudentInterest(@RequestBody ResultObject<AppStudentParameter> resultObject);
     
     public ResultObject<List<IndexMyCourseTableDto>> indexMycourseTable(@RequestBody RequestObject<IndexMyCourseTableParameter> resultObject);
+    
+    /**
+     * 学生端-个人中心--首页--课程详情--收藏
+     * @param requestObject
+     * @return
+     */
+    public ResultObject<Void> myIndexCourseCelcollect(@RequestBody RequestObject<MyIndexCourseCelcollectParameter> requestObject);
 }
 

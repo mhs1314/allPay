@@ -121,4 +121,13 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
 	public List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param) {
 		return teacherMapper.selectIndexCourseAnswer(param);
 	}
+	/**
+	 * 教师端首页--我的消息
+	 * @param param
+	 * @return
+	 */
+	public List<IndexMessageModel> selectIndexMessage(IndexMessageParam param) {
+		
+		return teacherMapper.selectIndexMessage(param);
+	}
 }
