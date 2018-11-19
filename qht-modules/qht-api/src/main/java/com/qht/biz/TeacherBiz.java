@@ -117,7 +117,7 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param param
      * @return
      */
-    public Integer updateTeacherInfo(EditTeacherInfoParam param) {
-        return teacherMapper.updateTeahcerInfo(param);
-    }
+//    public Integer updateTeacherInfo(EditTeacherInfoParam param) {
+//        return teacherMapper.updateTeahcerInfo(param);
+//    }
 }

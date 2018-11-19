@@ -171,6 +171,6 @@ public interface TeacherService {
 	 * @param requestObject
 	 * @return
 	 */
-	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject);
+//	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject);
 
 }
