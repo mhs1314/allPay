@@ -58,6 +58,7 @@ import com.qht.dto.MyIndexMycollectDto;
 import com.qht.dto.MyIndexMycollectParameter;
 import com.qht.dto.MyIndexMyintegralDetailDto;
 import com.qht.dto.MyIndexMyintegralDetailParameter;
+import com.qht.dto.SelectPkgByStuIdDto;
 import com.qht.dto.StudentDto;
 import com.qht.dto.StudentInfoDto;
 import com.qht.dto.TeacherCourseDto;
