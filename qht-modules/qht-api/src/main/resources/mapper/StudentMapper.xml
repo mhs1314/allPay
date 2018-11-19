@@ -179,11 +179,11 @@
     </select>
     
 
-    <resultMap id="selectCourseChapterAndClass" type="com.qht.model.CourseChapterModel">
+    <resultMap id="selectCourseChapterAndClass" type="com.qht.model.CourseChapterDto">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
 
-        <collection property="period" ofType="com.qht.model.ClassModel">
+        <collection property="periods" ofType="com.qht.model.ClassDto">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>
             <result property="video_file" column="video_file"/>
@@ -216,9 +216,7 @@
           pe.comments_time,
           cp.pkg_name,
           pe.comments_star,
-          pe.comments_content,
-
-          count(s.name)
+          pe.comments_content
         from
 
 
@@ -237,9 +235,7 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
@@ -256,15 +252,13 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id}
         and cp.status="1"
-        and pe.comments_star &lt;=4 and pe.comments_star &gt;2
+        and pe.comments_star &lt;=4 and pe.comments_star &gt;=2
     </select>
 
     <!--课程详情课程包评论bad-->
@@ -277,13 +271,11 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
-        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;=2
+        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;2
     </select>
     
 
@@ -334,7 +326,7 @@
         inner join period p on p.chapter_id=c.uid
         inner join teacher t on t.uid=cp.teacher_id
         where
-        and cp.tenant_id=#{tenant_id}
+        cp.tenant_id=#{tenant_id}
         and cp.status="1"
         <if test="pkt_type_id !=null and pkt_type_id!=''">
               and cp.pkt_type_id=#{pkt_tyepe_id}
@@ -638,8 +630,10 @@
     </select>
     
 
-     <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="java.lang.String">
-      select * FROM message where uid=#{uid}
+     <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="com.qht.model.UidAndTenantIDParam">
+      select t.back_img as head,m.uid,m.isread,s.nickname,m.time,m.content FROM message m left join teacher t
+      on t.uid=m.from_id left join student s on s.uid=m.to_id
+      where uid=#{uid} and  tenant_id#{tenant_id}
     </select>
 
     <!--学生端个人中心首页兑换记录-->
