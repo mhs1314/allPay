@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 public class IdGenUtil {
-	public static String sendPost(String url, String param) {
+	private static String sendPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -41,6 +41,8 @@ public class IdGenUtil {
         }
         return result;
     } 
+	
+	
     
     private static void close(PrintWriter out,BufferedReader in) {
     	try{
