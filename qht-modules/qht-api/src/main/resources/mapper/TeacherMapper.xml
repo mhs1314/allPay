@@ -222,7 +222,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 	</select>
 
 	<!--updateTeahcerInfo-->
-	<select id="updateTeahcerInfo" parameterType="com.qht.model.EditTeacherInfoParam">
-		update teacher set sex=${sex},
-	</select>
+	<!--<select id="updateTeahcerInfo" parameterType="com.qht.model.EditTeacherInfoParam">
+		update teacher t,school s set sex=${sex},
+	</select>-->
 </mapper>
