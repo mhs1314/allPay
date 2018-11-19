@@ -211,7 +211,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
 
-    MyIndexMessageModel selectMessageById(String uid);
+    MyIndexMessageModel selectMessageById(UidAndTenantIDParam param);
 
     /**
      * 学生端-个人中心--首页--兑换记录

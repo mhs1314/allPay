@@ -553,7 +553,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<MyIndexMessageDto> selectMessageById(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, requestObject.getData());
-        MyIndexMessageModel dto=studentBiz.selectMessageById(param.getUid());
+        MyIndexMessageModel dto=studentBiz.selectMessageById(param);
         MyIndexMessageDto dtod=new MyIndexMessageDto();
         BeanUtil.copyFields(dtod, dto);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();

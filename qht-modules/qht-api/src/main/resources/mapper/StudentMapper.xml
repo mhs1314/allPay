@@ -334,7 +334,7 @@
         inner join period p on p.chapter_id=c.uid
         inner join teacher t on t.uid=cp.teacher_id
         where
-        and cp.tenant_id=#{tenant_id}
+        cp.tenant_id=#{tenant_id}
         and cp.status="1"
         <if test="pkt_type_id !=null and pkt_type_id!=''">
               and cp.pkt_type_id=#{pkt_tyepe_id}
@@ -638,8 +638,10 @@
     </select>
     
 
-     <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="java.lang.String">
-      select * FROM message where uid=#{uid}
+     <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="com.qht.model.UidAndTenantIDParam">
+      select t.back_img as head,m.uid,m.isread,s.nickname,m.time,m.content FROM message m left join teacher t
+      on t.uid=m.from_id left join student s on s.uid=m.to_id
+      where uid=#{uid} and  tenant_id#{tenant_id}
     </select>
 
     <!--学生端个人中心首页兑换记录-->

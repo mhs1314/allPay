@@ -271,8 +271,8 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @return
      */
 
-    public MyIndexMessageModel selectMessageById(String uid) {
-        return studentMapper.selectMessageById(uid);
+    public MyIndexMessageModel selectMessageById(UidAndTenantIDParam param) {
+        return studentMapper.selectMessageById(param);
     }
 
     /**
