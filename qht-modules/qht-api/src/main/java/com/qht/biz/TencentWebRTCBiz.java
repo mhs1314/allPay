@@ -1,7 +1,5 @@
-package com.qht.rest;
+package com.qht.biz;
 
-
-import java.io.File;
 import java.nio.charset.Charset;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -15,13 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.Deflater;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@RestController
-@RequestMapping("webrtc1")
-public class WebRTCSigApiController {
+import com.qht.dto.UserSigDto;
+import com.qht.rest.WebRTCSigApiController;
+
+/**
+ * 腾讯webrtc业务逻辑
+ * @author 草原狼
+ * @date Nov 19, 2018 10:33:31 PM
+ */
+@Service
+public class TencentWebRTCBiz {
 	private int mSdkAppid = 0;
     private PrivateKey mPrivateKey = null;
     private PublicKey mPublicKey = null;
@@ -34,7 +37,7 @@ public class WebRTCSigApiController {
         this.mSdkAppid = sdkappid;
     }
     
-    /**  TencentWebRTCAPIController
+    /**
      * 设置私钥 如果要生成userSig和privateMapKey则需要私钥
      * @param privateKey 私钥文件内容
      */
@@ -298,78 +301,25 @@ public class WebRTCSigApiController {
         return privateMapKey;
     }
     
-    @PostMapping("sign")
-    public Map<String,Object> sign(){
+   
+    public UserSigDto sign(int roomid,String userid){
     	int sdkappid = 1400154853;   //腾讯云云通信sdkappid
-        int roomid = 1234;           //音视频房间号roomid
-        String userid = "webrtc98";  //用户名userid      
+        //int roomid = 1234;           //音视频房间号roomid    	
+        //String userid = "webrtc98";  //用户名userid      
         WebRTCSigApiController api = new WebRTCSigApiController();
         api.setSdkAppid(sdkappid);        
         api.setPrivateKey(privateKey());
         api.setPublicKey(publicKeyFile());        
         //生成userSig
-        String userSig = api.genUserSig(userid, 300);        
+        String userSig = api.genUserSig(userid, 3600);        
         //生成privateMapKey
-        String privateMapKey = api.genPrivateMapKey(userid, roomid, 300);
-        
-        System.out.println("userSig:\n" + userSig);
-        System.out.println("privateMapKey:\n" + privateMapKey);
-        Map<String,Object> result = new HashMap<String,Object>();
-        result.put("code", "0");
-        result.put("msg", "签名成功");        
-        Map<String,String> data = new HashMap<String,String>();
-        data.put("privateMapKey", privateMapKey);
-        data.put("userSig", userSig);
-        result.put("result", data);
+        String privateKey = api.genPrivateMapKey(userid, roomid, 3600);               
+        UserSigDto result = new UserSigDto();
+        result.setPrivateKey(privateKey);
+        result.setUserSig(userSig);
     	return result;
     }
     
-    public static void main(String[] args) {
-        int sdkappid = 1400154853;   //腾讯云云通信sdkappid
-        int roomid = 1234;           //音视频房间号roomid
-        String userid = "webrtc98";  //用户名userid
-        
-        File privateKeyFile = new File("private_key");
-        byte[] privateKey = new byte[(int)privateKeyFile.length()];
-        
-        File publicKeyFile = new File("public_key");
-        byte[] publicKey = new byte[(int)publicKeyFile.length()];
-        
-        try {
-            //读取私钥的内容
-            //PS:不要把私钥文件暴露到外网直接下载了哦
-        	/*
-            FileInputStream in1 = new FileInputStream(privateKeyFile);
-            in1.read(privateKey);
-            in1.close();
-            */
-            //读取公钥的内容
-            /*
-            FileInputStream in2 = new FileInputStream(publicKeyFile);
-            in2.read(publicKey);
-            in2.close();
-            */
-        } catch (Exception e ) {
-            e.printStackTrace();
-        }
-        
-        WebRTCSigApiController api = new WebRTCSigApiController();
-        api.setSdkAppid(sdkappid);
-        //api.setPrivateKey(new String(privateKey));
-        //api.setPublicKey(new String(publicKey));
-        
-        api.setPrivateKey(privateKey());
-        api.setPublicKey(publicKeyFile());
-        
-        //生成userSig
-        String userSig = api.genUserSig(userid, 300);
-        
-        //生成privateMapKey
-        String privateMapKey = api.genPrivateMapKey(userid, roomid, 300);
-        
-        System.out.println("userSig:\n" + userSig);
-        System.out.println("privateMapKey:\n" + privateMapKey);
-    }
     
     private static String privateKey() {
     	return "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg3LIVZlm/N2jeWLLKDrPTqVJwPyLvwabfgGEUPwLuOyWhRANCAATQ8Q2QqXpeNGC1BGaBpMg0UEnX8nYFCbltw+HHZZMCwL/Ed8fl+VKmUQuraREDyB4FzcqMorNgKsZHKfw61R1f";
@@ -377,5 +327,4 @@ public class WebRTCSigApiController {
     private static String publicKeyFile() {
     	return "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0PENkKl6XjRgtQRmgaTINFBJ1/J2BQm5bcPhx2WTAsC/xHfH5flSplELq2kRA8geBc3KjKKzYCrGRyn8OtUdXw==";
     }
-    
 }
