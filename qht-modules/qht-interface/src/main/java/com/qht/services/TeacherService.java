@@ -151,4 +151,12 @@ public interface TeacherService {
 	 * 查看课时详情
 	 */
 	public ResultObject<AppSelectTeacherByidDto> selectTeacherByid(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+	/**
+	 * 编辑课时章节的展示
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<IndexMyCourseEditChapterAndPeriodDto> indexMyCourseEditChapterAndPeriodDto(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
 }

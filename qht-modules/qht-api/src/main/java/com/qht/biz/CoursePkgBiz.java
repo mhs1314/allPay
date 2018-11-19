@@ -2,6 +2,7 @@ package com.qht.biz;
 
 import java.util.List;
 
+import com.qht.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +13,6 @@ import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
 import com.qht.mapper.CoursePkgMapper;
 import com.qht.mapper.StudentMapper;
-import com.qht.model.CourseChapterModel;
-import com.qht.model.CoursePkgListModel;
-import com.qht.model.InsertCoursePkgParam;
-import com.qht.model.SelectPerModel;
-import com.qht.model.SelectPkgModel;
-import com.qht.model.IndexMyCourseDetailsModel;
-import com.qht.model.UidAndTenantIDParam;
 
 /**
  * 课程包
@@ -77,5 +71,13 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 		return coursePkgMapper.selectPkgChPer(param);
 	}
 
+	/**
+	 * 查询修改课时章节的展示
+	 * @param param
+	 * @return
+	 */
+	public IndexMyCourseEditChapterAndPeriodModel selectIndexMyCourseEditChapterAndPeriodModel(UidAndTenantIDParam param) {
 
+		return coursePkgMapper.selectIndexMyCourseEditChapterAndPeriodModel(param);
+	}
 }

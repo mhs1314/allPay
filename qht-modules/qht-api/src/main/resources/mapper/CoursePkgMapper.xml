@@ -155,4 +155,29 @@ VALUES
 		left JOIN period p ON p.chapter_id = cr.uid
 		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
     </select>
+
+
+	<resultMap id="selectCourseAndChapterAndPeriod" type="com.qht.model.IndexMyCourseEditChapterAndPeriodModel">
+		<result property="uid" column="uid"/>
+		<result property="pkg_name" column="pkg_name"/>
+		<result property="content" column="content"/>
+		<result property="create_time" column="create_time"/>
+		<result property="cover" column="cover"/>
+		<collection property="chapter" ofType="com.qht.model.ChapterModel">
+			<result property="chapter_id" column="chapter_id"/>
+			<result property="chapter_name" column="chapter_name"/>
+			<collection property="period" ofType="com.qht.model.PeriodModel">
+				<result property="period_name" column="period_name"/>
+				<result property="period_id" column="period_id"/>
+				<result property="begin" column="begin"/>
+				<result property="video_file" column="video_file"/>
+			</collection>
+		</collection>
+	</resultMap>
+	<select id="selectIndexMyCourseEditChapterAndPeriodModel" resultMap="selectCourseAndChapterAndPeriod">
+		select cp.uid,cp.pkg_name,cp.content,cp.create_time,cp.cover,c.uid as chapter_id,c.name as chapter_name,
+		p.name as period_name,p.uid as period_id,p.begin,p.video_file from course_pkg cp inner join chapter c on c.course_id=cp.uid
+		inner join period p on p.chapter_id=c.uid
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
+	</select>
 </mapper>
