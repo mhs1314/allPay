@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("webrtc")
+@RequestMapping("webrtc1")
 public class WebRTCSigApiController {
 	private int mSdkAppid = 0;
     private PrivateKey mPrivateKey = null;
@@ -34,7 +34,7 @@ public class WebRTCSigApiController {
         this.mSdkAppid = sdkappid;
     }
     
-    /**
+    /**  TencentWebRTCAPIController
      * 设置私钥 如果要生成userSig和privateMapKey则需要私钥
      * @param privateKey 私钥文件内容
      */
