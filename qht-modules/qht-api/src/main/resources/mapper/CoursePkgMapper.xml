@@ -178,7 +178,7 @@ VALUES
 		select cp.uid,cp.pkg_name,cp.content,cp.create_time,cp.cover,c.uid as chapter_id,c.name as chapter_name,
 		p.name as period_name,p.uid as period_id,p.begin,p.video_file from course_pkg cp inner join chapter c on c.course_id=cp.uid
 		inner join period p on p.chapter_id=c.uid
-		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} where cp.status="1"
 	</select>
 	<!-- 学生id查询课程包信息 -->
 	<select id="selectPkgByStuId" resultType="com.qht.model.SelectPkgByStuIdModel" parameterType="com.qht.model.UidAndTenantIDParam">
@@ -196,9 +196,9 @@ FROM
 LEFT JOIN period_evaluation pn on c.uid=pn.course_id
 LEFT JOIN buy_record bd on c.uid=bd.course_pkg_id
 LEFT JOIN student s on bd.student_id=s.uid
-where s.uid=#{uid}  and  s.tenant_id=#{tenant_id} and   c.play_type_id=#{play_type_id} 
+where s.uid=#{uid}  and  s.tenant_id=#{tenant_id} and   c.play_type_id=#{play_type_id} and c.status="1"
 GROUP BY c.uid
-	
+
 	</select>
 		<!-- 课程包体系Map1 -->
 	<resultMap type="com.qht.model.SelectChaModel" id="chMap">
@@ -215,12 +215,12 @@ GROUP BY c.uid
 				p.`name` AS period_name,
 				p.uid AS pid,
 				p.video_file AS video_file,
-				p.`begin` AS `begin`		
+				p.`begin` AS `begin`
 			FROM
 				chapter ch
 			LEFT JOIN period p ON ch.uid = p.chapter_id
 			LEFT JOIN course_pkg cp ON ch.course_id=cp.uid
-			where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
-		
+			where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+
 	</select>
 </mapper>
