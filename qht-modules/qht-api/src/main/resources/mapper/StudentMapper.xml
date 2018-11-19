@@ -742,7 +742,7 @@ inner JOIN teacher t ON c.teacher_id = t.uid
 inner JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
 inner JOIN buy_record b ON c.uid=b.course_pkg_id
 inner JOIN student  s   ON s.uid= b.student_id
- where 1=1 and s.tenant_id =#{tenant_id}  
+ where 1=1 and s.tenant_id =#{tenant_id}  and c.status="1"
  <if test="uid!=null and uid!=''">
 and s.uid=#{uid}
  </if>
@@ -1066,6 +1066,6 @@ and s.tenant_id=#{tenant_id}
         from period p
         left join chapter c on p.chapter_id=c.uid
         left join course_pkg cp on cp.uid=c.course_id
-        where p.uid=#{uid} and p.tenant_id=#{tenant_id}
+        where p.uid=#{uid} and p.tenant_id=#{tenant_id} and cp.status="1"
     </select>
 </mapper>

@@ -27,7 +27,7 @@ LEFT JOIN course_pkg c  on ct.course_pkg_id=c.uid
 where
 ct.student_id =#{uid}
 AND
-ct.tenant_id = #{tid}
+ct.tenant_id = #{tid} and c.status="1"
 
 GROUP BY
 	ct.uid

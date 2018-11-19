@@ -92,7 +92,7 @@ VALUES
     	select p.uid,cp.play_type_id,p.name,p.video_file,p.begin,cp.content 
     	from course_pkg cp left join chapter c on c.course_id=cp.uid 
     	left join period p on p.chapter_id=c.uid 
-    	where cp.uid=#{uid} and tenant_id=#{tenant_id}
+    	where cp.uid=#{uid} and tenant_id=#{tenant_id} cp.and status="1"
     </select>
     <resultMap id="selectCourseChapterAndPeriod" type="com.qht.model.CourseChapterModel">
     	<result property="uid" column="uid"/>
@@ -111,7 +111,7 @@ VALUES
     	from course_pkg cp 
     	inner join chapter c on cp.uid=c.course_id 
     	inner join period p on p.chapter_id=c.uid 
-    	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
+    	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!-- 课程包章节课时信息resultMap1 -->
     <resultMap type="com.qht.model.SelectPkgModel" id="pkg">
@@ -153,7 +153,7 @@ VALUES
 		LEFT   JOIN teacher t on c.uid=c.teacher_id
 		left   JOIN chapter cr ON   c.uid=cr.course_id
 		left JOIN period p ON p.chapter_id = cr.uid
-		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
+		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid} and c.status="1"
     </select>
 
 

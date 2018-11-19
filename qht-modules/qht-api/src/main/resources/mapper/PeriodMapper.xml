@@ -31,7 +31,7 @@ left JOIN buy_record brd ON cg.uid = brd.course_pkg_id
 left JOIN student st ON brd.student_id = st.uid
 WHERE
 	st.uid = #{uid} 
-	and st.tenant_id=#{tenant_id} 
+	and st.tenant_id=#{tenant_id}  and cg.status="1"
 	<if test="play_type_id!=null and play_type_id!=''">
 	and cg.play_type_id=#{play_type_id}
 	</if>
@@ -125,6 +125,6 @@ FROM
 	period p
 LEFT JOIN chapter cer on p.chapter_id=cer.uid
 LEFT JOIN course_pkg cg on cer.course_id=cg.uid
-where p.uid=#{uid} and p.tenant_id =#{tenant_id}
+where p.uid=#{uid} and p.tenant_id =#{tenant_id} and cg.status="1"
 </select>
 </mapper>
