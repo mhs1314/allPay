@@ -373,7 +373,9 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		resultObj.setData(list);
 		return resultObj;
 	}
-
+	/**
+	 * 教师首页章节
+	 */
 	@Override
 	@PostMapping("common/indexCourseChapterInfo")
 	@ResponseBody
@@ -400,7 +402,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		return resultObject;
 	}
 	/**
-	 * 查询章节
+	 * 查询课时
 	 */
 	@Override
 	@PostMapping("common/indexCoursePeriodInfo")
@@ -536,6 +538,39 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
         PeriodDetailsDto dto=new PeriodDetailsDto();
         BeanUtil.copyFields(dto, model);
         ResultObject<PeriodDetailsDto> resultObject=new ResultObject<>();
+        resultObject.setCode("0");
+        resultObject.setMsg("成功");
+        resultObject.setData(dto);
+        return resultObject;
+	}
+	/**
+	 * App教室个人中心详细
+	 */
+	@Override
+	@PostMapping("app/myTeacherInfo")
+	@ResponseBody
+	public ResultObject<AppSelectTeacherByidDto> selectTeacherByid(RequestObject<UidAndTenantID> requestObject) {
+		UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if( requestObject.getData()==null) {
+    		ResultObject<AppSelectTeacherByidDto> resultObject=new ResultObject<>();
+            resultObject.setCode("1");
+            resultObject.setMsg("参数不对");
+            resultObject.setData(new AppSelectTeacherByidDto());
+            return resultObject;
+    	}
+    	BeanUtil.copyFields(param, requestObject.getData());
+    	AppSelectTeacherByidModel model=teacherBiz.selectTeacherByid(param);
+        if(model==null) {
+        	 ResultObject<AppSelectTeacherByidDto> resultObject=new ResultObject<>();
+             resultObject.setCode("0");
+             resultObject.setMsg("成功");
+             resultObject.setData(new AppSelectTeacherByidDto());
+             return resultObject;
+        }
+       
+        AppSelectTeacherByidDto dto=new AppSelectTeacherByidDto();
+        BeanUtil.copyFields(dto, model);
+        ResultObject<AppSelectTeacherByidDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(dto);

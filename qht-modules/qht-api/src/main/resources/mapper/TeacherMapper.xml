@@ -194,5 +194,23 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     		m.isread=${isread}
     	</if>
     </select>
-
+    <!-- app教室个人中心 -->
+	<select id="selectTeacherByid" resultType="com.qht.model.AppSelectTeacherByidModel" parameterType="com.qht.model.UidAndTenantIDParam">
+		SELECT
+		t.uid as uid,
+		t.sex as sex,
+		t.mobile as mobile,
+		t.nickname as nickname,
+		t.`name` as name,
+		pt.`name` as subject_name,
+		s.school_name as school_name,
+		t.back_img as back_img
+	FROM
+		teacher t
+	LEFT JOIN pkg_subject pt ON  t.subject_id=pt.uid
+	LEFT JOIN school s on t.school_id=s.uid
+	where t.uid=#{uid}
+		and t.tenant_id=#{tenant_id}
+	
+	</select>
 </mapper>
