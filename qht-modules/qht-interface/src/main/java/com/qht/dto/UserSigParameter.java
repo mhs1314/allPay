@@ -2,14 +2,14 @@ package com.qht.dto;
 
 public class UserSigParameter {
 	
-	private String userId;
+	private String uid;
 
-	public String getUserId() {
-		return userId;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}	
 	
 }
