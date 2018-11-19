@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.qht.RequestObject;
 import com.qht.ResultBuilder;
 import com.qht.ResultObject;
@@ -17,10 +18,12 @@ import com.qht.biz.ClassroomBiz;
 import com.qht.biz.ClassroomMembersBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
+import com.qht.biz.TencentCloud;
 import com.qht.common.util.IdGenUtil;
 import com.qht.dto.ClassroomDto;
 import com.qht.dto.ClassroomParameter;
 import com.qht.dto.ClassroomStatusDto;
+import com.qht.dto.GroupResponseBodyDto;
 import com.qht.entity.Classroom;
 import com.qht.entity.ClassroomMembers;
 import com.qht.entity.Student;
@@ -43,6 +46,9 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 	
 	@Autowired
 	private ClassroomMembersBiz classroomMembersBiz;
+	
+	@Autowired
+	private TencentCloud tencentCloud;
 	
 	/**
 	 *  获取当前课程是否已创建好直播课堂
@@ -99,13 +105,19 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		if(!"camera".equals(screen) && !"board".equals(screen)) {
 			return ResultBuilder.error(requestObject, "-3", "home_screen只能为camera或board");
 		}
+		
+		String json = tencentCloud.createGroup();
+		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);	
+		
 		Classroom entity = new Classroom();
+		if("OK".equals(body.getErrorCode())) {			
+			entity.setImGroupId(body.getGroupId());
+		}		
 		entity.setHomeScreen(screen);
-		//需要一个固定的groupId
-		entity.setImGroupId("liveim2");		
+		//需要一个固定的groupId				
 		entity.setPeriodId(param.getClass_id());
-		//TODO需要问海燕
-		entity.setRoomId("roomId-自定义的");
+		//TODO需要问海燕roomId-自定义的
+		entity.setRoomId("123456");
 		entity.setTeacherId(teacherId);
 		entity.setUid(uid);
 		biz.insert(entity);

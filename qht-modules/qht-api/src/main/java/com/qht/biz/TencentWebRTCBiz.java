@@ -321,10 +321,12 @@ public class TencentWebRTCBiz {
     }
     
     
-    private static String privateKey() {
+    public static String privateKey() {
     	return "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg3LIVZlm/N2jeWLLKDrPTqVJwPyLvwabfgGEUPwLuOyWhRANCAATQ8Q2QqXpeNGC1BGaBpMg0UEnX8nYFCbltw+HHZZMCwL/Ed8fl+VKmUQuraREDyB4FzcqMorNgKsZHKfw61R1f";
     }
-    private static String publicKeyFile() {
+    public static String publicKeyFile() {
     	return "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0PENkKl6XjRgtQRmgaTINFBJ1/J2BQm5bcPhx2WTAsC/xHfH5flSplELq2kRA8geBc3KjKKzYCrGRyn8OtUdXw==";
     }
+    
+    
 }

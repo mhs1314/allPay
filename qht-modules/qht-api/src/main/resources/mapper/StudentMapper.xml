@@ -66,8 +66,6 @@
     </sql>
     <!--首页查询免费课程-->
 
-
-
     <select id="selectFreeClass" resultType="com.qht.model.FreeClassModel" parameterType="com.qht.model.FreeClassParam">
         select
         cp.cover,
@@ -183,11 +181,11 @@
     </select>
     
 
-    <resultMap id="selectCourseChapterAndClass" type="com.qht.model.CourseChapterDto">
+    <resultMap id="selectCourseChapterAndClass" type="com.qht.model.CourseChapterModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
 
-        <collection property="periods" ofType="com.qht.model.ClassDto">
+        <collection property="period" ofType="com.qht.model.ClassModel">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>
             <result property="video_file" column="video_file"/>
