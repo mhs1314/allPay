@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.qht.common.util.HttpUtil;
 import com.qht.dto.GroupResponseBodyDto;
 
@@ -60,8 +61,9 @@ public class TencentCloud {
 		}		
 		return String.valueOf(sb);
 	}
-	public String createGroup() {
+	public String createGroup(String teacherId) {
 		RequestBody param = new RequestBody();
+		param.setOwner_Account(teacherId);
 		return HttpUtil.post(toUrl(), param.toJson());
 	}
 	
@@ -95,18 +97,21 @@ public class TencentCloud {
 		String Type = "ChatRoom";
 		String Name = "TestGroup";
 		
+		@JSONField(name = "Owner_Account") 
 		public String getOwner_Account() {
 			return Owner_Account;
 		}
 		public void setOwner_Account(String owner_Account) {
 			Owner_Account = owner_Account;
 		}
+		@JSONField(name = "Type") 
 		public String getType() {
 			return Type;
 		}
 		public void setType(String type) {
 			Type = type;
 		}
+		@JSONField(name = "Name") 
 		public String getName() {
 			return Name;
 		}
@@ -114,9 +119,10 @@ public class TencentCloud {
 			Name = name;
 		}
 		
-		public String toJson() {	
-			//return JSON.toJSONString(this);
-			return "{\"Owner_Account\": \""+Owner_Account+"\",\"Type\":\""+Type+"\", \"Name\": \""+Name+"\"}";
+		public String toJson() {				
+			return JSON.toJSONString(this);
+			//System.out.println(JSON.toJSONString(this));
+			//return "{\"Owner_Account\": \""+Owner_Account+"\",\"Type\":\""+Type+"\", \"Name\": \""+Name+"\"}";
 		}
 		
 		
@@ -129,7 +135,7 @@ public class TencentCloud {
 		//System.out.println(body);
 		
 		TencentCloud tc = new TencentCloud();
-		String json = tc.createGroup();
+		String json = tc.createGroup("Web_trtc_01");
 		System.out.println(json);
 		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);		
 		System.out.println(body);
