@@ -327,7 +327,7 @@ public class WebRTCSigApiController {
     public static void main(String[] args) {
         int sdkappid = 1400154853;   //腾讯云云通信sdkappid
         int roomid = 1234;           //音视频房间号roomid
-        String userid = "webrtc98";  //用户名userid
+        String userid = "admin";  //用户名userid
         
         File privateKeyFile = new File("private_key");
         byte[] privateKey = new byte[(int)privateKeyFile.length()];
@@ -362,7 +362,7 @@ public class WebRTCSigApiController {
         api.setPublicKey(publicKeyFile());
         
         //生成userSig
-        String userSig = api.genUserSig(userid, 300);
+        String userSig = api.genUserSig(userid, 3600);
         
         //生成privateMapKey
         String privateMapKey = api.genPrivateMapKey(userid, roomid, 300);

@@ -32,7 +32,8 @@ public class TencentWebRTCAPIController {
 		String userid = requestObject.getData().getUid();
 		if(StringUtil.isEmpty(userid)) {
 			return ResultBuilder.error(requestObject, "-2", "请求参数为空");
-		}		
+		}	
+		//TODO需要先验证账号，再签名
 		String userSig = webRTCBiz.genUserSig(userid, 3600);
 		UserSigDto dto = new UserSigDto();
 		dto.setUserSig(userSig);
