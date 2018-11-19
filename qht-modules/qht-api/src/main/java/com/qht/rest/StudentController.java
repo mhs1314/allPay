@@ -258,9 +258,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseEvaluationParameter> requestObject) {
         ResultObject<List<CourseEvaluationDto>> resultObject=new ResultObject<>();
         CourseEvaluationParam param=new CourseEvaluationParam();
-        if(requestObject.getData().getEval()==null&&requestObject.getData().getEval()==""){
-        	
-        	BeanUtil.copyFields(param, requestObject.getData());
+        if(requestObject.getData()==null){
+            return resultObject.setMsg("没有参数");
+        }
+        BeanUtil.copyFields(param, requestObject.getData());
+        if(StringUtil.isEmpty(requestObject.getData().getEval())){
             PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
             List<CourseEvaluationModel> courseEvaluationDtos=studentBiz.selectCourseEvaluation(param);
             List<CourseEvaluationDto> list = BeanUtil.copyList(CourseEvaluationDto.class, courseEvaluationDtos);
@@ -273,7 +275,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             resultObject.setCount(count.getTotal());
             resultObject.setCount_good(courseEvaluationDtosGood.size());
             resultObject.setCount_mid(courseEvaluationDtosMid.size());
-            resultObject.setCount_mid(courseEvaluationDtosBad.size());
+            resultObject.setCount_bad(courseEvaluationDtosBad.size());
             resultObject.setData(list);
             return resultObject;
         }
@@ -553,7 +555,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<MyIndexMessageDto> selectMessageById(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, requestObject.getData());
-        MyIndexMessageModel dto=studentBiz.selectMessageById(param.getUid());
+        MyIndexMessageModel dto=studentBiz.selectMessageById(param);
         MyIndexMessageDto dtod=new MyIndexMessageDto();
         BeanUtil.copyFields(dtod, dto);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
