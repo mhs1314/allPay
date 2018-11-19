@@ -19,7 +19,8 @@
       ct.course_pkg_id as pkg_id,
     SUM(p.praise_number) praise_number,
     AVG(p.comments_star) comments_star,
-        c.apply_number as apply_number
+        c.apply_number as apply_number,
+        c.play_type_id as play_type_id
     FROM
 	collect ct
 LEFT JOIN period_evaluation p ON ct.course_pkg_id=p.course_id

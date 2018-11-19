@@ -372,5 +372,17 @@ public interface StudentService {
      * @return
      */
     public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
+    /**
+     *学生 个人中心课程列表
+     */
+    public ResultObject<List<SelectPkgByStuIdDto>> selectPkgByStuId(@RequestBody RequestObject<UidAndTenantID> requestObject);
+    /**
+     * 连PC通用课程包体系
+     */
+    public ResultObject<List<CourseChapterDto>> selectCourseChapterByCuId(@RequestBody RequestObject<CourseIntroParameter> requestObject);
+    /**
+     * 连PC通用课程包简介
+     */
+    public ResultObject<CourseIntroDto> appCourseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject);
 }
 

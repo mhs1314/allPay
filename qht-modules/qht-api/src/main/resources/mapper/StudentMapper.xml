@@ -1079,4 +1079,5 @@ and s.tenant_id=#{tenant_id}
         left join course_pkg cp on cp.uid=c.course_id
         where p.uid=#{uid} and p.tenant_id=#{tenant_id}
     </select>
+    
 </mapper>

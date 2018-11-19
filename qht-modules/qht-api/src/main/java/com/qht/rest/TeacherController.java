@@ -510,7 +510,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 	@Override
 	@PostMapping("app/myPeriodDetail")
 	@ResponseBody
-	public ResultObject<PeriodDetailsDto> selectPeriodDetails(RequestObject<UidAndTenantID> requestObject) {
+	public ResultObject<PeriodDetailsDto> selectPeriodDetails(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
     	if( requestObject.getData()==null) {
     		ResultObject<PeriodDetailsDto> resultObject=new ResultObject<>();
@@ -543,7 +543,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 	@Override
 	@PostMapping("app/myTeacherInfo")
 	@ResponseBody
-	public ResultObject<AppSelectTeacherByidDto> selectTeacherByid(RequestObject<UidAndTenantID> requestObject) {
+	public ResultObject<AppSelectTeacherByidDto> selectTeacherByid(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
     	if( requestObject.getData()==null) {
     		ResultObject<AppSelectTeacherByidDto> resultObject=new ResultObject<>();
