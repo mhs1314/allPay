@@ -17,8 +17,38 @@ public class IndexCoruseListDto  implements Serializable {
     private String subject_name;
     //购买人数
     private String apply_number;
+    //价格
+    private String  total_price;
+    //点赞数
+    private String praise_number;
+    //评分
+    private String comments_star;
 
-    public String getCover() {
+    public String getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(String total_price) {
+		this.total_price = total_price;
+	}
+
+	public String getPraise_number() {
+		return praise_number;
+	}
+
+	public void setPraise_number(String praise_number) {
+		this.praise_number = praise_number;
+	}
+
+	public String getComments_star() {
+		return comments_star;
+	}
+
+	public void setComments_star(String comments_star) {
+		this.comments_star = comments_star;
+	}
+
+	public String getCover() {
         return cover;
     }
 
@@ -76,10 +106,12 @@ public class IndexCoruseListDto  implements Serializable {
 
 	@Override
 	public String toString() {
-		return "IndexCoruseListDto [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", play_type_id="
+		return "IndexCoruseListModel [cover=" + cover + ", uid=" + uid + ", pkg_name=" + pkg_name + ", play_type_id="
 				+ play_type_id + ", nickname=" + nickname + ", subject_name=" + subject_name + ", apply_number="
-				+ apply_number + "]";
+				+ apply_number + ", total_price=" + total_price + ", praise_number=" + praise_number
+				+ ", comments_star=" + comments_star + "]";
 	}
-    
+
+
     
 }

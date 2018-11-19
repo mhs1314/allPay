@@ -80,4 +80,20 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 
 		return coursePkgMapper.selectIndexMyCourseEditChapterAndPeriodModel(param);
 	}
+	
+	/**
+	 * 通过学生id查询课程包    个人中心课程列表
+	 * @param param
+	 * @return
+	 */
+	
+	public List<SelectPkgByStuIdModel> selectPkgByStuId(UidAndTenantIDParam param){
+		return coursePkgMapper.selectPkgByStuId(param);
+	}
+	/**
+	 * 课程包体系
+	 */
+	public List<SelectChaModel> selectCourseChapterByCuId(UidAndTenantIDParam param){
+		return coursePkgMapper.selectCourseChapterByCuId(param);
+	}
 }

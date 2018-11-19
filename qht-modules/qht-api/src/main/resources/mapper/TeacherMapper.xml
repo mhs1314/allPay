@@ -70,12 +70,13 @@ GROUP BY t.uid
 	c.apply_number as apply_number,
 	AVG( p.comments_star) as comments_star,
 	SUM(p.praise_number) as praise_number,
-	c.total_price
+	c.total_price,
+	c.play_type_id
 FROM
 	course_pkg c
-inner JOIN period_evaluation p ON c.uid=p.course_id
-inner JOIN teacher t  on c.teacher_id=t.uid
-where t.uid=#{uid} and t.tenant_id=#{tid}
+left JOIN period_evaluation p ON c.uid=p.course_id
+left JOIN teacher t  on c.teacher_id=t.uid
+where t.uid=#{uid} and t.tenant_id=#{tid} and c.status="1"
 GROUP BY c.uid
 
     </select>
@@ -114,7 +115,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin
         from course_pkg cp left join chapter c on cp.uid=c.course_id
         left join period p on p.chapter_id=c.uid
-        where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id}
+        where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
         <if test="play_type_id!=null and play_type_id !=''">
             and cp.play_type_id=#{play_type_id}
         </if>
@@ -135,7 +136,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
         select
         cp.cover,pl.name as course_type_name,cp.uid,cp.pkg_name,cp.create_time,cp.pkg_level_id
         from course_pkg cp left join pkg_level pl on cp.course_type_id=pl.uid
-        where cp.tenant_id=#{tenant_id} and cp.teacher_id=#{uid}
+        where cp.tenant_id=#{tenant_id} and cp.teacher_id=#{uid} and cp.status="1"
         <if test="course_type_id!=null and course_type_id!=''">
             cp.course_type_id=#{course_type_id}
         </if>
@@ -168,7 +169,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 	    	left join student s on s.uid=a.student_id 
 	    	left join teacher t on t.uid=cp.teacher_id 
 	    where 
-	    	t.uid=#{uid} and a.tenant_id=#{tenant_id} 
+	    	t.uid=#{uid} and a.tenant_id=#{tenant_id} and cp.status="1"
 	    	<if test="answer!=null and answer!=''">
 	    		<if test="answer=='1'">
 	    			and a.type=1

@@ -10,6 +10,14 @@ public class UidAndTenantID implements Serializable {
 	private String token;
 	private String school_id;
 	private String teacher_id;
+	private String play_type_id;
+	
+	public String getPlay_type_id() {
+		return play_type_id;
+	}
+	public void setPlay_type_id(String play_type_id) {
+		this.play_type_id = play_type_id;
+	}
 	
 	public String getTeacher_id() {
 		return teacher_id;

@@ -20,8 +20,18 @@ public class MyCollectlistDto implements Serializable {
     private Integer praise_number;
     //购买数
     private String apply_number;
+    //播放类型
+    private String play_type_id;
 
-    public String getCover() {
+    public String getPlay_type_id() {
+		return play_type_id;
+	}
+
+	public void setPlay_type_id(String play_type_id) {
+		this.play_type_id = play_type_id;
+	}
+
+	public String getCover() {
         return cover;
     }
 
