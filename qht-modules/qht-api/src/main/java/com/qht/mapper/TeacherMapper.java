@@ -100,5 +100,5 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @param param
 	 * @return
 	 */
-	Integer updateTeahcerInfo(EditTeacherInfoParam param);
+//	Integer updateTeahcerInfo(EditTeacherInfoParam param);
 }

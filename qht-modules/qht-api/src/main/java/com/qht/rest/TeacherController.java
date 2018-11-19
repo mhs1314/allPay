@@ -638,18 +638,18 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		return resultObject;
 	}
 
-	@Override
-	@ResponseBody
-	@PostMapping("edit_teacherInfo")
-	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject) {
-		ResultObject<Void> resultObject=new ResultObject<>();
-		if(requestObject.getData()==null){
-			return resultObject.setMsg("参数为空");
-		}
-		EditTeacherInfoParam param=new EditTeacherInfoParam();
-		BeanUtil.copyFields(param,requestObject.getData());
-		Integer updateLine=teacherBiz.updateTeacherInfo(param);
-		return null;
-	}
+//	@Override
+//	@ResponseBody
+//	@PostMapping("edit_teacherInfo")
+//	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject) {
+//		ResultObject<Void> resultObject=new ResultObject<>();
+//		if(requestObject.getData()==null){
+//			return resultObject.setMsg("参数为空");
+//		}
+//		EditTeacherInfoParam param=new EditTeacherInfoParam();
+//		BeanUtil.copyFields(param,requestObject.getData());
+//		Integer updateLine=teacherBiz.updateTeacherInfo(param);
+//		return null;
+//	}
 
 }
