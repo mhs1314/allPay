@@ -20,5 +20,15 @@
 	VALUES
 		(#{uid}, #{tenant_id},#{chapter_name},#{course_id})
     </insert>
-
+	<select id="selectChapterByid" resultType="com.qht.model.CourseChapterModel" parameterType="com.qht.model.UidAndTenantIDParam">
+			SELECT
+			cr.uid,
+			cr.NAME
+		FROM
+			chapter cr
+		LEFT JOIN course_pkg cg ON cr.course_id = cg.uid
+		WHERE
+			cg.uid = #{uid} 
+		and cg.tenant_id=#{tenant_id}
+	</select>
 </mapper>

@@ -96,4 +96,10 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
 		
 		return teacherMapper.selectIndexMessage(param);
 	}
+	/**
+	 * app个人中心教室信息
+	 */
+	public AppSelectTeacherByidModel selectTeacherByid(UidAndTenantIDParam param) {
+		return teacherMapper.selectTeacherByid(param);
+	}
 }

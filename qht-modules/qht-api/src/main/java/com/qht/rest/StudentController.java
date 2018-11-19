@@ -10,6 +10,7 @@ import com.qht.biz.PeriodBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
+import com.qht.common.util.IdGenUtil;
 import com.qht.dto.*;
 import com.qht.dto.CourseChapterDto;
 import com.qht.entity.Student;
@@ -21,11 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tk.mybatis.mapper.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -340,6 +340,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //使用分页插件
     	CourseListParam param=new CourseListParam();
     	BeanUtil.copyFields(param, requestObject.getData());
+    	if(StringUtil.isEmpty(param.getPage())){
+    	    param.setPage("1");
+        }
+        if(StringUtil.isEmpty(param.getLimit())){
+            param.setLimit("10");
+        }
         PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
         requestObject.getData().setTenant_id(getTenantId());
         List<CourseListModel> courseListDtos=studentBiz.selectCourseList(param);
@@ -598,8 +604,16 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 	        resultObject.setData(new StudentInfoDto());
 	        return resultObject;
         }
+
         StudentInfoDto dto=new StudentInfoDto();
         BeanUtil.copyFields(dto, model);
+        List<GuardianDto> guardianDtos = new ArrayList<>();
+        for(int i=0;i<model.getGua().size();i++){
+            GuardianDto guardianDto = new GuardianDto();
+            BeanUtil.copyFields(guardianDto,model.getGua().get(i));
+            guardianDtos.add(guardianDto);
+        }
+        dto.setGuardian(guardianDtos);
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -1321,9 +1335,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 		MyIndexCourseCelcollectParam param=new MyIndexCourseCelcollectParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		//收藏 插入数据需要生成一个collect表的主键
-		String str="collect"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-		param.setId(str);
+        String collect="collect";
+        String id=IdGenUtil.getUid(collect);
+		param.setId(id);
 		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
+		if(updateLine<1){
+            resultObject.setCode("1");
+            resultObject.setMsg("失败");
+            return resultObject;
+        }
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
 		return resultObject;

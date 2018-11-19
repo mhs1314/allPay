@@ -25,10 +25,10 @@
 
 FROM
 	period pd
-INNER JOIN chapter cr ON pd.chapter_id = cr.uid
-INNER JOIN course_pkg cg ON cr.course_id = cg.uid
-INNER JOIN buy_record brd ON cg.uid = brd.course_pkg_id
-INNER JOIN student st ON brd.student_id = st.uid
+left JOIN chapter cr ON pd.chapter_id = cr.uid
+left JOIN course_pkg cg ON cr.course_id = cg.uid
+left JOIN buy_record brd ON cg.uid = brd.course_pkg_id
+left JOIN student st ON brd.student_id = st.uid
 WHERE
 	st.uid = #{uid} 
 	and st.tenant_id=#{tenant_id} 
@@ -37,5 +37,94 @@ WHERE
 	</if>
 	
     </select>
+    <!-- 通过章节id查课时 -->
+<select id="selectPeriodByid" resultType="com.qht.model.CourseChapterModel" parameterType="com.qht.model.UidAndTenantIDParam">
+	SELECT
+		p.uid,
+		p.`name`
+	FROM
+		period p
+	LEFT JOIN  chapter c  on c.uid=p.chapter_id
+	WHERE
+		 c .uid = #{uid} 
+	and  c .tenant_id =#{tenant_id}
 
+</select>
+<!-- 添加课时 -->
+<insert id="insertPerIod" parameterType="com.qht.model.AppInsertPerIodParam">
+INSERT INTO `period` (
+	uid
+	,tenant_id
+	,`name`
+	,video_file
+	<if test="begin!=null and begin!=''">
+	,`begin`
+	</if>
+	<if test="over!=null and over!=''">
+	,`over`
+	</if>
+	,chapter_id
+	,effective_time
+	<if test="time_length!=null and time_length!=''">
+	,time_length
+	</if>
+)
+VALUES
+	(
+		#{uid}
+		,#{tenant_id}
+		,#{name}
+		,#{video_file}
+		<if test="begin!=null and begin!=''">
+		,#{begin}
+		</if>
+		<if test="over!=null and over!=''">
+		,#{over}
+		</if>
+		,#{chapter_id}
+		,#{effective_time}
+		<if test="time_length!=null and time_length!=''">
+		,#{time_length}
+		</if>
+		
+	);
+</insert>
+<!-- 根据老师id查询所有课时 -->
+<select id="selectPeriodByTeachId" resultType="com.qht.model.SelectPeriodByTeacherIdModel" parameterType="com.qht.model.UidAndTenantIDParam">
+SELECT
+	p.uid,
+	p.`begin`,
+	p.chapter_id,
+	p.`name`,
+	p.over,
+	p.effective_time,
+	p.tenant_id,
+	p.time_length,
+	p.video_file
+FROM
+	period p
+LEFT JOIN chapter cer on p.chapter_id=cer.uid
+LEFT JOIN course_pkg cg on cer.course_id=cg.uid
+where cg.teacher_id=#{teacher_id} and cg.teacher_id=#{uid} 
+ <if test="play_type_id!=null and play_type_id!=''">
+  and cg.play_type_id=#{play_type_id}
+ </if>
+</select>
+<!-- 根据课时id查看详情 -->
+<select id="selectPeriodDetails" resultType="com.qht.model.PeriodDetailsModel" parameterType="com.qht.model.UidAndTenantIDParam">
+SELECT
+p.uid,
+cg.play_type_id,
+p.`name`,
+p.video_file,
+p.`begin`,
+p.over,
+p.time_length,
+cg.content
+FROM
+	period p
+LEFT JOIN chapter cer on p.chapter_id=cer.uid
+LEFT JOIN course_pkg cg on cer.course_id=cg.uid
+where p.uid=#{uid} and p.tenant_id =#{tenant_id}
+</select>
 </mapper>

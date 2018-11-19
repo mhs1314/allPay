@@ -80,7 +80,7 @@ GROUP BY c.uid
 
     </select>
 
-    <select id="teacherEvaluation" resultType="com.qht.model.AppTeacherEvaluationModel">
+    <select id="teacherEvaluation" resultType="com.qht.model.AppTeacherEvaluationModel" >
       SELECT
 	s.head as head,
 	l.uid as uid,
@@ -111,7 +111,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 
     <!--教师|端首页我的课程-->
     <select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
-        select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.chapter_name,p.video_file,p.begin
+        select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin
         from course_pkg cp left join chapter c on cp.uid=c.course_id
         left join period p on p.chapter_id=c.uid
         where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id}
@@ -125,9 +125,10 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
         <if test="now_time!=null and now_time!=''">
-            and c.bgin like CONCAT(#{now_time},'%')
+            and p.begin like CONCAT(#{now_time},'%')
         </if>
     </select>
+
 
     <!--教师端首页我的课程包-->
     <select id="selectIndexMyCourseList" resultType="com.qht.model.IndexMyCourseModel" parameterType="com.qht.model.IndexMyCourseParam">
@@ -180,13 +181,36 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
     
     <!-- 教师端首页-我的消息 -->
     <select id="selectIndexMessage" resultType="com.qht.model.IndexMessageModel" parameterType="com.qht.model.IndexMessageParam">
-    	select s.head,m.uid,m.isread,s.nickname,m.content 
+    	select
+		s.head,
+		m.uid,
+		m.isread,
+		s.nickname,
+		m.content
     	from message m 
     		left join student s on m.from_id=s.uid 
-    	where m.to_id=#{uid} and tenant_id=#{tenant_id} 
+    	where m.to_id=#{uid} and m.tenant_id=#{tenant_id}
     	<if test="isread !=null and isread !=''">
     		m.isread=${isread}
     	</if>
     </select>
-
+    <!-- app教室个人中心 -->
+	<select id="selectTeacherByid" resultType="com.qht.model.AppSelectTeacherByidModel" parameterType="com.qht.model.UidAndTenantIDParam">
+		SELECT
+		t.uid as uid,
+		t.sex as sex,
+		t.mobile as mobile,
+		t.nickname as nickname,
+		t.`name` as name,
+		pt.`name` as subject_name,
+		s.school_name as school_name,
+		t.back_img as back_img
+	FROM
+		teacher t
+	LEFT JOIN pkg_subject pt ON  t.subject_id=pt.uid
+	LEFT JOIN school s on t.school_id=s.uid
+	where t.uid=#{uid}
+		and t.tenant_id=#{tenant_id}
+	
+	</select>
 </mapper>

@@ -13,9 +13,9 @@ public class IndexMessageParam implements Serializable{
 	
 	private String tenant_id;
 	
-	private String page;
+	private String page="1";
 	
-	private String limit;
+	private String limit="10";
 	
 	private String isread;
 

@@ -83,4 +83,8 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @return
 	 */
 	List<IndexMessageModel> selectIndexMessage(IndexMessageParam param);
+	/**
+	 * app个人中心教室信息
+	 */
+	AppSelectTeacherByidModel selectTeacherByid(UidAndTenantIDParam param);
 }

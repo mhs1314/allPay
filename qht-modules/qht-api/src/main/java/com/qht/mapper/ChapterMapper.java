@@ -1,9 +1,13 @@
 package com.qht.mapper;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.qht.entity.Chapter;
 import com.qht.model.AppInsertChapterParam;
+import com.qht.model.CourseChapterModel;
+import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -23,4 +27,8 @@ public interface ChapterMapper extends Mapper<Chapter> {
 	 * @return
 	 */
 	Integer appInsertChapter(AppInsertChapterParam param);
+	/**
+	 * 课程包id查章节
+	 */
+	List<CourseChapterModel> selectChapterByid(UidAndTenantIDParam param);
 }

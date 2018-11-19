@@ -65,7 +65,7 @@ VALUES
 		#{open_range_id},
 		#{easy},
 		#{status},
-		#{creat_time}
+		#{create_time}
 	)
     </insert>
     <!-- 修改课程包 -->
@@ -117,6 +117,7 @@ VALUES
     <resultMap type="com.qht.model.SelectPkgModel" id="pkg">
 	    <id column="uid" property="uid"/>
 	    <result column="pkg_name" property="pkg_name"/>
+	     <result column="play_type_id" property="play_type_id"/>
 	    <collection property="chapter" javaType="com.qht.model.SelectChModel" resultMap="ch" >
 	    </collection>
     </resultMap>
@@ -137,8 +138,9 @@ VALUES
       
     <!-- 课程包章节课时信息 -->
     <select id="selectPkgChPer" resultMap="pkg" parameterType="com.qht.model.UidAndTenantIDParam">
-    	SELECT
+       	SELECT
 			c.uid AS uid,
+			c.play_type_id,
 			c.pkg_name AS pkg_name,
 			cr.uid AS c_id,
 			cr.`name` AS name,
@@ -148,9 +150,9 @@ VALUES
 			p.`begin`
 		FROM
 			course_pkg c
-		LEFT  JOIN teacher t on c.uid=c.teacher_id
-		left  JOIN chapter cr ON cr.course_id = c.uid
-		LEFT JOIN period p ON p.chapter_id = p.chapter_id
+		LEFT   JOIN teacher t on c.uid=c.teacher_id
+		left   JOIN chapter cr ON   c.uid=cr.course_id
+		left JOIN period p ON p.chapter_id = cr.uid
 		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
     </select>
 </mapper>

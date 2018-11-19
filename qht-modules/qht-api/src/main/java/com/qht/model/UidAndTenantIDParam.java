@@ -9,6 +9,14 @@ public class UidAndTenantIDParam implements Serializable {
 	private String tenant_id;
 	private String token;
 	private String school_id;
+	private String teacher_id;
+	
+	public String getTeacher_id() {
+		return teacher_id;
+	}
+	public void setTeacher_id(String teacher_id) {
+		this.teacher_id = teacher_id;
+	}
 	public String getSchool_id() {
 		return school_id;
 	}
@@ -32,6 +40,11 @@ public class UidAndTenantIDParam implements Serializable {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	@Override
+	public String toString() {
+		return "UidAndTenantIDParam [uid=" + uid + ", tenant_id=" + tenant_id + ", token=" + token + ", school_id="
+				+ school_id + ", teacher_id=" + teacher_id + "]";
 	}
 	
 	
