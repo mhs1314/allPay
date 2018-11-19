@@ -273,7 +273,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             resultObject.setCount(count.getTotal());
             resultObject.setCount_good(courseEvaluationDtosGood.size());
             resultObject.setCount_mid(courseEvaluationDtosMid.size());
-            resultObject.setCount_mid(courseEvaluationDtosBad.size());
+            resultObject.setCount_bad(courseEvaluationDtosBad.size());
             resultObject.setData(list);
             return resultObject;
         }
