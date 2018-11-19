@@ -258,9 +258,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseEvaluationParameter> requestObject) {
         ResultObject<List<CourseEvaluationDto>> resultObject=new ResultObject<>();
         CourseEvaluationParam param=new CourseEvaluationParam();
+        if(requestObject.getData()==null){
+            return resultObject.setMsg("没有参数");
+        }
+        BeanUtil.copyFields(param, requestObject.getData());
         if(StringUtil.isEmpty(requestObject.getData().getEval())){
-        	
-        	BeanUtil.copyFields(param, requestObject.getData());
             PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
             List<CourseEvaluationModel> courseEvaluationDtos=studentBiz.selectCourseEvaluation(param);
             List<CourseEvaluationDto> list = BeanUtil.copyList(CourseEvaluationDto.class, courseEvaluationDtos);
