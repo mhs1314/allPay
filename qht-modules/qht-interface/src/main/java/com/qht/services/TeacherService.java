@@ -3,6 +3,7 @@ package com.qht.services;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.dto.*;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -103,4 +104,16 @@ public interface TeacherService {
 	 * 章节id查课时
 	 */
 	public ResultObject<List<CourseChapterDto>> selectPeriodByid(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	/**
+	 * 添加课时
+	 */
+	public ResultObject<Void> insertPerIod(@RequestBody RequestObject<AppInsertPerIodParameter> requestObject);
+	/**
+	 * 根据老师id和直播状态查询课时
+	 */ 
+		public ResultObject<List<SelectPeriodByTeacherIdDto>> selectPeriodByTeachId(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	/**
+	 * 查看课时详情
+	 */
+		public ResultObject<PeriodDetailsDto> selectPeriodDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
 }
