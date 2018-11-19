@@ -29,6 +29,6 @@
 		LEFT JOIN course_pkg cg ON cr.course_id = cg.uid
 		WHERE
 			cg.uid = #{uid} 
-		and cg.tenant_id= #{tenant_id}
+		and cg.tenant_id=#{tenant_id}
 	</select>
 </mapper>

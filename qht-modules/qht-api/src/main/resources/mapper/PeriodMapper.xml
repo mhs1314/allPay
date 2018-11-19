@@ -47,7 +47,11 @@ WHERE
 	LEFT JOIN  chapter c  on c.uid=p.chapter_id
 	WHERE
 		 c .uid = #{uid} 
-	and  c .tenant_id #{tenant_id}
+	and  c .tenant_id =#{tenant_id}
 
 </select>
+<!-- 添加课时 -->
+<insert id="">
+
+</insert>
 </mapper>

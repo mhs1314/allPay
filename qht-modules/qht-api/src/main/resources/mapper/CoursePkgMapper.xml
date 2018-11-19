@@ -152,7 +152,7 @@ VALUES
 			course_pkg c
 		LEFT   JOIN teacher t on c.uid=c.teacher_id
 		inner   JOIN chapter cr ON cr.course_id = c.uid
-		inner JOIN period p ON p.chapter_id = p.chapter_id
+		RIGHT JOIN period p ON p.chapter_id = p.chapter_id
 		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
     </select>
 </mapper>
