@@ -216,9 +216,7 @@
           pe.comments_time,
           cp.pkg_name,
           pe.comments_star,
-          pe.comments_content,
-
-          count(s.name)
+          pe.comments_content
         from
 
 
@@ -237,9 +235,7 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
@@ -256,15 +252,13 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id}
         and cp.status="1"
-        and pe.comments_star &lt;=4 and pe.comments_star &gt;2
+        and pe.comments_star &lt;=4 and pe.comments_star &gt;=2
     </select>
 
     <!--课程详情课程包评论bad-->
@@ -277,13 +271,11 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
-        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;=2
+        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;2
     </select>
     
 
