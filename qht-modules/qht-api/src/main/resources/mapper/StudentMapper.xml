@@ -78,12 +78,12 @@
         pl.name as level_name,
         pt.name as pkg_type_name
         from course_pkg cp
-        inner join teacher t on cp.teacher_id=t.uid
-        inner join pkg_level pl on cp.pkg_level_id=pl.uid
-        inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
-        inner join pkg_type pt on pt.uid=cp.course_type_id
+        left join teacher t on cp.teacher_id=t.uid
+        left join pkg_level pl on cp.pkg_level_id=pl.uid
+        left join pkg_subject ps on cp.pkg_subject_id=ps.uid
+        left join pkg_type pt on pt.uid=cp.course_type_id
         where cp.tenant_id=#{tenant_id}
-        and cp.status="1" 
+        and cp.status="1"
         and cp.pkt_type_id="1"
         <if test="pkg_subject_id!='' and pkg_subject_id!=null">
             and cp.pkg_subject_id=#{pkg_subject_id}
