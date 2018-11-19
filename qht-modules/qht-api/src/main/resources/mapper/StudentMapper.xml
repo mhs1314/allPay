@@ -66,6 +66,8 @@
     </sql>
     <!--首页查询免费课程-->
 
+
+
     <select id="selectFreeClass" resultType="com.qht.model.FreeClassModel" parameterType="com.qht.model.FreeClassParam">
         select
         cp.cover,
