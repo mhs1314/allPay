@@ -441,36 +441,31 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 			result.setMsg("没有参数");
 			result.setCode("1");
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		AppInsertPerIodParam param = new AppInsertPerIodParam();
-
-		if (requestObject.getData().getBegin() == null) {
-
-			String sfDate = sdf.format(requestObject.getData().getBegin());
-			requestObject.getData().setBegin(sfDate);
-			try {
-				param.setBegin(sdf.parse(sfDate));
-			} catch (ParseException e) {
-				ResultObject<Void> result = new ResultObject<>();
-				result.setMsg("类型转换出错");
-				result.setCode("1");
-				return result;	
-			}
-		}
-
 		BeanUtil.copyFields(param, requestObject.getData());
-
-		Date date = new Date();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.add(Calendar.YEAR, +1);
-		param.setEffective_time(calendar.getTime());
-		if (param.getOver() != null) {
-			Calendar ca = Calendar.getInstance();
-			ca.setTime(param.getBegin());
-			ca.add(Calendar.MINUTE, Integer.parseInt((param.getTime_length() + 10) + ""));
-			param.setOver(ca.getTime());
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		Date beginDate=null;
+		if(requestObject.getData().getBegin()!=null) {
+			//转换开始时间戳为正常时间
+		 beginDate=new Date(requestObject.getData().getBegin()); 
+		 param.setBegin(beginDate);
+		 //开始时间加播放时长加10分钟
+		 Date overDate=new Date((beginDate.getTime()+param.getTime_length()+10*60*1000));
+		 param.setOver(overDate);
+		 Calendar cal = Calendar.getInstance();
+		 cal.setTime(param.getOver());//设置起时间
+		 cal.add(Calendar.YEAR, 1);//增加一年	
+		 param.setEffective_time(cal.getTime());
 		}
+		if(requestObject.getData().getEffective_time()==null) {
+			 Calendar cal = Calendar.getInstance();
+			 cal.setTime(new Date());//设置起时间
+			 cal.add(Calendar.YEAR, 1);//增加一年	
+			param.setEffective_time(cal.getTime());
+		}
+    	param.setUid(IdGenUtil.getUid("KS"));
+		
 		Integer result = periodBiz.insertPerIod(param);
 		if (result == null || result <= 0) {
 			ResultObject<Void> robj = new ResultObject<>();
@@ -544,7 +539,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
         return resultObject;
 	}
 	/**
-	 * App教室个人中心详细
+	 * App教师个人中心详细
 	 */
 	@Override
 	@PostMapping("app/myTeacherInfo")
@@ -559,6 +554,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
             return resultObject;
     	}
     	BeanUtil.copyFields(param, requestObject.getData());
+
     	AppSelectTeacherByidModel model=teacherBiz.selectTeacherByid(param);
         if(model==null) {
         	 ResultObject<AppSelectTeacherByidDto> resultObject=new ResultObject<>();

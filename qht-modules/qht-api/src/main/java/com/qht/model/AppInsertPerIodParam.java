@@ -12,7 +12,7 @@ public class AppInsertPerIodParam implements Serializable {
 	private Date over;
 	private String chapter_id;
 	private Date effective_time;
-	private Float time_length;
+	private Integer time_length;
 	public String getUid() {
 		return uid;
 	}
@@ -61,10 +61,11 @@ public class AppInsertPerIodParam implements Serializable {
 	public void setEffective_time(Date effective_time) {
 		this.effective_time = effective_time;
 	}
-	public Float getTime_length() {
+	
+	public Integer getTime_length() {
 		return time_length;
 	}
-	public void setTime_length(Float time_length) {
+	public void setTime_length(Integer time_length) {
 		this.time_length = time_length;
 	}
 	@Override
