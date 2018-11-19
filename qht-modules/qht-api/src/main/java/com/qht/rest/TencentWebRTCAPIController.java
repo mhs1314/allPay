@@ -29,7 +29,7 @@ public class TencentWebRTCAPIController {
 		if(requestObject == null || requestObject.getData() == null) {
 			return ResultBuilder.error(requestObject, "-1", "请求参数为空");
 		}
-		String userid = requestObject.getData().getUserId();
+		String userid = requestObject.getData().getUid();
 		if(StringUtil.isEmpty(userid)) {
 			return ResultBuilder.error(requestObject, "-2", "请求参数为空");
 		}		
