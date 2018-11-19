@@ -17,6 +17,26 @@ public class PeriodDto implements Serializable {
    private String video_file;
 
    private Date begin;
+   private String time_length;
+
+    @Override
+    public String toString() {
+        return "PeriodDto{" +
+                "period_name='" + period_name + '\'' +
+                ", period_id='" + period_id + '\'' +
+                ", video_file='" + video_file + '\'' +
+                ", begin=" + begin +
+                ", time_length='" + time_length + '\'' +
+                '}';
+    }
+
+    public String getTime_length() {
+        return time_length;
+    }
+
+    public void setTime_length(String time_length) {
+        this.time_length = time_length;
+    }
 
     public String getPeriod_name() {
         return period_name;
@@ -50,13 +70,4 @@ public class PeriodDto implements Serializable {
         this.begin = begin;
     }
 
-    @Override
-    public String toString() {
-        return "PeriodDto{" +
-                "period_name='" + period_name + '\'' +
-                ", period_id='" + period_id + '\'' +
-                ", video_file='" + video_file + '\'' +
-                ", begin=" + begin +
-                '}';
-    }
 }
