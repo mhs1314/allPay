@@ -12,7 +12,9 @@ import com.qht.dto.CourseChapterDto;
 import com.qht.entity.Teacher;
 import com.qht.model.*;
 import com.qht.services.TeacherService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("teacher")
@@ -575,6 +574,82 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
         resultObject.setMsg("成功");
         resultObject.setData(dto);
         return resultObject;
+	}
+
+	@Override
+	@PostMapping("indexMyCourseEditChapterAndPeriod")
+	@ResponseBody
+	public ResultObject<IndexMyCourseEditChapterAndPeriodDto> indexMyCourseEditChapterAndPeriodDto(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+
+		ResultObject<IndexMyCourseEditChapterAndPeriodDto> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null){
+			return resultObject.setMsg("参数为空");
+		}
+		UidAndTenantIDParam param=new UidAndTenantIDParam();
+		BeanUtil.copyFields(param,requestObject.getData());
+		IndexMyCourseEditChapterAndPeriodModel model=coursePkgBiz.selectIndexMyCourseEditChapterAndPeriodModel(param);
+		if(model==null){
+			return resultObject.setMsg("查询结果为空");
+		}
+		IndexMyCourseEditChapterAndPeriodDto dto=new IndexMyCourseEditChapterAndPeriodDto();
+		BeanUtil.copyFields(dto,model);
+		List<ChapterModel> chapterModels=model.getChapter();
+
+		List<ChapterDto> chapterDtos=new ArrayList<>();
+		for(int i=0;i<model.getChapter().size();i++){
+			ChapterDto chapterDto=new ChapterDto();
+			BeanUtil.copyFields(chapterDto,model.getChapter().get(i));
+			List<PeriodDto> periodDtos=new ArrayList<>();
+			ListIterator it = chapterModels.listIterator();
+			while(it.hasNext()){
+				PeriodDto periodDto=new PeriodDto();
+				BeanUtil.copyFields(periodDto,it.next());
+				periodDtos.add(periodDto);
+			}
+			chapterDto.setPeriods(periodDtos);
+			chapterDtos.add(chapterDto);
+		}
+		dto.setChapters(chapterDtos);
+		resultObject.setCode("0");
+		resultObject.setMsg("成功");
+		resultObject.setData(dto);
+		return resultObject;
+	}
+
+	@Override
+	@PostMapping("teacherInfo")
+	@ResponseBody
+	public ResultObject<PCTeacherInfoDto> teacherInfo(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		ResultObject<PCTeacherInfoDto> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null){
+			return resultObject.setMsg("参数为空");
+		}
+		UidAndTenantIDParam param=new UidAndTenantIDParam();
+		BeanUtil.copyFields(param,requestObject.getData());
+		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo(param);
+		if(model==null){
+			return resultObject.setMsg("查询无结果");
+		}
+		PCTeacherInfoDto dto=new PCTeacherInfoDto();
+		BeanUtil.copyFields(dto,model);
+		resultObject.setCode("0");
+		resultObject.setMsg("成功");
+		resultObject.setData(dto);
+		return resultObject;
+	}
+
+	@Override
+	@ResponseBody
+	@PostMapping("edit_teacherInfo")
+	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject) {
+		ResultObject<Void> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null){
+			return resultObject.setMsg("参数为空");
+		}
+		EditTeacherInfoParam param=new EditTeacherInfoParam();
+		BeanUtil.copyFields(param,requestObject.getData());
+		Integer updateLine=teacherBiz.updateTeacherInfo(param);
+		return null;
 	}
 
 }
