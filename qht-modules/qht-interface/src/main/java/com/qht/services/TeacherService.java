@@ -159,4 +159,18 @@ public interface TeacherService {
 	 */
 	public ResultObject<IndexMyCourseEditChapterAndPeriodDto> indexMyCourseEditChapterAndPeriodDto(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
+	/**
+	 * 教师端-个人中心--首页--教师信息
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<PCTeacherInfoDto> teacherInfo(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
+	/**
+	 * 修改老师信息
+	 * @param requestObject
+	 * @return
+	 */
+	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject);
+
 }

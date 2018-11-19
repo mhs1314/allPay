@@ -102,4 +102,22 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
 	public AppSelectTeacherByidModel selectTeacherByid(UidAndTenantIDParam param) {
 		return teacherMapper.selectTeacherByid(param);
 	}
+
+    /**
+     * 查询老师信息
+     * @param param
+     * @return
+     */
+    public PCTeacherInfoModel selectTeacherInfo(UidAndTenantIDParam param) {
+        return teacherMapper.selectTeacherInfo(param);
+    }
+
+    /**
+     * 修改信息
+     * @param param
+     * @return
+     */
+    public Integer updateTeacherInfo(EditTeacherInfoParam param) {
+        return teacherMapper.updateTeahcerInfo(param);
+    }
 }

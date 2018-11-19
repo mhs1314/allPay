@@ -87,4 +87,18 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * app个人中心教室信息
 	 */
 	AppSelectTeacherByidModel selectTeacherByid(UidAndTenantIDParam param);
+
+	/**
+	 * 查询老师信息
+	 * @param param
+	 * @return
+	 */
+    PCTeacherInfoModel selectTeacherInfo(UidAndTenantIDParam param);
+
+	/**
+	 * 修改信息
+	 * @param param
+	 * @return
+	 */
+	Integer updateTeahcerInfo(EditTeacherInfoParam param);
 }
