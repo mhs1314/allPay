@@ -62,4 +62,16 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * @return
 	 */
 	IndexMyCourseEditChapterAndPeriodModel selectIndexMyCourseEditChapterAndPeriodModel(UidAndTenantIDParam param);
+	/**
+	 * 通过学生id查询课程包    个人中心课程列表
+	 * @param param
+	 * @return
+	 */
+	
+	List<SelectPkgByStuIdModel> selectPkgByStuId(UidAndTenantIDParam param);
+	
+	/**
+	 * 课程包体系
+	 */
+	List<SelectChaModel> selectCourseChapterByCuId(UidAndTenantIDParam param);
 }

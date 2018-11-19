@@ -784,17 +784,22 @@ where a.tenant_id=#{tenant_id}
 <!-- 课程列表-->
 
  <select id="indexCoruseList" resultType="com.qht.model.IndexCoruseListModel" parameterType="com.qht.model.IndexCoruseListParam">
-        SELECT
-	c.uid,
-	c.pkg_name,
-	c.cover,
-	c.play_type_id,
-	t.nickname,
-	c.apply_number
+       SELECT
+	c.uid AS uid,
+	c.pkg_name AS pkg_name,
+	c.cover AS cover,
+	c.play_type_id AS play_type_id,
+	t.nickname AS nickname,
+	c.apply_number AS apply_number,
+	c.total_price AS total_price,
+	pn.comments_star AS comments_star,
+	p.`name` AS subject_name,
+	pn.praise_number AS praise_number
 FROM
 	course_pkg c
-inner JOIN teacher t ON c.teacher_id = t.uid
-inner JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+LEFT JOIN teacher t ON c.teacher_id = t.uid
+LEFT JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+LEFT JOIN period_evaluation pn ON c.uid = pn.course_id
 WHERE
 	c.tenant_id =#{tenant_id} and c.status="1"
         <if test="play_type_id!=null and play_type_id !=''">
@@ -1068,4 +1073,5 @@ and s.tenant_id=#{tenant_id}
         left join course_pkg cp on cp.uid=c.course_id
         where p.uid=#{uid} and p.tenant_id=#{tenant_id} and cp.status="1"
     </select>
+    
 </mapper>

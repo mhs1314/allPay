@@ -57,15 +57,15 @@ INSERT INTO `period` (
 	,tenant_id
 	,`name`
 	,video_file
-	<if test="begin!=null and begin!=''">
+	<if test="begin!=null">
 	,`begin`
 	</if>
-	<if test="over!=null and over!=''">
+	<if test="over!=null">
 	,`over`
 	</if>
 	,chapter_id
 	,effective_time
-	<if test="time_length!=null and time_length!=''">
+	<if test="time_length!=null">
 	,time_length
 	</if>
 )
@@ -75,15 +75,15 @@ VALUES
 		,#{tenant_id}
 		,#{name}
 		,#{video_file}
-		<if test="begin!=null and begin!=''">
+		<if test="begin!=null">
 		,#{begin}
 		</if>
-		<if test="over!=null and over!=''">
+		<if test="over!=null">
 		,#{over}
 		</if>
 		,#{chapter_id}
 		,#{effective_time}
-		<if test="time_length!=null and time_length!=''">
+		<if test="time_length!=null">
 		,#{time_length}
 		</if>
 		
@@ -93,22 +93,21 @@ VALUES
 <select id="selectPeriodByTeachId" resultType="com.qht.model.SelectPeriodByTeacherIdModel" parameterType="com.qht.model.UidAndTenantIDParam">
 SELECT
 	p.uid,
-	p.`begin`,
-	p.chapter_id,
+	cg.pkg_name,
 	p.`name`,
-	p.over,
-	p.effective_time,
-	p.tenant_id,
-	p.time_length,
+	cer.`name` AS chapter_name,
+	p.`begin`,
 	p.video_file
 FROM
 	period p
-LEFT JOIN chapter cer on p.chapter_id=cer.uid
-LEFT JOIN course_pkg cg on cer.course_id=cg.uid
-where cg.teacher_id=#{teacher_id} and cg.teacher_id=#{uid} 
+LEFT JOIN chapter cer ON p.chapter_id = cer.uid
+LEFT JOIN course_pkg cg ON cer.course_id = cg.uid
+LEFT JOIN teacher t ON cg.teacher_id = t.uid
+where t.uid=#{uid} and t.tenant_id=#{tenant_id}
  <if test="play_type_id!=null and play_type_id!=''">
   and cg.play_type_id=#{play_type_id}
  </if>
+ order by p.`begin`
 </select>
 <!-- 根据课时id查看详情 -->
 <select id="selectPeriodDetails" resultType="com.qht.model.PeriodDetailsModel" parameterType="com.qht.model.UidAndTenantIDParam">

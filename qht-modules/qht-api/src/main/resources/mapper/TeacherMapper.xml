@@ -70,11 +70,12 @@ GROUP BY t.uid
 	c.apply_number as apply_number,
 	AVG( p.comments_star) as comments_star,
 	SUM(p.praise_number) as praise_number,
-	c.total_price
+	c.total_price,
+	c.play_type_id
 FROM
 	course_pkg c
-inner JOIN period_evaluation p ON c.uid=p.course_id
-inner JOIN teacher t  on c.teacher_id=t.uid
+left JOIN period_evaluation p ON c.uid=p.course_id
+left JOIN teacher t  on c.teacher_id=t.uid
 where t.uid=#{uid} and t.tenant_id=#{tid} and c.status="1"
 GROUP BY c.uid
 
