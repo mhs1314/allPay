@@ -213,4 +213,16 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 		and t.tenant_id=#{tenant_id}
 	
 	</select>
+
+	<!--查询老师信息-->
+	<select id="selectTeacherInfo" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.PCTeacherInfoModel">
+		select  t.sex,t.cert,t.uid,t.intr,t.mobile as phone,t.identity_back,t.name,t.nickname,
+		t.back_img,t.age,t.identity_face,s.school_name,ps.name as subject_name from teacher t left join school s on t.school_id=s.uid
+		left join pkg_subject ps on ps.uid=t.subject_id
+	</select>
+
+	<!--updateTeahcerInfo-->
+	<select id="updateTeahcerInfo" parameterType="com.qht.model.EditTeacherInfoParam">
+		update teacher set sex=${sex},
+	</select>
 </mapper>

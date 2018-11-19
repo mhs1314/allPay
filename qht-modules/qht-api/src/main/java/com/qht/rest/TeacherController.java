@@ -14,6 +14,7 @@ import com.qht.model.*;
 import com.qht.services.TeacherService;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -574,7 +575,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 	@Override
 	@PostMapping("indexMyCourseEditChapterAndPeriod")
 	@ResponseBody
-	public ResultObject<IndexMyCourseEditChapterAndPeriodDto> indexMyCourseEditChapterAndPeriodDto(RequestObject<UidAndTenantID> requestObject) {
+	public ResultObject<IndexMyCourseEditChapterAndPeriodDto> indexMyCourseEditChapterAndPeriodDto(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 
 		ResultObject<IndexMyCourseEditChapterAndPeriodDto> resultObject=new ResultObject<>();
 		if(requestObject.getData()==null){
@@ -609,6 +610,42 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		resultObject.setMsg("成功");
 		resultObject.setData(dto);
 		return resultObject;
+	}
+
+	@Override
+	@PostMapping("teacherInfo")
+	@ResponseBody
+	public ResultObject<PCTeacherInfoDto> teacherInfo(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		ResultObject<PCTeacherInfoDto> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null){
+			return resultObject.setMsg("参数为空");
+		}
+		UidAndTenantIDParam param=new UidAndTenantIDParam();
+		BeanUtil.copyFields(param,requestObject.getData());
+		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo(param);
+		if(model==null){
+			return resultObject.setMsg("查询无结果");
+		}
+		PCTeacherInfoDto dto=new PCTeacherInfoDto();
+		BeanUtil.copyFields(dto,model);
+		resultObject.setCode("0");
+		resultObject.setMsg("成功");
+		resultObject.setData(dto);
+		return resultObject;
+	}
+
+	@Override
+	@ResponseBody
+	@PostMapping("edit_teacherInfo")
+	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject) {
+		ResultObject<Void> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null){
+			return resultObject.setMsg("参数为空");
+		}
+		EditTeacherInfoParam param=new EditTeacherInfoParam();
+		BeanUtil.copyFields(param,requestObject.getData());
+		Integer updateLine=teacherBiz.updateTeacherInfo(param);
+		return null;
 	}
 
 }
