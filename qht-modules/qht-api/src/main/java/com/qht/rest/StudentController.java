@@ -241,11 +241,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("courseChapter")
     @ResponseBody
     public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
-    	CourseIntroParam param=new CourseIntroParam();
-    	BeanUtil.copyFields(param, requestObject.getData());
-        List<CourseChapterModel> courseChapterDtos=studentBiz.selectCourseChapter(param.getUid(),param.getTenant_id());
-        List<CourseChapterDto> list = BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
         ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
+        if(requestObject.getData()==null){
+            return resultObject.setMsg("参数为空");
+        }
+        List<CourseChapterDto> list=studentBiz.selectCourseChapter(requestObject.getData().getUid(),requestObject.getData().getTenant_id());
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);

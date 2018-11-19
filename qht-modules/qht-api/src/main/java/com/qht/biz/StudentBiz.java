@@ -1,6 +1,7 @@
 package com.qht.biz;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
+import com.qht.dto.CourseChapterDto;
 import com.qht.dto.StudentDto;
 import com.qht.entity.Student;
 import com.qht.mapper.StudentMapper;
@@ -124,7 +125,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
      * @return
      */
 
-    public List<CourseChapterModel> selectCourseChapter(String uid, String tenant_id) {
+    public List<CourseChapterDto> selectCourseChapter(String uid, String tenant_id) {
         return studentMapper.selectCourseChapter(uid,tenant_id);
     }
 
@@ -266,8 +267,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * 查詢信息
-     *
-     * @param uid
      * @return
      */
 

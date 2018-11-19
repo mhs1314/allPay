@@ -10,12 +10,15 @@ public class CourseChapterModel implements Serializable {
     //章节名称
     private String name;
 
-    public List<ClassModel> getPeriod() {
-        return period;
+    //课时集合
+    private List<ClassModel> periods;
+
+    public List<ClassModel> getPeriods() {
+        return periods;
     }
 
-    public void setPeriod(List<ClassModel> period) {
-        this.period = period;
+    public void setPeriods(List<ClassModel> periods) {
+        this.periods = periods;
     }
 
     @Override
@@ -23,12 +26,9 @@ public class CourseChapterModel implements Serializable {
         return "CourseChapterModel{" +
                 "uid='" + uid + '\'' +
                 ", name='" + name + '\'' +
-                ", period=" + period +
+                ", periods=" + periods +
                 '}';
     }
-
-    //课时集合
-    private List<ClassModel> period;
 
     public String getUid() {
         return uid;
