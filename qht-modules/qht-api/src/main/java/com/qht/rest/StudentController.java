@@ -1335,7 +1335,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 		MyIndexCourseCelcollectParam param=new MyIndexCourseCelcollectParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		//收藏 插入数据需要生成一个collect表的主键
-        String collect="collect";
+        String collect="IN";
         String id=IdGenUtil.getUid(collect);
 		param.setId(id);
 		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
