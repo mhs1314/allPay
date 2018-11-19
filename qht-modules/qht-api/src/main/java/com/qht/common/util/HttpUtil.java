@@ -60,10 +60,11 @@ public class HttpUtil {
     }
     
     
-    public static void main(String[] args) {
-		String url = "http://console.tim.qq.com/v4/group_open_http_svc/get_appid_group_list";
-		String param = "accesstoken=xxx&identifier=group_root&sdkappid=88888888&random=99999999&contenttype=json";
-		String result= post(url,param);
+    public static void main(String[] args) {    
+		String url = "https://console.tim.qq.com/v4/group_open_http_svc/create_group?usersig=eJxNj0tvgzAQhP9K5WurFjCv5IZIIpAgbUmktifLsR1wHuCahRCq-vcSRKvu8Zud3ZkvtE02j5SxqimBwFUJNEcGehix5KIEuZdCD5DysyxlDZpCpacFqpTkhALBmv-z1fxIRmlgpm0YpmP7Dp5E0SmpBaF7GM9i1-izyXwA6fIjjF8Xh7SYNQxfsuiUbZnq1zFbbrDooHa6p-4NrChtw5f3xSrI4yJI2nBV5H0cHI67ZLf2Sma5l6i5Zp*uYtX9zDWF4wD3-dPz9Azk*VZ1iGa5tmd7vyFaoWtZlWh*h6whuGlh4zbo*wcE6Fr-&identifier=administrator&sdkappid=1400154853&random=92751892592376814743133956525716&contenttype=json";
+		              
+		String data = "{\"Owner_Account\": \"Web_trtc_01\",\"Type\":\"Public\", \"Name\": \"TestGroup99\"}";
+		String result= post(url,data);
 		System.out.println(result);
 	
 	}
