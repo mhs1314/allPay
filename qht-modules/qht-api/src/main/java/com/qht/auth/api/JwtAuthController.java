@@ -39,13 +39,14 @@ public class JwtAuthController {
 	@RequestMapping(value = "token", method = RequestMethod.POST)	
     public ResultObject<LoginResultDto> createAuthenticationToken(
             @RequestBody QhtAuthenticationRequest authenticationRequest) throws Exception {
-      //  log.info(authenticationRequest.getAccount()+" require logging...");
-        LoginResultDto result = authService.login(authenticationRequest,request);
-        String requestId = authenticationRequest.getRequestId();        
-       // return new ObjectRestResponse<>().data(token);
-        return ResultBuilder.success(requestId, result);       
-    }
-	
+		String requestId = authenticationRequest.getRequestId(); 
+		try {
+			LoginResultDto result = authService.login(authenticationRequest,request);           
+	        return ResultBuilder.success(requestId, result);	
+        }catch(Exception e) {
+        	return ResultBuilder.error(requestId, "40001", "用户或密码错误");
+        }               
+    }	
 	@RequestMapping(value = "refresh", method = RequestMethod.GET)
     public ObjectRestResponse<String> refreshAndGetAuthenticationToken(
             HttpServletRequest request) throws Exception {
