@@ -1,15 +1,17 @@
 package com.qht.biz;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.qht.common.util.HttpUtil;
-import com.qht.dto.GroupBodyDto;
 import com.qht.dto.GroupBodyPatameter;
+import com.qht.dto.MsgBodyDto;
+import com.qht.dto.MsgBodyParameter;
 
 /**
  * 构造地址
@@ -66,6 +68,8 @@ public class TencentCloud {
 		return sb.toString();
 	}
 	
+	
+	
 	private String getUsersig(String userid) {	
 		webRTCBiz.setSdkAppid(sdkappid);
 		webRTCBiz.setPrivateKey(TencentWebRTCBiz.privateKey());
@@ -97,17 +101,29 @@ public class TencentCloud {
 	 * 消息推送
 	 * @return
 	 */
-	public String imPush() {
-		GroupBodyPatameter param = new GroupBodyPatameter();
-		//param.setOwner_Account(teacherId);
+	public String imPush(String groupId,String content,List<String> toMembers_Account) {
+		MsgBodyParameter param = new MsgBodyParameter();
+		param.setGroupId(groupId);
+		param.setContent(content);
+		if(toMembers_Account == null) {
+			param.setToMembers_Account(new ArrayList<String>());	
+		}else {
+			param.setToMembers_Account(toMembers_Account);
+		}			
 		return HttpUtil.post(toImPushUrl(), param.toJson());
 	}
 	
+	
+	
 	public static void main(String[] args) {
 		TencentCloud tc = new TencentCloud();
-		String json = tc.createGroup("TC001");
-		System.out.println(json);
-		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
+//		String json = tc.createGroup("TC001");
+//		System.out.println(json);
+//		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
+//		System.out.println(body);
+		
+		String json = tc.imPush("@TGS#3SOEY7QFP", "content", null);
+		MsgBodyDto body = JSON.parseObject(json, MsgBodyDto.class);
 		System.out.println(body);
 	}
 	
