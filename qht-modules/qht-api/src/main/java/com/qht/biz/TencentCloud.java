@@ -25,7 +25,7 @@ public class TencentCloud {
 	String ver = "v4";
 	String servicename = "group_open_http_svc";
 	String command = "create_group";
-	int sdkappid = 1400154853;
+	int sdkappid = 1400161647;
 	String identifier = "administrator";
 	String usersig = "";
 	String random = "";
@@ -171,7 +171,7 @@ public class TencentCloud {
 		//System.out.println(body);
 		
 		TencentCloud tc = new TencentCloud();
-		String json = tc.createGroup("Web_trtc_01");
+		String json = tc.createGroup("administrator");
 		System.out.println(json);
 		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);		
 		System.out.println(body);

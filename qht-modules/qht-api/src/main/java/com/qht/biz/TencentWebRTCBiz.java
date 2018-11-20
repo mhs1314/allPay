@@ -20,7 +20,7 @@ import com.qht.dto.UserSigDto;
  */
 @Service
 public class TencentWebRTCBiz {
-	private int sdkappid = 1400154853;
+	private int sdkappid = 1400161647;
     private PrivateKey mPrivateKey = null;
     private PublicKey mPublicKey = null;
     
@@ -321,10 +321,10 @@ public class TencentWebRTCBiz {
     
     
     public static String privateKey() {
-    	return "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg3LIVZlm/N2jeWLLKDrPTqVJwPyLvwabfgGEUPwLuOyWhRANCAATQ8Q2QqXpeNGC1BGaBpMg0UEnX8nYFCbltw+HHZZMCwL/Ed8fl+VKmUQuraREDyB4FzcqMorNgKsZHKfw61R1f";
+    	return "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgpvH9H9d6UNRE3qxyvoDIUD79T8l4H6RejU1vk9QlrHGhRANCAARk4GP1wP3qKbUP06U2+vhRE8278wJdgNxvGP/ziv6cz7nmJpbSYWhUMzxIw9qYNOFdlUiRWtI/Tn4XkeQblfit";
     }
     public static String publicKeyFile() {
-    	return "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0PENkKl6XjRgtQRmgaTINFBJ1/J2BQm5bcPhx2WTAsC/xHfH5flSplELq2kRA8geBc3KjKKzYCrGRyn8OtUdXw==";
+    	return "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZOBj9cD96im1D9OlNvr4URPNu/MCXYDcbxj/84r+nM+55iaW0mFoVDM8SMPamDThXZVIkVrSP05+F5HkG5X4rQ==";
     }
     
     
