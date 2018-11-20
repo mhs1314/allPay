@@ -826,13 +826,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 
     /**
      * 课程简介
-     */
+     
     @Override
     @PostMapping("app/courseIntro")
     @ResponseBody
     public ResultObject<CourseIntroDto> appCourseIntro(RequestObject<CourseIntroParameter> requestObject) {
         return null;//this.courseIntro(requestObject);
     }
+    */
 
 
 }
