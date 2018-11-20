@@ -63,8 +63,7 @@ public class AuthServiceImpl implements AuthService {
 				result.setNickname(dto.getNickname());
 				result.setSchoolId(dto.getSchoolid());
 				result.setTenantId(dto.getTenant_id());
-				result.setUid(dto.getUid());
-	            //return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				result.setUid(dto.getUid());	           
 				return result;
 	        }
 		}else if(authenticationRequest.getType() == 4) {
@@ -73,16 +72,14 @@ public class AuthServiceImpl implements AuthService {
 				throw new UserInvalidException("用户不存在或账户密码错误!");
 			}
 			request.getSession().setAttribute("user_session_key",dto);
-			if(!StringUtils.isEmpty(dto.getUid())) {
-				//return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+			if(!StringUtils.isEmpty(dto.getUid())) {				
 				StudentLoginResultDto result = new StudentLoginResultDto();
 				String token = jwtTokenUtil.generateToken(toQhtJWTInfo(dto));
 				result.setToken(token);
 				result.setNickname(dto.getNickname());
 				result.setSchoolId(dto.getSchoolid());
-				result.setTenantId(dto.getTenant_id());
-				result.setUid(dto.getUid());
-	            //return jwtTokenUtil.generateToken(new JWTInfo(dto.getTenantId(), dto.getUid() + "", dto.getSchoolid()));
+				result.setTenantId(dto.getTenantId());
+				result.setUid(dto.getUid());	          
 				return result;
 			}			
 		}
@@ -107,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
 			throw new RuntimeException("学生信息为空，不能生成token");
 		}
 		String uid = dto.getUid();
-		String tenantId = dto.getTenant_id();
+		String tenantId = dto.getTenantId();
 		String nickname = dto.getNickname();
 		String name = dto.getName();
 		String account = dto.getAccount();
