@@ -117,7 +117,8 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		}
 		//TDOO 需要接受教师的uid,还需要接受课堂名称
 		String json = tencentCloud.createGroup(teacherId);
-		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);	
+		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);
+		System.out.println("body"+body);
 		log.info("Ok:"+body.getErrorCode());
 		Classroom entity = new Classroom();
 		if("OK".equals(body.getErrorCode())) {			
@@ -134,6 +135,10 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		biz.insert(entity);
 		ClassroomDto dto = new ClassroomDto(); 
 		dto.setConf_id(uid);	
+		dto.setRoom_id(entity.getRoomId());
+		dto.setGroup_id(body.getGroupId());
+		dto.setBoard_group_id(body.getGroupId());
+		
 		return ResultBuilder.success(requestObject, dto);
 	}
 	//加入直播课堂
