@@ -48,4 +48,12 @@ public class BuyRecordBiz extends BaseBiz<BuyRecordMapper,BuyRecord> {
 	public List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(MyIndexMyintegralDetailParam parameter){
 		return  buyRecordMapper.myIndexMyintegralDetail(parameter);
 	}
+	/**
+	 * 添加消费记录
+	 * @param param
+	 * @return
+	 */
+	public Integer insertBuyRecord(InsertBuyrecordParam param ) {
+		return  buyRecordMapper.insertBuyRecord( param );
+	}
 }

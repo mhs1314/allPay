@@ -586,32 +586,13 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
 		BeanUtil.copyFields(param,requestObject.getData());
-		IndexMyCourseEditChapterAndPeriodModel model=coursePkgBiz.selectIndexMyCourseEditChapterAndPeriodModel(param);
+		IndexMyCourseEditChapterAndPeriodDto model=coursePkgBiz.selectIndexMyCourseEditChapterAndPeriodModel(param);
 		if(model==null){
 			return resultObject.setMsg("查询结果为空");
 		}
-		IndexMyCourseEditChapterAndPeriodDto dto=new IndexMyCourseEditChapterAndPeriodDto();
-		BeanUtil.copyFields(dto,model);
-		List<ChapterModel> chapterModels=model.getChapter();
-
-		List<ChapterDto> chapterDtos=new ArrayList<>();
-		for(int i=0;i<model.getChapter().size();i++){
-			ChapterDto chapterDto=new ChapterDto();
-			BeanUtil.copyFields(chapterDto,model.getChapter().get(i));
-			List<PeriodDto> periodDtos=new ArrayList<>();
-			ListIterator it = chapterModels.listIterator();
-			while(it.hasNext()){
-				PeriodDto periodDto=new PeriodDto();
-				BeanUtil.copyFields(periodDto,it.next());
-				periodDtos.add(periodDto);
-			}
-			chapterDto.setPeriods(periodDtos);
-			chapterDtos.add(chapterDto);
-		}
-		dto.setChapters(chapterDtos);
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
-		resultObject.setData(dto);
+		resultObject.setData(model);
 		return resultObject;
 	}
 

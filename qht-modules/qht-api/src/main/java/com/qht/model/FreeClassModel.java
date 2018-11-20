@@ -15,7 +15,24 @@ public class FreeClassModel implements Serializable {
     //班级名称
     private String level_name;
     //播放类型
-    private Integer play_type_id;
+    private String play_type_id;
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
+
+    @Override
+    public String toString() {
+        return "FreeClassModel{" +
+                "cover='" + cover + '\'' +
+                ", uid='" + uid + '\'' +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", level_name='" + level_name + '\'' +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
+
     //老师名称
     private String nickname;
 
@@ -43,14 +60,6 @@ public class FreeClassModel implements Serializable {
         this.pkg_name = pkg_name;
     }
 
-    public Integer getPlay_type_id() {
-        return play_type_id;
-    }
-
-    public void setPlay_type_id(Integer play_type_id) {
-        this.play_type_id = play_type_id;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -65,18 +74,6 @@ public class FreeClassModel implements Serializable {
 
     public void setLevel_name(String level_name) {
         this.level_name = level_name;
-    }
-
-    @Override
-    public String toString() {
-        return "FreeClassModel{" +
-                "cover='" + cover + '\'' +
-                ", uid='" + uid + '\'' +
-                ", pkg_name='" + pkg_name + '\'' +
-                ", level_name='" + level_name + '\'' +
-                ", play_type_id=" + play_type_id +
-                ", nickname='" + nickname + '\'' +
-                '}';
     }
 
 }

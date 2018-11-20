@@ -163,7 +163,14 @@ public interface StudentMapper extends Mapper<Student> {
      */
 
     List<AppMyStudentGuardianModel>appMyStudentGuardian(AppStudentParam parameter);
+    /**
+     * 学生余额
+     */
+    Integer selectbalance(String uid);
 
-
+    /**
+     * 修改余额
+     */
+    Integer updateBalance(UidAndTenantIDParam param);
 
 }

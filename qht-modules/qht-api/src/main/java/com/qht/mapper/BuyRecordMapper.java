@@ -41,4 +41,10 @@ public interface BuyRecordMapper extends Mapper<BuyRecord> {
 	 */
 
 	List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(MyIndexMyintegralDetailParam parameter);
+	/**
+	 * 添加消费记录
+	 * @param param
+	 * @return
+	 */
+	Integer insertBuyRecord(InsertBuyrecordParam param );
 }

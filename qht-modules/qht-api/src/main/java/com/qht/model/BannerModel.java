@@ -12,7 +12,6 @@ public class BannerModel implements Serializable {
     private String uid;
     //链接地址
     private String link;
-
     //排序
     private Integer sort;
 
