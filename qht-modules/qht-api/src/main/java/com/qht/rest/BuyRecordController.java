@@ -149,6 +149,6 @@ public class BuyRecordController extends APIBaseController<BuyRecordBiz,BuyRecor
 			result.setMsg("添加失败");
 			return result;
 		}
-		
+
 	}
 }

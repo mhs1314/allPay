@@ -43,12 +43,10 @@ public class ChapterBiz extends BaseBiz<ChapterMapper,Chapter> {
 	}
 	/**
 	 * 课程详情--课程包体系
-	 * @param uid
-	 * @param tenant_id
 	 * @return
 	 */
 	public List<CourseChapterDto> selectCourseChapter(CourseIntroParam data) {
 		return chapterMapper.selectCourseChapter(data);
 	}
-	
+
 }

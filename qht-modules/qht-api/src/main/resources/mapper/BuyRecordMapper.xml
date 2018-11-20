@@ -88,7 +88,7 @@
     </select>
     <!-- 新增购买记录 -->
     <insert id="insertBuyRecord" parameterType="com.qht.model.InsertBuyrecordParam">
-    	
+
 INSERT INTO buy_record (
 	uid,
 	tenant_id ,
@@ -107,6 +107,6 @@ INSERT INTO buy_record (
 #{time},
 #{pay_status}
 )
-    	
+
     </insert>
 </mapper>

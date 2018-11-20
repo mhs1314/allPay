@@ -174,7 +174,7 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * @return
 	 */
 	List<IndexMyCourseListModel> selectIndexMyCourseList(IndexMyCourseListParam data);
-	
+
 	/**
 	 * 课程包评论
 	 */

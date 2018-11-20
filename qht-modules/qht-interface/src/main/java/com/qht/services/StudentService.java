@@ -281,6 +281,9 @@ public interface StudentService {
      */
     public ResultObject<List<SelectPkgByStuIdDto>> selectPkgByStuId(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
-
+    /**
+     * 连PC通用课程包简介
+     */
+    public ResultObject<CourseIntroDto> appCourseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject);
 }
 
