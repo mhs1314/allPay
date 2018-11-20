@@ -58,6 +58,7 @@ import com.qht.dto.MyIndexMycollectDto;
 import com.qht.dto.MyIndexMycollectParameter;
 import com.qht.dto.MyIndexMyintegralDetailDto;
 import com.qht.dto.MyIndexMyintegralDetailParameter;
+import com.qht.dto.SelectPkgByStuIdDto;
 import com.qht.dto.StudentDto;
 import com.qht.dto.StudentInfoDto;
 import com.qht.dto.TeacherCourseDto;
@@ -360,7 +361,7 @@ public interface StudentService {
     public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
-     * app我的课程答疑--答疑详情-打赏
+     * app我的答疑打赏
      * @return
      */
     public ResultObject<Void> indexAnswerDetailsExceptional(@RequestBody RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject);
