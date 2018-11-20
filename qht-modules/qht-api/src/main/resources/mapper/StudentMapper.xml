@@ -236,4 +236,10 @@ and s.tenant_id=#{tenant_id}
     inner JOIN guardian g ON s.uid = g.student_id
     </select>
     
+    <select id="selectbalance" resultType="java.lang.Integer" parameterType="String">
+    select balance from student where uid=#{uid}
+    </select>
+    <update id="updateBalance" parameterType="com.qht.model.UidAndTenantIDParam">
+    update student SET balance=#{total} where uid=#{uid}
+    </update>
 </mapper>

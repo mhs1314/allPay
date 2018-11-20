@@ -6,7 +6,10 @@ import com.github.wxiaoqi.security.common.rest.BaseController;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.biz.BuyRecordBiz;
+import com.qht.biz.CoursePkgBiz;
+import com.qht.biz.StudentBiz;
 import com.qht.common.util.BeanUtil;
+import com.qht.common.util.IdGenUtil;
 import com.qht.dto.*;
 import com.qht.entity.BuyRecord;
 
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -26,6 +30,10 @@ import java.util.List;
 public class BuyRecordController extends APIBaseController<BuyRecordBiz,BuyRecord> implements BuyRecordService {
 	@Autowired
 	private BuyRecordBiz buyRecordBiz;
+	@Autowired
+	private StudentBiz studentBiz;
+	@Autowired
+	private CoursePkgBiz coursePkgBiz;
 	@Override
 	@PostMapping("/student/myIndexCourse")
 	@ResponseBody
@@ -85,5 +93,62 @@ public class BuyRecordController extends APIBaseController<BuyRecordBiz,BuyRecor
 		resultObject.setCount(count.getTotal());
 		resultObject.setData(lists);
 		return resultObject;
+	}
+	/**
+	 * 添加消费
+	 */
+	@Override
+	@PostMapping("/student/app/payForClass")
+	@ResponseBody
+	public ResultObject<Void> insertBuyRecord(@RequestBody RequestObject<InsertBuyrecordParameter> parameter) {
+		if(parameter.getData()==null) {
+			ResultObject<Void> result=new ResultObject<>();
+			result.setCode("1");
+			result.setMsg("没有参数");
+			return result;
+		}
+		InsertBuyrecordParam param=new InsertBuyrecordParam();
+		BeanUtil.copyFields(param, parameter.getData());
+		Integer balance = studentBiz.selectbalance(param.getStudent_id());
+		Integer total = coursePkgBiz.selectTotalPrice(param.getCourse_pkg_id());
+		if(total==null) {
+			ResultObject<Void> result=new ResultObject<>();
+			result.setCode("1");
+			result.setMsg("该课程包还没有价格");
+			return result;
+		}
+		if(balance==null) {
+			ResultObject<Void> result=new ResultObject<>();
+			result.setCode("1");
+			result.setMsg("请充值");
+			return result;
+		}
+		if(balance<total) {
+			ResultObject<Void> result=new ResultObject<>();
+			result.setCode("1");
+			result.setMsg("请充值");
+			return result;
+		}
+		param.setUid(IdGenUtil.getUid("BY"));
+		param.setPayment_method_id("5");
+		param.setTime(new Date());
+		param.setPay_status("2");
+		Integer i = buyRecordBiz.insertBuyRecord(param);
+		UidAndTenantIDParam p=new UidAndTenantIDParam();
+		p.setUid(param.getStudent_id());
+		p.setToken((balance-total)+"");
+		studentBiz.updateBalance(p);
+		if(i>0){
+			ResultObject<Void> result=new ResultObject<>();
+			result.setCode("0");
+			result.setMsg("添加成功");
+			return result;
+		}else {
+			ResultObject<Void> result=new ResultObject<>();
+			result.setCode("0");
+			result.setMsg("添加失败");
+			return result;
+		}
+		
 	}
 }

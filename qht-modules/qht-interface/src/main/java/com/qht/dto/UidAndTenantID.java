@@ -11,7 +11,23 @@ public class UidAndTenantID implements Serializable {
 	private String school_id;
 	private String teacher_id;
 	private String play_type_id;
+	private String eval;
+	private String total;
 	
+	
+	public String getTotal() {
+		return total;
+	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	
+	public String getEval() {
+		return eval;
+	}
+	public void setEval(String eval) {
+		this.eval = eval;
+	}
 	public String getPlay_type_id() {
 		return play_type_id;
 	}

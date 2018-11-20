@@ -232,4 +232,47 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 	public List<IndexMyCourseListModel> selectIndexMyCourseList(IndexMyCourseListParam data) {
 		return coursePkgMapper.selectIndexMyCourseList(data);
 	}
+	/**
+	 * 课程包评论
+	 */
+	public List<SelectCoursePkgPingModel> selectCoursePkgPing(UidAndTenantIDParam param){
+		return  coursePkgMapper.selectCoursePkgPing(param);
+	}
+	/**
+	 * 差评
+	 */
+	public Integer countMin(String uid) {
+		return  coursePkgMapper.countMin(uid);
+	}
+	/**
+	 * 中评
+	 */
+	public Integer countbad(String uid) {
+		return  coursePkgMapper.countbad(uid);
+	}
+	/**
+	 * 好评
+	 */
+	public Integer countGood(String uid) {
+		return  coursePkgMapper.countGood(uid);
+	}
+	/**
+	 * 全部
+	 */
+	public Integer count(String uid) {
+		return  coursePkgMapper.count(uid);
+	}
+	/**
+	 * 课程报价格
+	 */
+	public Integer selectTotalPrice(String uid) {
+		return  coursePkgMapper.selectTotalPrice( uid);
+	}
+	/**
+	 * app查看课程包简介
+	 */
+	public SelectCorseInfoJJModel selectCoursePkgInfoJJ(UidAndTenantIDParam param) {
+		return  coursePkgMapper.selectCoursePkgInfoJJ( param);
+	}
+
 }

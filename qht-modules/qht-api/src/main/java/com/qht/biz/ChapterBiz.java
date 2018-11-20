@@ -47,6 +47,7 @@ public class ChapterBiz extends BaseBiz<ChapterMapper,Chapter> {
 	 */
 
 	public List<CourseChapterDto> selectCourseChapter(String uid, String tenant_id) {
+		System.out.println("===================="+uid);
 		return chapterMapper.selectCourseChapter(uid,tenant_id);
 	}
 }

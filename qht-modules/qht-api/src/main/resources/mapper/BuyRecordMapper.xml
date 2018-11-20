@@ -86,4 +86,27 @@
 
 
     </select>
+    <!-- 新增购买记录 -->
+    <insert id="insertBuyRecord" parameterType="com.qht.model.InsertBuyrecordParam">
+    	
+INSERT INTO buy_record (
+	uid,
+	tenant_id ,
+ 	student_id,
+	payment_method_id,
+	course_pkg_id,
+	time,
+	pay_status
+) VALUES
+(
+#{uid},
+#{tenant_id},
+#{student_id},
+#{payment_method_id},
+#{course_pkg_id},
+#{time},
+#{pay_status}
+)
+    	
+    </insert>
 </mapper>

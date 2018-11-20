@@ -43,7 +43,7 @@
 	open_range_id,
 	easy,
 	`status`,
-	creat_time
+	create_time
 )
 VALUES
 	(
@@ -94,10 +94,10 @@ VALUES
     	left join period p on p.chapter_id=c.uid 
     	where cp.uid=#{uid} and tenant_id=#{tenant_id} cp.and status="1"
     </select>
-    <resultMap id="selectCourseChapterAndPeriod" type="com.qht.model.CourseChapterModel">
+    <resultMap id="selectCourseChapterAndPeriod" type="com.qht.dto.CourseChapterDto">
     	<result property="uid" column="uid"/>
     	<result property="name" column="name"/>
-    	<collection property="period" ofType="com.qht.model.ClassModel">
+    	<collection property="period" ofType="com.qht.dto.ClassDto">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>
             <result property="video_file" column="video_file"/>
@@ -105,9 +105,9 @@ VALUES
         </collection>
     </resultMap>
     <!-- 课程详情-课程包体系y -->
-    <select id="selectCourseChapter" parameterType="com.qht.model.UidAndTenantIDParam" >
+    <select id="selectCourseChapter" resultMap="selectCourseChapterAndPeriod"  >
     	select 
-    	c.uid,c.name,p.name as period_name,p.uid as pid,p.video_file,p.begin 
+    	c.uid,c.name,p.name as period_name,p.uid as pid,p.video_file,p.begin
     	from course_pkg cp 
     	inner join chapter c on cp.uid=c.course_id 
     	inner join period p on p.chapter_id=c.uid 
@@ -195,10 +195,17 @@ SUM(pn.praise_number) as praise_number,
 AVG(pn.comments_star) as comments_star
 FROM
 	course_pkg c
-LEFT JOIN period_evaluation pn on c.uid=pn.course_id
-LEFT JOIN buy_record bd on c.uid=bd.course_pkg_id
-LEFT JOIN student s on bd.student_id=s.uid
-where s.uid=#{uid}  and  s.tenant_id=#{tenant_id} and   c.play_type_id=#{play_type_id} and c.status="1"
+inner JOIN period_evaluation pn on c.uid=pn.course_id
+inner JOIN buy_record bd on c.uid=bd.course_pkg_id
+inner JOIN student s on bd.student_id=s.uid
+where s.uid=#{uid}  and  s.tenant_id=#{tenant_id}  
+<if test="play_type_id!=null and play_type_id!=''">
+and   c.play_type_id=#{play_type_id} 
+
+</if>
+
+
+and c.status="1"
 GROUP BY c.uid
 
 	</select>
@@ -555,5 +562,113 @@ where a.tenant_id=#{tenant_id}
 			cp.course_type_id=#{course_type_id}
 		</if>
 	</select>
-
+	<!-- app课程包评论 -->
+	<select id="selectCoursePkgPing" resultType="com.qht.model.SelectCoursePkgPingModel" parameterType="com.qht.model.UidAndTenantIDParam" >
+	
+		SELECT
+		s.head AS head,
+		cg.pkg_name,
+		s.`name` AS `name`,
+		pn.uid AS uid,
+		pn.comments_time AS comments_time,
+		pn.comments_content AS comments_content,
+		avg(pn.comments_star) AS comments_star
+	FROM
+		student s
+	LEFT JOIN period_evaluation pn ON s.uid = pn.student_id
+	LEFT JOIN buy_record bd ON s.uid = bd.student_id
+	LEFT JOIN course_pkg cg ON bd.course_pkg_id = cg.uid
+	WHERE cg.uid =#{uid} and  cg.tenant_id =#{tenant_id} and cg.status="1"
+	<if test="eval==1 ">
+	and pn.comments_star &lt; 3
+	</if>
+	<if test="eval==2">
+	and pn.comments_star  &gt;= 3 AND pn.comments_star &lt; 8
+	</if>
+	<if test="eval==3">
+	and pn.comments_star &gt;=8
+	</if>
+		GROUP BY
+	cg.uid,
+	s.head,
+	s.`name`,
+	pn.uid,
+	pn.comments_time
+		
+	</select>
+	
+	<!--countAll -->
+	<select id="count" resultType="java.lang.Integer" parameterType="java.lang.String">
+	
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+            where   c.uid=#{uid} and  c.status="1"
+	</select>
+	<!--count差评 -->
+	<select id="countMin" resultType="java.lang.Integer"  parameterType="java.lang.String">
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+		where pn.comments_star&lt;3
+             and c.uid=#{uid} and  c.status="1"
+	</select>
+	
+	<!--count中评 -->
+	<select id="countbad" resultType="java.lang.Integer" parameterType="java.lang.String">
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+		where pn.comments_star &gt;=3 and pn.comments_star&lt;8
+            and c.uid=#{uid} and  c.status="1"
+	</select>
+	
+	<!--count好评 -->
+	<select id="countGood" resultType="java.lang.Integer" parameterType="java.lang.String">
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+		where pn.comments_star&gt;=8 and c.uid=#{uid} and  c.status="1"
+            
+	</select>
+	<!-- 查询课程包价格 -->
+	<select id="selectTotalPrice" resultType="java.lang.Integer" parameterType="String">
+	select total_price from course_pkg where uid=#{uid} and   status="1"
+	</select>
+	
+	<select id="selectCoursePkgInfoJJ" resultType="com.qht.model.SelectCorseInfoJJModel"  parameterType="com.qht.model.UidAndTenantIDParam">
+	
+	SELECT
+	c.pkg_name AS pkg_name,
+	c.apply_number AS apply_number,
+	c.total_price AS total_price,
+	pl.`name` AS level_name,
+	pg.`name` AS grade_name,
+	ps.`name` AS subject_name,
+	t.`name` AS teacher_name,
+	t.back_img AS back_img,
+	pgd.`name` AS teacher_grade_name,
+	sl.school_name AS school_name,
+	c.content AS content,
+	avg(pn.comments_star) AS comments_star
+FROM
+	course_pkg c
+LEFT JOIN period_evaluation pn ON pn.course_id = c.uid
+LEFT JOIN pkg_level pl ON c.pkg_level_id = pl.uid
+LEFT JOIN pkg_grade pg ON c.pkg_grade_id = pg.uid
+LEFT JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
+LEFT JOIN teacher t ON c.teacher_id = t.uid
+LEFT JOIN pkg_grade pgd ON t.grade_id = pgd.uid
+LEFT JOIN school sl ON t.school_id = sl.uid
+where c.uid=#{uid} and c.tenant_id=#{tenant_id}
+GROUP BY
+	c.uid,
+	c.pkg_name,
+	c.apply_number,
+	c.total_price,
+	pl.`name`,
+	pg.`name`,
+	ps.`name`,
+	t.`name`,
+	t.back_img,
+	pgd.`name`,
+	sl.school_name,
+	c.content
+	</select>
 </mapper>
