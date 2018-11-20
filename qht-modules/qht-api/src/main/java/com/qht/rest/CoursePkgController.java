@@ -69,8 +69,6 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 
 	public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		//查询
-
-
 		List<ListeningClassListModel> list=coursePkgBiz.selectListeningClassList(requestObject.getData().getTenant_id());
 		List<ListeningClassListDto> lists = BeanUtil.copyList(ListeningClassListDto.class, list);
 
@@ -228,17 +226,12 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 	@Override
 	@PostMapping("/student/app/indexCoruseList")
 	@ResponseBody
-
 	public ResultObject<List<IndexCoruseListDto>> indexCoruseList(
 			@RequestBody RequestObject<IndexCoruseListParameter> parameter) {
 		System.out.println("-------------" + parameter);
-
-
-
-
+		ResultObject<List<IndexCoruseListDto>> resultObject = new ResultObject<>();
 		IndexCoruseListParam param = new IndexCoruseListParam();
 		if (parameter.getData() == null) {
-			ResultObject<List<IndexCoruseListDto>> resultObject = new ResultObject<>();
 			resultObject.setCode("1");
 			resultObject.setMsg("没有接收到参数");
 			resultObject.setData(new ArrayList<>());
@@ -247,20 +240,17 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 		}
 		BeanUtil.copyFields(param, parameter.getData());
 		List<IndexCoruseListModel> dto = coursePkgBiz.indexCoruseList(param);
-		if (dto.size() == 0) {
-			ResultObject<List<IndexCoruseListDto>> resultObject = new ResultObject<>();
+		if (dto.size() > 0) {
 			resultObject.setCode("0");
 			resultObject.setMsg("没有数据哦");
 			resultObject.setData(new ArrayList<>());
+			List<IndexCoruseListDto> list = BeanUtil.copyList(IndexCoruseListDto.class, dto);
+			resultObject.setCode("0");
+			resultObject.setMsg("成功");
+			resultObject.setData(list);
 			return resultObject;
-
-		List<IndexCoruseListDto> list = BeanUtil.copyList(IndexCoruseListDto.class, dto);
-
-		ResultObject<List<IndexCoruseListDto>> resultObject = new ResultObject<>();
-		resultObject.setCode("0");
-		resultObject.setMsg("成功");
-		resultObject.setData(list);
-
+		}
+		resultObject.setMsg("失败");
 		return resultObject;
 	}
 
@@ -361,5 +351,4 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 		object.setData(dto);
 		return object;
 	}
-
 }
