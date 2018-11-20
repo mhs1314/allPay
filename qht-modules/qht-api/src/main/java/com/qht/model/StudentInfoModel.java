@@ -5,12 +5,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentInfoModel implements Serializable {
+    public String getCalzz() {
+        return calzz;
+    }
+
+    public void setCalzz(String calzz) {
+        this.calzz = calzz;
+    }
+
+    public String getGrade_name() {
+        return grade_name;
+    }
+
+    public void setGrade_name(String grade_name) {
+        this.grade_name = grade_name;
+    }
+
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
+    }
+
+
     //學生id
     private String uid;
     //學生頭像
     private String head;
-    //學校id
-    private String schoolid;
     //性別
     private String sex;
     //姓名
@@ -20,15 +43,42 @@ public class StudentInfoModel implements Serializable {
     //學校id
     private String school_name;
     //班級名稱
-    private String calnzz;
+    private String calzz;
     //練級名稱
-    private String clanzzName;
+    private String grade_name;
     //年紀名稱
     private String age;
-    //標簽集合
-    private List<TatModel> tatModels =new ArrayList<>();
+
+    private Integer integral;
+
+
+    public List<GuardianModel> getGua() {
+        return gua;
+    }
+
+    public void setGua(List<GuardianModel> gua) {
+        this.gua = gua;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentInfoModel{" +
+                "uid='" + uid + '\'' +
+                ", head='" + head + '\'' +
+                ", sex='" + sex + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", school_name='" + school_name + '\'' +
+                ", calzz='" + calzz + '\'' +
+                ", grade_name='" + grade_name + '\'' +
+                ", age='" + age + '\'' +
+                ", integral=" + integral +
+                ", gua=" + gua +
+                '}';
+    }
+
     //監護人
-    private List<GuardianModel> guardianModels=new ArrayList<>();
+    private List<GuardianModel> gua=new ArrayList<>();
 
     public String getUid() {
         return uid;
@@ -44,14 +94,6 @@ public class StudentInfoModel implements Serializable {
 
     public void setHead(String head) {
         this.head = head;
-    }
-
-    public String getSchoolid() {
-        return schoolid;
-    }
-
-    public void setSchoolid(String schoolid) {
-        this.schoolid = schoolid;
     }
 
     public String getSex() {
@@ -86,22 +128,6 @@ public class StudentInfoModel implements Serializable {
         this.school_name = school_name;
     }
 
-    public String getCalnzz() {
-        return calnzz;
-    }
-
-    public void setCalnzz(String calnzz) {
-        this.calnzz = calnzz;
-    }
-
-    public String getClanzzName() {
-        return clanzzName;
-    }
-
-    public void setClanzzName(String clanzzName) {
-        this.clanzzName = clanzzName;
-    }
-
     public String getAge() {
         return age;
     }
@@ -110,13 +136,5 @@ public class StudentInfoModel implements Serializable {
         this.age = age;
     }
 
-	@Override
-	public String toString() {
-		return "StudentInfoModel [uid=" + uid + ", head=" + head + ", schoolid=" + schoolid + ", sex=" + sex + ", name="
-				+ name + ", nickname=" + nickname + ", school_name=" + school_name + ", calnzz=" + calnzz
-				+ ", clanzzName=" + clanzzName + ", age=" + age + ", tatModels=" + tatModels + ", guardianModels="
-				+ guardianModels + "]";
-	}
-    
-    
+
 }

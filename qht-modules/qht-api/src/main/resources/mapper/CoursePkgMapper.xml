@@ -65,7 +65,7 @@ VALUES
 		#{open_range_id},
 		#{easy},
 		#{status},
-		#{creat_time}
+		#{create_time}
 	)
     </insert>
     <!-- 修改课程包 -->
@@ -92,7 +92,7 @@ VALUES
     	select p.uid,cp.play_type_id,p.name,p.video_file,p.begin,cp.content 
     	from course_pkg cp left join chapter c on c.course_id=cp.uid 
     	left join period p on p.chapter_id=c.uid 
-    	where cp.uid=#{uid} and tenant_id=#{tenant_id}
+    	where cp.uid=#{uid} and tenant_id=#{tenant_id} cp.and status="1"
     </select>
     <resultMap id="selectCourseChapterAndPeriod" type="com.qht.model.CourseChapterModel">
     	<result property="uid" column="uid"/>
@@ -111,12 +111,13 @@ VALUES
     	from course_pkg cp 
     	inner join chapter c on cp.uid=c.course_id 
     	inner join period p on p.chapter_id=c.uid 
-    	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id}
+    	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
     </select>
     <!-- 课程包章节课时信息resultMap1 -->
     <resultMap type="com.qht.model.SelectPkgModel" id="pkg">
 	    <id column="uid" property="uid"/>
 	    <result column="pkg_name" property="pkg_name"/>
+	     <result column="play_type_id" property="play_type_id"/>
 	    <collection property="chapter" javaType="com.qht.model.SelectChModel" resultMap="ch" >
 	    </collection>
     </resultMap>
@@ -137,8 +138,9 @@ VALUES
       
     <!-- 课程包章节课时信息 -->
     <select id="selectPkgChPer" resultMap="pkg" parameterType="com.qht.model.UidAndTenantIDParam">
-    	SELECT
+       	SELECT
 			c.uid AS uid,
+			c.play_type_id,
 			c.pkg_name AS pkg_name,
 			cr.uid AS c_id,
 			cr.`name` AS name,
@@ -148,9 +150,79 @@ VALUES
 			p.`begin`
 		FROM
 			course_pkg c
-		LEFT  JOIN teacher t on c.uid=c.teacher_id
-		left  JOIN chapter cr ON cr.course_id = c.uid
-		LEFT JOIN period p ON p.chapter_id = p.chapter_id
-		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid}
+		LEFT   JOIN teacher t on c.uid=c.teacher_id
+		left   JOIN chapter cr ON   c.uid=cr.course_id
+		left JOIN period p ON p.chapter_id = cr.uid
+		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid} and c.status="1"
     </select>
+
+
+	<resultMap id="selectCourseAndChapterAndPeriod" type="com.qht.model.IndexMyCourseEditChapterAndPeriodModel">
+		<result property="uid" column="uid"/>
+		<result property="pkg_name" column="pkg_name"/>
+		<result property="content" column="content"/>
+		<result property="create_time" column="create_time"/>
+		<result property="cover" column="cover"/>
+		<collection property="chapter" ofType="com.qht.model.ChapterModel">
+			<result property="chapter_id" column="chapter_id"/>
+			<result property="chapter_name" column="chapter_name"/>
+			<collection property="period" ofType="com.qht.model.PeriodModel">
+				<result property="period_name" column="period_name"/>
+				<result property="period_id" column="period_id"/>
+				<result property="begin" column="begin"/>
+				<result property="video_file" column="video_file"/>
+				<result property="time_length" column="time_length"/>
+			</collection>
+		</collection>
+	</resultMap>
+	<select id="selectIndexMyCourseEditChapterAndPeriodModel" resultMap="selectCourseAndChapterAndPeriod">
+		select
+		cp.uid,cp.pkg_name,cp.content,cp.create_time,cp.cover,c.uid as chapter_id,c.name as chapter_name,
+		p.name as period_name,p.uid as period_id,p.begin,p.video_file,p.time_length from course_pkg cp left join chapter c on c.course_id=cp.uid
+		left join period p on p.chapter_id=c.uid
+		where cp.uid="KP005" and cp.tenant_id="qht" and cp.status="1"
+	</select>
+	<!-- 学生id查询课程包信息 -->
+	<select id="selectPkgByStuId" resultType="com.qht.model.SelectPkgByStuIdModel" parameterType="com.qht.model.UidAndTenantIDParam">
+SELECT
+	c.cover,
+	c.uid,
+	c.pkg_name,
+	c.play_type_id,
+	c.total_price,
+	c.apply_number,
+SUM(pn.praise_number) as praise_number,
+AVG(pn.comments_star) as comments_star
+FROM
+	course_pkg c
+LEFT JOIN period_evaluation pn on c.uid=pn.course_id
+LEFT JOIN buy_record bd on c.uid=bd.course_pkg_id
+LEFT JOIN student s on bd.student_id=s.uid
+where s.uid=#{uid}  and  s.tenant_id=#{tenant_id} and   c.play_type_id=#{play_type_id} and c.status="1"
+GROUP BY c.uid
+
+	</select>
+		<!-- 课程包体系Map1 -->
+	<resultMap type="com.qht.model.SelectChaModel" id="chMap">
+		<id column="uid" property="uid"/>
+		<result column="name" property="name"/>
+		<collection property="period" javaType="com.qht.model.SelectPerModel" resultMap="per">
+		</collection>
+	</resultMap>
+	<!-- 课程包体系 -->
+	<select id="selectCourseChapterByCuId"  resultMap="chMap" parameterType="com.qht.model.UidAndTenantIDParam">
+			SELECT
+				ch.uid AS uid,
+				ch.`name` AS name,
+				p.`name` AS period_name,
+				p.uid AS pid,
+				p.video_file AS video_file,
+				p.`begin` AS `begin`
+			FROM
+				chapter ch
+			LEFT JOIN period p ON ch.uid = p.chapter_id
+			LEFT JOIN course_pkg cp ON ch.course_id=cp.uid
+			where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+
+	</select>
 </mapper>

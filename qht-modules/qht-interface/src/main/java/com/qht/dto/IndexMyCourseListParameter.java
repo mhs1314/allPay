@@ -25,14 +25,6 @@ public class IndexMyCourseListParameter implements Serializable {
         this.uid = uid;
     }
 
-    public String getTennat_id() {
-        return tennat_id;
-    }
-
-    public void setTennat_id(String tennat_id) {
-        this.tennat_id = tennat_id;
-    }
-
     public String getPage() {
         return page;
     }
@@ -49,22 +41,30 @@ public class IndexMyCourseListParameter implements Serializable {
         this.limit = limit;
     }
 
+    private String  course_type_id;
+
+    private String uid;
+
+    private String tenant_id;
+
+    public String getTenant_id() {
+        return tenant_id;
+    }
+
+    public void setTenant_id(String tenant_id) {
+        this.tenant_id = tenant_id;
+    }
+
     @Override
     public String toString() {
         return "IndexMyCourseListParameter{" +
                 "course_type_id='" + course_type_id + '\'' +
                 ", uid='" + uid + '\'' +
-                ", tennat_id='" + tennat_id + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
                 ", page='" + page + '\'' +
                 ", limit='" + limit + '\'' +
                 '}';
     }
-
-    private String  course_type_id;
-
-    private String uid;
-
-    private String tennat_id;
 
     private String page;
 

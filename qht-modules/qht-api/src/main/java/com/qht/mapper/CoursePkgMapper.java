@@ -2,6 +2,7 @@ package com.qht.mapper;
 
 import java.util.List;
 
+import com.qht.model.*;
 import org.springframework.stereotype.Repository;
 
 import com.qht.dto.AppStudentParameter;
@@ -9,13 +10,6 @@ import com.qht.dto.CourseChapterDto;
 import com.qht.dto.CoursePkgListDto;
 import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
-import com.qht.model.CourseChapterModel;
-import com.qht.model.CoursePkgListModel;
-import com.qht.model.InsertCoursePkgParam;
-import com.qht.model.SelectPerModel;
-import com.qht.model.SelectPkgModel;
-import com.qht.model.IndexMyCourseDetailsModel;
-import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -62,5 +56,22 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 */
 	List<SelectPkgModel> selectPkgChPer(UidAndTenantIDParam param);
 
+	/**
+	 * 查询--修改章节课时的展示
+	 * @param param
+	 * @return
+	 */
+	IndexMyCourseEditChapterAndPeriodModel selectIndexMyCourseEditChapterAndPeriodModel(UidAndTenantIDParam param);
+	/**
+	 * 通过学生id查询课程包    个人中心课程列表
+	 * @param param
+	 * @return
+	 */
 	
+	List<SelectPkgByStuIdModel> selectPkgByStuId(UidAndTenantIDParam param);
+	
+	/**
+	 * 课程包体系
+	 */
+	List<SelectChaModel> selectCourseChapterByCuId(UidAndTenantIDParam param);
 }
