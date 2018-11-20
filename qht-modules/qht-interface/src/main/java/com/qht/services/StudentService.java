@@ -361,7 +361,7 @@ public interface StudentService {
     public ResultObject<List<AppTeacherCourseDto>> appTeacherCourse(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
-     * app我的课程答疑--答疑详情-打赏
+     * app我的答疑打赏
      * @return
      */
     public ResultObject<Void> indexAnswerDetailsExceptional(@RequestBody RequestObject<IndexAnswerDetailsExceptionalParameter> requestObject);
