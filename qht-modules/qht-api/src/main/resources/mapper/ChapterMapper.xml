@@ -32,11 +32,11 @@
 		and cg.tenant_id=#{tenant_id} and cg.status="1"
 	</select>
 
-	<resultMap id="selectCourseChapterAndClass" type="com.qht.model.CourseChapterModel">
+	<resultMap id="selectCourseChapterAndClass" type="com.qht.dto.CourseChapterDto">
 		<id column="uid" jdbcType="VARCHAR" property="uid" />
 		<result property="name" column="name"/>
 
-		<collection property="period" ofType="com.qht.model.ClassModel">
+		<collection property="period" ofType="com.qht.dto.ClassDto">
 			<result property="pid" column="pid"/>
 			<result property="period_name" column="period_name"/>
 			<result property="video_file" column="video_file"/>

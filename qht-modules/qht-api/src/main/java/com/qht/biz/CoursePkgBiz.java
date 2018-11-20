@@ -144,9 +144,9 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 	 * @return
 	 */
 
-	public CourseIntroModel selectCourseIntro(String uid, String tenant_id) {
+	public CourseIntroModel selectCourseIntro(String uid, String tenant_id,String student_id) {
 
-		return coursePkgMapper.selectCourseIntro(uid,tenant_id);
+		return coursePkgMapper.selectCourseIntro(uid,tenant_id,student_id);
 	}
 
 	/**

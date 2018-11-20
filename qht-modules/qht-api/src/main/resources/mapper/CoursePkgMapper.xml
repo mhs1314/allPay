@@ -94,10 +94,10 @@ VALUES
     	left join period p on p.chapter_id=c.uid 
     	where cp.uid=#{uid} and tenant_id=#{tenant_id} cp.and status="1"
     </select>
-    <resultMap id="selectCourseChapterAndPeriod" type="com.qht.model.CourseChapterModel">
+    <resultMap id="selectCourseChapterAndPeriod" type="com.qht.dto.CourseChapterDto">
     	<result property="uid" column="uid"/>
     	<result property="name" column="name"/>
-    	<collection property="period" ofType="com.qht.model.ClassModel">
+    	<collection property="period" ofType="com.qht.dto.ClassDto">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>
             <result property="video_file" column="video_file"/>
@@ -105,7 +105,7 @@ VALUES
         </collection>
     </resultMap>
     <!-- 课程详情-课程包体系y -->
-    <select id="selectCourseChapter" parameterType="com.qht.model.UidAndTenantIDParam" >
+    <select id="selectCourseChapter"  resultMap="selectCourseChapterAndPeriod" parameterType="com.qht.model.UidAndTenantIDParam" >
     	select 
     	c.uid,c.name,p.name as period_name,p.uid as pid,p.video_file,p.begin 
     	from course_pkg cp 
@@ -234,6 +234,7 @@ GROUP BY c.uid
           p.video_file,
           p.begin,
           pl.name as level_name
+          cp.play_type_id
         from course_pkg cp
         inner join period p
         on cp.tenant_id=p.tenant_id
@@ -318,17 +319,20 @@ GROUP BY c.uid
         cp.total_price,
         cp.content,
         cp.apply_number,
+        cp.play_type_id,
         t.nickname,
         ps.name as subject_name ,
 		pg.name as grade_name,
-		per.begin
+		per.begin,
+		br.pay_status
         from
           course_pkg cp inner join teacher t on cp.teacher_id=t.uid
           inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
 		  inner join pkg_grade pg on cp.pkg_grade_id=pg.uid
 		  inner join chapter ch on cp.uid=ch.course_id
 		  inner join period per on ch.uid=per.chapter_id
-		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+		  inner join buy_record br on br.course_pkg_id=cp.uid
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1" and
     </select>
 
 	<!--课程列表-->
@@ -338,6 +342,7 @@ GROUP BY c.uid
 		cp.cover,
 		cp.uid,
 		cp.pkg_name,
+		cp.play_type_id,
 		cp.total_price,
 		t.nickname,
 		p.begin

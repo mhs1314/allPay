@@ -20,6 +20,29 @@ public class LiveClassDto implements Serializable {
     //开始时间
     private Date begin;
 
+    private String play_type_id;
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
+
+    @Override
+    public String toString() {
+        return "LiveClassDto{" +
+                "cover='" + cover + '\'' +
+                ", uid='" + uid + '\'' +
+                ", level_name='" + level_name + '\'' +
+                ", name='" + name + '\'' +
+                ", video_file='" + video_file + '\'' +
+                ", begin=" + begin +
+                ", play_type_id='" + play_type_id + '\'' +
+                '}';
+    }
+
     public String getCover() {
         return cover;
     }
@@ -67,19 +90,6 @@ public class LiveClassDto implements Serializable {
     public void setLevel_name(String level_name) {
         this.level_name = level_name;
     }
-
-    @Override
-    public String toString() {
-        return "LiveClassDto{" +
-                "cover='" + cover + '\'' +
-                ", uid='" + uid + '\'' +
-                ", level_name='" + level_name + '\'' +
-                ", name='" + name + '\'' +
-                ", video_file='" + video_file + '\'' +
-                ", begin=" + begin +
-                '}';
-    }
-
 
 
 }
