@@ -105,8 +105,10 @@ VALUES
         </collection>
     </resultMap>
     <!-- 课程详情-课程包体系y -->
-    <select id="selectCourseChapter" resultMap="selectCourseChapterAndPeriod"  >
+
+    <select id="selectCourseChapter"  resultMap="selectCourseChapterAndPeriod" parameterType="com.qht.model.UidAndTenantIDParam" >
     	select 
+
     	c.uid,c.name,p.name as period_name,p.uid as pid,p.video_file,p.begin
     	from course_pkg cp 
     	inner join chapter c on cp.uid=c.course_id 
@@ -157,16 +159,20 @@ VALUES
     </select>
 
 
-	<resultMap id="selectCourseAndChapterAndPeriod" type="com.qht.model.IndexMyCourseEditChapterAndPeriodModel">
+
+	<resultMap id="selectCourseAndChapterAndPeriod" type="com.qht.dto.IndexMyCourseEditChapterAndPeriodDto">
 		<result property="uid" column="uid"/>
 		<result property="pkg_name" column="pkg_name"/>
 		<result property="content" column="content"/>
+		<result property="play_type_id" column="play_type_id"/>
 		<result property="create_time" column="create_time"/>
 		<result property="cover" column="cover"/>
-		<collection property="chapter" ofType="com.qht.model.ChapterModel">
+
+		<collection property="chapters" ofType="com.qht.dto.ChapterDto">
 			<result property="chapter_id" column="chapter_id"/>
 			<result property="chapter_name" column="chapter_name"/>
-			<collection property="period" ofType="com.qht.model.PeriodModel">
+
+			<collection property="periods" ofType="com.qht.dto.PeriodDto">
 				<result property="period_name" column="period_name"/>
 				<result property="period_id" column="period_id"/>
 				<result property="begin" column="begin"/>
@@ -195,6 +201,8 @@ SUM(pn.praise_number) as praise_number,
 AVG(pn.comments_star) as comments_star
 FROM
 	course_pkg c
+
+
 inner JOIN period_evaluation pn on c.uid=pn.course_id
 inner JOIN buy_record bd on c.uid=bd.course_pkg_id
 inner JOIN student s on bd.student_id=s.uid
@@ -240,14 +248,18 @@ GROUP BY c.uid
           p.name,
           p.video_file,
           p.begin,
-          pl.name as level_name
+
+          pl.name as level_name,
+          cp.play_type_id
         from course_pkg cp
         inner join period p
         on cp.tenant_id=p.tenant_id
         inner join pkg_level pl
         on cp.pkg_level_id=pl.uid
+        inner join play_type pt on pt.uid=cp.play_type_id
         where
-          cp.play_type_id="1"
+
+          cp.play_type_id="BF001"
         and
           p.tenant_id=#{tenant_id}
         and cp.status="1"
@@ -287,14 +299,17 @@ GROUP BY c.uid
           cp.play_type_id,
           t.nickname,
           pl.name as level_name,
-			pt.name as course_type_name,
-			cp.total_price
+
+
+		  pt.name as course_type_name,
+		  cp.total_price
         from course_pkg cp
         left join teacher t on cp.teacher_id=t.uid
         left join pkg_level pl on cp.pkg_level_id=pl.uid
         left join pkg_type pt on pt.uid=cp.course_type_id
         where
-        cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1"
+
+        cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1" limit 0,6
     </select>
 
 	<!--查询首页试听课程排行榜-->
@@ -325,17 +340,23 @@ GROUP BY c.uid
         cp.total_price,
         cp.content,
         cp.apply_number,
+        cp.play_type_id,
         t.nickname,
         ps.name as subject_name ,
 		pg.name as grade_name,
-		per.begin
+
+		per.begin,
+		br.pay_status
         from
           course_pkg cp inner join teacher t on cp.teacher_id=t.uid
           inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
 		  inner join pkg_grade pg on cp.pkg_grade_id=pg.uid
 		  inner join chapter ch on cp.uid=ch.course_id
 		  inner join period per on ch.uid=per.chapter_id
-		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+
+		  inner join buy_record br on br.course_pkg_id=cp.uid
+		  inner join student s on s.uid=br.student_id
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and s.uid=#{student_id} and cp.status="1"
     </select>
 
 	<!--课程列表-->
@@ -345,6 +366,7 @@ GROUP BY c.uid
 		cp.cover,
 		cp.uid,
 		cp.pkg_name,
+		cp.play_type_id,
 		cp.total_price,
 		t.nickname,
 		p.begin

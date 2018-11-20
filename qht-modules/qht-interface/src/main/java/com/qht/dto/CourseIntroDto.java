@@ -26,6 +26,44 @@ public class CourseIntroDto implements Serializable {
     //报名人数
     private Integer apply_number;
 
+    private String play_type_id;
+
+    private String pay_status;
+
+    @Override
+    public String toString() {
+        return "CourseIntroDto{" +
+                "cover='" + cover + '\'' +
+                ", uid='" + uid + '\'' +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", total_price=" + total_price +
+                ", nickname='" + nickname + '\'' +
+                ", subject_name='" + subject_name + '\'' +
+                ", begin=" + begin +
+                ", grade_name='" + grade_name + '\'' +
+                ", content='" + content + '\'' +
+                ", apply_number=" + apply_number +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", pay_status='" + pay_status + '\'' +
+                '}';
+    }
+
+    public String getPay_status() {
+        return pay_status;
+    }
+
+    public void setPay_status(String pay_status) {
+        this.pay_status = pay_status;
+    }
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
+
     public String getCover() {
         return cover;
     }
@@ -104,22 +142,6 @@ public class CourseIntroDto implements Serializable {
 
     public void setApply_number(Integer apply_number) {
         this.apply_number = apply_number;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseIntroDto{" +
-                "cover='" + cover + '\'' +
-                ", uid='" + uid + '\'' +
-                ", pkg_name='" + pkg_name + '\'' +
-                ", total_price='" + total_price + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", subject_name='" + subject_name + '\'' +
-                ", begin=" + begin +
-                ", grade_name='" + grade_name + '\'' +
-                ", content='" + content + '\'' +
-                ", apply_number=" + apply_number +
-                '}';
     }
 
 

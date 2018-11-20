@@ -27,12 +27,14 @@ public class IndexMyCourseEditChapterAndPeriodModel implements Serializable {
 
     private List<ChapterModel>  chapter;
 
-    public List<ChapterModel> getChapter() {
-        return chapter;
+    private String play_type_id;
+
+    public String getPlay_type_id() {
+        return play_type_id;
     }
 
-    public void setChapter(List<ChapterModel> chapter) {
-        this.chapter = chapter;
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
     }
 
     @Override
@@ -44,7 +46,16 @@ public class IndexMyCourseEditChapterAndPeriodModel implements Serializable {
                 ", create_time=" + create_time +
                 ", cover='" + cover + '\'' +
                 ", chapter=" + chapter +
+                ", play_type_id='" + play_type_id + '\'' +
                 '}';
+    }
+
+    public List<ChapterModel> getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(List<ChapterModel> chapter) {
+        this.chapter = chapter;
     }
 
     public String getUid() {

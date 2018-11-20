@@ -19,7 +19,7 @@ public interface CoursePkgService {
 	 * 获取首页的直播课程
 	 * @return
 	 */
-	public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<Void> requestObject);
+	public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 	/**
 	 * 获取首页免费课程
@@ -32,13 +32,13 @@ public interface CoursePkgService {
 	 * 获取首页试听课程列表
 	 * @return
 	 */
-	public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<Void> requestObject);
+	public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 	/**
 	 * 获取首页试听课程排行榜
 	 * @return
 	 */
-	public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<Void> requestObject);
+	public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
 	/**
 	 * 课程详情--课程包简介
@@ -71,7 +71,7 @@ public interface CoursePkgService {
 	 *课程疑答
 	 * @return
 	 */
-	public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<Void> req);
+	public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<UidAndTenantID> req);
 
 	/**
 	 * 课程列表

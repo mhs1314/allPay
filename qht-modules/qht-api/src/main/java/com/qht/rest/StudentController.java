@@ -89,12 +89,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("banner")
     @ResponseBody
-    public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<Void> requestObject) {
-        //通过session取到运营的id
-        System.out.println(getTenantId());
-        List<BannerModel> list=studentBiz.selectBanner(getTenantId(),"1");
-        List<BannerDto> lists = BeanUtil.copyList(BannerDto.class, list);
+    public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+        System.out.println("===================================tenant_id="+requestObject.getData().getTenant_id());
         ResultObject<List<BannerDto>> resultObject=new ResultObject<>();
+        if(StringUtil.isEmpty(requestObject.getData().getTenant_id())){
+            return resultObject.setMsg("参数不能为空");
+        }
+        List<BannerModel> list=studentBiz.selectBanner(requestObject.getData().getTenant_id(),"1");
+        List<BannerDto> lists = BeanUtil.copyList(BannerDto.class, list);
+
         resultObject.setData(lists);
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -133,9 +136,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherRanking")
     @ResponseBody
-    public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<Void> requestObject) {
+    public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<UidAndTenantID> requestObject) {
         //查询
-        List<TeacherRankingModel> list=teacherBiz.selectTeacherRanking(getTenantId());
+        List<TeacherRankingModel> list=teacherBiz.selectTeacherRanking(requestObject.getData().getTenant_id());
         List<TeacherRankingDto> lists = BeanUtil.copyList(TeacherRankingDto.class, list);
         ResultObject<List<TeacherRankingDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
@@ -340,8 +343,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("/app/indexTeacher")
     @ResponseBody
-    public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<Void> req) {
-        List<IndexTeacherModel> dto=teacherBiz.indexTeacher(getTenantId());
+    public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<UidAndTenantID> req) {
+        List<IndexTeacherModel> dto=teacherBiz.indexTeacher(req.getData().getTenant_id());
         if(dto.size()==0) {
         	 ResultObject<List<IndexTeacherDto>> resultObject=new ResultObject<>();
              resultObject.setCode("0");
