@@ -9,14 +9,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.zip.Deflater;
-
 import org.springframework.stereotype.Service;
-
 import com.qht.dto.UserSigDto;
-import com.qht.rest.WebRTCSigApiController;
 
 /**
  * 腾讯webrtc业务逻辑
@@ -25,16 +20,20 @@ import com.qht.rest.WebRTCSigApiController;
  */
 @Service
 public class TencentWebRTCBiz {
-	private int mSdkAppid = 0;
+	private int sdkappid = 1400161647;
     private PrivateKey mPrivateKey = null;
     private PublicKey mPublicKey = null;
     
-    /**
+    public int getSdkAppid() {
+		return sdkappid;
+	}
+
+	/**
      * 设置sdkappid
      * @param sdkappid
      */
     public void setSdkAppid(int sdkappid) {
-        this.mSdkAppid = sdkappid;
+        this.sdkappid = sdkappid;
     }
     
     /**
@@ -162,7 +161,7 @@ public class TencentWebRTCBiz {
         "TLS.appid_at_3rd:" + 0 + "\n" +
         "TLS.account_type:" + 0 + "\n" +
         "TLS.identifier:" + userid + "\n" +
-        "TLS.sdk_appid:" + this.mSdkAppid + "\n" +
+        "TLS.sdk_appid:" + this.sdkappid + "\n" +
         "TLS.time:" + time + "\n" +
         "TLS.expire_after:" + expire +"\n";
         
@@ -173,7 +172,7 @@ public class TencentWebRTCBiz {
         + "\"TLS.account_type\":\"" + 0 +"\","
         +"\"TLS.identifier\":\"" + userid +"\","
         +"\"TLS.appid_at_3rd\":\"" + 0 +"\","
-        +"\"TLS.sdk_appid\":\"" + this.mSdkAppid +"\","
+        +"\"TLS.sdk_appid\":\"" + this.sdkappid +"\","
         +"\"TLS.expire_after\":\"" + expire +"\","
         +"\"TLS.sig\":\"" + sig +"\","
         +"\"TLS.time\":\"" + time +"\","
@@ -231,10 +230,10 @@ public class TencentWebRTCBiz {
         }
 
         //dwSdkAppid
-        bytes[offset++] = (byte)((this.mSdkAppid & 0xFF000000) >> 24);
-        bytes[offset++] = (byte)((this.mSdkAppid & 0x00FF0000) >> 16);
-        bytes[offset++] = (byte)((this.mSdkAppid & 0x0000FF00) >> 8);
-        bytes[offset++] = (byte)(this.mSdkAppid & 0x000000FF);
+        bytes[offset++] = (byte)((this.sdkappid & 0xFF000000) >> 24);
+        bytes[offset++] = (byte)((this.sdkappid & 0x00FF0000) >> 16);
+        bytes[offset++] = (byte)((this.sdkappid & 0x0000FF00) >> 8);
+        bytes[offset++] = (byte)(this.sdkappid & 0x000000FF);
         
         //dwAuthId
         long nRoomId = Long.valueOf(roomid);
@@ -268,7 +267,7 @@ public class TencentWebRTCBiz {
         "TLS.appid_at_3rd:" + 0 + "\n" +
         "TLS.account_type:" + 0 + "\n" +
         "TLS.identifier:" + userid + "\n" +
-        "TLS.sdk_appid:" + this.mSdkAppid + "\n" +
+        "TLS.sdk_appid:" + this.sdkappid + "\n" +
         "TLS.time:" + time + "\n" +
         "TLS.expire_after:" + expire +"\n" +
         "TLS.userbuf:" + userbuf + "\n";
@@ -280,7 +279,7 @@ public class TencentWebRTCBiz {
         +"\"TLS.appid_at_3rd\":\"" + 0 +"\","
         +"\"TLS.account_type\":\"" + 0 +"\","
         +"\"TLS.identifier\":\"" + userid +"\","
-        +"\"TLS.sdk_appid\":\"" + this.mSdkAppid +"\","
+        +"\"TLS.sdk_appid\":\"" + this.sdkappid +"\","
         +"\"TLS.expire_after\":\"" + expire +"\","
         +"\"TLS.sig\":\"" + sig +"\","
         +"\"TLS.time\":\"" + time +"\","
@@ -306,14 +305,14 @@ public class TencentWebRTCBiz {
     	int sdkappid = 1400154853;   //腾讯云云通信sdkappid
         //int roomid = 1234;           //音视频房间号roomid    	
         //String userid = "webrtc98";  //用户名userid      
-        WebRTCSigApiController api = new WebRTCSigApiController();
-        api.setSdkAppid(sdkappid);        
-        api.setPrivateKey(privateKey());
-        api.setPublicKey(publicKeyFile());        
+        //WebRTCSigApiController api = new WebRTCSigApiController();
+        this.setSdkAppid(sdkappid);        
+        this.setPrivateKey(privateKey());
+        this.setPublicKey(publicKeyFile());        
         //生成userSig
-        String userSig = api.genUserSig(userid, 3600);        
+        String userSig = this.genUserSig(userid, 3600);        
         //生成privateMapKey
-        String privateKey = api.genPrivateMapKey(userid, roomid, 3600);               
+        String privateKey = this.genPrivateMapKey(userid, roomid, 3600);               
         UserSigDto result = new UserSigDto();
         result.setPrivateKey(privateKey);
         result.setUserSig(userSig);
@@ -322,10 +321,10 @@ public class TencentWebRTCBiz {
     
     
     public static String privateKey() {
-    	return "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg3LIVZlm/N2jeWLLKDrPTqVJwPyLvwabfgGEUPwLuOyWhRANCAATQ8Q2QqXpeNGC1BGaBpMg0UEnX8nYFCbltw+HHZZMCwL/Ed8fl+VKmUQuraREDyB4FzcqMorNgKsZHKfw61R1f";
+    	return "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgpvH9H9d6UNRE3qxyvoDIUD79T8l4H6RejU1vk9QlrHGhRANCAARk4GP1wP3qKbUP06U2+vhRE8278wJdgNxvGP/ziv6cz7nmJpbSYWhUMzxIw9qYNOFdlUiRWtI/Tn4XkeQblfit";
     }
     public static String publicKeyFile() {
-    	return "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0PENkKl6XjRgtQRmgaTINFBJ1/J2BQm5bcPhx2WTAsC/xHfH5flSplELq2kRA8geBc3KjKKzYCrGRyn8OtUdXw==";
+    	return "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZOBj9cD96im1D9OlNvr4URPNu/MCXYDcbxj/84r+nM+55iaW0mFoVDM8SMPamDThXZVIkVrSP05+F5HkG5X4rQ==";
     }
     
     

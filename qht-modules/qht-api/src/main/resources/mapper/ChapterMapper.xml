@@ -32,9 +32,12 @@
 		and cg.tenant_id=#{tenant_id} and cg.status="1"
 	</select>
 
+
+
 	<resultMap id="selectCourseChapterAndClass" type="com.qht.dto.CourseChapterDto">
 		<result column="uid" property="uid" />
 		<result property="name" column="name"/>
+
 
 		<collection property="period" ofType="com.qht.dto.ClassDto">
 			<result property="pid" column="pid"/>
@@ -45,17 +48,23 @@
 	</resultMap>
 
 	<!--课程详情课程包体系-->
+
 	<select id="selectCourseChapter" resultMap="selectCourseChapterAndClass" parameterType="com.qht.model.CourseIntroParam">
         select
-          c.uid,
-          c.name,
+
+
+          c.uid as uid,
+          c.name as name,
           p.uid as  pid,
           p.name as period_name,
-          p.video_file,
-          p.begin
+
+
+          p.video_file as video_file,
+          p.begin as begin
         from
           chapter c inner join period p on c.uid=p.chapter_id
           inner join course_pkg cp on cp.uid=c.course_id
-        where c.course_id=#{uid} and c.tenant_id=#{tenant_id} and cp.status="1"
+
+        where c.course_id=#{arg0} and c.tenant_id=#{arg1} and cp.status="1"
     </select>
 </mapper>

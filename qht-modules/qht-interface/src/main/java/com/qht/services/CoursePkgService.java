@@ -92,4 +92,12 @@ public interface CoursePkgService {
 	 * @return
 	 */
 	public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(@RequestBody RequestObject<MyIndexMycollectParameter>requestObject);
+	/**
+	 * app课程包评论
+	 */
+	public ResultObject<SumSelectCoursePkgPingDto> selectCoursePkgPing(@RequestBody RequestObject<UidAndTenantID>requestObject);
+	/**
+	 * app查看简课程包介
+	 */
+	public ResultObject<SelectCorseInfoJJDto> selectCoursePkgInfoJJ(@RequestBody RequestObject<UidAndTenantID> requestObject);
 }

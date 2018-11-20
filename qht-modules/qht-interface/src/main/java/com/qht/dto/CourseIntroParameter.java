@@ -1,3 +1,4 @@
+
 package com.qht.dto;
 
 import java.io.Serializable;
@@ -48,3 +49,4 @@ public class CourseIntroParameter implements Serializable {
 
 
 }
+

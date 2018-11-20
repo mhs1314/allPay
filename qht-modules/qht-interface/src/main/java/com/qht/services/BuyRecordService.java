@@ -33,4 +33,11 @@ public interface BuyRecordService {
 	 */
 	public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(@RequestBody RequestObject<MyIndexMyintegralDetailParameter> parameter);
 
+	/**
+	 * 新增消费记录
+	 * @param parameter
+	 * @return
+	 */
+	public ResultObject<Void> insertBuyRecord(@RequestBody RequestObject<InsertBuyrecordParameter> parameter);
 }
+

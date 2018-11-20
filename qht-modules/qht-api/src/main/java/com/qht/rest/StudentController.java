@@ -1,4 +1,3 @@
-
 package com.qht.rest;
 
 import com.github.pagehelper.PageHelper;
@@ -824,14 +823,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setData(list);
         return resultObject;
 	}
-	/**
-	 * 课程简介
-	 */
-	@Override
-	@PostMapping("app/courseIntro")
-    @ResponseBody
-	public ResultObject<CourseIntroDto> appCourseIntro(RequestObject<CourseIntroParameter> requestObject) {
-		return null;//this.courseIntro(requestObject);
-	}
+
 
 }

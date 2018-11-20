@@ -13,7 +13,8 @@ public class HttpUtil {
         BufferedReader in = null;
         String result = "";
         try {
-            URL httpUrl = new URL(url);           
+            URL httpUrl = new URL(url);     
+            System.out.println("httpUrl\n"+httpUrl);
             HttpURLConnection conn = (HttpURLConnection) httpUrl.openConnection();
         	conn.setRequestMethod("POST");
         	conn.setRequestProperty("Content-Type", "application/json");

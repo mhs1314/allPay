@@ -221,7 +221,18 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
    public List<AppMyStudentGuardianModel>appMyStudentGuardian(AppStudentParam parameter){
        return  studentMapper.appMyStudentGuardian(parameter);
    }
-
+   /**
+    * 学生余额
+    */
+   public Integer selectbalance(String uid) {
+	   return  studentMapper.selectbalance(uid);
+   }
+   /**
+    * 修改余额
+    */
+  public Integer updateBalance(UidAndTenantIDParam param) {
+	  return  studentMapper.updateBalance(param);
+  }
 
 }
 

@@ -2,7 +2,10 @@ package com.qht.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
@@ -34,7 +37,7 @@ public class Classroom implements Serializable {
 	
 	    //直播房间ID
     @Column(name = "room_id")
-    private String roomId;
+    private int roomId;
 	
 	    //IM群组ID
     @Column(name = "im_group_id")
@@ -43,8 +46,17 @@ public class Classroom implements Serializable {
 	    //白板群组ID
     @Column(name = "whiteboard_id")
     private String whiteboardId;
+    //创建时间
+    @Column(name = "create_time")
+    private Date createTime;
 	
 
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 	/**
 	 * 设置：课堂ID
 	 */
@@ -96,13 +108,13 @@ public class Classroom implements Serializable {
 	/**
 	 * 设置：直播房间ID
 	 */
-	public void setRoomId(String roomId) {
+	public void setRoomId(int roomId) {
 		this.roomId = roomId;
 	}
 	/**
 	 * 获取：直播房间ID
 	 */
-	public String getRoomId() {
+	public int getRoomId() {
 		return roomId;
 	}
 	/**

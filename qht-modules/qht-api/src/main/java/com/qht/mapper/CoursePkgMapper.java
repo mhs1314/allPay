@@ -174,5 +174,34 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * @return
 	 */
 	List<IndexMyCourseListModel> selectIndexMyCourseList(IndexMyCourseListParam data);
+	
+	/**
+	 * 课程包评论
+	 */
+	List<SelectCoursePkgPingModel> selectCoursePkgPing(UidAndTenantIDParam param);
+	/**
+	 * 差评
+	 */
+	Integer countMin(String uid);
+	/**
+	 * 中评
+	 */
+	Integer countbad(String uid);
+	/**
+	 * 好评
+	 */
+	Integer countGood(String uid);
+	/**
+	 * 全部
+	 */
+	Integer count(String uid);
+	/**
+	 * 课程报价格
+	 */
+	Integer selectTotalPrice(String uid);
+	/**
+	 * app查看课程包简介
+	 */
+	SelectCorseInfoJJModel selectCoursePkgInfoJJ(UidAndTenantIDParam param);
 
 }

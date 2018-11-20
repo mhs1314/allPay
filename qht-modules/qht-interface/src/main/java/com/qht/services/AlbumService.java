@@ -23,3 +23,4 @@ public interface AlbumService {
 	public ResultObject<List<TenantAlbumDto>> tenantAlbum(@RequestBody RequestObject<Void> uid);
 
 }
+

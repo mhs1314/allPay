@@ -4,10 +4,7 @@ import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.dto.CourseChapterDto;
 import com.qht.dto.CourseIntroParameter;
-import feign.Param;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
 
 /**
