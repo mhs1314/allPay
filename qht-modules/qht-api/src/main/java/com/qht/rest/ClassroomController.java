@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.qht.RequestObject;
 import com.qht.ResultBuilder;
 import com.qht.ResultObject;
+import com.qht.aop.ControllerAop;
 import com.qht.biz.ClassroomBiz;
 import com.qht.biz.ClassroomMembersBiz;
 import com.qht.biz.PeriodBiz;
@@ -38,7 +41,7 @@ import tk.mybatis.mapper.util.StringUtil;
 @Controller
 @RequestMapping("classroom")
 public class ClassroomController extends APIBaseController<ClassroomBiz,Classroom> {
-	
+	private static final Logger log = LoggerFactory.getLogger(ClassroomController.class);
 	@Autowired
 	private ClassroomBiz biz;
 	
@@ -115,10 +118,11 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		//TDOO 需要接受教师的uid,还需要接受课堂名称
 		String json = tencentCloud.createGroup(teacherId);
 		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);	
-		
+		log.info("Ok:"+body.getErrorCode());
 		Classroom entity = new Classroom();
 		if("OK".equals(body.getErrorCode())) {			
 			entity.setImGroupId(body.getGroupId());
+			entity.setWhiteboardId(body.getGroupId());
 		}		
 		entity.setHomeScreen(screen);
 		//需要一个固定的groupId				
