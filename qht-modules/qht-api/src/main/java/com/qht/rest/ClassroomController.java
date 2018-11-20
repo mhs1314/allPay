@@ -137,15 +137,18 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 			return ResultBuilder.error(requestObject, "-2", "请求参数为空");
 		}
 		String studentId = param.getStudent_id();
+		/*		
 		Student student = studentBiz.selectById(studentId);
 		if(student == null) {
 			return ResultBuilder.error(requestObject, "-3", "学生ID身份不能被识别");
 		}
+		*/
 		String classroomId = param.getClass_id();
 		Classroom classroom = biz.selectById(classroomId);
 		if(classroom == null) {
 			return ResultBuilder.error(requestObject, "-4", "课堂ID不存在");
 		}
+		//TODO 需要确保教师与学生的身份
 		ClassroomMembers entity = new ClassroomMembers();		
 		entity.setUid(UUID.randomUUID().toString());
 		entity.setStudentId(studentId);
