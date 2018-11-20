@@ -20,16 +20,20 @@ import com.qht.dto.UserSigDto;
  */
 @Service
 public class TencentWebRTCBiz {
-	private int mSdkAppid = 0;
+	private int sdkappid = 1400154853;
     private PrivateKey mPrivateKey = null;
     private PublicKey mPublicKey = null;
     
-    /**
+    public int getSdkAppid() {
+		return sdkappid;
+	}
+
+	/**
      * 设置sdkappid
      * @param sdkappid
      */
     public void setSdkAppid(int sdkappid) {
-        this.mSdkAppid = sdkappid;
+        this.sdkappid = sdkappid;
     }
     
     /**
@@ -157,7 +161,7 @@ public class TencentWebRTCBiz {
         "TLS.appid_at_3rd:" + 0 + "\n" +
         "TLS.account_type:" + 0 + "\n" +
         "TLS.identifier:" + userid + "\n" +
-        "TLS.sdk_appid:" + this.mSdkAppid + "\n" +
+        "TLS.sdk_appid:" + this.sdkappid + "\n" +
         "TLS.time:" + time + "\n" +
         "TLS.expire_after:" + expire +"\n";
         
@@ -168,7 +172,7 @@ public class TencentWebRTCBiz {
         + "\"TLS.account_type\":\"" + 0 +"\","
         +"\"TLS.identifier\":\"" + userid +"\","
         +"\"TLS.appid_at_3rd\":\"" + 0 +"\","
-        +"\"TLS.sdk_appid\":\"" + this.mSdkAppid +"\","
+        +"\"TLS.sdk_appid\":\"" + this.sdkappid +"\","
         +"\"TLS.expire_after\":\"" + expire +"\","
         +"\"TLS.sig\":\"" + sig +"\","
         +"\"TLS.time\":\"" + time +"\","
@@ -226,10 +230,10 @@ public class TencentWebRTCBiz {
         }
 
         //dwSdkAppid
-        bytes[offset++] = (byte)((this.mSdkAppid & 0xFF000000) >> 24);
-        bytes[offset++] = (byte)((this.mSdkAppid & 0x00FF0000) >> 16);
-        bytes[offset++] = (byte)((this.mSdkAppid & 0x0000FF00) >> 8);
-        bytes[offset++] = (byte)(this.mSdkAppid & 0x000000FF);
+        bytes[offset++] = (byte)((this.sdkappid & 0xFF000000) >> 24);
+        bytes[offset++] = (byte)((this.sdkappid & 0x00FF0000) >> 16);
+        bytes[offset++] = (byte)((this.sdkappid & 0x0000FF00) >> 8);
+        bytes[offset++] = (byte)(this.sdkappid & 0x000000FF);
         
         //dwAuthId
         long nRoomId = Long.valueOf(roomid);
@@ -263,7 +267,7 @@ public class TencentWebRTCBiz {
         "TLS.appid_at_3rd:" + 0 + "\n" +
         "TLS.account_type:" + 0 + "\n" +
         "TLS.identifier:" + userid + "\n" +
-        "TLS.sdk_appid:" + this.mSdkAppid + "\n" +
+        "TLS.sdk_appid:" + this.sdkappid + "\n" +
         "TLS.time:" + time + "\n" +
         "TLS.expire_after:" + expire +"\n" +
         "TLS.userbuf:" + userbuf + "\n";
@@ -275,7 +279,7 @@ public class TencentWebRTCBiz {
         +"\"TLS.appid_at_3rd\":\"" + 0 +"\","
         +"\"TLS.account_type\":\"" + 0 +"\","
         +"\"TLS.identifier\":\"" + userid +"\","
-        +"\"TLS.sdk_appid\":\"" + this.mSdkAppid +"\","
+        +"\"TLS.sdk_appid\":\"" + this.sdkappid +"\","
         +"\"TLS.expire_after\":\"" + expire +"\","
         +"\"TLS.sig\":\"" + sig +"\","
         +"\"TLS.time\":\"" + time +"\","

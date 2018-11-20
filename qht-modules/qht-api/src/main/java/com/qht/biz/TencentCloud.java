@@ -42,7 +42,7 @@ public class TencentCloud {
 		sb.append(command).append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+sdkappid).append("&");
+		sb.append("sdkappid="+webRTCBiz.getSdkAppid()).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -55,11 +55,11 @@ public class TencentCloud {
 		StringBuilder sb = new StringBuilder();
 		sb.append(baseUrl).append("/");
 		sb.append(ver).append("/");
-		sb.append("openim").append("/");
-		sb.append("im_push").append("?");
+		sb.append(servicename).append("/");
+		sb.append(command).append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+sdkappid).append("&");
+		sb.append("sdkappid="+webRTCBiz.getSdkAppid()).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -67,8 +67,8 @@ public class TencentCloud {
 	
 	private String getUsersig(String userid) {	
 		webRTCBiz.setSdkAppid(sdkappid);
-		webRTCBiz.setPrivateKey(webRTCBiz.privateKey());
-		webRTCBiz.setPublicKey(webRTCBiz.publicKeyFile());		
+		webRTCBiz.setPrivateKey(TencentWebRTCBiz.privateKey());
+		webRTCBiz.setPublicKey(TencentWebRTCBiz.publicKeyFile());		
 		return webRTCBiz.genUserSig(userid, 3600);
 	}
 	private String random() {
@@ -99,7 +99,7 @@ public class TencentCloud {
 	public String imPush() {
 		RequestBody param = new RequestBody();
 		//param.setOwner_Account(teacherId);
-		return HttpUtil.post(toImPushUrl(), param.toJson());
+		return HttpUtil.post(toGroupOpenUrl(), param.toJson());
 	}
 	
 	class ResponseBody{
