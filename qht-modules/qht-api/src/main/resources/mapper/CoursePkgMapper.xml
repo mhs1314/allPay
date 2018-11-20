@@ -225,4 +225,335 @@ GROUP BY c.uid
 			where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
 
 	</select>
+	<!--查询首页直播课程信息-->
+	<select id="selectLiveClass" resultType="com.qht.model.LiveClassModel" parameterType="java.lang.String">
+        select
+          cp.cover,
+          p.uid,
+          p.name,
+          p.video_file,
+          p.begin,
+          pl.name as level_name
+        from course_pkg cp
+        inner join period p
+        on cp.tenant_id=p.tenant_id
+        inner join pkg_level pl
+        on cp.pkg_level_id=pl.uid
+        where
+          cp.play_type_id="1"
+        and
+          p.tenant_id=#{tenant_id}
+        and cp.status="1"
+    </select>
+
+	<!--首页查询免费课程-->
+	<select id="selectFreeClass" resultType="com.qht.model.FreeClassModel" parameterType="com.qht.model.FreeClassParam">
+		select
+		cp.cover,
+		cp.uid,
+		cp.pkg_name,
+		cp.play_type_id,
+		t.nickname,
+		pl.name as level_name,
+		pt.name as pkg_type_name
+		from course_pkg cp
+		left join teacher t on cp.teacher_id=t.uid
+		left join pkg_level pl on cp.pkg_level_id=pl.uid
+		left join pkg_subject ps on cp.pkg_subject_id=ps.uid
+		left join pkg_type pt on pt.uid=cp.course_type_id
+		where cp.tenant_id=#{tenant_id}
+		and cp.status="1"
+		and cp.pkt_type_id="1"
+		<if test="pkg_subject_id!='' and pkg_subject_id!=null">
+			and cp.pkg_subject_id=#{pkg_subject_id}
+		</if>
+		limit 0,6
+	</select>
+
+	<!--查询首页试听课程列表-->
+
+	<select id="selectListeningClassList" resultType="com.qht.model.ListeningClassListModel" parameterType="java.lang.String">
+        select
+          cp.cover,
+          cp.uid,
+          cp.pkg_name,
+          cp.play_type_id,
+          t.nickname,
+          pl.name as level_name,
+			pt.name as course_type_name,
+			cp.total_price
+        from course_pkg cp
+        left join teacher t on cp.teacher_id=t.uid
+        left join pkg_level pl on cp.pkg_level_id=pl.uid
+        left join pkg_type pt on pt.uid=cp.course_type_id
+        where
+        cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1"
+    </select>
+
+	<!--查询首页试听课程排行榜-->
+
+	<select id="selectListeningClassRanking" resultType="com.qht.model.ListeningClassRankingModel" parameterType="java.lang.String">
+        select
+          cp.cover,
+          cp.uid,
+          cp.pkg_name,
+          cp.play_type_id,
+          t.nickname,
+          pl.name as level_name
+        from course_pkg cp
+        inner join teacher t on cp.teacher_id=t.uid
+        inner join pkg_level pl on cp.pkg_level_id=pl.uid
+        inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
+        where
+        cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1" limit 0,6
+    </select>
+
+	<!--查询学生课程详情课程包简介-->
+
+	<select id="selectCourseIntro" resultType="com.qht.model.CourseIntroModel">
+       select
+        cp.cover,
+        cp.uid,
+        cp.pkg_name,
+        cp.total_price,
+        cp.content,
+        cp.apply_number,
+        t.nickname,
+        ps.name as subject_name ,
+		pg.name as grade_name,
+		per.begin
+        from
+          course_pkg cp inner join teacher t on cp.teacher_id=t.uid
+          inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
+		  inner join pkg_grade pg on cp.pkg_grade_id=pg.uid
+		  inner join chapter ch on cp.uid=ch.course_id
+		  inner join period per on ch.uid=per.chapter_id
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+    </select>
+
+	<!--课程列表-->
+
+	<select id="selectCourseList" resultType="com.qht.model.CourseListModel" parameterType="com.qht.model.CourseListParam">
+		select
+		cp.cover,
+		cp.uid,
+		cp.pkg_name,
+		cp.total_price,
+		t.nickname,
+		p.begin
+		from course_pkg cp
+		inner join chapter c on cp.uid=c.course_id
+		inner join period p on p.chapter_id=c.uid
+		inner join teacher t on t.uid=cp.teacher_id
+		where
+		cp.tenant_id=#{tenant_id}
+		and cp.status="1"
+		<if test="pkt_type_id !=null and pkt_type_id!=''">
+			and cp.pkt_type_id=#{pkt_tyepe_id}
+		</if>
+		<if test="is_goods!=null and is_goods!=''">
+			and cp.is_goods=${is_goods}
+		</if>
+		<if test="pkg_subject_id !=null and pkg_subject_id !=''">
+			and cp.pkg_subject_id=#{pkg_subject_id}
+		</if>
+		<if test="pkg_grade_id !=null and pkg_grade_id !=''">
+			and cp.pkg_grade_id=#{pkg_grade_id}
+		</if>
+		<if test="play_type_id !=null and play_type_id !=''">
+			and cp.play_type_id='play_type_id'
+		</if>
+		<if test="course_type_id !=null and course_type_id !=''">
+			and cp.course_type_id='course_type_id'
+		</if>
+		<if test="newtime!=null and newtime!=''">
+			<if test="newtime=='1'">
+				order by p.begin asc
+			</if>
+			<if test="newtime=='2'">
+				order by p.begin desc
+			</if>
+		</if>
+		<if test="price!=null and price!=''">
+			<if test="price=='1'">
+				order by cp.total_price desc
+			</if>
+			<if test="price=='2'">
+				order by cp.total_price asc
+			</if>
+		</if>
+	</select>
+
+	<!--名师详情全部课程-->
+
+	<select id="selectTeacherCourse" resultType="com.qht.model.TeacherCourseModel">
+        select
+          cp.cover,
+          cp.uid,
+          cp.pkg_name,
+          cp.play_type_id,
+          cp.pkt_type_id,
+          cp.total_price,
+          p.begin,
+          t.nickname
+        from course_pkg cp inner join teacher t on cp.teacher_id=t.uid
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on p.chapter_id=c.uid
+        where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+    </select>
+
+	<!--近期课程-->
+
+	<select id="indexFutureCoruse" resultType="com.qht.model.IndexFutureCoruseModel">
+		SELECT
+		c.cover,
+		c.uid,
+		c.pkg_name,
+		t.nickname,
+		ps.`name`,
+		c.apply_number
+		FROM
+		course_pkg c
+		inner JOIN teacher t ON c.teacher_id = t.uid
+		inner JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
+		inner JOIN buy_record b ON c.uid=b.course_pkg_id
+		inner JOIN student  s   ON s.uid= b.student_id
+		where 1=1 and s.tenant_id =#{tenant_id}  and c.status="1"
+		<if test="uid!=null and uid!=''">
+			and s.uid=#{uid}
+		</if>
+	</select>
+
+	<!--课程答疑-->
+
+	<select id="indexAnswer" resultType="com.qht.model.IndexAnswerModel" parameterType="java.lang.String" >
+    SELECT
+	c.cover as cover,
+	a.uid as uid,
+	pr.comments_content as question,
+	p.`name` as name,
+	a.type as type
+
+FROM
+	course_pkg c
+inner JOIN period_evaluation pr ON c.uid = pr.course_id
+inner JOIN period p ON pr.period_id = p.uid
+inner JOIN answer a ON p.uid = a.period_id
+where a.tenant_id=#{tenant_id}
+  and c.status="1"
+</select>
+
+	<!-- 课程列表-->
+
+	<select id="indexCoruseList" resultType="com.qht.model.IndexCoruseListModel" parameterType="com.qht.model.IndexCoruseListParam">
+		SELECT
+		c.uid AS uid,
+		c.pkg_name AS pkg_name,
+		c.cover AS cover,
+		c.play_type_id AS play_type_id,
+		t.nickname AS nickname,
+		c.apply_number AS apply_number,
+		c.total_price AS total_price,
+		pn.comments_star AS comments_star,
+		p.`name` AS subject_name,
+		pn.praise_number AS praise_number
+		FROM
+		course_pkg c
+		LEFT JOIN teacher t ON c.teacher_id = t.uid
+		LEFT JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+		LEFT JOIN period_evaluation pn ON c.uid = pn.course_id
+		WHERE
+		c.tenant_id =#{tenant_id} and c.status="1"
+		<if test="play_type_id!=null and play_type_id !=''">
+			AND c.play_type_id =#{play_type_id}
+		</if>
+		<if test="pkg_grade_id!=null and pkg_grade_id !=''">
+			AND c.pkg_grade_id =#{pkg_grade_id}
+		</if>
+		<if test="pkg_subject_id !=null and pkg_subject_id !=''">
+			AND c.pkg_subject_id =#{pkg_subject_id}
+		</if>
+		<if test="course_type_id!=null and course_type_id !=''">
+			AND c.course_type_id =#{course_type_id}
+		</if>
+
+		<if test="is_index!=null and is_index !=''">
+			AND c.is_index =#{is_index}
+		</if>
+		<if test="pkt_type_id!=null and pkt_type_id !=''">
+			AND c.pkt_type_id =#{pkt_type_id}
+		</if>
+		<if test="apply!=null and apply!=''">
+
+			AND c.apply_number =#{apply}
+		</if>
+		<if test="key!=null and key!=''">
+			AND c.pkg_name like CONCAT('%',#{key},'%')
+		</if>
+	</select>
+
+	<resultMap id="selectMyIndexBuyRecordDetailsAndPeriod" type="com.qht.model.MyIndexBuyRecordCourseDetailsModel">
+		<id column="uid" jdbcType="VARCHAR" property="uid" />
+		<result property="name" column="name"/>
+		<collection property="period" ofType="com.qht.model.ClassModel">
+			<result property="pid" column="pid"/>
+			<result property="period_name" column="period_name"/>
+			<result property="video_file" column="video_file"/>
+			<result property="begin" column="begin"/>
+		</collection>
+	</resultMap>
+	<!--学生端个人中心首页兑换记录课程详情-->
+
+	<select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="java.lang.String">
+        select c.uid,c.name,p.uid as pid,p.name as period_name,p.begin,p.video_file
+        from course_pkg cp
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on c.uid=p.chapter_id
+        where cp.uid=#{uid} and cp.status="1"
+    </select>
+
+	<!--学生端个人中心首页我的收藏列表-->
+
+	<select id="selectMyIndexMycollect" parameterType="com.qht.model.MyIndexMycollectParam" resultType="com.qht.model.MyIndexMycollectModel">
+		select cp.cover,cp.pkg_name,cp.pkt_type_id,t.nickname,c.collect_time
+		from course_pkg cp
+		inner join teacher t on cp.teacher_id=t.uid
+		inner join collect c on c.course_pkg_id=cp.uid
+		inner join student s on s.uid=c.student_id
+		where s.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+		<if test="pkt_type_id !=''">
+			and cp.pkt_type_id=#{pkt_type_id}
+		</if>
+	</select>
+	<!--教师|端首页我的课程-->
+	<select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
+		select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin
+		from course_pkg cp left join chapter c on cp.uid=c.course_id
+		left join period p on p.chapter_id=c.uid
+		where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+		<if test="play_type_id!=null and play_type_id !=''">
+			and cp.play_type_id=#{play_type_id}
+		</if>
+		<if test="course_type_id!=null and course_type_id !=''">
+			and cp.course_type_id=#{course_type_id}
+		</if>
+		<if test="pkg_subject_id !=null and pkg_subject_id !=''">
+			and cp.pkg_subject_id=#{pkg_subject_id}
+		</if>
+		<if test="now_time!=null and now_time!=''">
+			and p.begin like CONCAT(#{now_time},'%')
+		</if>
+	</select>
+
+	<!--教师端首页我的课程包-->
+	<select id="selectIndexMyCourseList" resultType="com.qht.model.IndexMyCourseModel" parameterType="com.qht.model.IndexMyCourseParam">
+		select
+		cp.cover,pl.name as course_type_name,cp.uid,cp.pkg_name,cp.create_time,cp.pkg_level_id
+		from course_pkg cp left join pkg_level pl on cp.course_type_id=pl.uid
+		where cp.tenant_id=#{tenant_id} and cp.teacher_id=#{uid} and cp.status="1"
+		<if test="course_type_id!=null and course_type_id!=''">
+			cp.course_type_id=#{course_type_id}
+		</if>
+	</select>
+
 </mapper>

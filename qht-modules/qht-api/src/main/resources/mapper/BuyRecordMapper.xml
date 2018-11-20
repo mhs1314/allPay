@@ -13,4 +13,77 @@
         <result property="time" column="time"/>
     </resultMap>
 
+
+    <!--学生端个人中心首页我的课程列表-->
+
+    <select id="selectMyIndexCourse" resultType="com.qht.model.MyIndexCourseModel" parameterType="com.qht.model.MyIndexCourseParam">
+        select
+        cp.pkg_name,c.name as chapter_name,p.name,p.video_file,p.begin
+        from buy_record br
+        inner join course_pkg cp on br.course_pkg_id=cp.uid
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on c.uid=p.chapter_id
+        where br.tenant_id=#{tenant_id} and br.student_id=#{uid} and cp.status="1"
+        <if test="course_type_id!=null and course_type_id !=''">
+            and cp.course_type_id=#{course_type_id}
+        </if>
+        <if test="pkg_subject_id !=null and pkg_subject_id !=''">
+            and cp.pkg_subject_id=#{pkg_subject_id}
+        </if>
+        <if test="now_time!=null and now_time!=''">
+            and p.begin like CONCAT(#{now_time},'%')
+        </if>
+
+        <if test="play_type_id!=null and play_type_id!=''">
+            and cp.play_type_id=#{play_type_id}
+        </if>
+    </select>
+
+    <!--学生端个人中心首页兑换记录-->
+
+    <select id="selectMyIndexBuyRecord" resultType="com.qht.model.MyIndexBuyRecordModel" parameterType="com.qht.model.MyIndexBuyRecordParam">
+        select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin
+        from buy_record br
+        inner join course_pkg cp on br.course_pkg_id=cp.uid
+        inner join teacher t on cp.teacher_id=t.uid
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on c.uid=p.chapter_id
+        where br.student_id=#{uid}
+        and br.tenant_id=#{tenant_id}
+        and cp.status="1"
+        <if test="pkg_subject_id !='' and pkg_subject_id != null">
+            and cp.pkg_subject_id=#{pkg_subject_id}
+        </if>
+        <if test="play_type_id !='' and play_type_id != null">
+            and cp.play_type_id=#{play_type_id}
+        </if>
+        <if test="pkt_type_id != '' and pkt_type_id != null">
+            and cp.pkt_type_id=#{pkt_type_id}
+        </if>
+    </select>
+
+    <!--消费记录-->
+
+    <select id="myIndexMyintegralDetail"  resultType="com.qht.model.MyIndexMyintegralDetailModel" parameterType="com.qht.model.MyIndexMyintegralDetailParam">
+        SELECT
+        b.uid AS uid,
+        c.pkg_name AS pkg_name,
+        c.total_price AS total_price,
+        b.time AS time
+        FROM
+        buy_record b
+        inner JOIN course_pkg c ON b.course_pkg_id = c.uid
+        WHERE
+        b.student_id =#{uid}
+        AND b.tenant_id =#{tenant_id}
+        and c.status="1"
+        <if test="begin_time!=null and begin_time!=''">
+            AND b.time &gt;= #{begin_time}
+        </if>
+        <if test="over_time!=null and over_time!=''">
+            AND b.time &lt;= #{over_time}
+        </if>
+
+
+    </select>
 </mapper>
