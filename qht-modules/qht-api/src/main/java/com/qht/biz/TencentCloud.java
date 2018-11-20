@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.qht.common.util.HttpUtil;
-import com.qht.dto.GroupResponseBodyDto;
+//import com.qht.dto.GroupBodyDto;
 
 /**
  * 构造地址
@@ -137,8 +137,8 @@ public class TencentCloud {
 		TencentCloud tc = new TencentCloud();
 		String json = tc.createGroup("Web_trtc_01");
 		System.out.println(json);
-		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);		
-		System.out.println(body);
+		//GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
+		//System.out.println(body);
 	}
 	
 	
