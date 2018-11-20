@@ -3,6 +3,7 @@ package com.qht.rest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +20,6 @@ import com.alibaba.fastjson.JSON;
 import com.qht.RequestObject;
 import com.qht.ResultBuilder;
 import com.qht.ResultObject;
-import com.qht.aop.ControllerAop;
 import com.qht.biz.ClassroomBiz;
 import com.qht.biz.ClassroomMembersBiz;
 import com.qht.biz.PeriodBiz;
@@ -30,7 +30,7 @@ import com.qht.common.util.IdGenUtil;
 import com.qht.dto.ClassroomDto;
 import com.qht.dto.ClassroomParameter;
 import com.qht.dto.ClassroomStatusDto;
-import com.qht.dto.GroupResponseBodyDto;
+import com.qht.dto.GroupBodyDto;
 import com.qht.entity.Classroom;
 import com.qht.entity.ClassroomMembers;
 import com.qht.entity.Period;
@@ -117,14 +117,10 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		}
 		//TDOO 需要接受教师的uid,还需要接受课堂名称
 		String json = tencentCloud.createGroup(teacherId);
-		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);
-		System.out.println("body"+body);
-		log.info("Ok:"+body.getErrorCode());
-		Classroom entity = new Classroom();
-		if("OK".equals(body.getErrorCode())) {			
-			entity.setImGroupId(body.getGroupId());
-			entity.setWhiteboardId(body.getGroupId());
-		}		
+		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
+		Classroom entity = new Classroom();		
+		entity.setImGroupId(body.getGroupId());
+		entity.setWhiteboardId(body.getGroupId());
 		entity.setHomeScreen(screen);
 		//需要一个固定的groupId				
 		entity.setPeriodId(param.getClass_id());
@@ -132,6 +128,7 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		entity.setRoomId(123456);
 		entity.setTeacherId(teacherId);
 		entity.setUid(uid);
+		entity.setCreateTime(new Date());
 		biz.insert(entity);
 		ClassroomDto dto = new ClassroomDto(); 
 		dto.setConf_id(uid);	
