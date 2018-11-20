@@ -31,9 +31,9 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz,CoursePk
 	@Override
 	@PostMapping("/student/liveClass")
 	@ResponseBody
-	public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<Void> requestObject) {
+	public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		//查询首页直播课程
-		List<LiveClassModel> list=coursePkgBiz.selectLiveClass(getTenantId());
+		List<LiveClassModel> list=coursePkgBiz.selectLiveClass(requestObject.getData().getTenant_id());
 		List<LiveClassDto> lists = BeanUtil.copyList(LiveClassDto.class, list);
 		ResultObject<List<LiveClassDto>> resultObject=new ResultObject<>();
 		resultObject.setCode("0");
@@ -63,10 +63,10 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz,CoursePk
 	@Override
 	@PostMapping("/student/listeningClassList")
 	@ResponseBody
-	public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<Void> requestObject) {
+	public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		//查询
 
-		List<ListeningClassListModel> list=coursePkgBiz.selectListeningClassList(getTenantId());
+		List<ListeningClassListModel> list=coursePkgBiz.selectListeningClassList(requestObject.getData().getTenant_id());
 		List<ListeningClassListDto> lists = BeanUtil.copyList(ListeningClassListDto.class, list);
 		ResultObject<List<ListeningClassListDto>> resultObject=new ResultObject<>();
 		resultObject.setCode("0");
@@ -78,9 +78,9 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz,CoursePk
 	@Override
 	@PostMapping("/student/listeningClassRanking")
 	@ResponseBody
-	public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<Void> requestObject) {
+	public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		//查询试听排行榜
-		List<ListeningClassRankingModel> list=coursePkgBiz.selectListeningClassRanking(getTenantId());
+		List<ListeningClassRankingModel> list=coursePkgBiz.selectListeningClassRanking(requestObject.getData().getTenant_id());
 		List<ListeningClassRankingDto> lists = BeanUtil.copyList(ListeningClassRankingDto.class, list);
 		ResultObject<List<ListeningClassRankingDto>> resultObject=new ResultObject<>();
 		resultObject.setCode("0");
@@ -93,13 +93,17 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz,CoursePk
 	@PostMapping("/student/courseIntro")
 	@ResponseBody
 	public ResultObject<CourseIntroDto> courseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
+		ResultObject<CourseIntroDto> resultObject=new ResultObject<>();
 		//通过课程包的uid和运营的id查询
 		CourseIntroParam param=new CourseIntroParam();
 		BeanUtil.copyFields(param,  requestObject.getData());
 		CourseIntroModel courseIntroModel=coursePkgBiz.selectCourseIntro(param.getUid(),param.getTenant_id(),param.getStudent_id());
+		if(courseIntroModel==null){
+			resultObject.setMsg("查询无数据");
+			return resultObject;
+		}
 		CourseIntroDto dto=new CourseIntroDto();
 		BeanUtil.copyFields(dto,courseIntroModel);
-		ResultObject<CourseIntroDto> resultObject=new ResultObject<>();
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
 		resultObject.setData(dto);
@@ -185,9 +189,9 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz,CoursePk
 	@Override
 	@PostMapping("/student/app/indexAnswer")
 	@ResponseBody
-	public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<Void> req) {
+	public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<UidAndTenantID> req) {
 
-		List<IndexAnswerModel> dto=coursePkgBiz.indexAnswer(getTenantId());
+		List<IndexAnswerModel> dto=coursePkgBiz.indexAnswer(req.getData().getTenant_id());
 		if(dto.size()==0) {
 			ResultObject<List<IndexAnswerDto>> resultObject=new ResultObject<>();
 			resultObject.setCode("0");

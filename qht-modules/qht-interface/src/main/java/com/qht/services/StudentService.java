@@ -96,7 +96,7 @@ public interface StudentService {
      * 获取首页广告信息
      * @return
      */
-    public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<Void> requestObject);
+    public ResultObject<List<BannerDto>> banner(@RequestBody RequestObject<UidAndTenantID> requestObject);
     /**
      * 获取首页广告信息--App
      * @return
@@ -107,7 +107,7 @@ public interface StudentService {
      * 获取首页老师排行榜
      * @return
      */
-    public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<Void> requestObject);
+    public ResultObject<List<TeacherRankingDto>> teacherRanking(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
     /**
      * 获取首页老师集合
@@ -175,7 +175,7 @@ public interface StudentService {
      *名师资源
      * @return
      */
-    public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<Void> req);
+    public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<UidAndTenantID> req);
 
     /**
      * 名师资源列表

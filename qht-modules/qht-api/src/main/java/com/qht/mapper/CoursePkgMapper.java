@@ -2,14 +2,12 @@ package com.qht.mapper;
 
 import java.util.List;
 
+import com.qht.dto.*;
+import com.qht.dto.CourseChapterDto;
 import com.qht.model.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.qht.dto.AppStudentParameter;
-import com.qht.dto.CourseChapterDto;
-import com.qht.dto.CoursePkgListDto;
-import com.qht.dto.UidAndTenantID;
 import com.qht.entity.CoursePkg;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -62,7 +60,7 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * @param param
 	 * @return
 	 */
-	IndexMyCourseEditChapterAndPeriodModel selectIndexMyCourseEditChapterAndPeriodModel(UidAndTenantIDParam param);
+	IndexMyCourseEditChapterAndPeriodDto selectIndexMyCourseEditChapterAndPeriodModel(UidAndTenantIDParam param);
 	/**
 	 * 通过学生id查询课程包    个人中心课程列表
 	 * @param param

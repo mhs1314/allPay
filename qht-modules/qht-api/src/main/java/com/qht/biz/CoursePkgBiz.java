@@ -2,6 +2,7 @@ package com.qht.biz;
 
 import java.util.List;
 
+import com.qht.dto.IndexMyCourseEditChapterAndPeriodDto;
 import com.qht.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +77,7 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 	 * @param param
 	 * @return
 	 */
-	public IndexMyCourseEditChapterAndPeriodModel selectIndexMyCourseEditChapterAndPeriodModel(UidAndTenantIDParam param) {
+	public IndexMyCourseEditChapterAndPeriodDto selectIndexMyCourseEditChapterAndPeriodModel(UidAndTenantIDParam param) {
 
 		return coursePkgMapper.selectIndexMyCourseEditChapterAndPeriodModel(param);
 	}

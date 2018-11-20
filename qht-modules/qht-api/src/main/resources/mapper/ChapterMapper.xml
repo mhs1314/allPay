@@ -33,7 +33,7 @@
 	</select>
 
 	<resultMap id="selectCourseChapterAndClass" type="com.qht.dto.CourseChapterDto">
-		<id column="uid" jdbcType="VARCHAR" property="uid" />
+		<result column="uid" property="uid" />
 		<result property="name" column="name"/>
 
 		<collection property="period" ofType="com.qht.dto.ClassDto">
@@ -45,7 +45,7 @@
 	</resultMap>
 
 	<!--课程详情课程包体系-->
-	<select id="selectCourseChapter" resultMap="selectCourseChapterAndClass">
+	<select id="selectCourseChapter" resultMap="selectCourseChapterAndClass" parameterType="com.qht.model.CourseIntroParam">
         select
           c.uid,
           c.name,

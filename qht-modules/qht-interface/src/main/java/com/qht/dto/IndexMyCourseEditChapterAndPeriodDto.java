@@ -19,6 +19,29 @@ public class IndexMyCourseEditChapterAndPeriodDto implements Serializable {
 
     private Date create_time;
 
+    private String play_type_id;
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexMyCourseEditChapterAndPeriodDto{" +
+                "uid='" + uid + '\'' +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", content='" + content + '\'' +
+                ", create_time=" + create_time +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", cover='" + cover + '\'' +
+                ", chapters=" + chapters +
+                '}';
+    }
+
     private String cover;
 
     private List<ChapterDto>  chapters;
@@ -29,18 +52,6 @@ public class IndexMyCourseEditChapterAndPeriodDto implements Serializable {
 
     public void setChapters(List<ChapterDto> chapters) {
         this.chapters = chapters;
-    }
-
-    @Override
-    public String toString() {
-        return "IndexMyCourseEditChapterAndPeriodDto{" +
-                "uid='" + uid + '\'' +
-                ", pkg_name='" + pkg_name + '\'' +
-                ", content='" + content + '\'' +
-                ", create_time=" + create_time +
-                ", cover='" + cover + '\'' +
-                ", chapters=" + chapters +
-                '}';
     }
 
     public String getUid() {

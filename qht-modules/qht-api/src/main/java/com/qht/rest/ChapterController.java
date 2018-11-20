@@ -4,11 +4,14 @@ import com.github.wxiaoqi.security.common.rest.BaseController;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.biz.ChapterBiz;
+import com.qht.common.util.BeanUtil;
 import com.qht.dto.CourseChapterDto;
 import com.qht.dto.CourseIntroParameter;
 import com.qht.entity.Chapter;
 
+import com.qht.model.CourseIntroParam;
 import com.qht.services.ChapterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +22,7 @@ import java.util.List;
 
 @Controller
 public class ChapterController extends APIBaseController<ChapterBiz,Chapter> implements ChapterService {
+	@Autowired
 	private ChapterBiz chapterBiz;
 
 	@Override
@@ -28,11 +32,17 @@ public class ChapterController extends APIBaseController<ChapterBiz,Chapter> imp
 		ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
 		if(requestObject.getData()==null){
 			return resultObject.setMsg("参数为空");
+		};
+		CourseIntroParam param=new CourseIntroParam();
+		BeanUtil.copyFields(param,requestObject.getData());
+		List<CourseChapterDto> list=chapterBiz.selectCourseChapter(param);
+		if(list.size()>0){
+			resultObject.setCode("0");
+			resultObject.setMsg("成功");
+			resultObject.setData(list);
+			return resultObject;
 		}
-		List<CourseChapterDto> list=chapterBiz.selectCourseChapter(requestObject.getData().getUid(),requestObject.getData().getTenant_id());
-		resultObject.setCode("0");
-		resultObject.setMsg("成功");
-		resultObject.setData(list);
+		resultObject.setMsg("查询无数据");
 		return resultObject;
 	}
 	/**
