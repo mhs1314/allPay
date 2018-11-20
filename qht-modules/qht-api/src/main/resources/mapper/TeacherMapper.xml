@@ -131,7 +131,7 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 	</select>
 
 	<!--查询老师信息-->
-	<select id="selectTeacherInfo" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.PCTeacherInfoModel">
+	<select id="selectTeacherInfo1" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.PCTeacherInfoModel">
 		select  t.sex,t.cert,t.uid,t.intr,t.mobile as phone,t.identity_back,t.name,t.nickname,
 		t.back_img,t.age,t.identity_face,s.school_name,ps.name as subject_name from teacher t left join school s on t.school_id=s.uid
 		left join pkg_subject ps on ps.uid=t.subject_id
@@ -170,8 +170,20 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 		)as a ,
 		( select count(course_pkg.uid) as pkg_count from course_pkg where tenant_id=#{tenant_id} and status="1" )as b
 	</select>
+	<resultMap id="selectTeacherInfoAndCourse" type="com.qht.model.TeacherInfoModel">
+		<id column="uid" jdbcType="VARCHAR" property="uid" />
+		<result property="integral" column="integral"/>
+		<result property="back_img" column="back_img"/>
+		<result property="nickname" column="nickname"/>
+		<result property="school_name" column="school_name"/>
+		<result property="subject_name" column="subject_name"/>
+
+		<collection property="course" ofType="com.qht.model.CourseModel">
+			<result property="pkg_name" column="pkg_name"/>
+		</collection>
+	</resultMap>
 	<!--课程详情教师信息-->
-	<select id="selectTeacherInfo" resultMap="selectTeacherInfoAndCourse">
+	<select id="selectTeacherInfo2" resultMap="selectTeacherInfoAndCourse">
         select
           t.uid,
           t.integral,
@@ -270,7 +282,23 @@ WHERE
 		</if>
 		GROUP BY t.uid
 	</select>
+	<resultMap id="selectTopTeacherListAndTopTeacherCourse" type="com.qht.model.TopTeacherListModel">
+		<id column="uid" jdbcType="VARCHAR" property="uid" />
+		<result property="intr" column="intr"/>
+		<result property="integral" column="integral"/>
+		<result property="back_img" column="back_img"/>
+		<result property="nickname" column="nickname"/>
+		<result property="school_name" column="school_name"/>
+		<result property="subject_name" column="subject_name"/>
+		<result property="grade_name" column="grade_name"/>
+		<result property="course_count" column="course_count"/>
 
+		<collection property="courses" ofType="com.qht.model.TopCourseModel">
+			<result property="pkg_name" column="pkg_name"/>
+			<result property="cover" column="cover"/>
+			<result property="begin" column="begin"/>
+		</collection>
+	</resultMap>
 	<!--名师列表-->
 	<select id="selectTopTeacherList" resultMap="selectTopTeacherListAndTopTeacherCourse" parameterType="com.qht.model.TopTeacherListParam">
 		select

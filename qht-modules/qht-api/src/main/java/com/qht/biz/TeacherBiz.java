@@ -73,8 +73,8 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param param
      * @return
      */
-    public PCTeacherInfoModel selectTeacherInfo(UidAndTenantIDParam param) {
-        return teacherMapper.selectTeacherInfo(param);
+    public PCTeacherInfoModel selectTeacherInfo1(UidAndTenantIDParam param) {
+        return teacherMapper.selectTeacherInfo1(param);
     }
 
 	/**
@@ -102,8 +102,8 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
 	 * @return
 	 */
 
-	public TeacherInfoModel selectTeacherInfo(String uid, String tenant_id) {
-		return teacherMapper.selectTeacherInfo(uid,tenant_id);
+	public TeacherInfoModel selectTeacherInfo2(String uid, String tenant_id) {
+		return teacherMapper.selectTeacherInfo2(uid,tenant_id);
 	}
 	/**
 	 * 名师详情--讲师简介

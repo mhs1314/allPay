@@ -625,7 +625,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
 		BeanUtil.copyFields(param,requestObject.getData());
-		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo(param);
+		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo1(param);
 		if(model==null){
 			return resultObject.setMsg("查询无结果");
 		}

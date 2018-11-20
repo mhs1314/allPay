@@ -94,36 +94,9 @@
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;2
     </select>
 
-    <resultMap id="selectTeacherInfoAndCourse" type="com.qht.model.TeacherInfoModel">
-        <id column="uid" jdbcType="VARCHAR" property="uid" />
-        <result property="integral" column="integral"/>
-        <result property="back_img" column="back_img"/>
-        <result property="nickname" column="nickname"/>
-        <result property="school_name" column="school_name"/>
-        <result property="subject_name" column="subject_name"/>
 
-        <collection property="course" ofType="com.qht.model.CourseModel">
-            <result property="pkg_name" column="pkg_name"/>
-        </collection>
-    </resultMap>
 
-    <resultMap id="selectTopTeacherListAndTopTeacherCourse" type="com.qht.model.TopTeacherListModel">
-        <id column="uid" jdbcType="VARCHAR" property="uid" />
-        <result property="intr" column="intr"/>
-        <result property="integral" column="integral"/>
-        <result property="back_img" column="back_img"/>
-        <result property="nickname" column="nickname"/>
-        <result property="school_name" column="school_name"/>
-        <result property="subject_name" column="subject_name"/>
-        <result property="grade_name" column="grade_name"/>
-        <result property="course_count" column="course_count"/>
 
-        <collection property="courses" ofType="com.qht.model.TopCourseModel">
-            <result property="pkg_name" column="pkg_name"/>
-            <result property="cover" column="cover"/>
-            <result property="begin" column="begin"/>
-        </collection>
-    </resultMap>
     <!--名师详情评论列表-->
     <select id="selectTeacherEvaluation" resultType="com.qht.model.TeacherEvaluationModel">
         select

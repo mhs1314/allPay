@@ -66,7 +66,7 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @param param
 	 * @return
 	 */
-    PCTeacherInfoModel selectTeacherInfo(UidAndTenantIDParam param);
+    PCTeacherInfoModel selectTeacherInfo1(UidAndTenantIDParam param);
 
 	/**
 	 * 通过运营id查询首页老师排行榜
@@ -87,7 +87,7 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @param tenant_id
 	 * @return
 	 */
-	TeacherInfoModel selectTeacherInfo(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
+	TeacherInfoModel selectTeacherInfo2(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
 
 	/**
 	 * 名师详情--讲师简介

@@ -232,7 +232,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<TeacherInfoDto> teacherInfo(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
     	CourseIntroParam param=new CourseIntroParam();
     	BeanUtil.copyFields(param, requestObject.getData());
-        TeacherInfoModel teacherInfoModel=teacherBiz.selectTeacherInfo(param.getUid(),param.getTenant_id());
+        TeacherInfoModel teacherInfoModel=teacherBiz.selectTeacherInfo2(param.getUid(),param.getTenant_id());
         TeacherInfoDto dto=new TeacherInfoDto();
         BeanUtil.copyFields(dto, teacherInfoModel);
         ResultObject<TeacherInfoDto> resultObject=new ResultObject<>();

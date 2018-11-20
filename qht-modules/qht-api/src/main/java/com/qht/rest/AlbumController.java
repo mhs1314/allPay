@@ -26,7 +26,7 @@ public class AlbumController extends APIBaseController<AlbumBiz,Album> implement
 	private AlbumBiz albumBiz;
 
 	@Override
-	@PostMapping("/student/tenantAlbum")
+//	@PostMapping("/student/tenantAlbum")
 	@ResponseBody
 	public ResultObject<List<TenantAlbumDto>> tenantAlbum(@RequestBody RequestObject<Void> requestObject) {
 
