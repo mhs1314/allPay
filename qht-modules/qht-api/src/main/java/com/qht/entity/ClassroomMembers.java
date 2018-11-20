@@ -16,19 +16,19 @@ import javax.persistence.*;
 public class ClassroomMembers implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	    //主键
+	 //主键
     @Id
     private String uid;
 	
-	    //学生昵称
+	//学生昵称
     @Column(name = "nickname")
     private String nickname;
 	
-	    //麦克风是否可用 0 否 1是
+	 //麦克风是否可用 0 否 1是
     @Column(name = "mic")
     private Integer mic;
 	
-	    //学生ID
+	//学生ID
     @Column(name = "student_id")
     private String studentId;
 	
