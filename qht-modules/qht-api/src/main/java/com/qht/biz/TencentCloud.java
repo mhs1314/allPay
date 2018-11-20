@@ -30,13 +30,33 @@ public class TencentCloud {
 	String usersig = "";
 	String random = "";
 	String contenttype = "json";
-	
-	public String toUrl() {
+	/**
+	 * 创建群组地址
+	 * @return
+	 */
+	public String toGroupOpenUrl() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(baseUrl).append("/");
 		sb.append(ver).append("/");
 		sb.append(servicename).append("/");
 		sb.append(command).append("?");
+		sb.append("usersig="+getUsersig(identifier)).append("&");		
+		sb.append("identifier="+identifier).append("&");
+		sb.append("sdkappid="+sdkappid).append("&");
+		sb.append("random="+random()).append("&");
+		sb.append("contenttype="+contenttype);
+		return sb.toString();
+	}
+	/**
+	 * 创建消息推送地址
+	 * @return
+	 */
+	public String toImPushUrl() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(baseUrl).append("/");
+		sb.append(ver).append("/");
+		sb.append("openim").append("/");
+		sb.append("im_push").append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
 		sb.append("sdkappid="+sdkappid).append("&");
@@ -61,10 +81,25 @@ public class TencentCloud {
 		}		
 		return String.valueOf(sb);
 	}
+	/**
+	 * 创建群组
+	 * @param teacherId
+	 * @return
+	 */
 	public String createGroup(String teacherId) {
 		RequestBody param = new RequestBody();
 		param.setOwner_Account(teacherId);
-		return HttpUtil.post(toUrl(), param.toJson());
+		return HttpUtil.post(toGroupOpenUrl(), param.toJson());
+	}
+	
+	/**
+	 * 消息推送
+	 * @return
+	 */
+	public String imPush() {
+		RequestBody param = new RequestBody();
+		//param.setOwner_Account(teacherId);
+		return HttpUtil.post(toImPushUrl(), param.toJson());
 	}
 	
 	class ResponseBody{
@@ -91,6 +126,7 @@ public class TencentCloud {
 		}
 		
 	}
+	
 	class RequestBody{
 		
 		String Owner_Account = "Web_trtc_01";

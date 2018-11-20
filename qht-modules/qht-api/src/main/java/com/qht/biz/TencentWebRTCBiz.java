@@ -9,14 +9,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.zip.Deflater;
-
 import org.springframework.stereotype.Service;
-
 import com.qht.dto.UserSigDto;
-import com.qht.rest.WebRTCSigApiController;
 
 /**
  * 腾讯webrtc业务逻辑
@@ -306,14 +301,14 @@ public class TencentWebRTCBiz {
     	int sdkappid = 1400154853;   //腾讯云云通信sdkappid
         //int roomid = 1234;           //音视频房间号roomid    	
         //String userid = "webrtc98";  //用户名userid      
-        WebRTCSigApiController api = new WebRTCSigApiController();
-        api.setSdkAppid(sdkappid);        
-        api.setPrivateKey(privateKey());
-        api.setPublicKey(publicKeyFile());        
+        //WebRTCSigApiController api = new WebRTCSigApiController();
+        this.setSdkAppid(sdkappid);        
+        this.setPrivateKey(privateKey());
+        this.setPublicKey(publicKeyFile());        
         //生成userSig
-        String userSig = api.genUserSig(userid, 3600);        
+        String userSig = this.genUserSig(userid, 3600);        
         //生成privateMapKey
-        String privateKey = api.genPrivateMapKey(userid, roomid, 3600);               
+        String privateKey = this.genPrivateMapKey(userid, roomid, 3600);               
         UserSigDto result = new UserSigDto();
         result.setPrivateKey(privateKey);
         result.setUserSig(userSig);
