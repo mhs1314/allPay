@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.qht.common.util.BeanUtil;
-import com.qht.dto.SelectChDto;
+import com.qht.dto.SelectChaDto;
 import com.qht.dto.SelectPerDto;
 
-public class SelectChModel implements Serializable {
-	private String c_id;
+public class SelectChaModel implements Serializable {
+	private String uid;
 	private String name;
 	private List<SelectPerModel> period = new ArrayList<>();
 	
-	public SelectChDto toDto() {
-		SelectChDto dto = new SelectChDto(); 
+	public SelectChaDto toDto() {
+		SelectChaDto dto = new SelectChaDto(); 
 		BeanUtil.copyFields(dto, this);			
 		for(SelectPerModel source : period) {
 			dto.getPeriodDto().add(source.toDto());				
@@ -23,12 +23,17 @@ public class SelectChModel implements Serializable {
 		return dto;
 	}
 	
-	public String getC_id() {
-		return c_id;
+	
+	public String getUid() {
+		return uid;
 	}
-	public void setC_id(String c_id) {
-		this.c_id = c_id;
+
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -43,7 +48,7 @@ public class SelectChModel implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "SelectChModel [c_id=" + c_id + ", name=" + name + ", period=" + period + "]";
+		return "SelectChModel [c_id=" + uid + ", name=" + name + ", period=" + period + "]";
 	}
 	
 

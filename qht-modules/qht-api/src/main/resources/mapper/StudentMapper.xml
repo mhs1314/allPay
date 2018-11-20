@@ -25,12 +25,10 @@
     </select>
     
     <!--查询banner-->
-
     <select id="selectBanner" resultType="com.qht.model.BannerModel">
         select uid,image,link,sort from banner where tenant_Id=#{tenant_id} and type=#{type}
     </select>
     <!--查询首页直播课程信息-->
-
     <select id="selectLiveClass" resultType="com.qht.model.LiveClassModel" parameterType="java.lang.String">
         select
           cp.cover,
@@ -86,13 +84,6 @@
         <if test="pkg_subject_id!='' and pkg_subject_id!=null">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
-
-
-
-
-
-
-
         limit 0,6
     </select>
     

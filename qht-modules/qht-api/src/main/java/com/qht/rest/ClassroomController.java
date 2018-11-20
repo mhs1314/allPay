@@ -105,8 +105,8 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		if(!"camera".equals(screen) && !"board".equals(screen)) {
 			return ResultBuilder.error(requestObject, "-3", "home_screen只能为camera或board");
 		}
-		
-		String json = tencentCloud.createGroup();
+		//TDOO 需要接受教师的uid,还需要接受课堂名称
+		String json = tencentCloud.createGroup(teacherId);
 		GroupResponseBodyDto body = JSON.parseObject(json, GroupResponseBodyDto.class);	
 		
 		Classroom entity = new Classroom();
