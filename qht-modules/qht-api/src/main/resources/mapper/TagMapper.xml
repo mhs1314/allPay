@@ -9,5 +9,15 @@
         <result property="tenantId" column="tenant_id"/>
         <result property="标签名" column="标签名"/>
     </resultMap>
-
+    <!--app查看学生兴趣标签-->
+    <select id="appMyStudentInterest" resultType="com.qht.model.TagModel" parameterType="com.qht.model.AppStudentParam">
+      SELECT
+            tag.uid as uid,
+            tag.tag_name as tag_name
+        FROM
+            tag
+        INNER JOIN interest_label i ON tag_id=i.tag_id
+        INNER JOIN student   s    on i.student_id=s.uid
+     where  s.uid=#{uid} and  s.tenant_id=#{tenant_id}
+    </select>
 </mapper>

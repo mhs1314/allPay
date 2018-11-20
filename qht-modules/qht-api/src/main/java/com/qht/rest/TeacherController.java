@@ -41,6 +41,9 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 	@Autowired
 	private PkgLevelBiz pkgLevelBiz;
 
+	@Autowired
+	private AnswerBiz answerBiz;
+
 	@Override
 	public ResultObject<String> login(RequestObject<LoginInfoDto> rquest) {
 		return null;
@@ -58,7 +61,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		BeanUtil.copyFields(param, requestObject.getData());
 
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(requestObject.getData().getLimit()));
-		List<IndexMyCourseModel> models = teacherBiz.selectIndexMyCourseDto(param);
+		List<IndexMyCourseModel> models = coursePkgBiz.selectIndexMyCourseDto(param);
 		List<IndexMyCourseDto> list = BeanUtil.copyList(IndexMyCourseDto.class, models);
 
 		PageInfo<IndexMyCourseDto> count = new PageInfo<>(list);
@@ -81,7 +84,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 
 		PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),
 				Integer.parseInt(requestObject.getData().getLimit()));
-		List<IndexMyCourseListModel> indexMyCourseListDtos = teacherBiz.selectIndexMyCourseList(param);
+		List<IndexMyCourseListModel> indexMyCourseListDtos = coursePkgBiz.selectIndexMyCourseList(param);
 
 		List<IndexMyCourseListDto> list = BeanUtil.copyList(IndexMyCourseListDto.class, indexMyCourseListDtos);
 		PageInfo<IndexMyCourseListDto> count = new PageInfo<>(list);
@@ -107,7 +110,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		BeanUtil.copyFields(param, requestObject.getData());
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
-		List<IndexCourseAnswerModel> indexCourseAnswerModels = teacherBiz.selectIndexCourseAnswer(param);
+		List<IndexCourseAnswerModel> indexCourseAnswerModels = answerBiz.selectIndexCourseAnswer(param);
 		if (indexCourseAnswerModels == null) {
 			resultObject.setData(new ArrayList<>());
 			return resultObject;
@@ -133,7 +136,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		IndexMessageParam param = new IndexMessageParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
-		List<IndexMessageModel> indexMessageModels = teacherBiz.selectIndexMessage(param);
+		List<IndexMessageModel> indexMessageModels = messageBiz.selectIndexMessage(param);
 		if (indexMessageModels == null) {
 			resultObject.setData(new ArrayList<>());
 			return resultObject;
@@ -155,7 +158,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		UidAndTenantIDParam param = new UidAndTenantIDParam();
 		BeanUtil.copyFields(param, requestObject.getData());
-		Integer delLine = messageBiz.deleteMessage(param);
+		Integer delLine = messageBiz.deleteMessaget(param);
 		System.out.println("删除影响行数:" + delLine);
 		resultObject.setMsg("成功");
 		resultObject.setCode("0");
@@ -622,7 +625,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
 		BeanUtil.copyFields(param,requestObject.getData());
-		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo(param);
+		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo1(param);
 		if(model==null){
 			return resultObject.setMsg("查询无结果");
 		}
@@ -634,18 +637,5 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		return resultObject;
 	}
 
-//	@Override
-//	@ResponseBody
-//	@PostMapping("edit_teacherInfo")
-//	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject) {
-//		ResultObject<Void> resultObject=new ResultObject<>();
-//		if(requestObject.getData()==null){
-//			return resultObject.setMsg("参数为空");
-//		}
-//		EditTeacherInfoParam param=new EditTeacherInfoParam();
-//		BeanUtil.copyFields(param,requestObject.getData());
-//		Integer updateLine=teacherBiz.updateTeacherInfo(param);
-//		return null;
-//	}
 
 }

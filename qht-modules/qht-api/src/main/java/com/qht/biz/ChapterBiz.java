@@ -2,6 +2,7 @@ package com.qht.biz;
 
 import java.util.List;
 
+import com.qht.dto.CourseChapterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,15 @@ public class ChapterBiz extends BaseBiz<ChapterMapper,Chapter> {
 	 */
 	public List<CourseChapterModel> selectChapterByid(UidAndTenantIDParam param){
 		return chapterMapper.selectChapterByid(param);
+	}
+	/**
+	 * 课程详情--课程包体系
+	 * @param uid
+	 * @param tenant_id
+	 * @return
+	 */
+
+	public List<CourseChapterDto> selectCourseChapter(String uid, String tenant_id) {
+		return chapterMapper.selectCourseChapter(uid,tenant_id);
 	}
 }

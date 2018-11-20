@@ -102,30 +102,6 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<BannerDto>> indexBanner(@RequestBody RequestObject<UidAndTenantID> requestObject);
-    /**
-     * 获取首页的直播课程
-     * @return
-     */
-    public ResultObject<List<LiveClassDto>> liveClass(@RequestBody RequestObject<Void> requestObject);
-
-    /**
-     * 获取首页免费课程
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<List<FreeClassDto>> freeClass(@RequestBody RequestObject<FreeClassParameter> requestObject);
-
-    /**
-     * 获取首页试听课程排行榜
-     * @return
-     */
-    public ResultObject<List<ListeningClassRankingDto>> listeningClassRanking(@RequestBody RequestObject<Void> requestObject);
-
-    /**
-     * 获取首页试听课程列表
-     * @return
-     */
-    public ResultObject<List<ListeningClassListDto>> listeningClassList(@RequestBody RequestObject<Void> requestObject);
 
     /**
      * 获取首页老师排行榜
@@ -142,21 +118,6 @@ public interface StudentService {
 
     /**学生端课程*/
 
-
-    /**
-     * 课程详情--课程包简介
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<CourseIntroDto> courseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject);
-
-    /**
-     * 课程详情--课程包体系
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<CourseIntroParameter> requestObject);
-
     /**
      * 课程详情--课程包评论
      * @param requestObject
@@ -171,12 +132,7 @@ public interface StudentService {
      */
     public ResultObject<TeacherInfoDto> teacherInfo(@RequestBody RequestObject<CourseIntroParameter> requestObject);
 
-    /**
-     * 课程列表
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<List<CourseListDto>> courseList(@RequestBody RequestObject<CourseListParameter >requestObject);
+
 
     /**学生端--通用--名师*/
 
@@ -196,12 +152,7 @@ public interface StudentService {
      */
     public ResultObject<TopTeacherInfoDto> topTeacherInfo(@RequestBody RequestObject<UidAndTenantID> uid);
 
-    /**
-     * 名师详情--全部课程
-     * @param uid
-     * @return
-     */
-    public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestBody RequestObject<UidAndTenantID> uid);
+
 
     /**
      * 名师详情--评论列表
@@ -210,99 +161,22 @@ public interface StudentService {
      */
     public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestBody RequestObject<UidAndTenantID> uid);
 
-
-    /**学生端--通用--运营商*/
-    /**
-     * 运营商--学校介绍
-     * @return
-     */
-    public ResultObject<TenantSchoolDto> tenantSchool(@RequestBody RequestObject<UidAndTenantID> uid);
-
-    /**
-     * 运营商--画册
-     * @return
-     */
-    public ResultObject<List<TenantAlbumDto>> tenantAlbum(@RequestBody RequestObject<Void> uid);
-
-
-    public ResultObject<List<MyIndexCourseDto>> myIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject);
-
-    /**
-     * 学生端-个人中心--首页--我的课程详情介绍
-     * @param req
-     * @return
-     */
-    public ResultObject<List<IndexCourseDetailsDto>> indexCourseDetails(@RequestBody RequestObject<UidAndTenantID> req);
-
-
-    /**
-     * 学生端-个人中心--首页--课程答疑
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<List<MyIndexCourseAnswerDto>> myIndexCourseAnswer(@RequestBody RequestObject<MyIndexCourseAnswerParameter> requestObject);
-    /**
-     * 學生個人中心消息
-     * @return
-     */
-    public  ResultObject<List<MyIndexMessageDto>> myIndexMessage(@RequestBody RequestObject<MyIndexMessageParamter> paramter);
-
-    /**
-     * 刪除消息
-     * @return
-     */
-    public ResultObject<Void> deleteMessage(@RequestBody RequestObject<UidAndTenantID> requestObject);
-
-    /**
-     * 查詢單個消息
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<MyIndexMessageDto>selectMessageById(@RequestBody RequestObject<UidAndTenantID> requestObject);
-
-    /**
-     * 学生端-个人中心--首页--兑换记录
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<List<MyIndexBuyRecordDto>> myIndexBuyRecord(@RequestBody RequestObject<MyIndexBuyRecordParameter> requestObject);
-
     /**
      * 學生信息
      * @return
      */
     public  ResultObject<StudentInfoDto> studentInfo(@RequestBody RequestObject<UidAndTenantID> requestObject);
 
-    /**
-     * 消息記錄
-     * @param parameter
-     * @return
-     */
-    public ResultObject<List<MyIndexMyintegralDetailDto>> myIndexMyintegralDetail(@RequestBody RequestObject<MyIndexMyintegralDetailParameter> parameter);
 
-    /**
-     * 近期课程
-     * @return
-     */
-    public  ResultObject<List<IndexFutureCoruseDto>> indexFutureCoruse(@RequestBody RequestObject<UidAndTenantID> req);
+
+
 
     /**
      *名师资源
      * @return
      */
     public ResultObject<List<IndexTeacherDto>> indexTeacher(@RequestBody RequestObject<Void> req);
-    /**
-     *课程疑答
-     * @return
-     */
-    public ResultObject<List<IndexAnswerDto>> indexAnswer(@RequestBody RequestObject<Void> req);
 
-    /**
-     * 课程列表
-     * @param parameter
-     * @return
-     */
-    public ResultObject<List<IndexCoruseListDto>> indexCoruseList(@RequestBody RequestObject<IndexCoruseListParameter> parameter);
     /**
      * 名师资源列表
      * @param parameter
@@ -310,24 +184,11 @@ public interface StudentService {
      */
     public ResultObject<List<IndexTeacherListDto>> indexTeacherList(@RequestBody RequestObject<IndexTeacherListParameter> parameter);
 
-    /**
-     * 学生端-个人中心--首页--兑换记录--课程详情
-     * @return
-     */
-    public ResultObject<List<MyIndexBuyRecordCourseDetailsDto>> myIndexBuyRecordCourseDetails(@RequestBody RequestObject<UidAndTenantID> req);
 
-    /**
-     * 学生端-个人中心--首页--兑换记录--课程回看
-     * @return
-     */
-    public ResultObject<List<MyIndexBuyRecordCourseBackDto>> myIndexBuyRecordCourseBack(@RequestBody RequestObject<MyIndexBuyRecordCourseBackParameter> requestObject);
 
-    /**
-     * 学生端-个人中心--首页--我的收藏列表
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<List<MyIndexMycollectDto>> myIndexMycollect(@RequestBody RequestObject<MyIndexMycollectParameter>requestObject);
+
+
+
 
     /**
      * 学生端-个人中心--首页--取消收藏列表
@@ -336,23 +197,10 @@ public interface StudentService {
     public ResultObject<Void> myIndexCancelcollect(@RequestBody RequestObject<MyIndexCanceCollectParameter> requestObject);
 
     /**
-     * app我的课程答疑
-     * @return
-     */
-    public ResultObject<List<IndexMyAnswerDto>> indexMyAnswer(@RequestBody RequestObject<UidAndTenantID> requestObject);
-
-    /**
      * 名师详情-基本信息
      * @return
      */
     public ResultObject<TeacherDetailsDto> teacherDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
-
-    /**
-     * app我的课程答疑--答疑详情
-     * @return
-     */
-    public ResultObject<IndexAnswerDetailsDto> indexAnswerDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
-
 
     /**
      * 名师详情-所有课程
@@ -370,13 +218,6 @@ public interface StudentService {
      * @return
      */
     public ResultObject<List<AppTeacherEvaluationDto>> teacherEvaluation1(@RequestBody RequestObject<TeacherEvaluationDto> requestObject);
-
-    /**
-     * 我的课程答疑--答疑详情-追问回答
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<Void> indexAnswerDetailsAppendAnswer(@RequestBody RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject);
 
     /**
      * 我的收藏
@@ -434,20 +275,12 @@ public interface StudentService {
      */
     public ResultObject<Void> myIndexCourseCelcollect(@RequestBody RequestObject<MyIndexCourseCelcollectParameter> requestObject);
 
-    /**
-     * 学生端-个人中心--首页--我的课时详情介绍
-     * @param requestObject
-     * @return
-     */
-    public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(@RequestBody RequestObject<UidAndTenantID> requestObject);
+
     /**
      *学生 个人中心课程列表
      */
     public ResultObject<List<SelectPkgByStuIdDto>> selectPkgByStuId(@RequestBody RequestObject<UidAndTenantID> requestObject);
-    /**
-     * 连PC通用课程包体系
-     */
-    public ResultObject<List<CourseChapterDto>> selectCourseChapterByCuId(@RequestBody RequestObject<CourseIntroParameter> requestObject);
+
     /**
      * 连PC通用课程包简介
      */

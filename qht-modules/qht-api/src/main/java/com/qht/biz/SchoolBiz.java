@@ -1,5 +1,8 @@
 package com.qht.biz;
 
+import com.qht.model.TenantSchoolModel;
+import com.qht.model.UidAndTenantIDParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
@@ -15,4 +18,15 @@ import com.qht.mapper.SchoolMapper;
  */
 @Service
 public class SchoolBiz extends BaseBiz<SchoolMapper,School> {
+	@Autowired
+	private SchoolMapper schoolMapper;
+	/**
+	 * 运营商--学校介绍
+	 * @return
+	 */
+
+
+	public TenantSchoolModel selectTenantSchool(UidAndTenantIDParam param) {
+		return schoolMapper.selectTenantSchool(param);
+	}
 }

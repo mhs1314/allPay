@@ -57,33 +57,6 @@ public interface TeacherMapper extends Mapper<Teacher> {
     List<AppTeacherEvaluationModel> teacherEvaluation(@Param("uid")String uid, @Param("tid")String tid,@Param("eval")Integer eval);
 
 	/**
-	 * 教师|端首页--我的课程
-	 * @param data
-	 * @return
-	 */
-
-    List<IndexMyCourseModel> selectIndexMyCourseDto(IndexMyCourseParam data);
-
-	/**
-	 * 教师端首页--我的课程包
-	 * @param data
-	 * @return
-	 */
-	List<IndexMyCourseListModel> selectIndexMyCourseList(IndexMyCourseListParam data);
-
-	/**
-	 * 教师端首页--课程答疑列表
-	 * @param param
-	 * @return
-	 */
-	List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param);
-	/**
-	 * 教师端首页--我的消息
-	 * @param param
-	 * @return
-	 */
-	List<IndexMessageModel> selectIndexMessage(IndexMessageParam param);
-	/**
 	 * app个人中心教室信息
 	 */
 	AppSelectTeacherByidModel selectTeacherByid(UidAndTenantIDParam param);
@@ -93,12 +66,59 @@ public interface TeacherMapper extends Mapper<Teacher> {
 	 * @param param
 	 * @return
 	 */
-    PCTeacherInfoModel selectTeacherInfo(UidAndTenantIDParam param);
+    PCTeacherInfoModel selectTeacherInfo1(UidAndTenantIDParam param);
 
 	/**
-	 * 修改信息
-	 * @param param
+	 * 通过运营id查询首页老师排行榜
+	 * @param tenant_id
 	 * @return
 	 */
-//	Integer updateTeahcerInfo(EditTeacherInfoParam param);
+	List<TeacherRankingModel> selectTeacherRanking(String tenant_id);
+
+	/**
+	 * 通过运营id查询首页老师集合
+	 * @return
+	 */
+	List<TeacherListModel> selectTeacherList(TeacherListParam data);
+
+	/**
+	 * 课程详情--教师信息
+	 * @param uid
+	 * @param tenant_id
+	 * @return
+	 */
+	TeacherInfoModel selectTeacherInfo2(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
+
+	/**
+	 * 名师详情--讲师简介
+	 * @param uid
+	 * @param tenant_id
+	 * @return
+	 */
+	TopTeacherInfoModel selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
+
+	/**
+	 * 名师资源
+	 * @param tenant_id
+	 * @return
+	 */
+
+	List<IndexTeacherModel> indexTeacher(String tenant_id);
+
+	/**
+	 * 名师资源列表
+	 * @param parameter
+	 * @return
+	 */
+
+	List<IndexTeacherListModel> indexTeacherList(IndexTeacherListParam parameter);
+
+	/**
+	 * 名师列表
+	 * @param data
+	 * @return
+	 */
+	List<TopTeacherListModel> selectTopTeacherList(TopTeacherListParam data);
+
+
 }
