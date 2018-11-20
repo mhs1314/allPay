@@ -1,5 +1,8 @@
 package com.qht.rest;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +19,7 @@ import com.qht.ResultBuilder;
 import com.qht.ResultObject;
 import com.qht.biz.ClassroomBiz;
 import com.qht.biz.ClassroomMembersBiz;
+import com.qht.biz.PeriodBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.biz.TencentCloud;
@@ -26,7 +30,7 @@ import com.qht.dto.ClassroomStatusDto;
 import com.qht.dto.GroupResponseBodyDto;
 import com.qht.entity.Classroom;
 import com.qht.entity.ClassroomMembers;
-import com.qht.entity.Student;
+import com.qht.entity.Period;
 import com.qht.entity.Teacher;
 
 import tk.mybatis.mapper.util.StringUtil;
@@ -49,6 +53,9 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 	
 	@Autowired
 	private TencentCloud tencentCloud;
+	
+	@Autowired
+	private PeriodBiz periodBiz;
 	
 	/**
 	 *  获取当前课程是否已创建好直播课堂
@@ -117,7 +124,7 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		//需要一个固定的groupId				
 		entity.setPeriodId(param.getClass_id());
 		//TODO需要问海燕roomId-自定义的
-		entity.setRoomId("123456");
+		entity.setRoomId(123456);
 		entity.setTeacherId(teacherId);
 		entity.setUid(uid);
 		biz.insert(entity);
@@ -136,13 +143,7 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		if(param == null) {
 			return ResultBuilder.error(requestObject, "-2", "请求参数为空");
 		}
-		String studentId = param.getStudent_id();
-		/*		
-		Student student = studentBiz.selectById(studentId);
-		if(student == null) {
-			return ResultBuilder.error(requestObject, "-3", "学生ID身份不能被识别");
-		}
-		*/
+		String studentId = param.getStudent_id();	
 		String classroomId = param.getClass_id();
 		Classroom classroom = biz.selectById(classroomId);
 		if(classroom == null) {
@@ -153,11 +154,30 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 			entity.setClassroomId(classroomId);				
 			classroomMembersBiz.insert(entity);	
 			classroom = biz.selectById(classroomId);
-		}				
+		}
+		
 		ClassroomDto dto = new ClassroomDto(); 
 		dto.setRoom_id(classroom.getRoomId());
+		dto.setOwner(classroom.getTeacherId());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if(classroom.getCreateTime() != null) {
+			String create_time = sdf.format(classroom.getCreateTime());	    
+			dto.setCreate_time(create_time);
+		}else {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+			LocalDateTime date = LocalDateTime.now();
+			String create_time = date.format(formatter);
+			dto.setCreate_time(create_time);
+		}		
 		dto.setGroup_id(classroom.getImGroupId());
+		Period period = periodBiz.selectById(classroom.getPeriodId());
+		if(period != null) {
+			dto.setConf_name(period.getName());	
+		}
 		dto.setBoard_group_id(classroom.getWhiteboardId());
+		dto.setConf_id(classroomId);
+		dto.setHome_screen(classroom.getHomeScreen());		
 		return ResultBuilder.success(requestObject, dto);
 	}
 	//获取课堂状态
