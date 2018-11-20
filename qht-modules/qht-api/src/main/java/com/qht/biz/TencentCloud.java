@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.qht.common.util.HttpUtil;
+import com.qht.dto.GroupBodyDto;
 import com.qht.dto.GroupBodyPatameter;
 import com.qht.dto.MsgBodyDto;
 import com.qht.dto.MsgBodyParameter;
@@ -117,14 +118,14 @@ public class TencentCloud {
 	
 	public static void main(String[] args) {
 		TencentCloud tc = new TencentCloud();
-//		String json = tc.createGroup("TC001");
-//		System.out.println(json);
-//		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
-//		System.out.println(body);
-		
-		String json = tc.imPush("@TGS#3SOEY7QFP", "content", null);
-		MsgBodyDto body = JSON.parseObject(json, MsgBodyDto.class);
+		String json = tc.createGroup("TC001");
+		System.out.println(json);
+		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
 		System.out.println(body);
+		
+		String json1 = tc.imPush("@TGS#36DDZ7QFG", "测试消息", null);
+		MsgBodyDto body1 = JSON.parseObject(json1, MsgBodyDto.class);
+		System.out.println(body1);
 	}
 	
 	
