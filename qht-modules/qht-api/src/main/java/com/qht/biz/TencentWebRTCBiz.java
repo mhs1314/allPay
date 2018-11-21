@@ -20,7 +20,7 @@ import com.qht.dto.UserSigDto;
  */
 @Service
 public class TencentWebRTCBiz {
-	private int sdkappid = 1400139364;
+	private int sdkappid = 1400163079;
     private PrivateKey mPrivateKey = null;
     private PublicKey mPublicKey = null;
     
@@ -302,7 +302,7 @@ public class TencentWebRTCBiz {
     
    
     public UserSigDto sign(int roomid,String userid){
-    	int sdkappid = 1400154853;   //腾讯云云通信sdkappid
+    	int sdkappid = 1400163079;   //腾讯云云通信sdkappid
         //int roomid = 1234;           //音视频房间号roomid    	
         //String userid = "webrtc98";  //用户名userid      
         //WebRTCSigApiController api = new WebRTCSigApiController();
