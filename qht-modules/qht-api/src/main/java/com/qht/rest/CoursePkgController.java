@@ -106,7 +106,7 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 		//通过课程包的uid和运营的id查询
 		CourseIntroParam param=new CourseIntroParam();
 		BeanUtil.copyFields(param,  requestObject.getData());
-		CourseIntroModel courseIntroModel=coursePkgBiz.selectCourseIntro(param.getUid(),param.getTenant_id(),param.getStudent_id());
+		CourseIntroModel courseIntroModel=coursePkgBiz.selectCourseIntro(param.getUid(),param.getTenant_id());
 		if(courseIntroModel==null){
 			resultObject.setMsg("查询无数据");
 			return resultObject;

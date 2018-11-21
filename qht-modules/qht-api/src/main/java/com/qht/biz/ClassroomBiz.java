@@ -1,9 +1,14 @@
 package com.qht.biz;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qht.entity.Classroom;
 import com.qht.mapper.ClassroomMapper;
+import com.qht.mapper.StudentMapper;
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 
 /**
@@ -15,4 +20,11 @@ import com.github.wxiaoqi.security.common.biz.BaseBiz;
  */
 @Service
 public class ClassroomBiz extends BaseBiz<ClassroomMapper,Classroom> {
+	
+	@Autowired
+    private ClassroomMapper classroomMapper;
+    
+	public List<Classroom> getClassroomByPeriodId(String periodId){
+		return classroomMapper.getClassroomByPeriodId(periodId);
+	}
 }

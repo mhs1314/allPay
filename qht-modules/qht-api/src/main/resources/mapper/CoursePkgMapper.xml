@@ -183,6 +183,7 @@ VALUES
 		left join period p on p.chapter_id=c.uid
 		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
 	</select>
+
 	<!-- 学生id查询课程包信息 -->
 	<select id="selectPkgByStuId" resultType="com.qht.model.SelectPkgByStuIdModel" parameterType="com.qht.model.UidAndTenantIDParam">
 SELECT
@@ -199,11 +200,7 @@ FROM
 LEFT JOIN period_evaluation pn on c.uid=pn.course_id
 LEFT JOIN buy_record bd on c.uid=bd.course_pkg_id
 LEFT JOIN student s on bd.student_id=s.uid
-where s.uid=#{uid}  and  s.tenant_id=#{tenant_id} 
-<if test="play_type_id!=null and play_type_id!=''">
-and   c.play_type_id=#{play_type_id} 
-</if>
-and c.status="1"
+where s.uid=#{uid}  and  s.tenant_id=#{tenant_id} and   c.play_type_id=#{play_type_id} and c.status="1"
 GROUP BY c.uid
 
 	</select>
@@ -339,7 +336,7 @@ GROUP BY c.uid
 		  inner join period per on ch.uid=per.chapter_id
 		  inner join buy_record br on br.course_pkg_id=cp.uid
 		  inner join student s on s.uid=br.student_id
-		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and s.uid=#{student_id} and cp.status="1"
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1" group by cp.uid
     </select>
 
 	<!--课程列表-->

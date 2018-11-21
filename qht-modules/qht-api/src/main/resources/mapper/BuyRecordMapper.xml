@@ -37,6 +37,7 @@
         <if test="play_type_id!=null and play_type_id!=''">
             and cp.play_type_id=#{play_type_id}
         </if>
+        group by cp.uid
     </select>
 
     <!--学生端个人中心首页兑换记录-->
