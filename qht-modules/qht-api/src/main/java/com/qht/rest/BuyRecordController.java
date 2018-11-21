@@ -39,13 +39,16 @@ public class BuyRecordController extends APIBaseController<BuyRecordBiz,BuyRecor
 	@ResponseBody
 	public ResultObject<List<MyIndexCourseDto>> myIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject) {
 		//使用分页插件
+		ResultObject<List<MyIndexCourseDto>> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null){
+			return resultObject.setMsg("参数为空");
+		}
 		MyIndexCourseParam param=new MyIndexCourseParam();
+		BeanUtil.copyFields(param,requestObject.getData());
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
-		requestObject.getData().setTenant_id(getTenantId());
 		List<MyIndexCourseModel> myIndexCourseDtos=buyRecordBiz.selectMyIndexCourse(param);
 		List<MyIndexCourseDto> list = BeanUtil.copyList(MyIndexCourseDto.class, myIndexCourseDtos);
 		PageInfo<MyIndexCourseDto> count=new PageInfo<>(list);
-		ResultObject<List<MyIndexCourseDto>> resultObject=new ResultObject<>();
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
 		resultObject.setCount(count.getTotal());
