@@ -336,7 +336,7 @@ GROUP BY c.uid
 		  inner join period per on ch.uid=per.chapter_id
 		  inner join buy_record br on br.course_pkg_id=cp.uid
 		  inner join student s on s.uid=br.student_id
-		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and s.uid=#{student_id} and cp.status="1"
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1" group by cp.uid
     </select>
 
 	<!--课程列表-->
