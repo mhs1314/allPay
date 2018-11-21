@@ -2,7 +2,9 @@ package com.qht.mapper;
 
 import com.qht.dto.MyCollectlistDto;
 import com.qht.entity.Collect;
+import com.qht.model.AppInsertCollectParam;
 import com.qht.model.MyIndexCourseCelcollectParam;
+import com.qht.model.UidAndTenantIDParam;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -33,5 +35,15 @@ public interface CollectMapper extends Mapper<Collect> {
      * @return
      */
 	Integer insertMyIndexCourseCelcollect(MyIndexCourseCelcollectParam param);
+	/**
+	 * 添加收藏
+	 * @return
+	 */
+	Integer  appInsertCollect(AppInsertCollectParam param);
+	/**
+	 * 取消收藏
+	 * @return
+	 */
+	Integer appUpdateCOllect(UidAndTenantIDParam param);
 	
 }

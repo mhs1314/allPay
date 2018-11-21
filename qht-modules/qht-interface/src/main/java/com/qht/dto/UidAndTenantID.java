@@ -13,7 +13,14 @@ public class UidAndTenantID implements Serializable {
 	private String play_type_id;
 	private String eval;
 	private String total;
+	private String type;
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}	
 	
 	public String getTotal() {
 		return total;

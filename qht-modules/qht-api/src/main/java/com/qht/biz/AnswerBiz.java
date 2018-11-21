@@ -68,4 +68,30 @@ public class AnswerBiz extends BaseBiz<AnswerMapper,Answer> {
 	public List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param) {
 		return answerMapper.selectIndexCourseAnswer(param);
 	}
+	/**
+	 * app教答疑列表
+	 * @param param
+	 * @return
+	 */
+	public List<AppSelectAnwerListModel>appSelectAnwerList(UidAndTenantIDParam param){
+		return answerMapper.appSelectAnwerList(param);
+	}
+	/**
+	 * app学生答疑追问
+	 */
+	public Integer appUpdateStudentAnswer(UidAndTenantIDParam param) {
+		return answerMapper.appUpdateStudentAnswer(param);
+	}
+	/**
+	 * 老师答疑追答
+	 */
+	public Integer appUpdateTeacherAnswer(UidAndTenantIDParam param) {
+		return answerMapper.appUpdateTeacherAnswer(param);
+	}
+	/**
+	 * app老师第一次回答
+	 */
+	public Integer appInsertTeacherAnser(AppInsertTeacherAnswerParam param) {
+		return answerMapper.appInsertTeacherAnser(param);
+	}
 }

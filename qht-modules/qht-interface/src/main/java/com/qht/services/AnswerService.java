@@ -3,6 +3,7 @@ package com.qht.services;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.dto.*;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -41,5 +42,23 @@ public interface AnswerService {
 	 * @return
 	 */
 	public ResultObject<Void> indexAnswerDetailsAppendAnswer(@RequestBody RequestObject<IndexAnswerDetailsAppendAnswerParameter> requestObject);
-
+	/**
+	 * app教答疑列表
+	 * @param param
+	 * @return
+	 */
+	public ResultObject<List<AppSelectAnwerListDto>> appSelectAnwerList(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	
+	/**
+	 * app学生答疑追问
+	 */
+	public ResultObject<Void> appUpdateStudentAnswer(@RequestBody RequestObject<UidAndTenantID>requestObject);
+	/**
+	 * app老师答疑追答
+	 */
+	public ResultObject<Void> appUpdateTeacherAnswer(@RequestBody RequestObject<UidAndTenantID>requestObject);
+	/**
+	 * app老师答疑追答
+	 */
+	public ResultObject<Void> appInsertTeacherAnser(@RequestBody RequestObject<AppInsertTeacherAnswerParameter>requestObject);
 }

@@ -71,10 +71,9 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		if(requestObject == null || requestObject.getData() == null) {
 			return ResultBuilder.error(requestObject, "-1", "请求参数为空");
 		}
-		Classroom entity = new Classroom();
-		String periodId = requestObject.getData().getClass_id();
-		entity.setPeriodId(periodId);
-		List<Classroom> list = biz.selectList(entity);
+		
+		String periodId = requestObject.getData().getClass_id();		
+		List<Classroom> list = biz.getClassroomByPeriodId(periodId);
 		ClassroomDto dto = new ClassroomDto(); 
 		if(list != null && list.size() > 0) {
 			String conf_id = list.get(0).getUid();
@@ -101,6 +100,16 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		ClassroomParameter param = requestObject.getData();
 		if(param == null) {
 			return ResultBuilder.error(requestObject, "-1", "请求参数为空");
+		}
+		//根据课程判断是否已经创建过课堂
+		String periodId = param.getClass_id();
+		Classroom cr = new Classroom();	
+		cr.setPeriodId(periodId);
+		List<Classroom> list = biz.selectByExample(cr);
+		if(list != null && list.size() > 0) {
+			Classroom entity = list.get(0);
+			ClassroomDto dto = entityToDto(entity);
+			return ResultBuilder.success(requestObject, dto);
 		}
 		
 		String teacherId = param.getTeacher_id();
@@ -130,14 +139,18 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		entity.setUid(uid);
 		entity.setCreateTime(new Date());
 		biz.insert(entity);
-		ClassroomDto dto = new ClassroomDto(); 
-		dto.setConf_id(uid);	
-		dto.setRoom_id(entity.getRoomId());
-		dto.setGroup_id(body.getGroupId());
-		dto.setBoard_group_id(body.getGroupId());
-		
+		ClassroomDto dto = entityToDto(entity);		
 		return ResultBuilder.success(requestObject, dto);
 	}
+	private ClassroomDto entityToDto(Classroom entity) {
+		ClassroomDto dto = new ClassroomDto(); 
+		dto.setConf_id(entity.getUid());		
+		dto.setRoom_id(entity.getRoomId());
+		dto.setGroup_id(entity.getImGroupId());
+		dto.setBoard_group_id(entity.getImGroupId());
+		return dto;
+	}
+	
 	//加入直播课堂
 	@PostMapping("join")
 	@ResponseBody
