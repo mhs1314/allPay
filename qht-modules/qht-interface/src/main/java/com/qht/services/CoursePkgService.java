@@ -100,4 +100,8 @@ public interface CoursePkgService {
 	 * app查看简课程包介
 	 */
 	public ResultObject<SelectCorseInfoJJDto> selectCoursePkgInfoJJ(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	/**
+	 * 学生对课时提问
+	 */
+	public ResultObject<Void> appInserStudentAsk(@RequestBody RequestObject<AppInsertStudentAskParameter> requestObject);
 }

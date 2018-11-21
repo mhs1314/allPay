@@ -13,8 +13,30 @@ public class UidAndTenantIDParam implements Serializable {
 	private String play_type_id;
 	private String eval;
 	private String total;
+	private String type;
+	//学生追问
+	private String append_ask;
+	//老师追答
+	private String append_ask_answer;
 	
-	
+	public String getAppend_ask_answer() {
+		return append_ask_answer;
+	}
+	public void setAppend_ask_answer(String append_ask_answer) {
+		this.append_ask_answer = append_ask_answer;
+	}
+	public String getAppend_ask() {
+		return append_ask;
+	}
+	public void setAppend_ask(String append_ask) {
+		this.append_ask = append_ask;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getTotal() {
 		return total;
 	}
