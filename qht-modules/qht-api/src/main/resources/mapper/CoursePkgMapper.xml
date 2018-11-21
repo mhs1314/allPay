@@ -183,6 +183,7 @@ VALUES
 		left join period p on p.chapter_id=c.uid
 		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
 	</select>
+
 	<!-- 学生id查询课程包信息 -->
 	<select id="selectPkgByStuId" resultType="com.qht.model.SelectPkgByStuIdModel" parameterType="com.qht.model.UidAndTenantIDParam">
 SELECT
