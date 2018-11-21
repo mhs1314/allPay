@@ -24,7 +24,7 @@ public class MyIndexCourseParam implements Serializable {
 		this.play_type_id = play_type_id;
 	}
 
-	private String now_time= DateTime.now().toString("yyyy-MM-dd");
+	private String now_time;
     private String  page="1";
     private String limit="10";
 

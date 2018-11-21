@@ -107,7 +107,7 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 	 * @param tenant_id
 	 * @return
 	 */
-	CourseIntroModel selectCourseIntro(@Param("uid") String uid, @Param("tenant_id") String tenant_id,@Param("student_id") String student_id);
+	CourseIntroModel selectCourseIntro(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
 	/**
 	 * 课程列表
