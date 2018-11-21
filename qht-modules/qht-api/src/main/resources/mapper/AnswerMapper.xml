@@ -134,4 +134,64 @@
             </if>
         </if>
     </select>
+    <!-- 老师答疑列表 -->
+    <select id="appSelectAnwerList" resultType="com.qht.model.AppSelectAnwerListModel" parameterType="com.qht.model.UidAndTenantIDParam">
+    SELECT
+	s.head AS head,
+	ar.uid AS uid,
+	ck.question AS question,
+	ar.answer AS answer,
+	s.nickname AS nickname,
+	pt.`name` AS subject_name,
+	ar.type AS type
+FROM
+	student s
+LEFT JOIN answer ar ON s.uid = ar.student_id
+LEFT JOIN course_ask ck ON ar.ask_id = ck.uid
+LEFT JOIN buy_record bd ON s.uid = bd.student_id
+LEFT JOIN course_pkg cg ON bd.course_pkg_id = cg.uid
+LEFT JOIN pkg_subject pt ON cg.pkg_subject_id = pt.uid
+where cg.teacher_id =#{uid}  and  cg.tenant_id=#{tenant_id} 
+<if test="type!=null and type!=''">
+and ar.type=#{type}
+</if>
+    </select>
+    <!-- app学生答疑追问 -->
+    <select id="appUpdateStudentAnswer" parameterType="com.qht.model.UidAndTenantIDParam">
+    	update answer set append_ask=#{append_ask} where uid=#{uid} tenant_id=#{tenant_id}
+    </select>
+    <!-- app教室追答 -->
+    <update id="appUpdateTeacherAnswer" parameterType="com.qht.model.UidAndTenantIDParam">
+    update answer set append_ask_answer=#{append_ask_answer} where uid=#{uid} tenant_id=#{tenant_id}
+    </update>
+    <!-- 第一次App老师答疑回复 -->
+    <insert id="appInsertTeacherAnser" parameterType="com.qht.model.AppInsertTeacherAnswerParam">
+    INSERT INTO answer (
+	uid,
+	tenant_id,
+	student_id,
+	ask_id,
+	append_attach,
+	answer,
+	answer_file_name,
+	type,
+	time,
+	answer_time,
+	answer_file_url
+)
+VALUES
+(
+	#{uid},
+	#{tenant_id},
+	#{student_id},
+	#{ask_id},
+	#{append_attach},
+	#{answer},
+	#{answer_file_name},
+	#{type},
+	#{time},
+	#{answer_time},
+	#{answer_file_url}
+)
+    </insert>
 </mapper>

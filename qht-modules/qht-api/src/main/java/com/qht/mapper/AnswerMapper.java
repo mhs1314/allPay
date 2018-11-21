@@ -57,7 +57,25 @@ public interface AnswerMapper extends Mapper<Answer> {
 	 * @return
 	 */
 	List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param);
-
-
+	/**
+	 * app教答疑列表
+	 * @param param
+	 * @return
+	 */
+	List<AppSelectAnwerListModel>appSelectAnwerList(UidAndTenantIDParam param);
+	/**
+	 * 学生答疑追问
+	 */
+	Integer appUpdateStudentAnswer(UidAndTenantIDParam param);
+	/**
+	 * 老师答疑追答
+	 */
+	Integer appUpdateTeacherAnswer(UidAndTenantIDParam param);
+	
+	/**
+	 * 老师第一次回答
+	 */
+	Integer appInsertTeacherAnser(AppInsertTeacherAnswerParam param);
+	
 	
 }

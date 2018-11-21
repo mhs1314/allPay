@@ -12,5 +12,25 @@
         <result property="question" column="question"/>
         <result property="questionAttach" column="question_attach"/>
     </resultMap>
-
+	<!-- 学生对课时提问 -->
+	<insert id="appInserStudentAsk" parameterType="com.qht.model.AppInsertStudentAskParam">
+	INSERT INTO course_ask (
+	uid,
+	tenant_id,
+	period_id,
+	student_id,
+	question,
+	question_attach,
+	question_url
+	)
+	VALUES
+	(#{uid},
+	#{tenant_id},
+	#{tenant_id},
+	#{student_id},
+	#{question},
+	#{question_attach},
+	#{question_url}
+	)
+	</insert>
 </mapper>
