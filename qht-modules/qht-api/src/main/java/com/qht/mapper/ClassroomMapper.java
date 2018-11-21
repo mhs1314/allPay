@@ -1,6 +1,11 @@
 package com.qht.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.qht.entity.Classroom;
+
 import tk.mybatis.mapper.common.Mapper;
 
 /**
@@ -14,4 +19,5 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface ClassroomMapper extends Mapper<Classroom> {
 	
+	public List<Classroom> getClassroomByPeriodId(@Param("periodId") String periodId);
 }
