@@ -181,7 +181,7 @@ VALUES
 		cp.uid,cp.pkg_name,cp.content,cp.create_time,cp.cover,c.uid as chapter_id,c.name as chapter_name,
 		p.name as period_name,p.uid as period_id,p.begin,p.video_file,p.time_length from course_pkg cp left join chapter c on c.course_id=cp.uid
 		left join period p on p.chapter_id=c.uid
-		where cp.uid=#{uid} and cp.tenant_id=#{qht} and cp.status="1"
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
 	</select>
 	<!-- 学生id查询课程包信息 -->
 	<select id="selectPkgByStuId" resultType="com.qht.model.SelectPkgByStuIdModel" parameterType="com.qht.model.UidAndTenantIDParam">

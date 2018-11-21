@@ -284,6 +284,6 @@ public interface StudentService {
     /**
      * 连PC通用课程包简介
      */
-    public ResultObject<CourseIntroDto> appCourseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject);
+    //public ResultObject<CourseIntroDto> appCourseIntro(@RequestBody RequestObject<CourseIntroParameter> requestObject);
 }
 
