@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,6 +32,7 @@ public class ChapterController extends APIBaseController<ChapterBiz,Chapter> imp
 	public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
 		ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
 		if(requestObject.getData()==null){
+			resultObject.setData(new ArrayList<>());
 			return resultObject.setMsg("参数为空");
 		};
 		CourseIntroParam param=new CourseIntroParam();
@@ -42,6 +44,7 @@ public class ChapterController extends APIBaseController<ChapterBiz,Chapter> imp
 			resultObject.setData(list);
 			return resultObject;
 		}
+		resultObject.setData(new ArrayList<>());
 		resultObject.setMsg("查询无数据");
 		return resultObject;
 	}

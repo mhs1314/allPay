@@ -240,17 +240,16 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 		}
 		BeanUtil.copyFields(param, parameter.getData());
 		List<IndexCoruseListModel> dto = coursePkgBiz.indexCoruseList(param);
-		if (dto.size() > 0) {
+		if (dto.size() <=0) {
 			resultObject.setCode("0");
 			resultObject.setMsg("没有数据哦");
 			resultObject.setData(new ArrayList<>());
-			List<IndexCoruseListDto> list = BeanUtil.copyList(IndexCoruseListDto.class, dto);
-			resultObject.setCode("0");
-			resultObject.setMsg("成功");
-			resultObject.setData(list);
-			return resultObject;
+			
 		}
-		resultObject.setMsg("失败");
+		List<IndexCoruseListDto> list = BeanUtil.copyList(IndexCoruseListDto.class, dto);
+		resultObject.setCode("0");
+		resultObject.setMsg("成功");
+		resultObject.setData(list);
 		return resultObject;
 	}
 
