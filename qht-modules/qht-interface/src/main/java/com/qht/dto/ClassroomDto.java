@@ -4,7 +4,7 @@ public class ClassroomDto {
 	//课堂ID
 	private String conf_id;
 	//直播房间ID
-	private int room_id;
+	private Integer room_id;
 	//IM群组ID
 	private String group_id;
 	//白板群组ID
@@ -27,11 +27,11 @@ public class ClassroomDto {
 		this.conf_id = conf_id;
 	}
 
-	public int getRoom_id() {
+	public Integer getRoom_id() {
 		return room_id;
 	}
 
-	public void setRoom_id(int room_id) {
+	public void setRoom_id(Integer room_id) {
 		this.room_id = room_id;
 	}
 
