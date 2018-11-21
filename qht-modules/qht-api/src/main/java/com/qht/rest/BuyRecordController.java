@@ -136,7 +136,8 @@ public class BuyRecordController extends APIBaseController<BuyRecordBiz,BuyRecor
 		Integer i = buyRecordBiz.insertBuyRecord(param);
 		UidAndTenantIDParam p=new UidAndTenantIDParam();
 		p.setUid(param.getStudent_id());
-		p.setToken((balance-total)+"");
+		int r=balance-total;
+		p.setToken((r+""));
 		studentBiz.updateBalance(p);
 		if(i>0){
 			ResultObject<Void> result=new ResultObject<>();
