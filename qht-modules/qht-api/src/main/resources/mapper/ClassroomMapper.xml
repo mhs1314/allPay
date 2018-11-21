@@ -24,7 +24,7 @@
 			cr.room_id as roomId,
 			cr.im_group_id as imGroupId,
 			cr.whiteboard_id as whiteboardId,
-			cr.period_id as createTime
+			cr.create_time as createTime
 		FROM
 			classroom cr		
 		WHERE			
