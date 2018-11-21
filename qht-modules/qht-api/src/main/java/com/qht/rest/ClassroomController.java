@@ -103,9 +103,9 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		}
 		//根据课程判断是否已经创建过课堂
 		String periodId = param.getClass_id();
-		Classroom cr = new Classroom();	
-		cr.setPeriodId(periodId);
-		List<Classroom> list = biz.selectByExample(cr);
+		//Classroom cr = new Classroom();	
+		//cr.setPeriodId(periodId);
+		List<Classroom> list = biz.getClassroomByPeriodId(periodId);
 		if(list != null && list.size() > 0) {
 			Classroom entity = list.get(0);
 			ClassroomDto dto = entityToDto(entity);
