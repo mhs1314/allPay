@@ -8,7 +8,7 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.common.util.AliPayConfig;
-import com.qht.model.AliPayFormVo;
+import com.qht.model.AliPayFormParam;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class AliPayController {
     public ResultObject app_pay(@RequestBody RequestObject<String> uid )  {
 
         ResultObject resultObject=new ResultObject();
-        AliPayFormVo aliPayFormVo=new AliPayFormVo();
+        AliPayFormParam aliPayFormVo=new AliPayFormParam();
         //TODO 根据uid查询积分对应的价格并设置到aliPayFormVo中
         AlipayClient alipayClient = new DefaultAlipayClient(
                 aliPayConfig.getGatewayUrl(),
