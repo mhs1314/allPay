@@ -824,7 +824,16 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
 	}
 
-
+	// 查询学生是否绑定监护人
+	@Override
+    @PostMapping("app/findStudent")
+    @ResponseBody
+    public ResultObject<Void> findStudent(@RequestBody RequestObject<AppStudentParameter> resultObject){
+		
+		
+		
+		return resultObject;
+	}
 
 
 }
