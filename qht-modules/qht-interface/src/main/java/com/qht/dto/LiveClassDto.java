@@ -22,12 +22,14 @@ public class LiveClassDto implements Serializable {
 
     private String play_type_id;
 
-    public String getPlay_type_id() {
-        return play_type_id;
+    private String teacher_name;
+
+    public String getTeacher_name() {
+        return teacher_name;
     }
 
-    public void setPlay_type_id(String play_type_id) {
-        this.play_type_id = play_type_id;
+    public void setTeacher_name(String teacher_name) {
+        this.teacher_name = teacher_name;
     }
 
     @Override
@@ -40,7 +42,16 @@ public class LiveClassDto implements Serializable {
                 ", video_file='" + video_file + '\'' +
                 ", begin=" + begin +
                 ", play_type_id='" + play_type_id + '\'' +
+                ", teacher_name='" + teacher_name + '\'' +
                 '}';
+    }
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
     }
 
     public String getCover() {

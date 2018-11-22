@@ -1,5 +1,6 @@
 package com.qht.mapper;
 
+import com.qht.dto.MyIndexCourseDto;
 import com.qht.entity.BuyRecord;
 
 import com.qht.model.*;
@@ -24,7 +25,9 @@ public interface BuyRecordMapper extends Mapper<BuyRecord> {
 	 * @return
 	 */
 
-	List<MyIndexCourseModel> selectMyIndexCourse(MyIndexCourseParam data);
+	List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParam data);
+
+	List<MyIndexCourseDto> selectStuMyIndexCourse(MyIndexCourseParam data);
 
 	/**
 	 * 学生端-个人中心--首页--兑换记录
@@ -47,4 +50,6 @@ public interface BuyRecordMapper extends Mapper<BuyRecord> {
 	 * @return
 	 */
 	Integer insertBuyRecord(InsertBuyrecordParam param );
+
+
 }

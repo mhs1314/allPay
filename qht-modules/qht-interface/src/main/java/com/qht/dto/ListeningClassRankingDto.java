@@ -1,6 +1,7 @@
 package com.qht.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 试听排行榜
@@ -14,6 +15,29 @@ public class ListeningClassRankingDto implements Serializable {
     private String pkg_name;
     //班级名称
     private String level_name;
+
+    private BigDecimal total_price;
+
+    public BigDecimal getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(BigDecimal total_price) {
+        this.total_price = total_price;
+    }
+
+    @Override
+    public String toString() {
+        return "ListeningClassRankingDto{" +
+                "cover='" + cover + '\'' +
+                ", uid='" + uid + '\'' +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", level_name='" + level_name + '\'' +
+                ", total_price='" + total_price + '\'' +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
 
     public String getPlay_type_id() {
         return play_type_id;
@@ -67,18 +91,6 @@ public class ListeningClassRankingDto implements Serializable {
 
     public void setLevel_name(String level_name) {
         this.level_name = level_name;
-    }
-
-    @Override
-    public String toString() {
-        return "ListeningClassRankingDto{" +
-                "cover='" + cover + '\'' +
-                ", uid='" + uid + '\'' +
-                ", pkg_name='" + pkg_name + '\'' +
-                ", level_name='" + level_name + '\'' +
-                ", play_type_id=" + play_type_id +
-                ", nickname='" + nickname + '\'' +
-                '}';
     }
 
 

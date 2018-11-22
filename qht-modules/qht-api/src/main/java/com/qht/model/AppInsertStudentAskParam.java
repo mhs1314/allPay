@@ -10,6 +10,7 @@ public String	student_id;
 public String	question;
 public String question_attach;
 public String question_url;
+
 private String teacher_id;
 
 	public String getTeacher_id() {

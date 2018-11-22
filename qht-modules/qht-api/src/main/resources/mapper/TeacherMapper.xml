@@ -141,7 +141,8 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 	<select id="selectTeacherRanking" resultType="com.qht.model.TeacherRankingModel" parameterType="java.lang.String">
         select
           s.school_name,
-          t.nickname
+          t.nickname,
+          t.uid
         from
           teacher t inner join school s
         on
@@ -154,10 +155,10 @@ where t.uid=#{uid} and t.tenant_id=#{tid}
 	<!--查询首页老师集合-->
 	<select id="selectTeacherList" resultType="com.qht.model.TeacherListModel" parameterType="com.qht.model.TeacherListParam">
 		select
-		a.intr,a.integral,a.sex,a.nickname,a.back_img,a.school_name,b.pkg_count
+		a.uid,a.intr,a.integral,a.sex,a.nickname,a.back_img,a.school_name,b.pkg_count
 		from
 		( select
-		t.intr,t.integral,t.sex,t.nickname,t.back_img,s.school_name
+		t.intr,t.integral,t.sex,t.nickname,t.back_img,s.school_name,t.uid
 		from teacher t inner join school s on t.school_id=s.uid
 		where t.tenant_id=#{tenant_id}
 		<if test="school_id!=null and school_id!=''">

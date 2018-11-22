@@ -48,7 +48,7 @@ public class Classroom implements Serializable {
     private String whiteboardId;
     //创建时间
     @Column(name = "create_time")
-    private Date createTime;
+    private Date createTime;         
 	
 
 	public Date getCreateTime() {

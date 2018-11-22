@@ -22,6 +22,16 @@ public class LiveClassModel implements Serializable {
 
     private String play_type_id;
 
+    private String teacehr_name;
+
+    public String getTeacehr_name() {
+        return teacehr_name;
+    }
+
+    public void setTeacehr_name(String teacehr_name) {
+        this.teacehr_name = teacehr_name;
+    }
+
     @Override
     public String toString() {
         return "LiveClassModel{" +
@@ -32,6 +42,7 @@ public class LiveClassModel implements Serializable {
                 ", video_file='" + video_file + '\'' +
                 ", begin=" + begin +
                 ", play_type_id='" + play_type_id + '\'' +
+                ", teacehr_name='" + teacehr_name + '\'' +
                 '}';
     }
 

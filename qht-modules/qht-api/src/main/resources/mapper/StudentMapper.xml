@@ -158,9 +158,9 @@ WHERE
 
 
     <!--取消收藏-->
-    <update id="updateMyIndexCancelcollect" parameterType="com.qht.model.MyIndexCanceCollectParam">
-        update collect set is_collect=2 where uid=#{uid} and student_id=#{student_id} and tenant_id=#{tenant_id}
-    </update>
+    <delete id="updateMyIndexCancelcollect" parameterType="com.qht.model.MyIndexCanceCollectParam">
+        delete from collect where course_pkg_id=#{uid} and student_id=#{student_id} and tenant_id=#{tenant_id}
+    </delete>
 
     <!--打赏-先判断问题是否被解决-->
     <select id="selectAnswerType" parameterType="java.lang.String" resultType="java.lang.Integer">

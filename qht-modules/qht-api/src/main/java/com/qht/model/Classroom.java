@@ -2,7 +2,12 @@ package com.qht.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -44,8 +49,9 @@ public class Classroom implements Serializable {
     @Column(name = "whiteboard_id")
     private String whiteboardId;
 	
-	    //创建时间
+	//创建时间
     @Column(name = "create_time")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  
     private Date createTime;
 	
 

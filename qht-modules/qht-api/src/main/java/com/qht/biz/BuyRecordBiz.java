@@ -1,5 +1,6 @@
 package com.qht.biz;
 
+import com.qht.dto.MyIndexCourseDto;
 import com.qht.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,13 @@ public class BuyRecordBiz extends BaseBiz<BuyRecordMapper,BuyRecord> {
 	 * @return
 	 */
 
-	public List<MyIndexCourseModel> selectMyIndexCourse(MyIndexCourseParam data) {
+	public List<MyIndexCourseDto> selectMyIndexCourse(MyIndexCourseParam data) {
 		return buyRecordMapper.selectMyIndexCourse(data);
+	}
+
+	public List<MyIndexCourseDto> selectStuMyIndexCourse(MyIndexCourseParam data){
+
+		return buyRecordMapper.selectStuMyIndexCourse(data);
 	}
 
 	/**

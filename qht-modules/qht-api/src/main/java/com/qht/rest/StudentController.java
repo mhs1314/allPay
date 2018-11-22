@@ -1,5 +1,17 @@
 package com.qht.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qht.RequestObject;
@@ -11,22 +23,71 @@ import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
 import com.qht.common.util.IdGenUtil;
-import com.qht.dto.*;
-import com.qht.dto.CourseChapterDto;
+import com.qht.dto.AppMyStudentGuardianDto;
+import com.qht.dto.AppMyStudentInfoDto;
+import com.qht.dto.AppStudentParameter;
+import com.qht.dto.AppTeacherCourseDto;
+import com.qht.dto.AppTeacherEvaluationDto;
+import com.qht.dto.BannerDto;
+import com.qht.dto.CourseEvaluationDto;
+import com.qht.dto.CourseEvaluationParameter;
+import com.qht.dto.CourseIntroParameter;
+import com.qht.dto.GuardianDto;
+import com.qht.dto.IndexAnswerDetailsExceptionalParameter;
+import com.qht.dto.IndexMyCourseTableDto;
+import com.qht.dto.IndexMyCourseTableParameter;
+import com.qht.dto.IndexTeacherDto;
+import com.qht.dto.IndexTeacherListDto;
+import com.qht.dto.IndexTeacherListParameter;
+import com.qht.dto.LoginInfoDto;
+import com.qht.dto.MyCollectlistDto;
+import com.qht.dto.MyIndexCanceCollectParameter;
+import com.qht.dto.MyIndexCourseCelcollectParameter;
+import com.qht.dto.SelectPkgByStuIdDto;
+import com.qht.dto.StudentDto;
+import com.qht.dto.StudentInfoDto;
+import com.qht.dto.TeacherDetailsDto;
+import com.qht.dto.TeacherEvaluationDto;
+import com.qht.dto.TeacherInfoDto;
+import com.qht.dto.TeacherListDto;
+import com.qht.dto.TeacherListParameter;
+import com.qht.dto.TeacherRankingDto;
+import com.qht.dto.TopTeacherInfoDto;
+import com.qht.dto.TopTeacherListDto;
+import com.qht.dto.TopTeacherListParameter;
+import com.qht.dto.UidAndTenantID;
 import com.qht.entity.Student;
-import com.qht.model.*;
+import com.qht.model.AppMyStudentGuardianModel;
+import com.qht.model.AppMyStudentInfoModel;
+import com.qht.model.AppStudentParam;
+import com.qht.model.AppTeacherCourseModel;
+import com.qht.model.AppTeacherEvaluationModel;
+import com.qht.model.BannerModel;
+import com.qht.model.CourseEvaluationModel;
+import com.qht.model.CourseEvaluationParam;
+import com.qht.model.CourseIntroParam;
+import com.qht.model.IndexMyCourseTableModel;
+import com.qht.model.IndexMyCourseTableParam;
+import com.qht.model.IndexTeacherListModel;
+import com.qht.model.IndexTeacherListParam;
+import com.qht.model.IndexTeacherModel;
+import com.qht.model.MyIndexCanceCollectParam;
+import com.qht.model.MyIndexCourseCelcollectParam;
+import com.qht.model.SelectPkgByStuIdModel;
+import com.qht.model.StudentInfoModel;
+import com.qht.model.TeacherDetailsModel;
+import com.qht.model.TeacherEvaluationModel;
+import com.qht.model.TeacherInfoModel;
+import com.qht.model.TeacherListModel;
+import com.qht.model.TeacherListParam;
+import com.qht.model.TeacherRankingModel;
+import com.qht.model.TopTeacherInfoModel;
+import com.qht.model.TopTeacherListModel;
+import com.qht.model.TopTeacherListParam;
+import com.qht.model.UidAndTenantIDParam;
 import com.qht.services.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import tk.mybatis.mapper.util.StringUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import tk.mybatis.mapper.util.StringUtil;
 
 @Controller
 @RequestMapping("student")
@@ -400,8 +461,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             return resultObject;
         }
         BeanUtil.copyFields(param, requestObject.getData());
-        Integer updateLine=studentBiz.updateMyIndexCancelcollect(param);
-        if(updateLine<1){
+        Integer deleteLine=studentBiz.updateMyIndexCancelcollect(param);
+        if(deleteLine<1){
             resultObject.setMsg("取消失败");
             resultObject.setCode("1");
             return resultObject;
@@ -786,8 +847,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         String collect="IN";
         String id=IdGenUtil.getUid(collect);
 		param.setId(id);
-		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
-		if(updateLine<1){
+		Integer insertLine=collectBiz.insertMyIndexCourseCelcollect(param);
+		if(insertLine<1){
             resultObject.setCode("1");
             resultObject.setMsg("失败");
             return resultObject;
@@ -826,7 +887,14 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         return resultObject;
 	}
 
-
+	// 查询学生是否绑定监护人	
+    @PostMapping("app/findStudent")
+    @ResponseBody
+    public ResultObject<Void> findStudent(@RequestBody RequestObject<AppStudentParameter> resultObject){
+    	//TODO 待实现
+		ResultObject<Void> result = new ResultObject<Void>();
+		return result;
+	}
 
 
 }

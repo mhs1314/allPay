@@ -12,6 +12,24 @@ public class TeacherRankingDto implements Serializable {
     //老师名字
     private String nickname;
 
+    private String uid;
+
+    @Override
+    public String toString() {
+        return "TeacherRankingDto{" +
+                "school_name='" + school_name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", uid='" + uid + '\'' +
+                '}';
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getSchool_name() {
         return school_name;
@@ -26,14 +44,6 @@ public class TeacherRankingDto implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    @Override
-    public String toString() {
-        return "TeacherRanking{" +
-                "school_name='" + school_name + '\'' +
-                ", nickname='" + nickname + '\'' +
-                '}';
     }
 
 
