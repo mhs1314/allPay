@@ -10,7 +10,7 @@ import javax.persistence.*;
  * 
  * @author yangtonggan
  * @email 2466607841@qq.com
- * @date 2018-11-22 20:08:16
+ * @date 2018-11-22 23:02:42
  */
 @Table(name = "config")
 public class Config implements Serializable {
@@ -63,6 +63,22 @@ public class Config implements Serializable {
 	    //公钥,textarea,YES,false,true,false
     @Column(name = "public_key")
     private String publicKey;
+	
+	    //im-account_type
+    @Column(name = "account_type")
+    private String accountType;
+	
+	    //直播-appid
+    @Column(name = "appid")
+    private String appid;
+	
+	    //直播-bizid
+    @Column(name = "bizid")
+    private String bizid;
+	
+	    //文件上传地址
+    @Column(name = "file_upload_addr")
+    private String fileUploadAddr;
 	
 
 	/**
@@ -208,5 +224,53 @@ public class Config implements Serializable {
 	 */
 	public String getPublicKey() {
 		return publicKey;
+	}
+	/**
+	 * 设置：im-account_type
+	 */
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+	/**
+	 * 获取：im-account_type
+	 */
+	public String getAccountType() {
+		return accountType;
+	}
+	/**
+	 * 设置：直播-appid
+	 */
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
+	/**
+	 * 获取：直播-appid
+	 */
+	public String getAppid() {
+		return appid;
+	}
+	/**
+	 * 设置：直播-bizid
+	 */
+	public void setBizid(String bizid) {
+		this.bizid = bizid;
+	}
+	/**
+	 * 获取：直播-bizid
+	 */
+	public String getBizid() {
+		return bizid;
+	}
+	/**
+	 * 设置：文件上传地址
+	 */
+	public void setFileUploadAddr(String fileUploadAddr) {
+		this.fileUploadAddr = fileUploadAddr;
+	}
+	/**
+	 * 获取：文件上传地址
+	 */
+	public String getFileUploadAddr() {
+		return fileUploadAddr;
 	}
 }
