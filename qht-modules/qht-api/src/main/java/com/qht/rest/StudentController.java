@@ -571,7 +571,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("/app/myCollectlist")
     @ResponseBody
     public ResultObject<List<MyCollectlistDto>> myCollectlist(@RequestBody RequestObject<UidAndTenantID> requestObject) {
-        List<MyCollectlistDto> dto=collectBiz.myCollectlist(requestObject.getData().getUid(),getTenantId());
+       String uid = requestObject.getData().getUid();
+       String tid = requestObject.getData().getTenant_id();
+       List<MyCollectlistDto> dto=collectBiz.myCollectlist(uid,tid);
         ResultObject<List<MyCollectlistDto>> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");

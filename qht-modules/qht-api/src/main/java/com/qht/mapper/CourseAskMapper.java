@@ -21,5 +21,9 @@ public interface CourseAskMapper extends Mapper<CourseAsk> {
 	 * app学生对课时提问
 	 */
 	Integer appInserStudentAsk(AppInsertStudentAskParam param);
+	/**
+	 * 查询老师id
+	 */
+	String selectAskAndPkgTeacherId(String uid);
 	
 }

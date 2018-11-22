@@ -56,6 +56,13 @@ public class CollectBiz extends BaseBiz<CollectMapper,Collect> {
 	 * @return
 	 */
 	public Integer appUpdateCOllect(UidAndTenantIDParam param) {
+
 		return collectMapper.appUpdateCOllect(param);
+	}
+	/**
+	 * count根据学生id和课程包id
+	 */
+	public Integer selectCollectCount(String stuId,String pgkId){
+		return collectMapper.selectCollectCount(stuId,pgkId);
 	}
 }

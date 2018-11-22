@@ -200,7 +200,10 @@ FROM
 LEFT JOIN period_evaluation pn on c.uid=pn.course_id
 LEFT JOIN buy_record bd on c.uid=bd.course_pkg_id
 LEFT JOIN student s on bd.student_id=s.uid
-where s.uid=#{uid}  and  s.tenant_id=#{tenant_id} and   c.play_type_id=#{play_type_id} and c.status="1"
+where s.uid=#{uid}  and  s.tenant_id=#{tenant_id}
+ <if test="play_type_id!=null">
+	 and c.play_type_id=#{play_type_id}
+ </if> and c.status="1"
 GROUP BY c.uid
 
 	</select>
@@ -438,19 +441,21 @@ GROUP BY c.uid
 
 	<select id="indexAnswer" resultType="com.qht.model.IndexAnswerModel" parameterType="java.lang.String" >
     SELECT
-	c.cover as cover,
-	a.uid as uid,
-	pr.comments_content as question,
+	ask.uid as uid,
+	ask.question as question,
+	a.type as type,
 	p.`name` as name,
-	a.type as type
+	pkg.cover as cover
+
 
 FROM
-	course_pkg c
-inner JOIN period_evaluation pr ON c.uid = pr.course_id
-inner JOIN period p ON pr.period_id = p.uid
-inner JOIN answer a ON p.uid = a.period_id
-where a.tenant_id=#{tenant_id}
-  and c.status="1"
+	course_ask ask
+LEFT JOIN answer a ON ask.uid=a.ask_id
+LEFT JOIN period p on ask.period_id =p.uid
+LEFT JOIN chapter cr on cr.uid=p.chapter_id
+LEFT JOIN course_pkg pkg on cr.course_id=pkg.uid
+WHERE
+ask.tenant_id=#{tenant_id} and pkg.`status`=1
 </select>
 
 	<!-- 课程列表-->
