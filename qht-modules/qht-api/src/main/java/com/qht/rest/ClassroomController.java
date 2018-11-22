@@ -150,18 +150,23 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 			return ResultBuilder.error(requestObject, "-2", "请求参数为空");
 		}
 		String studentId = param.getStudent_id();	
+		String teacherId = param.getTeacher_id();
 		String classroomId = param.getClass_id();
 		Classroom classroom = biz.selectById(classroomId);
 		if(classroom == null) {
-			//TODO 需要确保教师与学生的身份	
+			return ResultBuilder.error(requestObject, "-3", "请先创建课堂ID");
+		}else if(StringUtil.isNotEmpty(studentId)){			
 			ClassroomMembers entity = new ClassroomMembers();		
-			entity.setUid(UUID.randomUUID().toString());
 			entity.setStudentId(studentId);
-			entity.setClassroomId(classroomId);				
-			classroomMembersBiz.insert(entity);	
-			classroom = biz.selectById(classroomId);
-		}
-		
+			entity.setClassroomId(classroomId);	
+			List<ClassroomMembers> list = classroomMembersBiz.selectByExample(entity);
+			if(list == null || list.size()== 0) {
+				entity.setUid(UUID.randomUUID().toString());	
+				classroomMembersBiz.insert(entity);	
+			}				
+		}else if(StringUtil.isNotEmpty(teacherId)) {
+			//TODO 需要确保教师与学生的身份	,添加一个字段吧
+		}		
 		ClassroomDto dto = new ClassroomDto(); 
 		dto.setRoom_id(classroom.getRoomId());
 		dto.setOwner(classroom.getTeacherId());
