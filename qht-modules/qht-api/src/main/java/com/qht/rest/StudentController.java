@@ -784,8 +784,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         String collect="IN";
         String id=IdGenUtil.getUid(collect);
 		param.setId(id);
-		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
-		if(updateLine<1){
+		Integer deleteLine=collectBiz.insertMyIndexCourseCelcollect(param);
+		if(deleteLine<1){
             resultObject.setCode("1");
             resultObject.setMsg("失败");
             return resultObject;
