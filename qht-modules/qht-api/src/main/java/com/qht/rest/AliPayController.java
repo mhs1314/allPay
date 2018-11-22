@@ -41,7 +41,11 @@ public class AliPayController {
 
         ResultObject resultObject=new ResultObject();
         AliPayFormParam aliPayFormVo=new AliPayFormParam();
-        //TODO 根据uid查询积分对应的价格并设置到aliPayFormVo中
+        aliPayFormVo.setTotal_amount("650");
+        aliPayFormVo.setSubject("积分");
+        aliPayFormVo.setBody("支付兑换积分");
+        aliPayFormVo.setReturnUrl("");
+        //TODO 根据uid查询积分对应的价格并设置到aliPDO 根据uid查询积分对应的价格并设置到aliPayFormVo中ayFormVo中
         AlipayClient alipayClient = new DefaultAlipayClient(
                 aliPayConfig.getGatewayUrl(),
                 aliPayConfig.getAppID(),
