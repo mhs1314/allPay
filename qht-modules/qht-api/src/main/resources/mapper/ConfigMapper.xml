@@ -17,6 +17,10 @@
         <result property="sdkappid" column="sdkappid"/>
         <result property="privateKey" column="private_key"/>
         <result property="publicKey" column="public_key"/>
+        <result property="accountType" column="account_type"/>
+        <result property="appid" column="appid"/>
+        <result property="bizid" column="bizid"/>
+        <result property="fileUploadAddr" column="file_upload_addr"/>
     </resultMap>
 
 </mapper>

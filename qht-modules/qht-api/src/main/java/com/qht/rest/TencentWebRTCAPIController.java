@@ -26,6 +26,9 @@ public class TencentWebRTCAPIController {
 	@Autowired
 	private TencentWebRTCBiz webRTCBiz;
 	
+	public ResultObject<String> s(){
+		return null;
+	}
 	/**
 	 * 用户签名  genUserSig
 	 */
