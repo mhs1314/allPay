@@ -6,17 +6,17 @@ import javax.persistence.*;
 
 
 /**
- * 配置表
+ * 配置表,1
  * 
  * @author yangtonggan
  * @email 2466607841@qq.com
- * @date 2018-11-05 18:55:41
+ * @date 2018-11-22 20:08:16
  */
 @Table(name = "config")
 public class Config implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	    //主键
+	    //主键,0,NO,false,false,false
     @Id
     private String uid;
 	
@@ -52,15 +52,27 @@ public class Config implements Serializable {
     @Column(name = "two_bit_code")
     private String twoBitCode;
 	
+	    //sdkappid,input,YES,false,true,false
+    @Column(name = "sdkappid")
+    private String sdkappid;
+	
+	    //私钥,textarea,YES,false,true,false
+    @Column(name = "private_key")
+    private String privateKey;
+	
+	    //公钥,textarea,YES,false,true,false
+    @Column(name = "public_key")
+    private String publicKey;
+	
 
 	/**
-	 * 设置：主键
+	 * 设置：主键,0,NO,false,false,false
 	 */
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
 	/**
-	 * 获取：主键
+	 * 获取：主键,0,NO,false,false,false
 	 */
 	public String getUid() {
 		return uid;
@@ -160,5 +172,41 @@ public class Config implements Serializable {
 	 */
 	public String getTwoBitCode() {
 		return twoBitCode;
+	}
+	/**
+	 * 设置：sdkappid,input,YES,false,true,false
+	 */
+	public void setSdkappid(String sdkappid) {
+		this.sdkappid = sdkappid;
+	}
+	/**
+	 * 获取：sdkappid,input,YES,false,true,false
+	 */
+	public String getSdkappid() {
+		return sdkappid;
+	}
+	/**
+	 * 设置：私钥,textarea,YES,false,true,false
+	 */
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
+	}
+	/**
+	 * 获取：私钥,textarea,YES,false,true,false
+	 */
+	public String getPrivateKey() {
+		return privateKey;
+	}
+	/**
+	 * 设置：公钥,textarea,YES,false,true,false
+	 */
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
+	/**
+	 * 获取：公钥,textarea,YES,false,true,false
+	 */
+	public String getPublicKey() {
+		return publicKey;
 	}
 }
