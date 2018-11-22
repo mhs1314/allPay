@@ -176,3 +176,11 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+alipay:
+  appID: 2018111962241430
+  merchantPrivateKey: classpath: ap_public_key
+  alipayPublicKey: classpath: zfb_public_key
+  gatewayUrl: https://openapi.alipaydev.com/gateway.do
+  sysServiceProviderId: 1234
+  notifyUrl: http://XXXX.com
