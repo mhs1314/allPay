@@ -224,6 +224,9 @@ public class CoursePkgBiz extends BaseBiz<CoursePkgMapper,CoursePkg> {
 	public List<IndexMyCourseModel> selectIndexMyCourseDto(IndexMyCourseParam param) {
 		return coursePkgMapper.selectIndexMyCourseDto(param);
 	}
+	public List<IndexMyCourseModel> selectTeaIndexMyCourseDto(IndexMyCourseParam param) {
+		return coursePkgMapper.selectIndexMyCourseDto(param);
+	}
 
 	/**
 	 * 教师端首页--我的课程包

@@ -168,6 +168,8 @@ public interface CoursePkgMapper extends Mapper<CoursePkg> {
 
 	List<IndexMyCourseModel> selectIndexMyCourseDto(IndexMyCourseParam param);
 
+	List<IndexMyCourseModel> selectTeaIndexMyCourseDto(IndexMyCourseParam param);
+
 	/**
 	 * 教师端首页--我的课程包
 	 * @param data

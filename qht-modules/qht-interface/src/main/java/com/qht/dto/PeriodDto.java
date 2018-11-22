@@ -17,6 +17,7 @@ public class PeriodDto implements Serializable {
    private String video_file;
 
    private Date begin;
+
    private String time_length;
 
     @Override

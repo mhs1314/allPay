@@ -66,19 +66,6 @@ public class IndexMyCourseDto implements Serializable {
         this.begin = begin;
     }
 
-    @Override
-    public String toString() {
-        return "IndexMyCourseDto{" +
-                "uid='" + uid + '\'' +
-                ", pkg_name='" + pkg_name + '\'' +
-                ", play_type_id='" + play_type_id + '\'' +
-                ", name='" + name + '\'' +
-                ", chapter_name='" + chapter_name + '\'' +
-                ", video_file='" + video_file + '\'' +
-                ", begin=" + begin +
-                '}';
-    }
-
     private String uid;
 
     private String pkg_name;
@@ -92,4 +79,50 @@ public class IndexMyCourseDto implements Serializable {
     private String video_file;
 
     private Date begin;
+
+    private String teacher_name;
+
+    public String getTeacher_name() {
+        return teacher_name;
+    }
+
+    public void setTeacher_name(String teacher_name) {
+        this.teacher_name = teacher_name;
+    }
+
+    private String cover;
+
+    private String period_id;
+
+    public String getPeriod_id() {
+        return period_id;
+    }
+
+    public void setPeriod_id(String period_id) {
+        this.period_id = period_id;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexMyCourseDto{" +
+                "uid='" + uid + '\'' +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", name='" + name + '\'' +
+                ", chapter_name='" + chapter_name + '\'' +
+                ", video_file='" + video_file + '\'' +
+                ", begin=" + begin +
+                ", teacher_name='" + teacher_name + '\'' +
+                ", cover='" + cover + '\'' +
+                ", period_id='" + period_id + '\'' +
+                '}';
+    }
 }

@@ -400,8 +400,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             return resultObject;
         }
         BeanUtil.copyFields(param, requestObject.getData());
-        Integer updateLine=studentBiz.updateMyIndexCancelcollect(param);
-        if(updateLine<1){
+        Integer deleteLine=studentBiz.updateMyIndexCancelcollect(param);
+        if(deleteLine<1){
             resultObject.setMsg("取消失败");
             resultObject.setCode("1");
             return resultObject;
@@ -784,8 +784,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         String collect="IN";
         String id=IdGenUtil.getUid(collect);
 		param.setId(id);
-		Integer deleteLine=collectBiz.insertMyIndexCourseCelcollect(param);
-		if(deleteLine<1){
+		Integer insertLine=collectBiz.insertMyIndexCourseCelcollect(param);
+		if(insertLine<1){
             resultObject.setCode("1");
             resultObject.setMsg("失败");
             return resultObject;

@@ -103,5 +103,5 @@ public interface CoursePkgService {
 	/**
 	 * 学生对课时提问
 	 */
-	public ResultObject<Void> appInserStudentAsk(@RequestBody RequestObject<AppInsertStudentAskParameter> requestObject);
+	//public ResultObject<Void> appInserStudentAsk(@RequestBody RequestObject<AppInsertStudentAskParameter> requestObject);
 }

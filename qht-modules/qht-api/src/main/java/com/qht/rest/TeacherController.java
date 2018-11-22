@@ -74,6 +74,30 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 	}
 
 	@Override
+	@PostMapping("teaIndexMyCourse")
+	@ResponseBody
+
+	public ResultObject<List<IndexMyCourseDto>> teaIndexMyCourse(
+			@RequestBody RequestObject<IndexMyCourseParameter> requestObject) {
+
+		IndexMyCourseParam param = new IndexMyCourseParam();
+
+		BeanUtil.copyFields(param, requestObject.getData());
+
+		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(requestObject.getData().getLimit()));
+		List<IndexMyCourseModel> models = coursePkgBiz.selectTeaIndexMyCourseDto(param);
+		List<IndexMyCourseDto> list = BeanUtil.copyList(IndexMyCourseDto.class, models);
+
+		PageInfo<IndexMyCourseDto> count = new PageInfo<>(list);
+		ResultObject<List<IndexMyCourseDto>> resultObject = new ResultObject<>();
+		resultObject.setData(list);
+		resultObject.setMsg("成功");
+		resultObject.setCode("0");
+		resultObject.setCount(count.getTotal());
+		return resultObject;
+	}
+
+	@Override
 	@PostMapping("indexMyCourseList")
 	@ResponseBody
 

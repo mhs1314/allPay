@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.github.wxiaoqi.security.common.rest.BaseController;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
-import com.qht.biz.CourseAskBiz;
 import com.qht.biz.CoursePkgBiz;
 import com.qht.common.util.BeanUtil;
 import com.qht.common.util.IdGenUtil;
@@ -29,8 +28,8 @@ import java.util.List;
 public class CoursePkgController extends APIBaseController<CoursePkgBiz, CoursePkg> implements CoursePkgService {
 	@Autowired
 	private CoursePkgBiz coursePkgBiz;
-	@Autowired
-	private CourseAskBiz courseAskBiz;
+//	@Autowired
+//	private CourseAskBiz courseAskBiz;
 
 	@Override
 	@PostMapping("/student/liveClass")
@@ -357,29 +356,29 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 	/**
 	 * ap学生提问
 	 */
-	@Override
-	@PostMapping("/student/app/askTheClass")
-	@ResponseBody
-	public ResultObject<Void> appInserStudentAsk(@RequestBody RequestObject<AppInsertStudentAskParameter> requestObject) {
-		if(requestObject.getData()==null) {
-			ResultObject<Void> result =new ResultObject<>();
-			result.setCode("1");
-			result.setMsg("没有参数");
-			return result;
-		}
-		AppInsertStudentAskParam param=new AppInsertStudentAskParam();
-		BeanUtil.copyFields(param, requestObject.getData());
-		param.setUid(IdGenUtil.getUid("TW"));
-		Integer i=courseAskBiz.appInserStudentAsk(param);
-		if(i==null||i<=0) {
-			ResultObject<Void> result =new ResultObject<>();
-			result.setCode("1");
-			result.setMsg("提问失败");
-			return result;
-		}
-		ResultObject<Void> result =new ResultObject<>();
-		result.setCode("1");
-		result.setMsg("提问成功");
-		return result;
-	}
+//	@Override
+//	@PostMapping("/student/app/askTheClass")
+//	@ResponseBody
+//	public ResultObject<Void> appInserStudentAsk(@RequestBody RequestObject<AppInsertStudentAskParameter> requestObject) {
+//		if(requestObject.getData()==null) {
+//			ResultObject<Void> result =new ResultObject<>();
+//			result.setCode("1");
+//			result.setMsg("没有参数");
+//			return result;
+//		}
+//		AppInsertStudentAskParam param=new AppInsertStudentAskParam();
+//		BeanUtil.copyFields(param, requestObject.getData());
+//		param.setUid(IdGenUtil.getUid("TW"));
+//		Integer i=courseAskBiz.appInserStudentAsk(param);
+//		if(i==null||i<=0) {
+//			ResultObject<Void> result =new ResultObject<>();
+//			result.setCode("1");
+//			result.setMsg("提问失败");
+//			return result;
+//		}
+//		ResultObject<Void> result =new ResultObject<>();
+//		result.setCode("1");
+//		result.setMsg("提问成功");
+//		return result;
+//	}
 }

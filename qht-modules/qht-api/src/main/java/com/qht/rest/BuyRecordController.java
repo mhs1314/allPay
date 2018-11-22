@@ -46,13 +46,33 @@ public class BuyRecordController extends APIBaseController<BuyRecordBiz,BuyRecor
 		MyIndexCourseParam param=new MyIndexCourseParam();
 		BeanUtil.copyFields(param,requestObject.getData());
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
-		List<MyIndexCourseModel> myIndexCourseDtos=buyRecordBiz.selectMyIndexCourse(param);
-		List<MyIndexCourseDto> list = BeanUtil.copyList(MyIndexCourseDto.class, myIndexCourseDtos);
-		PageInfo<MyIndexCourseDto> count=new PageInfo<>(list);
+		List<MyIndexCourseDto> myIndexCourseDtos=buyRecordBiz.selectMyIndexCourse(param);
+		PageInfo<MyIndexCourseDto> count=new PageInfo<>(myIndexCourseDtos);
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
 		resultObject.setCount(count.getTotal());
-		resultObject.setData(list);
+		resultObject.setData(myIndexCourseDtos);
+		return resultObject;
+	}
+
+	@Override
+	@PostMapping("/student/stuMyIndexCourse")
+	@ResponseBody
+	public ResultObject<List<MyIndexCourseDto>> stuMyIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject) {
+		//使用分页插件
+		ResultObject<List<MyIndexCourseDto>> resultObject=new ResultObject<>();
+		if(requestObject.getData()==null){
+			return resultObject.setMsg("参数为空");
+		}
+		MyIndexCourseParam param=new MyIndexCourseParam();
+		BeanUtil.copyFields(param,requestObject.getData());
+		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
+		List<MyIndexCourseDto> myIndexCourseDtos=buyRecordBiz.selectMyIndexCourse(param);
+		PageInfo<MyIndexCourseDto> count=new PageInfo<>(myIndexCourseDtos);
+		resultObject.setCode("0");
+		resultObject.setMsg("成功");
+		resultObject.setCount(count.getTotal());
+		resultObject.setData(myIndexCourseDtos);
 		return resultObject;
 	}
 

@@ -13,22 +13,37 @@
         <result property="time" column="time"/>
     </resultMap>
 
-    <resultMap id="selectMyIndexCourseAndAll" type="">
+    <resultMap id="selectMyIndexCourseAndAll" type="com.qht.dto.MyIndexCourseDto">
         <result property="pkg_name" column="pkg_name"/>
+        <result property="uid" column="uid"/>
         <result property="cover" column="cover"/>
-        <collection property="chapter_name" column="chapter_name">
-
+        <result property="play_type_id" column="play_type_id"/>
+        <result property="total_price" column="total_price"/>
+        <result property="pkt_type_id" column="pkt_type_id"/>
+        <result property="teacher_name" column="teacher_name"/>
+        <collection property="chapters" ofType="com.qht.dto.ChapterDto">
+            <result property="chapter_name" column="chapter_name"/>
+            <result property="chapter_id" column="chapter_id"/>
+            <collection property="periods" ofType="com.qht.dto.PeriodDto">
+                <result property="period_name" column="period_name"/>
+                <result property="video_file" column="video_file"/>
+                <result property="period_id" column="period_id"/>
+                <result property="begin" column="begin"/>
+                <result property="time_length" column="time_length"/>
+            </collection>
         </collection>
     </resultMap>
     <!--学生端个人中心首页我的课程列表-->
 
-    <select id="selectMyIndexCourse" resultType="com.qht.model.MyIndexCourseModel" parameterType="com.qht.model.MyIndexCourseParam">
+    <select id="selectMyIndexCourse" resultMap="selectMyIndexCourseAndAll" parameterType="com.qht.model.MyIndexCourseParam">
         select
-        cp.pkg_name,c.name as chapter_name,p.name,p.video_file,p.begin
+        cp.pkg_name,cp.uid,cp.cover,cp.play_type_id,cp.pkt_type_id,cp.total_price,t.name as teacher_name,
+        c.name as chapter_name,c.uid as chapter_id,p.name as period_name,p.video_file,p.uid as period_id,p.begin,p.time_length
         from buy_record br
         inner join course_pkg cp on br.course_pkg_id=cp.uid
         inner join chapter c on cp.uid=c.course_id
         inner join period p on c.uid=p.chapter_id
+        inner join teacher t on t.uid=cp.teacher_id
         where br.tenant_id=#{tenant_id} and br.student_id=#{uid} and cp.status="1"
         <if test="course_type_id!=null and course_type_id !=''">
             and cp.course_type_id=#{course_type_id}
@@ -43,7 +58,19 @@
         <if test="play_type_id!=null and play_type_id!=''">
             and cp.play_type_id=#{play_type_id}
         </if>
-        group by cp.uid
+    </select>
+
+    <select id="selectStuMyIndexCourse" resultMap="selectMyIndexCourseAndAll" parameterType="com.qht.model.MyIndexCourseParam">
+        select
+        cp.pkg_name,cp.uid,cp.cover,cp.play_type_id,cp.pkt_type_id,cp.total_price,t.name as teacher_name,
+        c.name as chapter_name,c.uid as chapter_id,p.name as period_name,p.video_file,p.uid as period_id,p.begin,p.time_length
+        from buy_record br
+        inner join course_pkg cp on br.course_pkg_id=cp.uid
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on c.uid=p.chapter_id
+        inner join teacher t on t.uid=cp.teacher_id
+        where br.tenant_id=#{tenant_id} and br.student_id=#{uid} and cp.status="1" and cp.play_type_id="BF001"
+        and DATE_FORMAT(NOW(), '%Y-%m-%d %h:%m:%s') > DATE_FORMAT(p.begin, '%Y-%m-%d %h:%m:%s')
     </select>
 
     <!--学生端个人中心首页兑换记录-->

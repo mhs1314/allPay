@@ -39,5 +39,7 @@ public interface BuyRecordService {
 	 * @return
 	 */
 	public ResultObject<Void> insertBuyRecord(@RequestBody RequestObject<InsertBuyrecordParameter> parameter);
+
+	public ResultObject<List<MyIndexCourseDto>> stuMyIndexCourse(@RequestBody RequestObject<MyIndexCourseParameter> requestObject);
 }
 

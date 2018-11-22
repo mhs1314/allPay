@@ -70,20 +70,6 @@ public class IndexMyCourseParam implements Serializable {
         this.limit = limit;
     }
 
-    @Override
-    public String toString() {
-        return "IndexMyCourseParam{" +
-                "uid='" + uid + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                ", play_type_id='" + play_type_id + '\'' +
-                ", course_type_id='" + course_type_id + '\'' +
-                ", pkg_subject_id='" + pkg_subject_id + '\'' +
-                ", now_time='" + now_time + '\'' +
-                ", page='" + page + '\'' +
-                ", limit='" + limit + '\'' +
-                '}';
-    }
-
     private String uid;
 
     private String tenant_id;
@@ -100,5 +86,28 @@ public class IndexMyCourseParam implements Serializable {
 
     private String limit="10";
 
+    private String teacher_name;
 
+    @Override
+    public String toString() {
+        return "IndexMyCourseParam{" +
+                "uid='" + uid + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", course_type_id='" + course_type_id + '\'' +
+                ", pkg_subject_id='" + pkg_subject_id + '\'' +
+                ", now_time='" + now_time + '\'' +
+                ", page='" + page + '\'' +
+                ", limit='" + limit + '\'' +
+                ", teacher_name='" + teacher_name + '\'' +
+                '}';
+    }
+
+    public String getTeacher_name() {
+        return teacher_name;
+    }
+
+    public void setTeacher_name(String teacher_name) {
+        this.teacher_name = teacher_name;
+    }
 }
