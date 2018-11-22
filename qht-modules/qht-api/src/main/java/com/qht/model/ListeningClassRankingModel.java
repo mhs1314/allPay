@@ -1,6 +1,7 @@
 package com.qht.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 试听排行榜
@@ -17,8 +18,18 @@ public class ListeningClassRankingModel implements Serializable {
     //播放类型
     private String play_type_id;
 
-    public void setPlay_type_id(String play_type_id) {
-        this.play_type_id = play_type_id;
+    private BigDecimal total_price;
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public BigDecimal getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(BigDecimal total_price) {
+        this.total_price = total_price;
     }
 
     @Override
@@ -29,8 +40,13 @@ public class ListeningClassRankingModel implements Serializable {
                 ", pkg_name='" + pkg_name + '\'' +
                 ", level_name='" + level_name + '\'' +
                 ", play_type_id='" + play_type_id + '\'' +
+                ", total_price='" + total_price + '\'' +
                 ", nickname='" + nickname + '\'' +
                 '}';
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
     }
 
     //老师名称

@@ -1,6 +1,7 @@
 package com.qht.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 首页试听课程列表
@@ -16,13 +17,17 @@ public class ListeningClassListModel implements Serializable {
     private String level_name;
     //播放类型
     private String play_type_id;
+    //老师名字
+    private String nickname;
 
-    public String getPlay_type_id() {
-        return play_type_id;
+    private BigDecimal total_price;
+
+    public BigDecimal getTotal_price() {
+        return total_price;
     }
 
-    public void setPlay_type_id(String play_type_id) {
-        this.play_type_id = play_type_id;
+    public void setTotal_price(BigDecimal total_price) {
+        this.total_price = total_price;
     }
 
     @Override
@@ -34,11 +39,17 @@ public class ListeningClassListModel implements Serializable {
                 ", level_name='" + level_name + '\'' +
                 ", play_type_id='" + play_type_id + '\'' +
                 ", nickname='" + nickname + '\'' +
+                ", total_price='" + total_price + '\'' +
                 '}';
     }
 
-    //老师名字
-    private String nickname;
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
 
     public String getCover() {
         return cover;
