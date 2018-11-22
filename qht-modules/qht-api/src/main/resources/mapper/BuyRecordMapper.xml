@@ -13,7 +13,13 @@
         <result property="time" column="time"/>
     </resultMap>
 
+    <resultMap id="selectMyIndexCourseAndAll" type="">
+        <result property="pkg_name" column="pkg_name"/>
+        <result property="cover" column="cover"/>
+        <collection property="chapter_name" column="chapter_name">
 
+        </collection>
+    </resultMap>
     <!--学生端个人中心首页我的课程列表-->
 
     <select id="selectMyIndexCourse" resultType="com.qht.model.MyIndexCourseModel" parameterType="com.qht.model.MyIndexCourseParam">
