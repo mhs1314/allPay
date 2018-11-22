@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.github.wxiaoqi.security.common.rest.BaseController;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
+import com.qht.biz.CourseAskBiz;
 import com.qht.biz.CoursePkgBiz;
 import com.qht.common.util.BeanUtil;
 import com.qht.common.util.IdGenUtil;
@@ -28,8 +29,8 @@ import java.util.List;
 public class CoursePkgController extends APIBaseController<CoursePkgBiz, CoursePkg> implements CoursePkgService {
 	@Autowired
 	private CoursePkgBiz coursePkgBiz;
-//	@Autowired
-//	private CourseAskBiz courseAskBiz;
+	@Autowired
+	private CourseAskBiz courseAskBiz;
 
 	@Override
 	@PostMapping("/student/liveClass")
