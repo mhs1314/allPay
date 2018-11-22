@@ -302,6 +302,7 @@ GROUP BY c.uid
           cp.uid,
           cp.pkg_name,
           cp.play_type_id,
+          cp.total_price,
           t.nickname,
           pl.name as level_name
         from course_pkg cp
