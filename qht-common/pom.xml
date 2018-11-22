@@ -31,11 +31,7 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.3.2</version>
         </dependency>
-        <dependency>
-            <groupId>com.alipay.sdk</groupId>
-            <artifactId>alipay-sdk-java</artifactId>
-            <version>3.4.49.ALL</version>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-io</artifactId>
