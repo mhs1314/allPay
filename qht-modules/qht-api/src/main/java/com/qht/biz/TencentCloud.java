@@ -11,6 +11,7 @@ import com.qht.dto.GroupBodyDto;
 import com.qht.dto.GroupBodyPatameter;
 import com.qht.dto.MsgBodyDto;
 import com.qht.dto.MsgBodyParameter;
+import com.qht.entity.Config;
 
 
 /**
@@ -28,11 +29,22 @@ public class TencentCloud {
 	String ver = "v4";
 	String servicename = "group_open_http_svc";
 	String command = "create_group";
-	int sdkappid = 1400161647;
+	int sdkappid = 1400163079;
 	String identifier = "administrator";
 	String usersig = "";
 	String random = "";
 	String contenttype = "json";
+	
+	@Autowired
+	ConfigBiz cfgBiz;
+	
+	private String getSdkappid() {
+		Config cfg = cfgBiz.getConfig("PZ001");
+		String sdkappid = cfg.getSdkappid();
+		//String privateKey = cfg.getPrivateKey();
+		//String publicKey = cfg.getPublicKey();
+		return sdkappid;
+	}
 	/**
 	 * 创建群组地址
 	 * @return
@@ -45,7 +57,7 @@ public class TencentCloud {
 		sb.append(command).append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+webRTCBiz.getSdkAppid()).append("&");
+		sb.append("sdkappid="+getSdkappid()).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -62,7 +74,7 @@ public class TencentCloud {
 		sb.append("send_group_system_notification").append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+webRTCBiz.getSdkAppid()).append("&");
+		sb.append("sdkappid="+getSdkappid()).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -71,7 +83,8 @@ public class TencentCloud {
 	
 	
 	private String getUsersig(String userid) {	
-		webRTCBiz.setSdkAppid(sdkappid);
+		String sdkappid = getSdkappid();
+		webRTCBiz.setSdkAppid(Integer.parseInt(sdkappid));
 		webRTCBiz.setPrivateKey(TencentWebRTCBiz.privateKey());
 		webRTCBiz.setPublicKey(TencentWebRTCBiz.publicKeyFile());		
 		return webRTCBiz.genUserSig(userid, 3600);
