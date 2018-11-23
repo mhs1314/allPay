@@ -1,6 +1,9 @@
 package com.julu.qht.service;
 
 import com.julu.qht.entity.RechargeRecord;
+
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**

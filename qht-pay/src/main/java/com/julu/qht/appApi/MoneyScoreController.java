@@ -1,4 +1,4 @@
-package com.julu.qht.controller;
+package com.julu.qht.appApi;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,9 @@
-package com.julu.qht.dao;
+package com.julu.qht.mapper;
 
 import com.julu.qht.entity.MoneyScore;
+
+import org.springframework.stereotype.Repository;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

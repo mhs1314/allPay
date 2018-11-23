@@ -1,7 +1,7 @@
 package com.julu.qht.service.impl;
 
 import com.julu.qht.entity.IntegralBag;
-import com.julu.qht.dao.IntegralBagDao;
+import com.julu.qht.mapper.IntegralBagDao;
 import com.julu.qht.service.IIntegralBagService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

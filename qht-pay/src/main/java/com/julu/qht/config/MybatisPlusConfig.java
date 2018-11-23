@@ -28,7 +28,7 @@ import java.util.List;
  * <pre>
  */
 @Configuration
-@MapperScan("com.julu.dh.mapper*")
+@MapperScan("com.julu.qht.mapper*")
 public class MybatisPlusConfig {
 
     /**

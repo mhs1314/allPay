@@ -1,4 +1,4 @@
-package com.julu.qht.controller;
+package com.julu.qht.appApi;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
@@ -7,12 +7,10 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.julu.qht.entity.IntegralBag;
-import com.julu.qht.entity.MoneyScore;
 import com.julu.qht.entity.RechargeRecord;
 import com.julu.qht.entity.dto.CodeMessage;
 import com.julu.qht.entity.vo.AliPayFormVo;
 import com.julu.qht.service.IIntegralBagService;
-import com.julu.qht.service.IMoneyScoreService;
 import com.julu.qht.service.IRechargeRecordService;
 import com.julu.qht.util.AliPayConfig;
 import com.julu.qht.util.IDUtils;
@@ -20,8 +18,8 @@ import com.julu.qht.util.IDUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +31,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+@Controller
 public class AliPayController {
     protected Log log = LogFactory.getLog(getClass());
     @Autowired
     AliPayConfig aliPayConfig;
-    
-    @Autowired
-    private IMoneyScoreService moneyScoreService;
     
     @Autowired
     private IIntegralBagService integralBagService;
@@ -57,7 +53,7 @@ public class AliPayController {
        
         AliPayFormVo aliPayFormVo=new AliPayFormVo();
         // 根据uid查询积分对应的价格并设置到aliPayFormVo中
-        IntegralBag integralBag = integralBagService.selectById(uid);
+        IntegralBag integralBag = integralBagService.selectOne(new EntityWrapper<IntegralBag>().eq("uid", uid));
         // 支付金额
         aliPayFormVo.setTotal_amount(integralBag.getMoney()+"");
         // 商品名称

@@ -1,7 +1,7 @@
 package com.julu.qht.service.impl;
 
 import com.julu.qht.entity.MoneyScore;
-import com.julu.qht.dao.MoneyScoreDao;
+import com.julu.qht.mapper.MoneyScoreDao;
 import com.julu.qht.service.IMoneyScoreService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
