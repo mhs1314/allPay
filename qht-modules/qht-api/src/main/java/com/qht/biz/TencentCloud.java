@@ -38,12 +38,20 @@ public class TencentCloud {
 	@Autowired
 	ConfigBiz cfgBiz;
 	
-	private String getSdkappid() {
-		Config cfg = cfgBiz.getConfig("PZ001");
-		String sdkappid = cfg.getSdkappid();
+	private int getSdkappid() {
+		//Config cfg = cfgBiz.getConfig("PZ001");
+		//String sdkappid = cfg.getSdkappid();
 		//String privateKey = cfg.getPrivateKey();
 		//String publicKey = cfg.getPublicKey();
 		return sdkappid;
+	}
+	
+	public void setSdkappid(int sdkappid) {
+		this.sdkappid = sdkappid;
+	} 
+	
+	public TencentCloud() {		
+		setSdkappid(1400163079);
 	}
 	/**
 	 * 创建群组地址
@@ -57,7 +65,7 @@ public class TencentCloud {
 		sb.append(command).append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+getSdkappid()).append("&");
+		sb.append("sdkappid="+sdkappid).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -74,7 +82,7 @@ public class TencentCloud {
 		sb.append("send_group_system_notification").append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+getSdkappid()).append("&");
+		sb.append("sdkappid="+sdkappid).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -83,8 +91,8 @@ public class TencentCloud {
 	
 	
 	private String getUsersig(String userid) {	
-		String sdkappid = getSdkappid();
-		webRTCBiz.setSdkAppid(Integer.parseInt(sdkappid));
+		int sdkappid = getSdkappid();
+		webRTCBiz.setSdkAppid(sdkappid);
 		webRTCBiz.setPrivateKey(TencentWebRTCBiz.privateKey());
 		webRTCBiz.setPublicKey(TencentWebRTCBiz.publicKeyFile());		
 		return webRTCBiz.genUserSig(userid, 3600);
@@ -134,7 +142,8 @@ public class TencentCloud {
 		System.out.println(json);
 		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
 		System.out.println(body);		
-		String json1 = tc.imPush("@TGS#36DDZ7QFG", "测试消息", null);
+		
+		String json1 = tc.imPush("@TGS#3PO3KERF2", "测试消息", null);
 		MsgBodyDto body1 = JSON.parseObject(json1, MsgBodyDto.class);
 		System.out.println(body1);
 	}

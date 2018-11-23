@@ -103,16 +103,24 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		}
 		//根据课程判断是否已经创建过课堂
 		String periodId = param.getClass_id();
+		String teacherId = param.getTeacher_id();
 		//Classroom cr = new Classroom();	
 		//cr.setPeriodId(periodId);
+		String groupId = null;
 		List<Classroom> list = biz.getClassroomByPeriodId(periodId);
 		if(list != null && list.size() > 0) {
 			Classroom entity = list.get(0);
+			if(StringUtil.isEmpty(entity.getImGroupId()) || StringUtil.isEmpty(entity.getWhiteboardId())) {
+				groupId = getGroupId(teacherId);
+				entity.setImGroupId(groupId);
+				entity.setWhiteboardId(groupId);
+				biz.updateById(entity);
+			}			
 			ClassroomDto dto = entityToDto(entity);
 			return ResultBuilder.success(requestObject, dto);
 		}
 		
-		String teacherId = param.getTeacher_id();
+		
 		Teacher teacher = teacherBiz.selectById(teacherId);
 		if(teacher == null) {
 			return ResultBuilder.error(requestObject, "-2", "需要教师才可以创建课堂");
@@ -125,11 +133,14 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 			return ResultBuilder.error(requestObject, "-3", "home_screen只能为camera或board");
 		}
 		//TDOO 需要接受教师的uid,还需要接受课堂名称
-		String json = tencentCloud.createGroup(teacherId);
-		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
-		Classroom entity = new Classroom();		
-		entity.setImGroupId(body.getGroupId());
-		entity.setWhiteboardId(body.getGroupId());
+		//String json = tencentCloud.createGroup(teacherId);
+		//GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
+		Classroom entity = new Classroom();	
+		if(StringUtil.isEmpty(groupId)) {
+			groupId = getGroupId(teacherId);
+		}
+		entity.setImGroupId(groupId);
+		entity.setWhiteboardId(groupId);
 		entity.setHomeScreen(screen);
 		//需要一个固定的groupId				
 		entity.setPeriodId(param.getClass_id());
@@ -141,6 +152,13 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		biz.insert(entity);
 		ClassroomDto dto = entityToDto(entity);		
 		return ResultBuilder.success(requestObject, dto);
+	}
+	
+	private String getGroupId(String teacherId) {
+		String json = tencentCloud.createGroup(teacherId);
+		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);			
+		return body.getGroupId();
+		
 	}
 	private ClassroomDto entityToDto(Classroom entity) {
 		ClassroomDto dto = new ClassroomDto(); 
@@ -191,11 +209,13 @@ public class ClassroomController extends APIBaseController<ClassroomBiz,Classroo
 		}		
 		dto.setGroup_id(classroom.getImGroupId());
 		Period period = periodBiz.selectById(classroom.getPeriodId());
-		if(period != null) {
-			dto.setConf_name(period.getName());	
-		}
+		if(period == null) {
+			return ResultBuilder.error(requestObject, "-3", "该课时ID不存在"+classroom.getPeriodId());
+		}else {
+			dto.setConf_name(period.getName());
+		}		
 		dto.setBoard_group_id(classroom.getWhiteboardId());
-		dto.setConf_id(classroomId);
+		dto.setConf_id(classroomId);		
 		dto.setHome_screen(classroom.getHomeScreen());		
 		return ResultBuilder.success(requestObject, dto);
 	}
