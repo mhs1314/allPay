@@ -13,7 +13,7 @@ public class IndexMessageParameter implements Serializable{
 	
 	private String tenant_id;
 	
-	private String page="0";
+	private String page="1";
 	
 	private String limit="10";
 	

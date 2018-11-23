@@ -1,5 +1,6 @@
 package com.qht.mapper;
 
+import com.qht.dto.CourseChapterDto;
 import com.qht.dto.StudentDto;
 import com.qht.entity.Student;
 import com.qht.model.*;
@@ -88,7 +89,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @param tenant_id
      * @return
      */
-    List<CourseChapterModel> selectCourseChapter(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
+    List<CourseChapterDto> selectCourseChapter(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
 
     /**
      * 课程详情--课程包评论
@@ -211,7 +212,7 @@ public interface StudentMapper extends Mapper<Student> {
      * @return
      */
 
-    MyIndexMessageModel selectMessageById(String uid);
+    MyIndexMessageModel selectMessageById(UidAndTenantIDParam param);
 
     /**
      * 学生端-个人中心--首页--兑换记录

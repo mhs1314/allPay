@@ -76,16 +76,18 @@
         pl.name as level_name,
         pt.name as pkg_type_name
         from course_pkg cp
-        inner join teacher t on cp.teacher_id=t.uid
-        inner join pkg_level pl on cp.pkg_level_id=pl.uid
-        inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
-        inner join pkg_type pt on pt.uid=cp.course_type_id
+        left join teacher t on cp.teacher_id=t.uid
+        left join pkg_level pl on cp.pkg_level_id=pl.uid
+        left join pkg_subject ps on cp.pkg_subject_id=ps.uid
+        left join pkg_type pt on pt.uid=cp.course_type_id
         where cp.tenant_id=#{tenant_id}
-        and cp.status="1" 
+        and cp.status="1"
         and cp.pkt_type_id="1"
         <if test="pkg_subject_id!='' and pkg_subject_id!=null">
             and cp.pkg_subject_id=#{pkg_subject_id}
         </if>
+
+
 
 
 
@@ -216,9 +218,7 @@
           pe.comments_time,
           cp.pkg_name,
           pe.comments_star,
-          pe.comments_content,
-
-          count(s.name)
+          pe.comments_content
         from
 
 
@@ -237,9 +237,7 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
@@ -256,15 +254,13 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
         where pe.course_id=#{uid} and s.tenant_id=#{tenant_id}
         and cp.status="1"
-        and pe.comments_star &lt;=4 and pe.comments_star &gt;2
+        and pe.comments_star &lt;=4 and pe.comments_star &gt;=2
     </select>
 
     <!--课程详情课程包评论bad-->
@@ -277,13 +273,11 @@
         pe.comments_time,
         cp.pkg_name,
         pe.comments_star,
-        pe.comments_content,
-
-        count(s.name)
+        pe.comments_content
         from
         period_evaluation pe inner join student s on s.uid=pe.student_id
         inner join course_pkg cp on pe.course_id=cp.uid
-        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;=2
+        where pe.course_id=#{uid} and s.tenant_id=#{tenant_id} and cp.status="1" and pe.comments_star &lt;2
     </select>
     
 
@@ -323,7 +317,6 @@
 
     <select id="selectCourseList" resultType="com.qht.model.CourseListModel" parameterType="com.qht.model.CourseListParam">
         select
-
         cp.cover,
         cp.uid,
         cp.pkg_name,
@@ -334,8 +327,8 @@
         inner join chapter c on cp.uid=c.course_id
         inner join period p on p.chapter_id=c.uid
         inner join teacher t on t.uid=cp.teacher_id
-        where 1=1
-        and cp.tenant_id=#{tenant_id}
+        where
+        cp.tenant_id=#{tenant_id}
         and cp.status="1"
         <if test="pkt_type_id !=null and pkt_type_id!=''">
               and cp.pkt_type_id=#{pkt_tyepe_id}
@@ -639,14 +632,17 @@
     </select>
     
 
-     <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="java.lang.String">
-      select * FROM message where uid=#{uid}
+     <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="com.qht.model.UidAndTenantIDParam">
+      select t.back_img as head,m.uid,m.isread,s.nickname,m.time,m.content FROM message m left join teacher t
+      on t.uid=m.from_id left join student s on s.uid=m.to_id
+      where uid=#{uid} and  tenant_id#{tenant_id}
     </select>
 
     <!--学生端个人中心首页兑换记录-->
 
     <select id="selectMyIndexBuyRecord" resultType="com.qht.model.MyIndexBuyRecordModel" parameterType="com.qht.model.MyIndexBuyRecordParam">
-        select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin from buy_record br
+        select cp.cover,cp.uid,cp.pkg_name,cp.pkt_type_id,cp.total_price,t.nickname,p.begin
+        from buy_record br
           inner join course_pkg cp on br.course_pkg_id=cp.uid
           inner join teacher t on cp.teacher_id=t.uid
           inner join chapter c on cp.uid=c.course_id
@@ -654,14 +650,13 @@
         where br.student_id=#{uid}
           and br.tenant_id=#{tenant_id}
           and cp.status="1"
-
-        <if test="pkg_subject_id !=''">
+        <if test="pkg_subject_id !='' and pkg_subject_id != null">
               and cp.pkg_subject_id=#{pkg_subject_id}
           </if>
-          <if test="play_type_id !=''">
+          <if test="play_type_id !='' and play_type_id != null">
             and cp.play_type_id=#{play_type_id}
           </if>
-        <if test="pkt_type_id != ''">
+        <if test="pkt_type_id != '' and pkt_type_id != null">
           and cp.pkt_type_id=#{pkt_type_id}
         </if>
     </select>
@@ -669,21 +664,15 @@
     <resultMap id="studentInfoMap" type="com.qht.model.StudentInfoModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result column="head" property="head"/>
-        <result column="school_id" property="schoolId"/>
+        <result column="integral" property="integral"/>
         <result column="sex" property="sex"/>
         <result column="name" property="name"/>
         <result column="nickname" property="nickname"/>
         <result column="school_name" property="school_name"/>
         <result column="clazz" property="clazz"/>
-        <result column="clanzzName" property="clanzzName"/>
+        <result column="grade_name" property="grade_name"/>
         <result column="age" property="age"/>
-
-        <collection property="tatDtos" ofType="com.qht.model.TatModel">
-            <id column="tid" property="tid"/>
-            <result column="tname" property="tname"/>
-        </collection>
-
-        <collection property="guardianDtos" ofType="com.qht.model.GuardianModel">
+        <collection property="gua" ofType="com.qht.model.GuardianModel">
             <id column="gid" property="gid"/>
             <result column="call" property="call"/>
             <result column="phone" property="phone"/>
@@ -695,17 +684,14 @@
 SELECT
 	s.uid as uid ,
 	s.head as head,
-	s.school_id as schoolId,
 	s.sex as sex,
 	s.`name` as `name`,
 	s.nickname as nickname,
 	sc.school_name as school_name,
 	s.clazz as clazz,
-	p.`name` as clanzzName,
+	p.`name` as grade_name,
 	s.age as age,
-
-	t.uid as tid,
-	t.tag_name as tname,
+	s.integral,
 	g.uid as gid,
 	g.`call` as `call`,
 	g.phone  as phone
@@ -713,8 +699,6 @@ FROM
 	student s
 inner JOIN school sc ON s.school_id = sc.uid
 inner JOIN guardian g ON s.uid = g.student_id
-inner JOIN interest_label i ON s.uid = i.student_id
-inner JOIN tag t ON i.tag_id = t.uid
 inner JOIN pkg_grade p ON s.grade_id = p.uid
 WHERE
 	s.uid = #{uid} AND s.tenant_id =#{tenant_id}
@@ -725,7 +709,7 @@ WHERE
         SELECT
         b.uid AS uid,
         c.pkg_name AS pkg_name,
-        c.total_priceas AS total_price,
+        c.total_price AS total_price,
         b.time AS time
         FROM
         buy_record b
@@ -760,7 +744,7 @@ inner JOIN teacher t ON c.teacher_id = t.uid
 inner JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
 inner JOIN buy_record b ON c.uid=b.course_pkg_id
 inner JOIN student  s   ON s.uid= b.student_id
- where 1=1 and s.tenant_id =#{tenant_id}  
+ where 1=1 and s.tenant_id =#{tenant_id}  and c.status="1"
  <if test="uid!=null and uid!=''">
 and s.uid=#{uid}
  </if>
@@ -802,17 +786,22 @@ where a.tenant_id=#{tenant_id}
 <!-- 课程列表-->
 
  <select id="indexCoruseList" resultType="com.qht.model.IndexCoruseListModel" parameterType="com.qht.model.IndexCoruseListParam">
-        SELECT
-	c.uid,
-	c.pkg_name,
-	c.cover,
-	c.play_type_id,
-	t.nickname,
-	c.apply_number
+       SELECT
+	c.uid AS uid,
+	c.pkg_name AS pkg_name,
+	c.cover AS cover,
+	c.play_type_id AS play_type_id,
+	t.nickname AS nickname,
+	c.apply_number AS apply_number,
+	c.total_price AS total_price,
+	pn.comments_star AS comments_star,
+	p.`name` AS subject_name,
+	pn.praise_number AS praise_number
 FROM
 	course_pkg c
-inner JOIN teacher t ON c.teacher_id = t.uid
-inner JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+LEFT JOIN teacher t ON c.teacher_id = t.uid
+LEFT JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+LEFT JOIN period_evaluation pn ON c.uid = pn.course_id
 WHERE
 	c.tenant_id =#{tenant_id} and c.status="1"
         <if test="play_type_id!=null and play_type_id !=''">
@@ -877,7 +866,6 @@ WHERE
     <resultMap id="selectMyIndexBuyRecordDetailsAndPeriod" type="com.qht.model.MyIndexBuyRecordCourseDetailsModel">
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result property="name" column="name"/>
-
         <collection property="period" ofType="com.qht.model.ClassModel">
             <result property="pid" column="pid"/>
             <result property="period_name" column="period_name"/>
@@ -1085,6 +1073,7 @@ and s.tenant_id=#{tenant_id}
         from period p
         left join chapter c on p.chapter_id=c.uid
         left join course_pkg cp on cp.uid=c.course_id
-        where p.uid=#{uid} and p.tenant_id=#{tenant_id}
+        where p.uid=#{uid} and p.tenant_id=#{tenant_id} and cp.status="1"
     </select>
+    
 </mapper>

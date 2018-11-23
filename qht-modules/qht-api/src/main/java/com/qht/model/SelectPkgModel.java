@@ -10,9 +10,17 @@ import com.qht.dto.SelectPkgDto;
 public class SelectPkgModel implements Serializable {
 	private  String uid;
 	private String pkg_name;
+	private Integer play_type_id;
 	private List<SelectChModel> chapter=new ArrayList<>();
 	
 	
+	
+	public Integer getPlay_type_id() {
+		return play_type_id;
+	}
+	public void setPlay_type_id(Integer play_type_id) {
+		this.play_type_id = play_type_id;
+	}
 	public SelectPkgDto toDto() {
 		SelectPkgDto dto = new SelectPkgDto();
 		BeanUtil.copyFields(dto, this);
@@ -42,8 +50,10 @@ public class SelectPkgModel implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "SelectPkgModel [uid=" + uid + ", pkg_name=" + pkg_name + ", chapter=" + chapter + "]";
+		return "SelectPkgModel [uid=" + uid + ", pkg_name=" + pkg_name + ", play_type_id=" + play_type_id + ", chapter="
+				+ chapter + "]";
 	}
+	
 	
 
 }

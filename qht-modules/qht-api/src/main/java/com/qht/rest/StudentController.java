@@ -6,10 +6,12 @@ import com.github.pagehelper.PageInfo;
 import com.qht.RequestObject;
 import com.qht.ResultObject;
 import com.qht.biz.CollectBiz;
+import com.qht.biz.CoursePkgBiz;
 import com.qht.biz.PeriodBiz;
 import com.qht.biz.StudentBiz;
 import com.qht.biz.TeacherBiz;
 import com.qht.common.util.BeanUtil;
+import com.qht.common.util.IdGenUtil;
 import com.qht.dto.*;
 import com.qht.dto.CourseChapterDto;
 import com.qht.entity.Student;
@@ -21,11 +23,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tk.mybatis.mapper.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -39,7 +40,8 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     private TeacherBiz teacherBiz;
     @Autowired
     private CollectBiz collectBiz;
-    
+    @Autowired
+    private CoursePkgBiz coursePkgBiz;
     @Autowired
     private HttpServletRequest request;
     
@@ -241,11 +243,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @PostMapping("courseChapter")
     @ResponseBody
     public ResultObject<List<CourseChapterDto>> courseChapter(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
-    	CourseIntroParam param=new CourseIntroParam();
-    	BeanUtil.copyFields(param, requestObject.getData());
-        List<CourseChapterModel> courseChapterDtos=studentBiz.selectCourseChapter(param.getUid(),param.getTenant_id());
-        List<CourseChapterDto> list = BeanUtil.copyList(CourseChapterDto.class, courseChapterDtos);
         ResultObject<List<CourseChapterDto>> resultObject=new ResultObject<>();
+        if(requestObject.getData()==null){
+            return resultObject.setMsg("参数为空");
+        }
+        List<CourseChapterDto> list=studentBiz.selectCourseChapter(requestObject.getData().getUid(),requestObject.getData().getTenant_id());
         resultObject.setCode("0");
         resultObject.setMsg("成功");
         resultObject.setData(list);
@@ -258,9 +260,11 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<List<CourseEvaluationDto>> courseEvaluation(@RequestBody RequestObject<CourseEvaluationParameter> requestObject) {
         ResultObject<List<CourseEvaluationDto>> resultObject=new ResultObject<>();
         CourseEvaluationParam param=new CourseEvaluationParam();
-        if(requestObject.getData().getEval()==null&&requestObject.getData().getEval()==""){
-        	
-        	BeanUtil.copyFields(param, requestObject.getData());
+        if(requestObject.getData()==null){
+            return resultObject.setMsg("没有参数");
+        }
+        BeanUtil.copyFields(param, requestObject.getData());
+        if(StringUtil.isEmpty(requestObject.getData().getEval())){
             PageHelper.startPage(Integer.parseInt(param.getPage()),Integer.parseInt(param.getLimit()));
             List<CourseEvaluationModel> courseEvaluationDtos=studentBiz.selectCourseEvaluation(param);
             List<CourseEvaluationDto> list = BeanUtil.copyList(CourseEvaluationDto.class, courseEvaluationDtos);
@@ -273,7 +277,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
             resultObject.setCount(count.getTotal());
             resultObject.setCount_good(courseEvaluationDtosGood.size());
             resultObject.setCount_mid(courseEvaluationDtosMid.size());
-            resultObject.setCount_mid(courseEvaluationDtosBad.size());
+            resultObject.setCount_bad(courseEvaluationDtosBad.size());
             resultObject.setData(list);
             return resultObject;
         }
@@ -340,6 +344,12 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         //使用分页插件
     	CourseListParam param=new CourseListParam();
     	BeanUtil.copyFields(param, requestObject.getData());
+    	if(StringUtil.isEmpty(param.getPage())){
+    	    param.setPage("1");
+        }
+        if(StringUtil.isEmpty(param.getLimit())){
+            param.setLimit("10");
+        }
         PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
         requestObject.getData().setTenant_id(getTenantId());
         List<CourseListModel> courseListDtos=studentBiz.selectCourseList(param);
@@ -401,8 +411,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherCourse")
     @ResponseBody
-
-
     public ResultObject<List<TeacherCourseDto>> teacherCourse(@RequestBody RequestObject<UidAndTenantID> request) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, request.getData());
@@ -419,8 +427,6 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("teacherEvaluation")
     @ResponseBody
-
-
     public ResultObject<List<TeacherEvaluationDto>> teacherEvaluation(@RequestBody RequestObject<UidAndTenantID> request) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, request.getData());
@@ -547,7 +553,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     public ResultObject<MyIndexMessageDto> selectMessageById(@RequestBody RequestObject<UidAndTenantID> requestObject) {
     	UidAndTenantIDParam param=new UidAndTenantIDParam();
     	BeanUtil.copyFields(param, requestObject.getData());
-        MyIndexMessageModel dto=studentBiz.selectMessageById(param.getUid());
+        MyIndexMessageModel dto=studentBiz.selectMessageById(param);
         MyIndexMessageDto dtod=new MyIndexMessageDto();
         BeanUtil.copyFields(dtod, dto);
         ResultObject<MyIndexMessageDto> resultObject=new ResultObject<>();
@@ -598,8 +604,16 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 	        resultObject.setData(new StudentInfoDto());
 	        return resultObject;
         }
+
         StudentInfoDto dto=new StudentInfoDto();
         BeanUtil.copyFields(dto, model);
+        List<GuardianDto> guardianDtos = new ArrayList<>();
+        for(int i=0;i<model.getGua().size();i++){
+            GuardianDto guardianDto = new GuardianDto();
+            BeanUtil.copyFields(guardianDto,model.getGua().get(i));
+            guardianDtos.add(guardianDto);
+        }
+        dto.setGuardian(guardianDtos);
         ResultObject<StudentInfoDto> resultObject=new ResultObject<>();
         resultObject.setCode("0");
         resultObject.setMsg("成功");
@@ -1102,7 +1116,9 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         }
         return resultObject.setMsg("打赏失败");
     }
-
+    /***
+     * 收藏课程
+     */
    @Override
     @PostMapping("/app/myCollectlist")
     @ResponseBody
@@ -1321,9 +1337,15 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 		MyIndexCourseCelcollectParam param=new MyIndexCourseCelcollectParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		//收藏 插入数据需要生成一个collect表的主键
-		String str="collect"+new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-		param.setId(str);
+        String collect="IN";
+        String id=IdGenUtil.getUid(collect);
+		param.setId(id);
 		Integer updateLine=collectBiz.insertMyIndexCourseCelcollect(param);
+		if(updateLine<1){
+            resultObject.setCode("1");
+            resultObject.setMsg("失败");
+            return resultObject;
+        }
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
 		return resultObject;
@@ -1332,7 +1354,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
     @Override
     @PostMapping("myIndexCourseDetails")
     @ResponseBody
-    public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(RequestObject<UidAndTenantID> requestObject) {
+    public ResultObject<MyIndexCourseDetailsDto> myIndexCourseDetails(@RequestBody RequestObject<UidAndTenantID> requestObject) {
         ResultObject<MyIndexCourseDetailsDto> resultObject=new ResultObject<>();
         if(requestObject.getData()==null){
             resultObject.setCode("1");
@@ -1354,6 +1376,54 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
         resultObject.setMsg("成功");
         return resultObject;
     }
+
+	@Override
+    @PostMapping("app/myStudentCourseManagement")
+    @ResponseBody
+	public ResultObject<List<SelectPkgByStuIdDto>> selectPkgByStuId(@RequestBody RequestObject<UidAndTenantID> requestObject) {
+		UidAndTenantIDParam param=new UidAndTenantIDParam();
+    	if(requestObject.getData()==null) {
+    		  ResultObject<List<SelectPkgByStuIdDto>> resultObject=new ResultObject<>();
+    	        resultObject.setCode("1");
+    	        resultObject.setMsg("参数不对");
+    	        resultObject.setData(new ArrayList<>());
+    	        return resultObject;
+    	}
+    	BeanUtil.copyFields(param, requestObject.getData());
+        List<SelectPkgByStuIdModel> dto=coursePkgBiz.selectPkgByStuId(param);
+        if(dto.size()==0) {
+        	 ResultObject<List<SelectPkgByStuIdDto>> resultObject=new ResultObject<>();
+             resultObject.setCode("0");
+             resultObject.setMsg("没有数据");
+             resultObject.setData(new ArrayList<>());
+             return resultObject;
+        }
+        List<SelectPkgByStuIdDto> list = BeanUtil.copyList(SelectPkgByStuIdDto.class, dto);
+        ResultObject<List<SelectPkgByStuIdDto>> resultObject=new ResultObject<>();
+        resultObject.setCode("0");
+        resultObject.setMsg("成功");
+        resultObject.setData(list);
+        return resultObject;
+	}
+	/**
+	 * 课程体系
+	 */
+	@Override
+	@PostMapping("app/courseChapter")
+    @ResponseBody
+	public ResultObject<List<CourseChapterDto>> selectCourseChapterByCuId(@RequestBody RequestObject<CourseIntroParameter> requestObject) {
+       return this.courseChapter(requestObject);
+	}
+	/**
+	 * 课程简介
+	 */
+	@Override
+	@PostMapping("app/courseIntro")
+    @ResponseBody
+	public ResultObject<CourseIntroDto> appCourseIntro(RequestObject<CourseIntroParameter> requestObject) {
+		return this.courseIntro(requestObject);
+	}
+	
 
 //    /**
 //     * 查看学生兴趣标签
