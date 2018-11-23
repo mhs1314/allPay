@@ -62,7 +62,7 @@ public class AliPayController {
         aliPayFormVo.setBody("积分");
         // 订单号
         aliPayFormVo.setOut_trade_no("CZ"+IDUtils.genImageName());
-        aliPayFormVo.setReturnUrl("https://edu.qw1000.cn/student/alipayNotify");
+        aliPayFormVo.setReturnUrl("https://edu.qw1000.cn/pay/student/alipayNotify");
         AlipayClient alipayClient = new DefaultAlipayClient(
                 aliPayConfig.getGatewayUrl(),
                 aliPayConfig.getAppID(),
@@ -118,7 +118,7 @@ public class AliPayController {
      * @param request
      * @return
      */
-    @RequestMapping("/student/alipayNotify")
+    @RequestMapping("/pay/student/alipayNotify")
     public void alipayNotify(HttpServletRequest request, HttpServletResponse response) {
         System.err.println("支付宝进入异步通知");
         String resultFail = "fail";
