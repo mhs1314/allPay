@@ -36,62 +36,6 @@ public interface StudentMapper extends Mapper<Student> {
     List<BannerModel> selectBanner(@Param("tenant_id") String tenant_id,@Param("type") String type);
 
     /**
-     * 通过运营id查询首页直播课程
-     * @param tenant_id
-     * @return
-     */
-    List<LiveClassModel> selectLiveClass(String tenant_id);
-
-    /**
-     * 通过pkg_subject_id，pkg_grade_id，tenant_id查询首页免费课程
-     * @return
-     */
-    List<FreeClassModel> selectFreeClass(FreeClassParam data);
-
-    /**
-     * 通过运营id查询首页试听排行榜
-     * @param tenant_id
-     * @return
-     */
-    List<ListeningClassRankingModel> selectListeningClassRanking(String tenant_id);
-
-    /**
-     * 通过运营id查询首页试听列表
-     * @param tenant_id
-     * @return
-     */
-    List<ListeningClassListModel> selectListeningClassList(String tenant_id);
-
-    /**
-     * 通过运营id查询首页老师排行榜
-     * @param tenant_id
-     * @return
-     */
-    List<TeacherRankingModel> selectTeacherRanking(String tenant_id);
-
-    /**
-     * 通过运营id查询首页老师集合
-     * @return
-     */
-    List<TeacherListModel> selectTeacherList(TeacherListParam data);
-
-    /**
-     * 查询学生课程详情-课程包简介
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-    CourseIntroModel selectCourseIntro(@Param("uid") String uid,@Param("tenant_id") String tenant_id);
-
-    /**
-     * 课程详情--课程包体系
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-    List<CourseChapterDto> selectCourseChapter(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
-
-    /**
      * 课程详情--课程包评论
      * @return
      */
@@ -100,45 +44,7 @@ public interface StudentMapper extends Mapper<Student> {
     List<CourseEvaluationModel> selectCourseEvaluationBad(CourseEvaluationParam data);
     List<CourseEvaluationModel> selectCourseEvaluationMid(CourseEvaluationParam data);
 
-    /**
-     * 课程详情--教师信息
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-    TeacherInfoModel selectTeacherInfo(@Param("uid")String uid, @Param("tenant_id")String tenant_id);
 
-    /**
-     * 课程列表
-     * @param data
-     * @return
-     */
-    List<CourseListModel> selectCourseList(CourseListParam data);
-
-    /**
-     * 名师列表
-     * @param data
-     * @return
-     */
-    List<TopTeacherListModel> selectTopTeacherList(TopTeacherListParam data);
-
-    /**
-     * 名师详情--讲师简介
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    TopTeacherInfoModel selectTopTeacherInfo(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
-
-    /**
-     * 名师详情--全部课程
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    List<TeacherCourseModel> selectTeacherCourse(@Param("uid")String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 名师详情--评论列表
@@ -149,78 +55,13 @@ public interface StudentMapper extends Mapper<Student> {
 
     List<TeacherEvaluationModel> selectTeacherEvaluation(@Param("uid")String uid, @Param("tenant_id") String tenant_id);
 
-    /**
-     * 运营商--学校介绍
-     * @return
-     */
 
-    TenantSchoolModel selectTenantSchool(UidAndTenantIDParam param);
 
-    /**
-     * 运营商--画册
-     * @param tenant_id
-     * @return
-     */
 
-    List<TenantAlbumModel> selectTenantAlbum(String tenant_id);
 
-    /**
-     * 学生端-个人中心--首页--我的课程详情介绍
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
 
-    List<IndexCourseDetailsModel> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
-    /**
-     * 学生端-个人中心--首页--我的课程列表
-     * @param data
-     * @return
-     */
 
-    List<MyIndexCourseModel> selectMyIndexCourse(MyIndexCourseParam data);
-
-    /**
-     * 学生端-个人中心--首页--课程答疑
-     * @param data
-     * @return
-     */
-
-    List<MyIndexCourseAnswerModel> selectMyIndexCourseAnswer(MyIndexCourseAnswerParam data);
-
-    /**
-     * 消息
-     * @param uid
-     * @param tenant_id
-     * @param isread
-     * @return
-     */
-
-    List<MyIndexMessageModel> selectMyIndexMessage(@Param("uid")String uid,@Param("tenant_id")String tenant_id,@Param("isread")String isread);
-
-    /**
-     * 刪除消息
-     * @param uid
-     * @return
-     */
-    Integer deleteMessage(String uid);
-
-    /**
-     * 查詢消息
-     * @param uid
-     * @return
-     */
-
-    MyIndexMessageModel selectMessageById(UidAndTenantIDParam param);
-
-    /**
-     * 学生端-个人中心--首页--兑换记录
-     * @param data
-     * @return
-     */
-
-    List<MyIndexBuyRecordModel> selectMyIndexBuyRecord(MyIndexBuyRecordParam data);
     /**
      * 查詢學生信息
      * @param uid
@@ -231,99 +72,10 @@ public interface StudentMapper extends Mapper<Student> {
     StudentInfoModel studentInfo(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
 
     /**
-     * 消费记录
-     * @param parameter
-     * @return
-     */
-
-    List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(MyIndexMyintegralDetailParam parameter);
-
-    /**
-     * 近期合同
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    List<IndexFutureCoruseModel> indexFutureCoruse(@Param("uid")String uid,@Param("tenant_id")String tenant_id);
-
-    /**
-     * 名师资源
-     * @param tenant_id
-     * @return
-     */
-
-    List<IndexTeacherModel> indexTeacher(String tenant_id);
-
-    /**
-     * 课程疑答
-     * @param tenant_id
-     * @return
-     */
-
-    List<IndexAnswerModel> indexAnswer(String tenant_id);
-
-    /**
-     * 课程列表
-     * @param parameter
-     * @return
-     */
-
-    List<IndexCoruseListModel> indexCoruseList(IndexCoruseListParam parameter);
-    /**
-     * 名师资源列表
-     * @param parameter
-     * @return
-     */
-
-    List<IndexTeacherListModel> indexTeacherList(IndexTeacherListParam parameter);
-
-    /**
-     * 学生端-个人中心--首页--兑换记录--课程详情
-     * @param uid
-     * @return
-     */
-
-    List<MyIndexBuyRecordCourseDetailsModel> selectMyIndexBuyRecordDetails(String uid);
-
-    /**
-     * 学生端-个人中心--首页--兑换记录--课程回看
-     * @param data
-     * @return
-     */
-
-    List<MyIndexBuyRecordCourseBackModel> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParam data);
-
-    /**
-     * 学生端-个人中心--首页--我的收藏列表
-     * @param data
-     * @return
-     */
-
-    List<MyIndexMycollectModel> selectMyIndexMycollect(MyIndexMycollectParam data);
-
-    /**
      * 学生端-个人中心--首页--我的收藏列表--取消收藏
      */
     Integer updateMyIndexCancelcollect(MyIndexCanceCollectParam param);
 
-    /**
-     * app我的课程答疑
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    List<IndexMyAnswerModel> selectIndexMyAnswer(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
-
-    /**
-     * app我的课程答疑--答疑详情
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    IndexAnswerDetailsModel selectIndexAnswerDetails(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 
     /**
      * 打赏---先判断问题是否被解决
@@ -372,13 +124,6 @@ public interface StudentMapper extends Mapper<Student> {
     Integer insertStudentRecord(@Param("uid") String uid,@Param("value") Integer value, @Param("teacher_id")String teacher_id, @Param("student_id")String student_id);
     Integer insertTeacherRecord(@Param("uid") String uid,@Param("value") Integer value, @Param("teacher_id")String teacher_id);
 
-    /**
-     * 我的课程答疑--答疑详情-追问回答
-     * @param data
-     * @return
-     */
-
-    Integer indsertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParam data);
 
     /**
      * 个人中心学生信息
@@ -418,19 +163,14 @@ public interface StudentMapper extends Mapper<Student> {
      */
 
     List<AppMyStudentGuardianModel>appMyStudentGuardian(AppStudentParam parameter);
+    /**
+     * 学生余额
+     */
+    Integer selectbalance(String uid);
 
     /**
-     * 查看兴趣标签
-     * @param parameter
-     * @return
+     * 修改余额
      */
+    Integer updateBalance(UidAndTenantIDParam param);
 
-   List<TagModel> appMyStudentInterest (AppStudentParam parameter);
-
-    /**
-     * 学生端-个人中心--首页--我的课时详情介绍
-     * @param param
-     * @return
-     */
-    MyIndexCourseDetailsModel selectMyIndexCourseDetails(UidAndTenantIDParam param);
 }

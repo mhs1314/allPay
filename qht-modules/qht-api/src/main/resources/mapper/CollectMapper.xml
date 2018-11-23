@@ -29,15 +29,29 @@ where
 ct.student_id =#{uid}
 AND
 ct.tenant_id = #{tid} and c.status="1"
-
+and  ct.is_collect=1
 GROUP BY
 	ct.uid
 
     </select>
     
     <!-- 学生端-个人中心-首页-课程详情-收藏 -->
-    <insert id="updateMyIndexCourseCelcollect" parameterType="com.qht.model.MyIndexCourseCelcollectParam">
+    <insert id="insertMyIndexCourseCelcollect" parameterType="com.qht.model.MyIndexCourseCelcollectParam">
     	insert into collect(uid,tenant_id,student_id,course_pkg_id,is_collect) value(#{id},#{tenant_id},#{student_id},#{uid},1)
     </insert>
-
+    <!--查看是否已经收藏这个课程包-->
+    <select id="selectCollectCount"  resultType="java.lang.Integer">
+    SELECT COUNT(*)  from collect where student_id=#{stuId} and course_pkg_id=#{pgkId}
+    </select>
+    <!-- app学生收藏课程包 -->
+	<insert id="appInsertCollect" parameterType="com.qht.model.AppInsertCollectParam">
+	INSERT into collect 
+	(uid,tenant_id,student_id,course_pkg_id,is_collect)
+	VALUES
+	(#{uid},#{tenant_id},#{student_id},#{course_pkg_id},#{is_collect})
+	</insert>
+	<!-- 取消收藏 -->
+	<update id="appUpdateCOllect" parameterType="com.qht.model.UidAndTenantIDParam">
+	delete  from  collect where uid=#{uid}
+	</update>
 </mapper>

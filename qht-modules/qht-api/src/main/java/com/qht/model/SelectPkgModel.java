@@ -10,15 +10,15 @@ import com.qht.dto.SelectPkgDto;
 public class SelectPkgModel implements Serializable {
 	private  String uid;
 	private String pkg_name;
-	private Integer play_type_id;
+	private String play_type_id;
 	private List<SelectChModel> chapter=new ArrayList<>();
 	
 	
 	
-	public Integer getPlay_type_id() {
+	public String getPlay_type_id() {
 		return play_type_id;
 	}
-	public void setPlay_type_id(Integer play_type_id) {
+	public void setPlay_type_id(String play_type_id) {
 		this.play_type_id = play_type_id;
 	}
 	public SelectPkgDto toDto() {

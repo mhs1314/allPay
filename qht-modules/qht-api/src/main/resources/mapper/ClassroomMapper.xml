@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qht.mapper.ClassroomMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.qht.entity.Classroom" id="classroomMap">
+        <result property="uid" column="uid"/>
+        <result property="periodId" column="period_id"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="homeScreen" column="home_screen"/>
+        <result property="roomId" column="room_id"/>
+        <result property="imGroupId" column="im_group_id"/>
+        <result property="whiteboardId" column="whiteboard_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+    
+    <select id="getClassroomByPeriodId" resultType="com.qht.entity.Classroom" parameterType="String">
+			SELECT
+			cr.uid,
+			cr.period_id as periodId,
+			cr.teacher_id as teacherId,
+			cr.home_screen as homeScreen,
+			cr.room_id as roomId,
+			cr.im_group_id as imGroupId,
+			cr.whiteboard_id as whiteboardId,
+			cr.create_time as createTime
+		FROM
+			classroom cr		
+		WHERE			
+		    cr.period_id=#{periodId}
+	</select>
+
+</mapper>

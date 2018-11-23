@@ -61,41 +61,6 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
        return teacherMapper.teacherEvaluation(uid,tid,eval);
    }
 
-    /**
-     * 教师|端首页--我的课程
-     * @param data
-     * @return
-     */
-    public List<IndexMyCourseModel> selectIndexMyCourseDto(IndexMyCourseParam data) {
-        return teacherMapper.selectIndexMyCourseDto(data);
-    }
-
-    /**
-     * 教师端首页--我的课程包
-     * @param data
-     * @return
-     */
-    public List<IndexMyCourseListModel> selectIndexMyCourseList(IndexMyCourseListParam data) {
-        return teacherMapper.selectIndexMyCourseList(data);
-    }
-	
-	/**
-	 * 教师端首页--课程答疑列表
-	 * @param param
-	 * @return
-	 */
-	public List<IndexCourseAnswerModel> selectIndexCourseAnswer(IndexCourseAnswerParam param) {
-		return teacherMapper.selectIndexCourseAnswer(param);
-	}
-	/**
-	 * 教师端首页--我的消息
-	 * @param param
-	 * @return
-	 */
-	public List<IndexMessageModel> selectIndexMessage(IndexMessageParam param) {
-		
-		return teacherMapper.selectIndexMessage(param);
-	}
 	/**
 	 * app个人中心教室信息
 	 */
@@ -108,16 +73,77 @@ public class TeacherBiz extends BaseBiz<TeacherMapper,Teacher> {
      * @param param
      * @return
      */
-    public PCTeacherInfoModel selectTeacherInfo(UidAndTenantIDParam param) {
-        return teacherMapper.selectTeacherInfo(param);
+    public PCTeacherInfoModel selectTeacherInfo1(UidAndTenantIDParam param) {
+        return teacherMapper.selectTeacherInfo1(param);
     }
 
-    /**
-     * 修改信息
-     * @param param
-     * @return
-     */
-//    public Integer updateTeacherInfo(EditTeacherInfoParam param) {
-//        return teacherMapper.updateTeahcerInfo(param);
-//    }
+	/**
+	 * 查询首页老师排行榜
+	 * @param tenant_id
+	 * @return
+	 */
+	public List<TeacherRankingModel> selectTeacherRanking(String tenant_id) {
+		return teacherMapper.selectTeacherRanking(tenant_id);
+	}
+
+	/**
+	 * 查询首页老师集合
+	 * @return
+	 */
+
+	public List<TeacherListModel> selectTeacherList(TeacherListParam data) {
+		return teacherMapper.selectTeacherList(data);
+	}
+
+	/**
+	 * 课程详情--教师信息
+	 * @param uid
+	 * @param tenant_id
+	 * @return
+	 */
+
+	public TeacherInfoModel selectTeacherInfo2(String uid, String tenant_id) {
+		return teacherMapper.selectTeacherInfo2(uid,tenant_id);
+	}
+	/**
+	 * 名师详情--讲师简介
+	 * @param uid
+	 * @param tenant_id
+	 * @return
+	 */
+	public TopTeacherInfoModel selectTopTeacherInfo(String uid, String tenant_id) {
+		return teacherMapper.selectTopTeacherInfo(uid,tenant_id);
+	}
+
+	/**
+	 * 名师资源
+	 * @param tenant_id
+	 * @return
+	 */
+
+	public List<IndexTeacherModel> indexTeacher(String tenant_id){
+		return  teacherMapper.indexTeacher(tenant_id);
+	}
+
+	/**
+	 * 名师资源列表
+	 * @param parameter
+	 * @return
+	 */
+
+	public   List<IndexTeacherListModel> indexTeacherList(IndexTeacherListParam parameter){
+		return teacherMapper.indexTeacherList(parameter);
+	}
+
+	/**
+	 * 名师列表
+	 * @param data
+	 * @return
+	 */
+
+	public List<TopTeacherListModel> selectTopTeacherList(TopTeacherListParam data) {
+		return teacherMapper.selectTopTeacherList(data);
+	}
+
+
 }

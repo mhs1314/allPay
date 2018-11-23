@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.entity.Collect;
 import com.qht.mapper.CollectMapper;
+import com.qht.model.AppInsertCollectParam;
 import com.qht.model.MyIndexCourseCelcollectParam;
+import com.qht.model.UidAndTenantIDParam;
 
 import java.util.List;
 
@@ -41,5 +43,26 @@ public class CollectBiz extends BaseBiz<CollectMapper,Collect> {
 	public Integer insertMyIndexCourseCelcollect(MyIndexCourseCelcollectParam param) {
 		
 		return collectMapper.insertMyIndexCourseCelcollect(param);
+	}
+	/**
+	 * 添加收藏
+	 * @return
+	 */
+	public Integer  appInsertCollect(AppInsertCollectParam param) {
+		return collectMapper.appInsertCollect(param);
+	}
+	/**
+	 * 取消收藏
+	 * @return
+	 */
+	public Integer appUpdateCOllect(UidAndTenantIDParam param) {
+
+		return collectMapper.appUpdateCOllect(param);
+	}
+	/**
+	 * count根据学生id和课程包id
+	 */
+	public Integer selectCollectCount(String stuId,String pgkId){
+		return collectMapper.selectCollectCount(stuId,pgkId);
 	}
 }

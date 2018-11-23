@@ -3,16 +3,16 @@ package com.qht.biz;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.alibaba.fastjson.JSON;
 import com.qht.common.util.HttpUtil;
 import com.qht.dto.GroupBodyDto;
 import com.qht.dto.GroupBodyPatameter;
 import com.qht.dto.MsgBodyDto;
 import com.qht.dto.MsgBodyParameter;
+import com.qht.entity.Config;
+
 
 /**
  * 构造地址
@@ -29,11 +29,30 @@ public class TencentCloud {
 	String ver = "v4";
 	String servicename = "group_open_http_svc";
 	String command = "create_group";
-	int sdkappid = 1400161647;
+	int sdkappid = 1400163079;
 	String identifier = "administrator";
 	String usersig = "";
 	String random = "";
 	String contenttype = "json";
+	
+	@Autowired
+	ConfigBiz cfgBiz;
+	
+	private int getSdkappid() {
+		//Config cfg = cfgBiz.getConfig("PZ001");
+		//String sdkappid = cfg.getSdkappid();
+		//String privateKey = cfg.getPrivateKey();
+		//String publicKey = cfg.getPublicKey();
+		return sdkappid;
+	}
+	
+	public void setSdkappid(int sdkappid) {
+		this.sdkappid = sdkappid;
+	} 
+	
+	public TencentCloud() {		
+		setSdkappid(1400163079);
+	}
 	/**
 	 * 创建群组地址
 	 * @return
@@ -46,7 +65,7 @@ public class TencentCloud {
 		sb.append(command).append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+webRTCBiz.getSdkAppid()).append("&");
+		sb.append("sdkappid="+sdkappid).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -63,7 +82,7 @@ public class TencentCloud {
 		sb.append("send_group_system_notification").append("?");
 		sb.append("usersig="+getUsersig(identifier)).append("&");		
 		sb.append("identifier="+identifier).append("&");
-		sb.append("sdkappid="+webRTCBiz.getSdkAppid()).append("&");
+		sb.append("sdkappid="+sdkappid).append("&");
 		sb.append("random="+random()).append("&");
 		sb.append("contenttype="+contenttype);
 		return sb.toString();
@@ -72,6 +91,7 @@ public class TencentCloud {
 	
 	
 	private String getUsersig(String userid) {	
+		int sdkappid = getSdkappid();
 		webRTCBiz.setSdkAppid(sdkappid);
 		webRTCBiz.setPrivateKey(TencentWebRTCBiz.privateKey());
 		webRTCBiz.setPublicKey(TencentWebRTCBiz.publicKeyFile());		
@@ -121,9 +141,9 @@ public class TencentCloud {
 		String json = tc.createGroup("TC001");
 		System.out.println(json);
 		GroupBodyDto body = JSON.parseObject(json, GroupBodyDto.class);		
-		System.out.println(body);
+		System.out.println(body);		
 		
-		String json1 = tc.imPush("@TGS#36DDZ7QFG", "测试消息", null);
+		String json1 = tc.imPush("@TGS#3PO3KERF2", "测试消息", null);
 		MsgBodyDto body1 = JSON.parseObject(json1, MsgBodyDto.class);
 		System.out.println(body1);
 	}

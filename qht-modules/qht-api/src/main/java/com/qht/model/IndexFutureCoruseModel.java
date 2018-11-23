@@ -15,8 +15,17 @@ public class IndexFutureCoruseModel  implements Serializable {
     private String subject_name;
     // 购买人数
     private String apply_number;
+    private String total_price;
 
-    public String getCover() {
+    public String getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(String total_price) {
+		this.total_price = total_price;
+	}
+
+	public String getCover() {
         return cover;
     }
 

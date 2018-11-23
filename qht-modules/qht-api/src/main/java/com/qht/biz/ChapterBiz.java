@@ -2,6 +2,9 @@ package com.qht.biz;
 
 import java.util.List;
 
+import com.qht.dto.CourseChapterDto;
+import com.qht.dto.CourseIntroParameter;
+import com.qht.model.CourseIntroParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +41,12 @@ public class ChapterBiz extends BaseBiz<ChapterMapper,Chapter> {
 	public List<CourseChapterModel> selectChapterByid(UidAndTenantIDParam param){
 		return chapterMapper.selectChapterByid(param);
 	}
+	/**
+	 * 课程详情--课程包体系
+	 * @return
+	 */
+	public List<CourseChapterDto> selectCourseChapter(CourseIntroParam data) {
+		return chapterMapper.selectCourseChapter(data);
+	}
+
 }
