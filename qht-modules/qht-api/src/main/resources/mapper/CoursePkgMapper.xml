@@ -543,7 +543,7 @@ ask.tenant_id=#{tenant_id} and pkg.`status`=1
 			and cp.pkt_type_id=#{pkt_type_id}
 		</if>
 	</select>
-	<!--教师|端首页我的课程-->
+
 	<select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
 		select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin
 		from course_pkg cp left join chapter c on cp.uid=c.course_id
@@ -562,14 +562,15 @@ ask.tenant_id=#{tenant_id} and pkg.`status`=1
 			and p.begin like CONCAT(#{now_time},'%')
 		</if>
 	</select>
-
+	<!--教师|端首页我的课程-->
 	<select id="selectTeaIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
-		select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin,cp.cover,p.uid as period_id
+		select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin,
+		cp.cover,p.uid as period_id
 		from course_pkg cp left join chapter c on cp.uid=c.course_id
 		left join period p on p.chapter_id=c.uid
 		left join teacher t on t.uid=cp.teacher_id
 		where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
-		and DATE_FORMAT(NOW(), '%Y-%m-%d %h:%m:%s') > DATE_FORMAT(p.begin, '%Y-%m-%d %h:%m:%s')
+		and FROM_UNIXTIME(unix_timestamp(now()), '%Y-%m-%d %H:%i:%S') &lt; FROM_UNIXTIME(unix_timestamp(p.begin), '%Y-%m-%d %H:%i:%S')
 		<if test="play_type_id!=null and play_type_id !=''">
 			and cp.play_type_id=#{play_type_id}
 		</if>

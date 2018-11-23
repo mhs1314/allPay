@@ -71,6 +71,12 @@ public interface CommonService {
 	 * @return
 	 */
 	public ResultObject<List<SelectPkgLevelAllDto>> selectPkgLevelAll(@RequestBody RequestObject<UidAndTenantID> requestObject);
+	/**
+	 * 查询学生积分
+	 * @param resultObject
+	 * @return
+	 */
+	public ResultObject<UidAndTenantID> selectStudentBalance(RequestObject<UidAndTenantID> resultObject);
 	
 	
 }

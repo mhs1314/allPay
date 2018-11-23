@@ -895,6 +895,7 @@ public class StudentController extends APIBaseController<StudentBiz,Student> imp
 		ResultObject<Void> result = new ResultObject<Void>();
 		return result;
 	}
+   
+    }
 
 
-}

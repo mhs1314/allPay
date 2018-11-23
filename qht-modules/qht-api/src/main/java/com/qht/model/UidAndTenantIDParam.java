@@ -14,6 +14,15 @@ public class UidAndTenantIDParam implements Serializable {
 	private String eval;
 	private String total;
 	private String type;
+	private Integer Balance;
+	
+	
+	public Integer getBalance() {
+		return Balance;
+	}
+	public void setBalance(Integer balance) {
+		Balance = balance;
+	}
 	//学生追问
 	private String append_ask;
 	//老师追答
