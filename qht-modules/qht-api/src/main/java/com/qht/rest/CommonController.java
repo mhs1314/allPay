@@ -21,10 +21,12 @@ import com.qht.biz.PkgEditionBiz;
 import com.qht.biz.PkgGradeBiz;
 import com.qht.biz.PkgLevelBiz;
 import com.qht.biz.PkgSubjectBiz;
+import com.qht.biz.StudentBiz;
 import com.qht.common.util.BeanUtil;
 import com.qht.common.util.IdGenUtil;
 import com.qht.dto.AppInsertChapterParameter;
 import com.qht.dto.AppMyStudentGuardianDto;
+import com.qht.dto.AppStudentParameter;
 import com.qht.dto.CoursePkgListDto;
 import com.qht.dto.GradetListDto;
 import com.qht.dto.InsertCoursePkgParameter;
@@ -62,6 +64,8 @@ public class CommonController implements CommonService {
 	private OpenRangeBiz openRangeBiz;
 	@Autowired
 	private PkgLevelBiz pkgLevelBiz;
+	@Autowired
+	private StudentBiz studentBiz;
 
 	/**
 	 * 
@@ -285,6 +289,31 @@ public class CommonController implements CommonService {
 		resultObj.setMsg("成功");
 		resultObj.setData(list);
 		return resultObj;
+	}
+	/**
+	 * 查询积分
+	 * @param resultObject
+	 * @return
+	 */
+	@Override
+	@PostMapping("/common/checkBalance")
+	@ResponseBody
+	 public ResultObject<UidAndTenantID> selectStudentBalance(@RequestBody RequestObject<UidAndTenantID> resultObject){
+		 if(resultObject.getData()==null) {
+			 ResultObject<UidAndTenantID> result=new ResultObject<>();
+			 result.setCode("1");
+			 result.setData(new UidAndTenantID());
+			 result.setMsg("没有接收到参数");
+			 return result;
+		 }
+		Integer balance = studentBiz.selectbalance(resultObject.getData().getUid());
+		UidAndTenantID param=new UidAndTenantID();
+		param.setBalance(balance);
+		 ResultObject<UidAndTenantID> result=new ResultObject<>();
+		 result.setCode("0");
+		 result.setData(param);
+		 result.setMsg("成功");
+		 return result;
 	}
 
 }

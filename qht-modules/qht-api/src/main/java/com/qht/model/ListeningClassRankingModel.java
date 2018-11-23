@@ -1,6 +1,7 @@
 package com.qht.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 试听排行榜
@@ -15,7 +16,39 @@ public class ListeningClassRankingModel implements Serializable {
     //班级名称
     private String level_name;
     //播放类型
-    private Integer play_type_id;
+    private String play_type_id;
+
+    private BigDecimal total_price;
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public BigDecimal getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(BigDecimal total_price) {
+        this.total_price = total_price;
+    }
+
+    @Override
+    public String toString() {
+        return "ListeningClassRankingModel{" +
+                "cover='" + cover + '\'' +
+                ", uid='" + uid + '\'' +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", level_name='" + level_name + '\'' +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", total_price='" + total_price + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
+
     //老师名称
     private String nickname;
 
@@ -43,14 +76,6 @@ public class ListeningClassRankingModel implements Serializable {
         this.pkg_name = pkg_name;
     }
 
-    public Integer getPlay_type_id() {
-        return play_type_id;
-    }
-
-    public void setPlay_type_id(Integer play_type_id) {
-        this.play_type_id = play_type_id;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -65,18 +90,6 @@ public class ListeningClassRankingModel implements Serializable {
 
     public void setLevel_name(String level_name) {
         this.level_name = level_name;
-    }
-
-    @Override
-    public String toString() {
-        return "ListeningClassRankingModel{" +
-                "cover='" + cover + '\'' +
-                ", uid='" + uid + '\'' +
-                ", pkg_name='" + pkg_name + '\'' +
-                ", level_name='" + level_name + '\'' +
-                ", play_type_id=" + play_type_id +
-                ", nickname='" + nickname + '\'' +
-                '}';
     }
 
 

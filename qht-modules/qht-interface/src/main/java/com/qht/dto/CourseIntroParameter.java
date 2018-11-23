@@ -1,3 +1,4 @@
+
 package com.qht.dto;
 
 import java.io.Serializable;
@@ -10,6 +11,25 @@ public class CourseIntroParameter implements Serializable {
     private String  uid;
     //运营方id
     private String tenant_id;
+
+    private String student_id;
+
+    public String getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(String student_id) {
+        this.student_id = student_id;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseIntroParameter{" +
+                "uid='" + uid + '\'' +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", student_id='" + student_id + '\'' +
+                '}';
+    }
 
     public String getUid() {
         return uid;
@@ -27,13 +47,6 @@ public class CourseIntroParameter implements Serializable {
         this.tenant_id = tenant_id;
     }
 
-    @Override
-    public String toString() {
-        return "CourseIntroParameter{" +
-                "uid='" + uid + '\'' +
-                ", tenant_id='" + tenant_id + '\'' +
-                '}';
-    }
-
 
 }
+

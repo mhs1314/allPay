@@ -20,6 +20,40 @@ public class LiveClassModel implements Serializable {
     //开始时间
     private Date begin;
 
+    private String play_type_id;
+
+    private String teacehr_name;
+
+    public String getTeacehr_name() {
+        return teacehr_name;
+    }
+
+    public void setTeacehr_name(String teacehr_name) {
+        this.teacehr_name = teacehr_name;
+    }
+
+    @Override
+    public String toString() {
+        return "LiveClassModel{" +
+                "cover='" + cover + '\'' +
+                ", uid='" + uid + '\'' +
+                ", level_name='" + level_name + '\'' +
+                ", name='" + name + '\'' +
+                ", video_file='" + video_file + '\'' +
+                ", begin=" + begin +
+                ", play_type_id='" + play_type_id + '\'' +
+                ", teacehr_name='" + teacehr_name + '\'' +
+                '}';
+    }
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
+
     public String getCover() {
         return cover;
     }
@@ -67,19 +101,6 @@ public class LiveClassModel implements Serializable {
     public void setLevel_name(String level_name) {
         this.level_name = level_name;
     }
-
-    @Override
-    public String toString() {
-        return "LiveClassModel{" +
-                "cover='" + cover + '\'' +
-                ", uid='" + uid + '\'' +
-                ", level_name='" + level_name + '\'' +
-                ", name='" + name + '\'' +
-                ", video_file='" + video_file + '\'' +
-                ", begin=" + begin +
-                '}';
-    }
-
 
 
 }

@@ -1,7 +1,8 @@
 logging:
-    level:
+    config: classpath:logback.xml
+#    level:
 #        tk.mybatis: DEBUG
-        com.github.wxiaoqi.security.admin: DEBUG
+#        com.github.wxiaoqi.security.admin: DEBUG
 spring:
     application:
         name: qht-api

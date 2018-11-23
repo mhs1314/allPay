@@ -12,5 +12,35 @@
         <result property="question" column="question"/>
         <result property="questionAttach" column="question_attach"/>
     </resultMap>
+	<!-- 学生对课时提问 -->
+	<insert id="appInserStudentAsk" parameterType="com.qht.model.AppInsertStudentAskParam">
+	INSERT INTO course_ask (
+	uid,
+	tenant_id,
+	period_id,
+	student_id,
+	question,
+	question_attach,
+	question_url,
+	teacher_id
 
+	)
+	VALUES
+	(#{uid},
+	#{tenant_id},
+	#{period_id},
+	#{student_id},
+	#{question},
+	#{question_attach},
+	#{question_url},
+	#{teacher_id}
+	)
+	</insert>
+	<select id="selectAskAndPkgTeacherId" resultType="java.lang.String" parameterType="java.lang.String">
+		select pkg.teacher_id from course_ask ask
+			LEFT JOIN period p on ask.period_id=p.uid
+			LEFT JOIN chapter cr on p.chapter_id=cr.uid
+			LEFT JOIN course_pkg  pkg on cr.course_id=pkg.uid
+			where ask.period_id=#{uid}
+	</select>
 </mapper>

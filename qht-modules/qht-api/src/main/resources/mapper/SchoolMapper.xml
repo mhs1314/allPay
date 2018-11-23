@@ -11,5 +11,11 @@
         <result property="intr" column="intr"/>
         <result property="culture" column="culture"/>
     </resultMap>
+    <!--运营商学校介绍-->
 
+    <select id="selectTenantSchool" resultType="com.qht.model.TenantSchoolModel" parameterType="com.qht.model.UidAndTenantIDParam">
+        select
+          uid,intr,culture,school_name,banner
+        from school where tenant_id=#{tenant_id} and uid=#{school_id}
+    </select>
 </mapper>

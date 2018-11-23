@@ -10,5 +10,10 @@
         <result property="album" column="album"/>
         <result property="index" column="`index`"/>
     </resultMap>
+    <!--运营商画册-->
 
+    <select id="selectTenantAlbum" parameterType="java.lang.String" resultType="com.qht.model.TenantAlbumModel">
+
+        select a.uid,a.album,a.`index` from album a where tenant_id=#{tenant_id}
+    </select>
 </mapper>

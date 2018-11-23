@@ -48,88 +48,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     }
 
     /**
-     * 首页查询直播课程
-     *
-     * @param tenant_id
-     * @return
-     */
-
-    public List<LiveClassModel> selectLiveClass(String tenant_id) {
-        return studentMapper.selectLiveClass(tenant_id);
-    }
-
-    /**
-     * 查询首页的免费课程
-     * @return
-     */
-
-    public List<FreeClassModel> selectFreeClass(FreeClassParam data) {
-        return studentMapper.selectFreeClass(data);
-    }
-
-    /**
-     * 查询首页试听排行榜
-     * @param tenant_id
-     * @return
-     */
-
-    public List<ListeningClassRankingModel> selectListeningClassRanking(String tenant_id) {
-        return studentMapper.selectListeningClassRanking(tenant_id);
-    }
-
-    /**
-     * 查询首页试听列表
-     * @param tenant_id
-     * @return
-     */
-
-    public List<ListeningClassListModel> selectListeningClassList(String tenant_id) {
-        return studentMapper.selectListeningClassList(tenant_id);
-    }
-
-    /**
-     * 查询首页老师排行榜
-     * @param tenant_id
-     * @return
-     */
-
-    public List<TeacherRankingModel> selectTeacherRanking(String tenant_id) {
-        return studentMapper.selectTeacherRanking(tenant_id);
-    }
-
-    /**
-     * 查询首页老师集合
-     * @return
-     */
-
-    public List<TeacherListModel> selectTeacherList(TeacherListParam data) {
-        return studentMapper.selectTeacherList(data);
-    }
-
-    /**
-     * 查询学生课程详情-课程包简介
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    public CourseIntroModel selectCourseIntro(String uid, String tenant_id) {
-
-        return studentMapper.selectCourseIntro(uid,tenant_id);
-    }
-
-    /**
-     * 课程详情--课程包体系
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    public List<CourseChapterDto> selectCourseChapter(String uid, String tenant_id) {
-        return studentMapper.selectCourseChapter(uid,tenant_id);
-    }
-
-    /**
      * 课程详情--课程包评论
      * @return
      */
@@ -150,57 +68,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
         return studentMapper.selectCourseEvaluationBad(data);
     }
 
-    /**
-     * 课程详情--教师信息
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
 
-    public TeacherInfoModel selectTeacherInfo(String uid, String tenant_id) {
-        return studentMapper.selectTeacherInfo(uid,tenant_id);
-    }
-
-    /**
-     * 课程列表
-     * @param data
-     * @return
-     */
-
-    public List<CourseListModel> selectCourseList(CourseListParam data) {
-        return studentMapper.selectCourseList(data);
-    }
-
-    /**
-     * 名师列表
-     * @param data
-     * @return
-     */
-
-    public List<TopTeacherListModel> selectTopTeacherList(TopTeacherListParam data) {
-        return studentMapper.selectTopTeacherList(data);
-    }
-
-    /**
-     * 名师详情--讲师简介
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    public TopTeacherInfoModel selectTopTeacherInfo(String uid, String tenant_id) {
-        return studentMapper.selectTopTeacherInfo(uid,tenant_id);
-    }
-
-    /**
-     * 名师详情--全部课程
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-    public List<TeacherCourseModel> selectTeacherCourse(String uid, String tenant_id) {
-        return studentMapper.selectTeacherCourse(uid,tenant_id);
-    }
 
     /**
      * 名师详情--评论列表
@@ -213,96 +81,13 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
         return studentMapper.selectTeacherEvaluation(uid,tenant_id);
     }
 
-    /**
-     * 运营商--学校介绍
-     * @return
-     */
 
 
-    public TenantSchoolModel selectTenantSchool(UidAndTenantIDParam param) {
-        return studentMapper.selectTenantSchool(param);
-    }
-
-    /**
-     * 运营商--画册
-     * @param tenant_id
-     * @return
-     */
-
-    public List<TenantAlbumModel> selectTenantAlbum(String tenant_id) {
-        return studentMapper.selectTenantAlbum(tenant_id);
-    }
-
-    /**
-     * 学生端-个人中心--首页--我的课程详情介绍
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    public List<IndexCourseDetailsModel> selectIndexCourseDetails(String uid, String tenant_id) {
-        return studentMapper.selectIndexCourseDetails(uid,tenant_id);
-    }
-
-    /**
-     * 消息
-     * @param paramter
-     * @return
-     */
 
 
-    public List<MyIndexMessageModel> selectMyIndexMessage(MyIndexMessageParam paramter) {
-        return studentMapper.selectMyIndexMessage(paramter.getUid(), paramter.getTenant_id(), paramter.getIsread());
-    }
 
-    /**
-     * 刪除消息
-     *
-     * @param id
-     * @return
-     */
-    public Integer deleteMessage(String id) {
-        return studentMapper.deleteMessage(id);
-    }
 
-    /**
-     * 查詢信息
-     * @return
-     */
 
-    public MyIndexMessageModel selectMessageById(UidAndTenantIDParam param) {
-        return studentMapper.selectMessageById(param);
-    }
-
-    /**
-     * 学生端-个人中心--首页--我的课程列表
-     * @param data
-     * @return
-     */
-
-    public List<MyIndexCourseModel> selectMyIndexCourse(MyIndexCourseParam data) {
-        return studentMapper.selectMyIndexCourse(data);
-    }
-
-    /**
-     *学生端-个人中心--首页--课程答疑
-     * @param data
-     * @return
-     */
-
-    public List<MyIndexCourseAnswerModel> selectMyIndexCourseAnswer(MyIndexCourseAnswerParam data) {
-        return studentMapper.selectMyIndexCourseAnswer(data);
-    }
-
-    /**
-     * 学生端-个人中心--首页--兑换记录
-     * @param data
-     * @return
-     */
-
-    public List<MyIndexBuyRecordModel> selectMyIndexBuyRecourd(MyIndexBuyRecordParam data) {
-        return studentMapper.selectMyIndexBuyRecord(data);
-    }
 
 
 
@@ -318,96 +103,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
         return  studentMapper.studentInfo(uid,tenant_id);
     }
 
-    /**
-     * 消費明細
-     * @param parameter
-     * @return
-     */
-
-
-    public List<MyIndexMyintegralDetailModel> myIndexMyintegralDetail(MyIndexMyintegralDetailParam parameter){
-        return  studentMapper.myIndexMyintegralDetail(parameter);
-    }
-
-    /**
-     * 近期合同
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-   public List<IndexFutureCoruseModel> indexFutureCoruse(String uid,String tenant_id){
-       return studentMapper.indexFutureCoruse(uid,tenant_id);
-   }
-
-    /**
-     * 名师资源
-     * @param tenant_id
-     * @return
-     */
-
-    public List<IndexTeacherModel> indexTeacher(String tenant_id){
-       return  studentMapper.indexTeacher(tenant_id);
-    }
-    /**
-     * 课程疑答
-     * @param tenant_id
-     * @return
-     */
-
-  public  List<IndexAnswerModel> indexAnswer(String tenant_id){
-        return studentMapper.indexAnswer(tenant_id);
-  }
-    /**
-     * 课程列表
-     * @param parameter
-     * @return
-     */
-
-  public   List<IndexCoruseListModel> indexCoruseList(IndexCoruseListParam parameter){
-        return studentMapper.indexCoruseList(parameter);
-  }
-
-    /**
-     * 名师资源列表
-     * @param parameter
-     * @return
-     */
-
-  public   List<IndexTeacherListModel> indexTeacherList(IndexTeacherListParam parameter){
-        return studentMapper.indexTeacherList(parameter);
-  }
-
-    /**
-     * 学生端-个人中心--首页--兑换记录--课程详情
-     * @param uid
-     * @return
-     */
-
-    public List<MyIndexBuyRecordCourseDetailsModel> selectMyIndexBuyRecordDetails(String uid) {
-        return studentMapper.selectMyIndexBuyRecordDetails(uid);
-    }
-
-    /**
-     * 学生端-个人中心--首页--兑换记录--课程回看
-     * @param data
-     * @return
-     */
-
-    public List<MyIndexBuyRecordCourseBackModel> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParam data) {
-
-        return studentMapper.selectMyIndexBuyRecordCourseBack(data);
-    }
-
-    /**
-     *学生端-个人中心--首页--我的收藏列表
-     * @param data
-     * @return
-     */
-
-    public List<MyIndexMycollectModel> selectMyIndexMycollect(MyIndexMycollectParam data) {
-        return studentMapper.selectMyIndexMycollect(data);
-    }
 
     /**
      * 学生端-个人中心--首页--我的收藏列表--取消收藏
@@ -418,27 +113,7 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
         return num;
     }
 
-    /**
-     * app我的课程答疑
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
 
-    public List<IndexMyAnswerModel> selectIndexMyAnswer(String uid, String tenant_id) {
-        return studentMapper.selectIndexMyAnswer(uid,tenant_id);
-    }
-
-    /**
-     * app我的课程答疑--答疑详情
-     * @param uid
-     * @param tenant_id
-     * @return
-     */
-
-    public IndexAnswerDetailsModel selectIndexAnswerDetails(String uid, String tenant_id) {
-        return studentMapper.selectIndexAnswerDetails(uid,tenant_id);
-    }
 
     /**
      * 打赏---先判断问题是否被解决
@@ -500,16 +175,6 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
     public Integer insertTeacherRecord(String uid, Integer value, String teacher_id) {
         return studentMapper.insertTeacherRecord(uid,value,teacher_id);
     }
-
-    /**
-     * 我的课程答疑--答疑详情-追问回答
-     * @param data
-     * @return
-     */
-
-    public Integer insertAppendAskAnswer(IndexAnswerDetailsAppendAnswerParam data) {
-        return studentMapper.indsertAppendAskAnswer(data);
-    }
     /**
      * 个人中心学生信息
      * @param uid
@@ -556,23 +221,18 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
    public List<AppMyStudentGuardianModel>appMyStudentGuardian(AppStudentParam parameter){
        return  studentMapper.appMyStudentGuardian(parameter);
    }
-    /**
-     * 查看兴趣标签
-     * @param parameter
-     * @return
-     */
+   /**
+    * 学生余额
+    */
+   public Integer selectbalance(String uid) {
+	   return  studentMapper.selectbalance(uid);
+   }
+   /**
+    * 修改余额
+    */
+  public Integer updateBalance(UidAndTenantIDParam param) {
+	  return  studentMapper.updateBalance(param);
+  }
 
-   public List<TagModel> appMyStudentInterest (AppStudentParam parameter){
-        return  studentMapper.appMyStudentInterest(parameter);
-    }
-
-    /**
-     * 学生端-个人中心--首页--我的课时详情介绍
-     * @param param
-     * @return
-     */
-    public MyIndexCourseDetailsModel selectMyIndexCourseDetails(UidAndTenantIDParam param) {
-        return studentMapper.selectMyIndexCourseDetails(param);
-    }
 }
 

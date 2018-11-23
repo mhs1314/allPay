@@ -2,6 +2,10 @@ package com.qht.mapper;
 
 import java.util.List;
 
+import com.qht.dto.CourseChapterDto;
+import com.qht.dto.CourseIntroParameter;
+import com.qht.model.CourseIntroParam;
+import feign.Param;
 import org.springframework.stereotype.Repository;
 
 import com.qht.entity.Chapter;
@@ -31,4 +35,10 @@ public interface ChapterMapper extends Mapper<Chapter> {
 	 * 课程包id查章节
 	 */
 	List<CourseChapterModel> selectChapterByid(UidAndTenantIDParam param);
+
+	/**
+	 * 课程详情--课程包体系
+	 * @return
+	 */
+	List<CourseChapterDto> selectCourseChapter(CourseIntroParam data);
 }
