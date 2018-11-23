@@ -2,19 +2,13 @@ package com.qht.biz;
 
 import java.util.List;
 
+import com.qht.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.entity.Period;
 import com.qht.mapper.PeriodMapper;
-import com.qht.model.AppInsertPerIodParam;
-import com.qht.model.CourseChapterModel;
-import com.qht.model.IndexMyCourseTableModel;
-import com.qht.model.IndexMyCourseTableParam;
-import com.qht.model.PeriodDetailsModel;
-import com.qht.model.SelectPeriodByTeacherIdModel;
-import com.qht.model.UidAndTenantIDParam;
 
 /**
  * 课时
@@ -63,6 +57,36 @@ public class PeriodBiz extends BaseBiz<PeriodMapper,Period> {
 	 */
 	public PeriodDetailsModel selectPeriodDetails(UidAndTenantIDParam param) {
 		return periodMapper.selectPeriodDetails(param);
+	}
+
+	/**
+	 * 学生端-个人中心--首页--我的课时详情介绍
+	 * @param param
+	 * @return
+	 */
+	public MyIndexCourseDetailsModel selectMyIndexCourseDetails(UidAndTenantIDParam param) {
+		return periodMapper.selectMyIndexCourseDetails(param);
+	}
+	/**
+	 * 学生端-个人中心--首页--兑换记录--课程回看
+	 * @param data
+	 * @return
+	 */
+
+	public List<MyIndexBuyRecordCourseBackModel> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParam data) {
+
+		return periodMapper.selectMyIndexBuyRecordCourseBack(data);
+	}
+
+	/**
+	 * 学生端-个人中心--首页--我的课程详情介绍
+	 * @param uid
+	 * @param tenant_id
+	 * @return
+	 */
+
+	public List<IndexCourseDetailsModel> selectIndexCourseDetails(String uid, String tenant_id) {
+		return periodMapper.selectIndexCourseDetails(uid,tenant_id);
 	}
 	
 }

@@ -11,7 +11,38 @@ public class UidAndTenantID implements Serializable {
 	private String school_id;
 	private String teacher_id;
 	private String play_type_id;
+	private String eval;
+	private String total;
+	private String type;
+	private Integer Balance;
 	
+	
+	public Integer getBalance() {
+		return Balance;
+	}
+	public void setBalance(Integer balance) {
+		Balance = balance;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}	
+	
+	public String getTotal() {
+		return total;
+	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	
+	public String getEval() {
+		return eval;
+	}
+	public void setEval(String eval) {
+		this.eval = eval;
+	}
 	public String getPlay_type_id() {
 		return play_type_id;
 	}
@@ -53,8 +84,8 @@ public class UidAndTenantID implements Serializable {
 	public String toString() {
 		return "UidAndTenantIDParam [uid=" + uid + ", tenant_id=" + tenant_id + ", token=" + token + ", school_id="
 				+ school_id + ", teacher_id=" + teacher_id + "]";
-	}
-	
+	}	
 	
 
 }
+

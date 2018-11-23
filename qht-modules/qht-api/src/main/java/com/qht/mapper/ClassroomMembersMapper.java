@@ -1,5 +1,7 @@
 package com.qht.mapper;
 
+import org.springframework.stereotype.Repository;
+
 import com.qht.entity.ClassroomMembers;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -11,7 +13,7 @@ import tk.mybatis.mapper.common.Mapper;
  * @date 2018-11-19 18:25:28
  * @Mapper
  */
-
+@Repository
 public interface ClassroomMembersMapper extends Mapper<ClassroomMembers> {
 	
 }

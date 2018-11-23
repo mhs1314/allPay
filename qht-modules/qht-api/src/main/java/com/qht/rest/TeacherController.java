@@ -41,6 +41,9 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 	@Autowired
 	private PkgLevelBiz pkgLevelBiz;
 
+	@Autowired
+	private AnswerBiz answerBiz;
+
 	@Override
 	public ResultObject<String> login(RequestObject<LoginInfoDto> rquest) {
 		return null;
@@ -58,7 +61,31 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		BeanUtil.copyFields(param, requestObject.getData());
 
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(requestObject.getData().getLimit()));
-		List<IndexMyCourseModel> models = teacherBiz.selectIndexMyCourseDto(param);
+		List<IndexMyCourseModel> models = coursePkgBiz.selectIndexMyCourseDto(param);
+		List<IndexMyCourseDto> list = BeanUtil.copyList(IndexMyCourseDto.class, models);
+
+		PageInfo<IndexMyCourseDto> count = new PageInfo<>(list);
+		ResultObject<List<IndexMyCourseDto>> resultObject = new ResultObject<>();
+		resultObject.setData(list);
+		resultObject.setMsg("成功");
+		resultObject.setCode("0");
+		resultObject.setCount(count.getTotal());
+		return resultObject;
+	}
+
+	@Override
+	@PostMapping("teaIndexMyCourse")
+	@ResponseBody
+
+	public ResultObject<List<IndexMyCourseDto>> teaIndexMyCourse(
+			@RequestBody RequestObject<IndexMyCourseParameter> requestObject) {
+
+		IndexMyCourseParam param = new IndexMyCourseParam();
+
+		BeanUtil.copyFields(param, requestObject.getData());
+
+		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(requestObject.getData().getLimit()));
+		List<IndexMyCourseModel> models = coursePkgBiz.selectTeaIndexMyCourseDto(param);
 		List<IndexMyCourseDto> list = BeanUtil.copyList(IndexMyCourseDto.class, models);
 
 		PageInfo<IndexMyCourseDto> count = new PageInfo<>(list);
@@ -81,7 +108,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 
 		PageHelper.startPage(Integer.parseInt(requestObject.getData().getPage()),
 				Integer.parseInt(requestObject.getData().getLimit()));
-		List<IndexMyCourseListModel> indexMyCourseListDtos = teacherBiz.selectIndexMyCourseList(param);
+		List<IndexMyCourseListModel> indexMyCourseListDtos = coursePkgBiz.selectIndexMyCourseList(param);
 
 		List<IndexMyCourseListDto> list = BeanUtil.copyList(IndexMyCourseListDto.class, indexMyCourseListDtos);
 		PageInfo<IndexMyCourseListDto> count = new PageInfo<>(list);
@@ -107,7 +134,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		BeanUtil.copyFields(param, requestObject.getData());
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
-		List<IndexCourseAnswerModel> indexCourseAnswerModels = teacherBiz.selectIndexCourseAnswer(param);
+		List<IndexCourseAnswerModel> indexCourseAnswerModels = answerBiz.selectIndexCourseAnswer(param);
 		if (indexCourseAnswerModels == null) {
 			resultObject.setData(new ArrayList<>());
 			return resultObject;
@@ -133,7 +160,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		IndexMessageParam param = new IndexMessageParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		PageHelper.startPage(Integer.parseInt(param.getPage()), Integer.parseInt(param.getLimit()));
-		List<IndexMessageModel> indexMessageModels = teacherBiz.selectIndexMessage(param);
+		List<IndexMessageModel> indexMessageModels = messageBiz.selectIndexMessage(param);
 		if (indexMessageModels == null) {
 			resultObject.setData(new ArrayList<>());
 			return resultObject;
@@ -155,7 +182,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		UidAndTenantIDParam param = new UidAndTenantIDParam();
 		BeanUtil.copyFields(param, requestObject.getData());
-		Integer delLine = messageBiz.deleteMessage(param);
+		Integer delLine = messageBiz.deleteMessaget(param);
 		System.out.println("删除影响行数:" + delLine);
 		resultObject.setMsg("成功");
 		resultObject.setCode("0");
@@ -583,32 +610,13 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
 		BeanUtil.copyFields(param,requestObject.getData());
-		IndexMyCourseEditChapterAndPeriodModel model=coursePkgBiz.selectIndexMyCourseEditChapterAndPeriodModel(param);
+		IndexMyCourseEditChapterAndPeriodDto model=coursePkgBiz.selectIndexMyCourseEditChapterAndPeriodModel(param);
 		if(model==null){
 			return resultObject.setMsg("查询结果为空");
 		}
-		IndexMyCourseEditChapterAndPeriodDto dto=new IndexMyCourseEditChapterAndPeriodDto();
-		BeanUtil.copyFields(dto,model);
-		List<ChapterModel> chapterModels=model.getChapter();
-
-		List<ChapterDto> chapterDtos=new ArrayList<>();
-		for(int i=0;i<model.getChapter().size();i++){
-			ChapterDto chapterDto=new ChapterDto();
-			BeanUtil.copyFields(chapterDto,model.getChapter().get(i));
-			List<PeriodDto> periodDtos=new ArrayList<>();
-			ListIterator it = chapterModels.listIterator();
-			while(it.hasNext()){
-				PeriodDto periodDto=new PeriodDto();
-				BeanUtil.copyFields(periodDto,it.next());
-				periodDtos.add(periodDto);
-			}
-			chapterDto.setPeriods(periodDtos);
-			chapterDtos.add(chapterDto);
-		}
-		dto.setChapters(chapterDtos);
 		resultObject.setCode("0");
 		resultObject.setMsg("成功");
-		resultObject.setData(dto);
+		resultObject.setData(model);
 		return resultObject;
 	}
 
@@ -622,7 +630,7 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		}
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
 		BeanUtil.copyFields(param,requestObject.getData());
-		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo(param);
+		PCTeacherInfoModel model=teacherBiz.selectTeacherInfo1(param);
 		if(model==null){
 			return resultObject.setMsg("查询无结果");
 		}
@@ -634,18 +642,5 @@ public class TeacherController extends APIBaseController<TeacherBiz, Teacher> im
 		return resultObject;
 	}
 
-//	@Override
-//	@ResponseBody
-//	@PostMapping("edit_teacherInfo")
-//	public ResultObject<Void> editTeacherInfo(@RequestBody RequestObject<EditTeacherInfoParameter> requestObject) {
-//		ResultObject<Void> resultObject=new ResultObject<>();
-//		if(requestObject.getData()==null){
-//			return resultObject.setMsg("参数为空");
-//		}
-//		EditTeacherInfoParam param=new EditTeacherInfoParam();
-//		BeanUtil.copyFields(param,requestObject.getData());
-//		Integer updateLine=teacherBiz.updateTeacherInfo(param);
-//		return null;
-//	}
 
 }

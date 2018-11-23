@@ -18,6 +18,29 @@ public class CourseListModel implements Serializable {
     //课时开始时间
     private Date begin;
 
+    private String play_type_id;
+
+    public String getPlay_type_id() {
+        return play_type_id;
+    }
+
+    public void setPlay_type_id(String play_type_id) {
+        this.play_type_id = play_type_id;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseListModel{" +
+                "cover='" + cover + '\'' +
+                ", uid='" + uid + '\'' +
+                ", pkg_name='" + pkg_name + '\'' +
+                ", total_price=" + total_price +
+                ", nickname='" + nickname + '\'' +
+                ", begin=" + begin +
+                ", play_type_id='" + play_type_id + '\'' +
+                '}';
+    }
+
     public String getCover() {
         return cover;
     }
@@ -64,18 +87,6 @@ public class CourseListModel implements Serializable {
 
     public void setBegin(Date begin) {
         this.begin = begin;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseListModel{" +
-                "cover='" + cover + '\'' +
-                ", uid='" + uid + '\'' +
-                ", pkg_name='" + pkg_name + '\'' +
-                ", total_price='" + total_price + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", begin=" + begin +
-                '}';
     }
 
 

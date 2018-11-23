@@ -42,6 +42,9 @@ public interface TeacherService {
 	public ResultObject<List<IndexMyCourseListDto>> indexMyCourseList(
 			@RequestBody RequestObject<IndexMyCourseListParameter> requestObject);
 
+	public ResultObject<List<IndexMyCourseDto>> teaIndexMyCourse(
+			@RequestBody RequestObject<IndexMyCourseParameter> requestObject);
+
 	/**
 	 * 教师端首页--课程答疑列表
 	 * 

@@ -9,6 +9,31 @@ import java.math.BigDecimal;
 public class TeacherListDto implements Serializable {
     //老师介绍
     private String intr;
+
+    private String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    @Override
+    public String toString() {
+        return "TeacherListDto{" +
+                "intr='" + intr + '\'' +
+                ", uid='" + uid + '\'' +
+                ", school='" + school + '\'' +
+                ", integral=" + integral +
+                ", sex=" + sex +
+                ", nickname='" + nickname + '\'' +
+                ", back_img='" + back_img + '\'' +
+                ", pkg_count=" + pkg_count +
+                '}';
+    }
+
     //学校名称
     private String school;
     //评分
@@ -76,19 +101,6 @@ public class TeacherListDto implements Serializable {
 
     public void setPkg_count(Integer pkg_count) {
         this.pkg_count = pkg_count;
-    }
-
-    @Override
-    public String toString() {
-        return "TeacherListDto{" +
-                "intr='" + intr + '\'' +
-                ", school='" + school + '\'' +
-                ", integral=" + integral +
-                ", sex=" + sex +
-                ", nickname='" + nickname + '\'' +
-                ", back_img='" + back_img + '\'' +
-                ", pkg_count=" + pkg_count +
-                '}';
     }
 
 

@@ -2,16 +2,11 @@ package com.qht.mapper;
 
 import java.util.List;
 
+import com.qht.model.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.qht.entity.Period;
-import com.qht.model.AppInsertPerIodParam;
-import com.qht.model.CourseChapterModel;
-import com.qht.model.IndexMyCourseTableModel;
-import com.qht.model.IndexMyCourseTableParam;
-import com.qht.model.PeriodDetailsModel;
-import com.qht.model.SelectPeriodByTeacherIdModel;
-import com.qht.model.UidAndTenantIDParam;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -49,4 +44,28 @@ public interface PeriodMapper extends Mapper<Period> {
 	 * 课时详情
 	 */
 	PeriodDetailsModel selectPeriodDetails(UidAndTenantIDParam param);
+
+	/**
+	 * 学生端-个人中心--首页--我的课时详情介绍
+	 * @param param
+	 * @return
+	 */
+	MyIndexCourseDetailsModel selectMyIndexCourseDetails(UidAndTenantIDParam param);
+
+	/**
+	 * 学生端-个人中心--首页--兑换记录--课程回看
+	 * @param data
+	 * @return
+	 */
+
+	List<MyIndexBuyRecordCourseBackModel> selectMyIndexBuyRecordCourseBack(MyIndexBuyRecordCourseBackParam data);
+
+	/**
+	 * 学生端-个人中心--首页--我的课程详情介绍
+	 * @param uid
+	 * @param tenant_id
+	 * @return
+	 */
+
+	List<IndexCourseDetailsModel> selectIndexCourseDetails(@Param("uid") String uid, @Param("tenant_id") String tenant_id);
 }
