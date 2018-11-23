@@ -1,0 +1,60 @@
+#测试环境配置文件
+server:
+  port: 7080
+  session-timeout: 60
+  tomcat:
+      uri-encoding: UTF-8
+spring:
+    # 数据源配置
+    datasource:
+        url: jdbc:mysql://139.159.198.250:3306/qht?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false # 内网服务器
+        username: root
+        password: qht123456
+        connection-timeout: 120000
+        driver-class-name: com.mysql.jdbc.Driver
+        sql-script-encoding: utf-8
+        initialSize: 5 #初始化大小
+        minIdle: 5 #最小
+        maxActive: 100 #最大
+        maxWait: 60000 #配置获取连接等待超时的时间
+        timeBetweenEvictionRunsMillis: 60000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        minEvictableIdleTimeMillis : 300000 #配置一个连接在池中最小生存的时间，单位是毫秒
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true #打开PSCache
+        maxPoolPreparedStatementPerConnectionSize: 20 #指定每个连接上PSCache的大小
+    http:
+        multipart:
+          max-file-size: 100Mb      # Max file size
+          max-request-size: 100Mb   # Max request size
+    redis:
+      database: 0
+      host: 47.93.225.125
+      port: 6379
+      password: 123456
+      timeout: 0
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      pool.min-idle: 0
+    session:
+      store-type: redis
+securityconfig:
+  logoutsuccssurl: /login_out
+  permitall: /*/app/**,/doc.html,/user/web/getCode,/user/web/updateuserpassword,/user/web/updatepassword,/*.ico,/,/*.html,/images/**,/checkcode,/lib/**,/fonts/**,/js/**,/monitoring/findTestMacById,/testmacdata/searchTestmacData,/css/**"
+  deniedpage: /deny
+  urlroles: /**/new/** = admin;
+            /**/edit/** = admin,editor;
+            /**/delete/** = admin
+
+#OSS
+#支付
+alipay:
+  appID: 2018111962241430
+  merchantPrivateKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAng5R66uAVptsoBpYJ+5e2CgeEbcRTA66zM0Ujk+G6qE4JC5hJ19v2epm3I9rWf75mfaWGO0PIOEp3YHQG/bvdWMBfuI8uorBctw8AoOJC/Ur3QLAocY0ioPuAbo8ddK9Y1xIH5G8b6NUy3YknJJpZWKsYOmY10i7LBQfGnFCEndmE2SGEbnZ91LtDDNdL7wkGn1lg2/hiwkr2sBc5DBvq+ldZ4X7nify05Ns810xb323UInOROSHNt1U0hvUyDSrFQgrYWmpA1jg1sjTmIRC3tddiZvODJKSZAF2nu1vKrMlVnKUPbpPBbhytXJ1kIoBF4lNkphbJvWp3aGlHcqTTQIDAQAB
+  alipayPublicKey: BMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAofiI7Aaj/CvEp+C/qR3ck//f1PcP2BofL8D4Zhe9n/K64NlNSNROatuu7vXCI69IPvEbzrDk3M7bIJMc+1m/GOiG57Mb7oNPI6TtV09BgyGfbfvwV4ZFGxgVvnnoXfTHrFkhMDZYDU1iWdmn7mz1pOKRCTproyyR4Tiw9tGkXJMHs+xRk3gfRQLjTBnblCQQ09glug7jhsJxWf28JL2dmKexUtN07uOuOfCLYNUVUB7Q5dUWPCC8kHLqr/ZsAOH5ZUnkBVZdzZTTLiS0IDdZMKvaeUBykGTXHauwnfR4NtkCLgNKxrZwJODXZkrWsuPDiu8TJJc2/Rg1hGPRpNdGQwIDAQA
+  gatewayUrl: https://openapi.alipaydev.com/gateway.do
+  sysServiceProviderId: 1234
+  notifyUrl: http://XXXX.com
