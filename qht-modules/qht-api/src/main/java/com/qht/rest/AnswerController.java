@@ -62,7 +62,13 @@ public class AnswerController extends APIBaseController<AnswerBiz,Answer> implem
 			return resultObject;
 		}
 		BeanUtil.copyFields(param, requestObject.getData());
+
 		List<IndexMyAnswerModel> models=answerBiz.selectIndexMyAnswer(param.getUid(),param.getTenant_id());
+		 for (IndexMyAnswerModel mode :models){
+		 	if(mode.getType()==null){
+		 		mode.setType(1);
+			}
+		 }
 		if(models.size()==0) {
 			ResultObject<List<IndexMyAnswerDto>> resultObject=new ResultObject<>();
 			resultObject.setCode("0");
@@ -84,6 +90,12 @@ public class AnswerController extends APIBaseController<AnswerBiz,Answer> implem
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		IndexAnswerDetailsModel model=answerBiz.selectIndexAnswerDetails(param.getUid(),param.getTenant_id());
+		if(model!=null){
+			if(model.getType()==null){
+				model.setType(1);
+			}
+		}
+
 		IndexAnswerDetailsDto dto=new IndexAnswerDetailsDto();
 		if(model==null) {
 			ResultObject<IndexAnswerDetailsDto> resultObject=new ResultObject<>();
@@ -140,6 +152,11 @@ public class AnswerController extends APIBaseController<AnswerBiz,Answer> implem
 		}
 		BeanUtil.copyFields(param, requestObject.getData());
 		List<AppSelectAnwerListModel> models=answerBiz.appSelectAnwerList(param);
+		for (AppSelectAnwerListModel model:models){
+			if(model.getType()==null){
+				model.setType("1");
+			}
+		}
 		if(models.size()==0) {
 			ResultObject<List<AppSelectAnwerListDto>> resultObject=new ResultObject<>();
 			resultObject.setCode("0");
@@ -162,7 +179,7 @@ public class AnswerController extends APIBaseController<AnswerBiz,Answer> implem
 	@Override
 	@PostMapping("/student/app/askClassAgain")
 	@ResponseBody
-	public ResultObject<Void> appUpdateStudentAnswer(RequestObject<UidAndTenantID> requestObject) {
+	public ResultObject<Void> appUpdateStudentAnswer(@RequestBody RequestObject<UidAndTenantID> requestObject) {
 		UidAndTenantIDParam param=new UidAndTenantIDParam();
 		if(requestObject.getData()==null) {
 			ResultObject<Void> resultObject=new ResultObject<>();
@@ -218,7 +235,7 @@ public class AnswerController extends APIBaseController<AnswerBiz,Answer> implem
 	@Override
 	@PostMapping("teacher/app/myCourseAnswerHf")
 	@ResponseBody
-	public ResultObject<Void> appInsertTeacherAnser(RequestObject<AppInsertTeacherAnswerParameter> requestObject) {
+	public ResultObject<Void> appInsertTeacherAnser(@RequestBody RequestObject<AppInsertTeacherAnswerParameter> requestObject) {
 		AppInsertTeacherAnswerParam param=new AppInsertTeacherAnswerParam();
 		if(requestObject.getData()==null) {
 			ResultObject<Void> resultObject=new ResultObject<>();

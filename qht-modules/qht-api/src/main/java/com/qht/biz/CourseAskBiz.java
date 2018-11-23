@@ -1,3 +1,4 @@
+
 package com.qht.biz;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class CourseAskBiz extends BaseBiz<CourseAskMapper,CourseAsk> {
 	 */
 	public Integer appInserStudentAsk(AppInsertStudentAskParam param) {
 		return courseAskMapper.appInserStudentAsk(param);
+	}
+	/**
+	 * 查询老师id
+	 */
+	public String selectAskAndPkgTeacherId(String uid){
+		return courseAskMapper.selectAskAndPkgTeacherId(uid);
 	}
 }

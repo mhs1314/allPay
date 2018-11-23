@@ -21,7 +21,7 @@ public interface CollectService {
 	 * @param requestObject
 	 * @return
 	 */
-	public ResultObject<Void> appInsertCollect(@RequestBody RequestObject<AppInsertCollectParameter> requestObject);
+	public ResultObject<AppInsertCollectParameter> appInsertCollect(@RequestBody RequestObject<AppInsertCollectParameter> requestObject);
 	/**
 	 * 取消收藏
 	 * @return

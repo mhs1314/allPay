@@ -10,7 +10,18 @@ public String	student_id;
 public String	question;
 public String question_attach;
 public String question_url;
-public String getUid() {
+
+private String teacher_id;
+
+	public String getTeacher_id() {
+		return teacher_id;
+	}
+
+	public void setTeacher_id(String teacher_id) {
+		this.teacher_id = teacher_id;
+	}
+
+	public String getUid() {
 	return uid;
 }
 public void setUid(String uid) {

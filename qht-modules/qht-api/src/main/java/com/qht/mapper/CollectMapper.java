@@ -36,6 +36,10 @@ public interface CollectMapper extends Mapper<Collect> {
      */
 	Integer insertMyIndexCourseCelcollect(MyIndexCourseCelcollectParam param);
 	/**
+	 * count根据学生id和课程包id
+	 */
+	Integer selectCollectCount(@Param("stuId")String stuId,@Param("pgkId")String pgkId);
+	/**
 	 * 添加收藏
 	 * @return
 	 */

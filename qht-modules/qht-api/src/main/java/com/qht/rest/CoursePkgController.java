@@ -357,6 +357,7 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 	/**
 	 * ap学生提问
 	 */
+
 	@Override
 	@PostMapping("/student/app/askTheClass")
 	@ResponseBody
@@ -370,6 +371,8 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 		AppInsertStudentAskParam param=new AppInsertStudentAskParam();
 		BeanUtil.copyFields(param, requestObject.getData());
 		param.setUid(IdGenUtil.getUid("TW"));
+		String teacherId=courseAskBiz.selectAskAndPkgTeacherId(param.getPeriod_id());
+		param.setTeacher_id(teacherId);
 		Integer i=courseAskBiz.appInserStudentAsk(param);
 		if(i==null||i<=0) {
 			ResultObject<Void> result =new ResultObject<>();
@@ -378,7 +381,7 @@ public class CoursePkgController extends APIBaseController<CoursePkgBiz, CourseP
 			return result;
 		}
 		ResultObject<Void> result =new ResultObject<>();
-		result.setCode("1");
+		result.setCode("0");
 		result.setMsg("提问成功");
 		return result;
 	}
