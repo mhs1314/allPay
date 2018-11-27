@@ -67,7 +67,7 @@ public class CustomGenerator {
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         //strategy.setTablePrefix(new String[] { "bs_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] {"recharge_record"}); // 需要生成的表	"bs_sla",,"user_match","user_role","user_security","function_right","bs_good_gradient","bs_good_grant"
+        strategy.setInclude(new String[] {"extract_record"}); // 需要生成的表	"bs_sla",,"user_match","user_role","user_security","function_right","bs_good_gradient","bs_good_grant"
         //139.159.253.135/root/qht_admin.git
        //"bs_sla","bs_sla_group" "bs_sla","bs_good","bs_good_bank",,"bs_good_idc","bs_good_provision"
 

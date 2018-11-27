@@ -59,7 +59,7 @@ public class CodeMessage<T> {
      */
     public static CodeMessage success(String msg,Object data) {
         CodeMessage codeMessage =new CodeMessage();
-        codeMessage.setCode(200);
+        codeMessage.setCode(0);
         codeMessage.setMsg(msg);
         codeMessage.setData(data);
         return codeMessage;

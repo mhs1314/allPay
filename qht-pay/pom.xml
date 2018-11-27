@@ -35,6 +35,7 @@
 		<com.alibaba-druid>1.1.6</com.alibaba-druid>
 		<org.projectlombok-lombok>1.16.20</org.projectlombok-lombok>
 		<mybatis-plus-boot-starter.version>2.1.9</mybatis-plus-boot-starter.version>
+		<weixin-java-pay.version>3.2.0</weixin-java-pay.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,9 +47,19 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+            <version>${weixin-java-pay.version}</version>
+        </dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -70,6 +81,14 @@
 			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+
+		<dependency>
+		    <groupId>net.sf.json-lib</groupId>
+		    <artifactId>json-lib</artifactId>
+		    <version>2.4</version>
+		    <classifier>jdk15</classifier>
+		</dependency>
+				
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -223,6 +242,18 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${org.projectlombok-lombok}</version>
+		</dependency>
+		<!-- 微信支付jar -->
+		<dependency>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-miniapp</artifactId>
+			<version>3.1.9.B</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-pay</artifactId>
+			<version>3.1.9.B</version>
 		</dependency>
 		<!--  <dependency>
             <groupId>org.apache.httpcomponents</groupId>
