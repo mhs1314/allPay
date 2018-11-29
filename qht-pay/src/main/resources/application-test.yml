@@ -58,10 +58,17 @@ alipay:
   gatewayUrl: https://openapi.alipay.com/gateway.do
   sysServiceProviderId: 1234
   notifyUrl: https://edu.qw1000.cn/pay/student/alipayNotify
-#微信支付
 wx:
   pay:
+    #微信公众号或者小程序等的appid
     appId: wxad0415da8ceb2d10
+    #微信支付商户号
     mchId: 1519599551
-    mchKey: cb2a71f771b9586b98b11cdff0ce6155
-    keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    #微信支付商户密钥 eac16e66fe724659a74b6714c935bbc9
+    mchKey: eac16e66fe724659a74b6714c935bbc9
+    #subAppId: 服务商模式下的子商户公众账号ID
+    #subMchId: 服务商模式下的子商户号
+    # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）  
+    keyPath: classpath:apiclient_cert.p12
+    appSecret: 86f46cc7860fda13044f2b6983900f11
+    notifyUrl: https://edu.qw1000.cn/pay/wx/notify/order

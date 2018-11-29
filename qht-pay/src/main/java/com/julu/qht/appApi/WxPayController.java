@@ -1,8 +1,11 @@
 package com.julu.qht.appApi;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +50,17 @@ import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.julu.qht.entity.IntegralBag;
+import com.julu.qht.entity.MoneyScore;
+import com.julu.qht.entity.RechargeRecord;
+import com.julu.qht.entity.Student;
+import com.julu.qht.entity.dto.CodeMessage;
+import com.julu.qht.service.IExtractRecordService;
 import com.julu.qht.service.IIntegralBagService;
+import com.julu.qht.service.IMoneyScoreService;
+import com.julu.qht.service.IRechargeRecordService;
+import com.julu.qht.service.IStudentService;
 import com.julu.qht.util.IDUtils;
+import com.julu.qht.util.IpUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,6 +77,18 @@ public class WxPayController {
 
 	@Autowired
 	private IIntegralBagService integralBagService;
+
+	@Autowired
+	private IRechargeRecordService rechargeRecordService;
+
+	@Autowired
+	private IExtractRecordService extractRecordService;
+
+	@Autowired
+	private IMoneyScoreService moneyScoreService;
+	
+	@Autowired
+	private IStudentService studentService;
 
 	@Autowired
 	public WxPayController(WxPayService wxService) {
@@ -134,25 +158,40 @@ public class WxPayController {
 	 * @return 返回 {@link com.github.binarywang.wxpay.bean.order}包下的类对象
 	 */
 	@ApiOperation(value = "统一下单，并组装所需支付参数")
-	@PostMapping("/createOrder")
-	public <T> T createOrder(@RequestBody WxPayUnifiedOrderRequest request,String uid) throws WxPayException {
+	@PostMapping("/wx/createOrder")
+	public <T> T createOrder(HttpServletRequest request,String uid,String studentId) throws WxPayException {
 		// 获取购买积分的价格
-		IntegralBag integralBag = integralBagService.selectOne(new EntityWrapper<IntegralBag>().eq("uid", uid));
+		MoneyScore moneyScore = moneyScoreService.selectOne(new EntityWrapper<MoneyScore>().eq("uid", uid));
+		WxPayUnifiedOrderRequest wxPayUnifiedOrderRequest = new WxPayUnifiedOrderRequest();
 		// 商品描述
-		request.setBody("兑换积分");
+		wxPayUnifiedOrderRequest.setBody("兑换积分");
 		// 商户订单号
-		request.setOutTradeNo("CZ"+IDUtils.genImageName());
+		wxPayUnifiedOrderRequest.setOutTradeNo("CZ"+IDUtils.genImageName());
 		// 购买总价格
-		request.setTotalFee(integralBag.getMoney().intValue());
-		// 回调地址
-		request.setNotifyUrl("/notify/order");
+		wxPayUnifiedOrderRequest.setTotalFee(moneyScore.getMoney()*100);
 		// 终端ip
-		request.setSpbillCreateIp("172.17.133.254");
-		// 
-		request.setMchId("1519599551");
-		request.setAppid("wxad0415da8ceb2d10");
-		System.out.println(request.toString());
-		return this.wxService.createOrder(request);
+		wxPayUnifiedOrderRequest.setSpbillCreateIp(IpUtil.getIpAddr(request));
+		// 支付类型
+		wxPayUnifiedOrderRequest.setTradeType("APP");
+
+		// 添加积分
+		RechargeRecord rechargeRecord = new RechargeRecord();
+		rechargeRecord.setUid(wxPayUnifiedOrderRequest.getOutTradeNo());
+		rechargeRecord.setMoney(new BigDecimal(moneyScore.getMoney()));
+		rechargeRecord.setIntegral(new BigDecimal(moneyScore.getScore()));
+		rechargeRecord.setTime(new Date());
+		rechargeRecord.setPaymentMethodId("手机微信支付");
+		rechargeRecord.setStudentId(studentId);
+		// 支付状态 1:支付中 2:支付完成 3:支付失败
+		rechargeRecord.setState(1);
+		// 添加成功
+		if(rechargeRecordService.insert(rechargeRecord)){
+			// 返回预支付信息
+			return this.wxService.createOrder(wxPayUnifiedOrderRequest);
+		}else{
+			// 返回支付失败
+			return (T) CodeMessage.erro(500, "操作失败,请重试!");
+		}
 	}
 
 	/**
@@ -164,21 +203,24 @@ public class WxPayController {
 	 */
 	@ApiOperation(value = "原生的统一下单接口")
 	@PostMapping("/unifiedOrder")
-	public WxPayUnifiedOrderResult unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request,String uid) throws WxPayException {
+	public WxPayUnifiedOrderResult unifiedOrder(String uid) throws WxPayException {
 		// 获取购买积分的价格
 		IntegralBag integralBag = integralBagService.selectOne(new EntityWrapper<IntegralBag>().eq("uid", uid));
+		WxPayUnifiedOrderRequest request = new WxPayUnifiedOrderRequest();
 		// 商品描述
 		request.setBody("兑换积分");
 		// 商户订单号
 		request.setOutTradeNo("CZ"+IDUtils.genImageName());
 		// 购买总价格
-		request.setTotalFee(integralBag.getMoney().intValue());
+		request.setTotalFee(100);
 		// 回调地址
-		request.setNotifyUrl("/notify/order");
+		request.setNotifyUrl("172.17.133.254:7080/pay/notify/order");
 		// 终端ip
 		request.setSpbillCreateIp("172.17.133.254");
-		request.setMchId("1519599551");
-		request.setAppid("wxad0415da8ceb2d10");
+		// 
+		request.setTradeType("APP");
+		// 
+		request.setSceneInfo("86f46cc7860fda13044f2b6983900f11");
 		return this.wxService.unifiedOrder(request);
 	}
 
@@ -232,9 +274,11 @@ public class WxPayController {
 	}
 
 	@ApiOperation(value = "支付回调通知处理")
-	@PostMapping("/notify/order")
+	@PostMapping("/wx/notify/order")
 	public String parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
 		final WxPayOrderNotifyResult notifyResult = this.wxService.parseOrderNotifyResult(xmlData);
+		notifyResult.setResultCode("");
+		System.out.println("1");
 		// TODO 根据自己业务场景需要构造返回对象
 		return WxPayNotifyResponse.success("成功");
 	}
@@ -251,7 +295,24 @@ public class WxPayController {
 	@PostMapping("/notify/scanpay")
 	public String parseScanPayNotifyResult(String xmlData) throws WxPayException {
 		final WxScanPayNotifyResult result = this.wxService.parseScanPayNotifyResult(xmlData);
-		// TODO 根据自己业务场景需要构造返回对象
+		// 根据订单id 修改支付状态
+		// 支付状态 1:支付中 2:支付完成 3:支付失败
+		RechargeRecord rechargeRecord = new RechargeRecord();
+		if(result.getReturnCode().equals("SUCCESS") || result.getReturnMsg().equals("OK")){
+			// 业务处理，主要是更新订单状态
+			rechargeRecord.setState(2);
+			// 根据id查询充值记录 获取学生id
+			RechargeRecord selectOne = rechargeRecord.selectOne(new EntityWrapper<RechargeRecord>().eq("uid", result.getProductId()));
+			// 修改该学生的余额加上该积分
+			Student selectOne2 = studentService.selectOne(new EntityWrapper<Student>().eq("uid", selectOne.getStudentId()));
+			Student student = new Student();
+			// 账户余额
+			student.setBalance(selectOne.getIntegral().add(new BigDecimal(selectOne2.getBalance())).intValue());
+			studentService.update(student, new EntityWrapper<Student>().eq("uid", selectOne2.getUid()));
+		}else{
+			rechargeRecord.setState(3);
+		}
+		rechargeRecordService.update(rechargeRecord, new EntityWrapper<RechargeRecord>().eq("uid", result.getProductId()));
 		return WxPayNotifyResponse.success("成功");
 	}
 

@@ -14,12 +14,14 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.gson.Gson;
 import com.julu.qht.entity.ExtractRecord;
 import com.julu.qht.entity.IntegralBag;
+import com.julu.qht.entity.MoneyScore;
 import com.julu.qht.entity.RechargeRecord;
 import com.julu.qht.entity.dto.CodeMessage;
 import com.julu.qht.entity.vo.AliPayFormVo;
 import com.julu.qht.entity.vo.Alipay;
 import com.julu.qht.service.IExtractRecordService;
 import com.julu.qht.service.IIntegralBagService;
+import com.julu.qht.service.IMoneyScoreService;
 import com.julu.qht.service.IRechargeRecordService;
 import com.julu.qht.util.AliPayConfig;
 import com.julu.qht.util.IDUtils;
@@ -55,6 +57,9 @@ public class AliPayController {
 	
 	@Autowired
 	private IExtractRecordService extractRecordService;
+	
+	@Autowired
+	private IMoneyScoreService moneyScoreService;
 
 	/**
 	 * app学生购买积分
@@ -67,9 +72,9 @@ public class AliPayController {
 
 		AliPayFormVo aliPayFormVo = new AliPayFormVo();
 		// 根据uid查询积分对应的价格并设置到aliPayFormVo中
-		IntegralBag integralBag = integralBagService.selectOne(new EntityWrapper<IntegralBag>().eq("uid", uid));
+		MoneyScore moneyScore = moneyScoreService.selectOne(new EntityWrapper<MoneyScore>().eq("uid", uid));
 		// 支付金额
-		aliPayFormVo.setTotal_amount(integralBag.getMoney() + "");
+		aliPayFormVo.setTotal_amount(moneyScore.getMoney() + "");
 		// 商品名称
 		aliPayFormVo.setSubject("积分套餐");
 		// 商品介绍
@@ -102,8 +107,8 @@ public class AliPayController {
 		// 添加积分
 		RechargeRecord rechargeRecord = new RechargeRecord();
 		rechargeRecord.setUid(aliPayFormVo.getOut_trade_no());
-		rechargeRecord.setMoney(integralBag.getMoney());
-		rechargeRecord.setIntegral(integralBag.getIntegral());
+		rechargeRecord.setMoney(new BigDecimal(moneyScore.getMoney()));
+		rechargeRecord.setIntegral(new BigDecimal(moneyScore.getScore()));
 		rechargeRecord.setTime(new Date());
 		rechargeRecord.setPaymentMethodId("手机支付宝支付");
 		rechargeRecord.setStudentId(studentId);

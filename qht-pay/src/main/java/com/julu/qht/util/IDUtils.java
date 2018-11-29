@@ -1,6 +1,7 @@
 package com.julu.qht.util;
 
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * 各种id生成策略
@@ -46,7 +47,6 @@ public class IDUtils {
 	}
 	
 	public static void main(String[] args) {
-		for(int i=0;i< 100;i++)
-		System.out.println(genItemId());
+		System.out.println((UUID.randomUUID()+"").replace("-", ""));
 	}
 }

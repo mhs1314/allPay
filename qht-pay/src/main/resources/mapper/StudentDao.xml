@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.qht.mapper.StudentDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.qht.entity.Student">
+        <id column="uid" property="uid" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="nickname" property="nickname" />
+        <result column="name" property="name" />
+        <result column="head" property="head" />
+        <result column="sex" property="sex" />
+        <result column="age" property="age" />
+        <result column="school_id" property="schoolId" />
+        <result column="clazz" property="clazz" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="grade_id" property="gradeId" />
+        <result column="integral" property="integral" />
+        <result column="status" property="status" />
+        <result column="card_number" property="cardNumber" />
+        <result column="balance" property="balance" />
+        <result column="pc_login" property="pcLogin" />
+        <result column="app_login" property="appLogin" />
+        <result column="school" property="school" />
+    </resultMap>
+
+</mapper>

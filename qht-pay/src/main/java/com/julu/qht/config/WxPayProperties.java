@@ -40,8 +40,22 @@ public class WxPayProperties {
    * apiclient_cert.p12文件的绝对路径，或者如果放在项目中，请以classpath:开头指定
    */
   private String keyPath;
+  
+  /**
+   * 回调地址
+   */
+  private String notifyUrl;
+  
 
-  public String getAppId() {
+  public String getNotifyUrl() {
+	return notifyUrl;
+}
+
+public void setNotifyUrl(String notifyUrl) {
+	this.notifyUrl = notifyUrl;
+}
+
+public String getAppId() {
     return this.appId;
   }
 
