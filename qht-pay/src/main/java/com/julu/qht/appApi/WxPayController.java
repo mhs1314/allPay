@@ -86,7 +86,7 @@ public class WxPayController {
 
 	@Autowired
 	private IMoneyScoreService moneyScoreService;
-	
+
 	@Autowired
 	private IStudentService studentService;
 
@@ -277,9 +277,24 @@ public class WxPayController {
 	@PostMapping("/wx/notify/order")
 	public String parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
 		final WxPayOrderNotifyResult notifyResult = this.wxService.parseOrderNotifyResult(xmlData);
-		notifyResult.setResultCode("");
-		System.out.println("1");
-		// TODO 根据自己业务场景需要构造返回对象
+		// 根据订单id 修改支付状态
+		// 支付状态 1:支付中 2:支付完成 3:支付失败
+		RechargeRecord rechargeRecord = new RechargeRecord();
+		if(notifyResult.getReturnCode().equals("SUCCESS") || notifyResult.getReturnMsg().equals("OK")){
+			// 业务处理，主要是更新订单状态
+			rechargeRecord.setState(2);
+			// 根据id查询充值记录 获取学生id
+			RechargeRecord selectOne = rechargeRecord.selectOne(new EntityWrapper<RechargeRecord>().eq("uid", notifyResult.getOutTradeNo()));
+			// 修改该学生的余额加上该积分
+			Student selectOne2 = studentService.selectOne(new EntityWrapper<Student>().eq("uid", selectOne.getStudentId()));
+			Student student = new Student();
+			// 账户余额
+			student.setBalance(selectOne.getIntegral().add(new BigDecimal(selectOne2.getBalance())).intValue());
+			studentService.update(student, new EntityWrapper<Student>().eq("uid", selectOne2.getUid()));
+		}else{
+			rechargeRecord.setState(3);
+		}
+		rechargeRecordService.update(rechargeRecord, new EntityWrapper<RechargeRecord>().eq("uid", notifyResult.getOutTradeNo()));
 		return WxPayNotifyResponse.success("成功");
 	}
 
