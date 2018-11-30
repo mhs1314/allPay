@@ -9,5 +9,53 @@
         <result property="tenantId" column="tenant_id"/>
         <result property="name" column="name"/>
     </resultMap>
+    <!-- app添加章节 -->
+    <insert id="appInsertChapter" parameterType="com.qht.model.AppInsertChapterParam">
+    INSERT INTO chapter (
+	uid,
+	tenant_id,
+	NAME,
+	course_id
+	)
+	VALUES
+		(#{uid}, #{tenant_id},#{chapter_name},#{course_id})
+    </insert>
+	<select id="selectChapterByid" resultType="com.qht.model.CourseChapterModel" parameterType="com.qht.model.UidAndTenantIDParam">
+			SELECT
+			cr.uid,
+			cr.NAME
+		FROM
+			chapter cr
+		LEFT JOIN course_pkg cg ON cr.course_id = cg.uid
+		WHERE
+			cg.uid = #{uid} 
+		and cg.tenant_id=#{tenant_id} and cg.status="1"
+	</select>
 
+	<resultMap id="selectCourseChapterAndClass" type="com.qht.dto.CourseChapterDto">
+		<result column="uid" property="uid" />
+		<result property="name" column="name"/>
+
+		<collection property="period" ofType="com.qht.dto.ClassDto">
+			<result property="pid" column="pid"/>
+			<result property="period_name" column="period_name"/>
+			<result property="video_file" column="video_file"/>
+			<result property="begin" column="begin"/>
+		</collection>
+	</resultMap>
+
+	<!--课程详情课程包体系-->
+	<select id="selectCourseChapter" resultMap="selectCourseChapterAndClass" parameterType="com.qht.model.CourseIntroParam">
+        select
+          c.uid,
+          c.name,
+          p.uid as  pid,
+          p.name as period_name,
+          p.video_file,
+          p.begin
+        from
+          chapter c inner join period p on c.uid=p.chapter_id
+          inner join course_pkg cp on cp.uid=c.course_id
+        where c.course_id=#{uid} and c.tenant_id=#{tenant_id} and cp.status="1"
+    </select>
 </mapper>

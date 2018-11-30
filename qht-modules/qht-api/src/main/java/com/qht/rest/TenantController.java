@@ -1,6 +1,6 @@
 package com.qht.rest;
 
-import com.github.wxiaoqi.security.common.rest.BaseController;
+
 import com.qht.biz.TenantBiz;
 import com.qht.entity.Tenant;
 

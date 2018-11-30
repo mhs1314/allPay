@@ -7,30 +7,41 @@ import java.util.Date;
  * 课程详情--课程包体系中的class
  */
 public class ClassDto implements Serializable {
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getPeriod_name() {
+        return period_name;
+    }
+
+    public void setPeriod_name(String period_name) {
+        this.period_name = period_name;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassDto{" +
+                "pid='" + pid + '\'' +
+                ", period_name='" + period_name + '\'' +
+                ", video_file='" + video_file + '\'' +
+                ", begin=" + begin +
+                '}';
+    }
+
     //课时id
-    private String uid;
+    private String pid;
     //课时名称
-    private String name;
+    private String period_name;
     //课程地址
     private String video_file;
     //开始时间
     private Date begin;
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getVideo_file() {
         return video_file;
@@ -48,13 +59,4 @@ public class ClassDto implements Serializable {
         this.begin = begin;
     }
 
-    @Override
-    public String toString() {
-        return "ClassDto{" +
-                "uid='" + uid + '\'' +
-                ", name='" + name + '\'' +
-                ", video_file='" + video_file + '\'' +
-                ", begin=" + begin +
-                '}';
-    }
 }

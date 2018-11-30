@@ -1,7 +1,8 @@
 logging:
-    level:
+    config: classpath:logback.xml
+#    level:
 #        tk.mybatis: DEBUG
-        com.github.wxiaoqi.security.admin: DEBUG
+#        com.github.wxiaoqi.security.admin: DEBUG
 spring:
     application:
         name: qht-api
@@ -64,10 +65,14 @@ sample:
     enabled: false
 
 mybatis:
-    basepackage: com.github.wxiaoqi.security.admin.mapper
+    #basepackage: com.github.wxiaoqi.security.admin.mapper
+    basepackage: com.qht.mapper
     xmlLocation: classpath:mapper/**/*.xml
     mapper-locations: "classpath*:mapper/*.xml"
-
+#mybatis-plus:
+#  mapper-locations: classpath:mapper/*.xml
+  #实体扫描，多个package用逗号或者分号隔离
+#  typeAliasesPackage: com.github.wxiaoqi.security.admin.mapper,com.qht.mapper
 server:
     port: 8763
 
@@ -165,3 +170,10 @@ management:
         include: '*'
   security:
     enabled: false
+
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

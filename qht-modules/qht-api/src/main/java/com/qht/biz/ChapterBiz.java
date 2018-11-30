@@ -1,10 +1,19 @@
 package com.qht.biz;
 
+import java.util.List;
+
+import com.qht.dto.CourseChapterDto;
+import com.qht.dto.CourseIntroParameter;
+import com.qht.model.CourseIntroParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
 import com.qht.entity.Chapter;
 import com.qht.mapper.ChapterMapper;
+import com.qht.model.AppInsertChapterParam;
+import com.qht.model.CourseChapterModel;
+import com.qht.model.UidAndTenantIDParam;
 
 /**
  * 课程章节
@@ -15,4 +24,29 @@ import com.qht.mapper.ChapterMapper;
  */
 @Service
 public class ChapterBiz extends BaseBiz<ChapterMapper,Chapter> {
+	@Autowired
+	private ChapterMapper chapterMapper;
+	
+	/**
+	 * 添加章节
+	 * @param param
+	 * @return
+	 */
+	public Integer appInsertChapter(AppInsertChapterParam param) {
+		return chapterMapper.appInsertChapter(param);
+	}
+	/**
+	 * 课程包id查章节
+	 */
+	public List<CourseChapterModel> selectChapterByid(UidAndTenantIDParam param){
+		return chapterMapper.selectChapterByid(param);
+	}
+	/**
+	 * 课程详情--课程包体系
+	 * @return
+	 */
+	public List<CourseChapterDto> selectCourseChapter(CourseIntroParam data) {
+		return chapterMapper.selectCourseChapter(data);
+	}
+
 }

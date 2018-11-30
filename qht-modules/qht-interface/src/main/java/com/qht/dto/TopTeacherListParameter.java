@@ -13,7 +13,51 @@ public class TopTeacherListParameter implements Serializable {
 
     private BigDecimal integral;
 
-    private String page;
+    private String tenant_id;
+
+    private String  page="1";
+
+
+    private String limit="10";
+
+    public String getTenant_id() {
+        return tenant_id;
+    }
+
+    public void setTenant_id(String tenant_id) {
+        this.tenant_id = tenant_id;
+    }
+
+    @Override
+    public String toString() {
+        return "TopTeacherListParameter{" +
+                "pkg_subject_id='" + pkg_subject_id + '\'' +
+                ", pkg_grade_id='" + pkg_grade_id + '\'' +
+                ", newtime='" + newtime + '\'' +
+                ", integral=" + integral +
+                ", tenant_id='" + tenant_id + '\'' +
+                ", page='" + page + '\'' +
+                ", limit='" + limit + '\'' +
+                '}';
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    public String getLimit() {
+        return limit;
+    }
+
+    public void setLimit(String limit) {
+        this.limit = limit;
+    }
+
+
 
     public String getPkg_subject_id() {
         return pkg_subject_id;
@@ -45,25 +89,6 @@ public class TopTeacherListParameter implements Serializable {
 
     public void setIntegral(BigDecimal integral) {
         this.integral = integral;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
-
-    @Override
-    public String toString() {
-        return "TopTeacherListParameter{" +
-                "pkg_subject_id='" + pkg_subject_id + '\'' +
-                ", pkg_grade_id='" + pkg_grade_id + '\'' +
-                ", newtime='" + newtime + '\'' +
-                ", integral='" + integral + '\'' +
-                ", page='" + page + '\'' +
-                '}';
     }
 
 

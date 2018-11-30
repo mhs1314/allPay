@@ -17,5 +17,194 @@
         <result property="type" column="type"/>
         <result property="time" column="time"/>
     </resultMap>
+    <!--学生端-个人中心-首页-课程答疑-->
+    <select id="selectMyIndexCourseAnswer" resultType="com.qht.model.MyIndexCourseAnswerModel" parameterType="com.qht.model.MyIndexCourseAnswerParam">
+        select
+        an.answer_file_name,an.answer_time,an.answer,an.answer_file_url,an.uid,
+        ask.question,ask.question_attach,ask.question_url,
+        p.video_file,p.begin,p.name,
+        c.name as chapter_name,
+        cp.pkg_name,
+        t.nickname as teacher_nickname,
+        s.nickname
+        from answer an inner join course_ask ask on an.ask_id=ask.uid
+        inner join period p on an.period_id=p.uid
+        inner join chapter c on p.chapter_id=c.uid
+        inner join course_pkg cp on c.course_id=cp.uid
+        inner join teacher t on cp.teacher_id=t.uid
+        inner join student s on an.student_id=s.uid
+        where an.student_id=#{uid} and an.tenant_id=#{tenant_id} and cp.status="1"
+        <if test="answer != '' and answer!=null">
+            <if test="answer=='1'">
+                and an.type=1
+            </if>
+            <if test="answer=='2'">
+                and an.type=2
+            </if>
+        </if>
+    </select>
 
+    <!--app我的课程答疑-->
+    <select id="selectIndexMyAnswer" resultType="com.qht.model.IndexMyAnswerModel">
+    SELECT
+	ask.uid as uid,
+	ask.question as question,
+	a.type as type,
+	p.`name` as name,
+	pkg.cover as cover
+
+
+FROM
+	course_ask ask
+LEFT JOIN answer a ON ask.uid=a.ask_id
+LEFT JOIN period p on ask.period_id =p.uid
+LEFT JOIN chapter cr on cr.uid=p.chapter_id
+LEFT JOIN course_pkg pkg on cr.course_id=pkg.uid
+WHERE
+	ask.student_id = #{uid} and ask.tenant_id=#{tenant_id} and pkg.`status`=1
+    </select>
+
+    <!--app我的课程答疑答疑详情-->
+    <select id="selectIndexAnswerDetails" resultType="com.qht.model.IndexAnswerDetailsModel">
+      SELECT
+	ar.answer_time as answer_time,
+	tr.`name` as teacher_name,
+	ask.question as question,
+  tr.uid   as teacher_id,
+	sl.school_name as school_name,
+	p.`name` as period_name,
+	ar.answer_file_url as answer_file_url,
+	ar.type as type,
+	ar.append_ask_answer as append_ask_answer,
+	cg.cover as cover,
+	st.head as head,
+	ask.uid as uid,
+	cg.pkg_name as pkg_name,
+	st.`name` as student_name,
+	ask.question_url as question_url,
+  ar.answer as answer,
+  ar.append_ask as append_ask,
+	pst.`name` as subject_name,
+	ar.is_exceptional as is_exceptional,
+  ar.time as time,
+	tr.back_img as back_img,
+	ar.praise_number,
+  tr.uid as teacher_id
+
+from course_ask ask
+LEFT   JOIN answer ar on ask.uid=ar.ask_id
+LEFT JOIN period p ON ask.period_id=p.uid
+LEFT JOIN period_evaluation pen on p.uid=pen.period_id
+LEFT JOIN chapter cr on p.chapter_id=cr.uid
+LEFT JOIN course_pkg cg on cr.course_id=cg.uid
+LEFT JOIN student st on ask.student_id=st.uid
+LEFT JOIN teacher tr on cg.teacher_id=tr.uid
+LEFT JOIN pkg_subject pst on cg.pkg_subject_id=pst.uid
+LEFT JOIN school sl on tr.school_id=sl.uid
+  where ask.uid=#{uid} and ask.tenant_id=#{tenant_id} and cg.status="1"
+    </select>
+
+    <!--我的课程答疑答疑详情追问回答-->
+    <update id="indsertAppendAskAnswer" parameterType="com.qht.model.IndexAnswerDetailsAppendAnswerParam">
+        update answer set append_ask_answer=#{append_ask_answer} where tenant_id=#{tenant_id} and uid=#{uid}
+    </update>
+
+    <!-- 教师端首页课程答疑列表 -->
+    <select id="selectIndexCourseAnswer" parameterType="com.qht.model.IndexCourseAnswerParam" resultType="com.qht.model.IndexCourseAnswerModel">
+        select
+        a.answer_file_name,
+        a.answer_time,
+        ca.question,
+        c.name as chapter_name,
+        p.video_file,
+        a.answer_file_url,
+        ca.question_attach,
+        s.head,
+        a.uid,
+        cp.pkg_name,
+        ca.question_url,
+        a.answer,
+        s.nickname,
+        p.name,
+        p.begin,
+        t.nickname as teacher_nickname
+        from answer a
+        left join course_ask ca on a.ask_id=ca.uid
+        left join period p on p.uid=a.period_id
+        left join chapter c on c.uid=p.chapter_id
+        left join course_pkg cp on cp.uid=c.course_id
+        left join student s on s.uid=a.student_id
+        left join teacher t on t.uid=cp.teacher_id
+        where
+        t.uid=#{uid} and a.tenant_id=#{tenant_id} and cp.status="1"
+        <if test="answer!=null and answer!=''">
+            <if test="answer=='1'">
+                and a.type=1
+            </if>
+            <if test="answer=='2'">
+                and a.type=2
+            </if>
+        </if>
+    </select>
+    <!-- 老师答疑列表 -->
+    <select id="appSelectAnwerList" resultType="com.qht.model.AppSelectAnwerListModel" parameterType="com.qht.model.UidAndTenantIDParam">
+        SELECT
+        ask.question as question,
+        ar.answer as answer,
+        ask.uid as uid,
+        st.head as head,
+        st.nickname as nickname,
+        ar.type as type,
+        pt.`name` as subject_name
+        FROM
+        course_ask ask
+        LEFT JOIN answer ar ON ask.uid =ar.ask_id
+        LEFT JOIN student st on ask.student_id=st.uid
+        left JOIN period pd on ask.period_id=pd.uid
+        LEFT JOIN chapter cr on pd.chapter_id= cr.uid
+        LEFT JOIN course_pkg pkg on cr.course_id=pkg.uid
+        LEFT JOIN pkg_subject pt on pkg.pkg_subject_id=pt.uid
+where ask.teacher_id =#{uid}  and  ask.tenant_id=#{tenant_id}
+<if test="type!=null and type!=''">
+and ar.type=#{type}
+</if>
+    </select>
+    <!-- app学生答疑追问 -->
+    <select id="appUpdateStudentAnswer" parameterType="com.qht.model.UidAndTenantIDParam">
+    	update answer set append_ask=#{append_ask} where uid=#{uid} tenant_id=#{tenant_id}
+    </select>
+    <!-- app教室追答 -->
+    <update id="appUpdateTeacherAnswer" parameterType="com.qht.model.UidAndTenantIDParam">
+    update answer set append_ask_answer=#{append_ask_answer} where uid=#{uid} tenant_id=#{tenant_id}
+    </update>
+    <!-- 第一次App老师答疑回复 -->
+    <insert id="appInsertTeacherAnser" parameterType="com.qht.model.AppInsertTeacherAnswerParam">
+    INSERT INTO answer (
+	uid,
+	tenant_id,
+	student_id,
+	ask_id,
+	append_attach,
+	answer,
+	answer_file_name,
+	type,
+	time,
+	answer_time,
+	answer_file_url
+)
+VALUES
+(
+	#{uid},
+	#{tenant_id},
+	#{student_id},
+	#{ask_id},
+	#{append_attach},
+	#{answer},
+	#{answer_file_name},
+	#{type},
+	#{time},
+	#{answer_time},
+	#{answer_file_url}
+)
+    </insert>
 </mapper>

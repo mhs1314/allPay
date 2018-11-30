@@ -1,11 +1,13 @@
 package com.qht;
 
+import com.qht.dto.ReqBaseDto;
+
 /**
  * 请求数据
  * @author 草原狼
  * @date Jul 10, 2018 10:14:37 AM
  */
-public class RequestObject<T> {
+public class RequestObject<T>  {
 	/**
 	 * 请求ID，便于跟踪业务数据
 	 */

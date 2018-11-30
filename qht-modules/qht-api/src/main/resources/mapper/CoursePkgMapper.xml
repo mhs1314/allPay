@@ -19,5 +19,686 @@
         <result property="content" column="content"/>
         <result property="cover" column="cover"/>
     </resultMap>
+    <select id="courseTypeList" resultType="com.qht.model.CoursePkgListModel" parameterType="com.qht.model.UidAndTenantIDParam">
+    	select uid ,name   from course_type where tenant_id=#{tenant_id}
+    </select>
+    <!-- app添加直播课程包 -->
+    <insert id="indexAddLCourse" parameterType="com.qht.model.InsertCoursePkgParam" >
+    INSERT INTO course_pkg (
+	uid,
+	teacher_id,
+	tenant_id,
+	course_type_id,
+	pkg_subject_id,
+	pkg_edition_id,
+	pkg_grade_id,
+	pkg_level_id,
+	pkg_name,
+	play_type_id,
+	min,
+	max,
+	content,
+	cover,
+	pkt_type_id,
+	open_range_id,
+	easy,
+	`status`,
+	create_time
+)
+VALUES
+	(
+		#{uid},
+		#{teacher_id},
+		#{tenant_id},
+		#{course_type_id},
+		#{pkg_subject_id},
+		#{pkg_edition_id},
+		#{pkg_grade_id},
+		#{pkg_level_id},
+		#{pkg_name},
+		#{play_type_id},
+		#{min},
+		#{max},
+		#{content},
+		#{cover},
+		#{pkt_type_id},
+		#{open_range_id},
+		#{easy},
+		#{status},
+		#{create_time}
+	)
+    </insert>
+    <!-- 修改课程包 -->
+	<update id="appUpdateCoursePkgByid" parameterType="com.qht.model.InsertCoursePkgParam">
+		update course_pkg 
+	set	teacher_id=#{teacher_id},
+	set tenant_id=#{tenant_id},
+	set course_type_id=#{course_type_id},
+	set pkg_subject_id=#{pkg_subject_id},
+	set pkg_edition_id=#{pkg_edition_id},
+	set pkg_grade_id=#{pkg_grade_id},
+	set pkg_level_id=#{pkg_level_id},
+	set pkg_name=#{pkg_name},
+	set play_type_id=#{play_type_id},
+	set min=#{min},
+	set max=#{max},
+	set content=#{content},
+	set cover=#{cover}
+	where uid=#{uid}
+	</update>
+    
+    <!-- 教师|端首页-我的课程-详情介绍 -->
+    <select id="selectIndexMyCourseDetails" parameterType="com.qht.model.UidAndTenantIDParam" resultType="com.qht.model.IndexMyCourseDetailsModel">
+    	select p.uid,cp.play_type_id,p.name,p.video_file,p.begin,cp.content 
+    	from course_pkg cp left join chapter c on c.course_id=cp.uid 
+    	left join period p on p.chapter_id=c.uid 
+    	where cp.uid=#{uid} and tenant_id=#{tenant_id} cp.and status="1"
+    </select>
+    <resultMap id="selectCourseChapterAndPeriod" type="com.qht.dto.CourseChapterDto">
+    	<result property="uid" column="uid"/>
+    	<result property="name" column="name"/>
+    	<collection property="period" ofType="com.qht.dto.ClassDto">
+            <result property="pid" column="pid"/>
+            <result property="period_name" column="period_name"/>
+            <result property="video_file" column="video_file"/>
+            <result property="begin" column="begin"/>
+        </collection>
+    </resultMap>
+    <!-- 课程详情-课程包体系y -->
+    <select id="selectCourseChapter"  resultMap="selectCourseChapterAndPeriod" parameterType="com.qht.model.UidAndTenantIDParam" >
+    	select 
+    	c.uid,c.name,p.name as period_name,p.uid as pid,p.video_file,p.begin
+    	from course_pkg cp 
+    	inner join chapter c on cp.uid=c.course_id 
+    	inner join period p on p.chapter_id=c.uid 
+    	where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+    </select>
+    <!-- 课程包章节课时信息resultMap1 -->
+    <resultMap type="com.qht.model.SelectPkgModel" id="pkg">
+	    <id column="uid" property="uid"/>
+	    <result column="pkg_name" property="pkg_name"/>
+	     <result column="play_type_id" property="play_type_id"/>
+	    <collection property="chapter" javaType="com.qht.model.SelectChModel" resultMap="ch" >
+	    </collection>
+    </resultMap>
+      <!-- 课程包章节课时信息resultMap2 -->
+     <resultMap type="com.qht.model.SelectChModel" id="ch">
+	    <id column="c_id" property="c_id"/>
+	    <result column="name" property="name"/>
+	    <collection property="period" javaType="com.qht.model.SelectPerModel" resultMap="per" >
+	    </collection>
+    </resultMap>
+      <!-- 课程包章节课时信息resultMap3 -->
+    <resultMap type="com.qht.model.SelectPerModel" id="per">
+	    <id column="pid" property="pid"/>
+	    <result column="period_name" property="period_name"/>
+	  	<result column="video_file" property="video_file"/> 	
+	  	<result column="begin" property="begin"/> 
+    </resultMap>
+      
+    <!-- 课程包章节课时信息 -->
+    <select id="selectPkgChPer" resultMap="pkg" parameterType="com.qht.model.UidAndTenantIDParam">
+       	SELECT
+			c.uid AS uid,
+			c.play_type_id,
+			c.pkg_name AS pkg_name,
+			cr.uid AS c_id,
+			cr.`name` AS name,
+			p.uid AS pid,
+			p.`name` AS period_name,
+			p.video_file,
+			p.`begin`
+		FROM
+			course_pkg c
+		LEFT   JOIN teacher t on c.uid=c.teacher_id
+		left   JOIN chapter cr ON   c.uid=cr.course_id
+		left JOIN period p ON p.chapter_id = cr.uid
+		where c.tenant_id=#{tenant_id}   and c.teacher_id=#{uid} and c.status="1"
+    </select>
 
+
+	<resultMap id="selectCourseAndChapterAndPeriod" type="com.qht.dto.IndexMyCourseEditChapterAndPeriodDto">
+		<result property="uid" column="uid"/>
+		<result property="pkg_name" column="pkg_name"/>
+		<result property="content" column="content"/>
+		<result property="play_type_id" column="play_type_id"/>
+		<result property="create_time" column="create_time"/>
+		<result property="cover" column="cover"/>
+		<collection property="chapters" ofType="com.qht.dto.ChapterDto">
+			<result property="chapter_id" column="chapter_id"/>
+			<result property="chapter_name" column="chapter_name"/>
+			<collection property="periods" ofType="com.qht.dto.PeriodDto">
+				<result property="period_name" column="period_name"/>
+				<result property="period_id" column="period_id"/>
+				<result property="begin" column="begin"/>
+				<result property="video_file" column="video_file"/>
+				<result property="time_length" column="time_length"/>
+			</collection>
+		</collection>
+	</resultMap>
+	<select id="selectIndexMyCourseEditChapterAndPeriodModel" resultMap="selectCourseAndChapterAndPeriod">
+		select
+		cp.uid,cp.pkg_name,cp.play_type_id,cp.content,cp.create_time,cp.cover,c.uid as chapter_id,c.name as chapter_name,
+		p.name as period_name,p.uid as period_id,p.begin,p.video_file,p.time_length from course_pkg cp left join chapter c on c.course_id=cp.uid
+		left join period p on p.chapter_id=c.uid
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+	</select>
+
+	<!-- 学生id查询课程包信息 -->
+	<select id="selectPkgByStuId" resultType="com.qht.model.SelectPkgByStuIdModel" parameterType="com.qht.model.UidAndTenantIDParam">
+SELECT
+	c.cover,
+	c.uid,
+	c.pkg_name,
+	c.play_type_id,
+	c.total_price,
+	c.apply_number,
+SUM(pn.praise_number) as praise_number,
+AVG(pn.comments_star) as comments_star
+FROM
+	course_pkg c
+LEFT JOIN period_evaluation pn on c.uid=pn.course_id
+LEFT JOIN buy_record bd on c.uid=bd.course_pkg_id
+LEFT JOIN student s on bd.student_id=s.uid
+where s.uid=#{uid}  and  s.tenant_id=#{tenant_id}
+ <if test="play_type_id!=null">
+	 and c.play_type_id=#{play_type_id}
+ </if> and c.status="1"
+GROUP BY c.uid
+
+	</select>
+		<!-- 课程包体系Map1 -->
+	<resultMap type="com.qht.model.SelectChaModel" id="chMap">
+		<id column="uid" property="uid"/>
+		<result column="name" property="name"/>
+		<collection property="period" javaType="com.qht.model.SelectPerModel" resultMap="per">
+		</collection>
+	</resultMap>
+	<!-- 课程包体系 -->
+	<select id="selectCourseChapterByCuId"  resultMap="chMap" parameterType="com.qht.model.UidAndTenantIDParam">
+			SELECT
+				ch.uid AS uid,
+				ch.`name` AS name,
+				p.`name` AS period_name,
+				p.uid AS pid,
+				p.video_file AS video_file,
+				p.`begin` AS `begin`
+			FROM
+				chapter ch
+			LEFT JOIN period p ON ch.uid = p.chapter_id
+			LEFT JOIN course_pkg cp ON ch.course_id=cp.uid
+			where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+
+	</select>
+	<!--查询首页直播课程信息-->
+	<select id="selectLiveClass" resultType="com.qht.model.LiveClassModel" parameterType="java.lang.String">
+        select
+          cp.cover,
+          p.uid,
+          p.name,
+          p.video_file,
+          p.begin,
+          pl.name as level_name,
+          cp.play_type_id,
+          t.name as  teacher_name
+        from course_pkg cp
+        inner join period p
+        on cp.tenant_id=p.tenant_id
+        inner join pkg_level pl
+        on cp.pkg_level_id=pl.uid
+        inner join play_type pt on pt.uid=cp.play_type_id
+        inner join teacher t on t.uid=cp.teacher_id
+        where
+          cp.play_type_id="BF001"
+        and
+          p.tenant_id=#{tenant_id}
+        and cp.status="1"
+    </select>
+
+	<!--首页查询免费课程-->
+	<select id="selectFreeClass" resultType="com.qht.model.FreeClassModel" parameterType="com.qht.model.FreeClassParam">
+		select
+		cp.cover,
+		cp.uid,
+		cp.pkg_name,
+		cp.play_type_id,
+		t.nickname,
+		pl.name as level_name,
+		pt.name as pkg_type_name
+		from course_pkg cp
+		left join teacher t on cp.teacher_id=t.uid
+		left join pkg_level pl on cp.pkg_level_id=pl.uid
+		left join pkg_subject ps on cp.pkg_subject_id=ps.uid
+		left join pkg_type pt on pt.uid=cp.course_type_id
+		where cp.tenant_id=#{tenant_id}
+		and cp.status="1"
+		and cp.pkt_type_id="1"
+		<if test="pkg_subject_id!='' and pkg_subject_id!=null">
+			and cp.pkg_subject_id=#{pkg_subject_id}
+		</if>
+		limit 0,6
+	</select>
+
+	<!--查询首页试听课程列表-->
+
+	<select id="selectListeningClassList" resultType="com.qht.model.ListeningClassListModel" parameterType="java.lang.String">
+        select
+          cp.cover,
+          cp.uid,
+          cp.pkg_name,
+          cp.play_type_id,
+          t.nickname,
+          pl.name as level_name,
+		  pt.name as course_type_name,
+		  cp.total_price
+        from course_pkg cp
+        left join teacher t on cp.teacher_id=t.uid
+        left join pkg_level pl on cp.pkg_level_id=pl.uid
+        left join pkg_type pt on pt.uid=cp.course_type_id
+        where
+        cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1" limit 0,6
+    </select>
+
+	<!--查询首页试听课程排行榜-->
+
+	<select id="selectListeningClassRanking" resultType="com.qht.model.ListeningClassRankingModel" parameterType="java.lang.String">
+        select
+          cp.cover,
+          cp.uid,
+          cp.pkg_name,
+          cp.play_type_id,
+          cp.total_price,
+          t.nickname,
+          pl.name as level_name
+        from course_pkg cp
+        inner join teacher t on cp.teacher_id=t.uid
+        inner join pkg_level pl on cp.pkg_level_id=pl.uid
+        inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
+        where
+        cp.tenant_id=#{tenant_id} and cp.pkt_type_id="2" and cp.status="1" limit 0,6
+    </select>
+
+	<!--查询学生课程详情课程包简介-->
+
+	<select id="selectCourseIntro" resultType="com.qht.model.CourseIntroModel">
+       select
+        cp.cover,
+        cp.uid,
+        cp.pkg_name,
+        cp.total_price,
+        cp.content,
+        cp.apply_number,
+        cp.play_type_id,
+        t.nickname,
+        ps.name as subject_name ,
+		pg.name as grade_name,
+		per.begin,
+		br.pay_status
+        from
+          course_pkg cp inner join teacher t on cp.teacher_id=t.uid
+          inner join pkg_subject ps on cp.pkg_subject_id=ps.uid
+		  inner join pkg_grade pg on cp.pkg_grade_id=pg.uid
+		  inner join chapter ch on cp.uid=ch.course_id
+		  inner join period per on ch.uid=per.chapter_id
+		  inner join buy_record br on br.course_pkg_id=cp.uid
+		  inner join student s on s.uid=br.student_id
+		where cp.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1" group by cp.uid
+    </select>
+
+	<!--课程列表-->
+
+	<select id="selectCourseList" resultType="com.qht.model.CourseListModel" parameterType="com.qht.model.CourseListParam">
+		select
+		cp.cover,
+		cp.uid,
+		cp.pkg_name,
+		cp.play_type_id,
+		cp.total_price,
+		t.nickname,
+		p.begin
+		from course_pkg cp
+		inner join chapter c on cp.uid=c.course_id
+		inner join period p on p.chapter_id=c.uid
+		inner join teacher t on t.uid=cp.teacher_id
+		where
+		cp.tenant_id=#{tenant_id}
+		and cp.status="1"
+		<if test="pkt_type_id !=null and pkt_type_id!=''">
+			and cp.pkt_type_id=#{pkt_tyepe_id}
+		</if>
+		<if test="is_goods!=null and is_goods!=''">
+			and cp.is_goods=${is_goods}
+		</if>
+		<if test="pkg_subject_id !=null and pkg_subject_id !=''">
+			and cp.pkg_subject_id=#{pkg_subject_id}
+		</if>
+		<if test="pkg_grade_id !=null and pkg_grade_id !=''">
+			and cp.pkg_grade_id=#{pkg_grade_id}
+		</if>
+		<if test="play_type_id !=null and play_type_id !=''">
+			and cp.play_type_id='play_type_id'
+		</if>
+		<if test="course_type_id !=null and course_type_id !=''">
+			and cp.course_type_id='course_type_id'
+		</if>
+		<if test="newtime!=null and newtime!=''">
+			<if test="newtime=='1'">
+				order by p.begin asc
+			</if>
+			<if test="newtime=='2'">
+				order by p.begin desc
+			</if>
+		</if>
+		<if test="price!=null and price!=''">
+			<if test="price=='1'">
+				order by cp.total_price desc
+			</if>
+			<if test="price=='2'">
+				order by cp.total_price asc
+			</if>
+		</if>
+	</select>
+
+	<!--名师详情全部课程-->
+
+	<select id="selectTeacherCourse" resultType="com.qht.model.TeacherCourseModel">
+        select
+          cp.cover,
+          cp.uid,
+          cp.pkg_name,
+          cp.play_type_id,
+          cp.pkt_type_id,
+          cp.total_price,
+          p.begin,
+          t.nickname
+        from course_pkg cp inner join teacher t on cp.teacher_id=t.uid
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on p.chapter_id=c.uid
+        where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+    </select>
+
+	<!--近期课程-->
+
+	<select id="indexFutureCoruse" resultType="com.qht.model.IndexFutureCoruseModel">
+		SELECT
+		c.cover,
+		c.uid,
+		c.pkg_name,
+		t.nickname,
+		ps.`name`,
+		c.apply_number,
+		c.total_price
+		FROM
+		course_pkg c
+		inner JOIN teacher t ON c.teacher_id = t.uid
+		inner JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
+		inner JOIN buy_record b ON c.uid=b.course_pkg_id
+		inner JOIN student  s   ON s.uid= b.student_id
+		where 1=1 and s.tenant_id =#{tenant_id}  and c.status="1"
+		<if test="uid!=null and uid!=''">
+			and s.uid=#{uid}
+		</if>
+	</select>
+
+	<!--课程答疑-->
+
+	<select id="indexAnswer" resultType="com.qht.model.IndexAnswerModel" parameterType="java.lang.String" >
+    SELECT
+	ask.uid as uid,
+	ask.question as question,
+	a.type as type,
+	p.`name` as name,
+	pkg.cover as cover
+
+
+FROM
+	course_ask ask
+LEFT JOIN answer a ON ask.uid=a.ask_id
+LEFT JOIN period p on ask.period_id =p.uid
+LEFT JOIN chapter cr on cr.uid=p.chapter_id
+LEFT JOIN course_pkg pkg on cr.course_id=pkg.uid
+WHERE
+ask.tenant_id=#{tenant_id} and pkg.`status`=1
+</select>
+
+	<!-- 课程列表-->
+
+	<select id="indexCoruseList" resultType="com.qht.model.IndexCoruseListModel" parameterType="com.qht.model.IndexCoruseListParam">
+		SELECT
+		c.uid AS uid,
+		c.pkg_name AS pkg_name,
+		c.cover AS cover,
+		c.play_type_id AS play_type_id,
+		t.nickname AS nickname,
+		c.apply_number AS apply_number,
+		c.total_price AS total_price,
+		pn.comments_star AS comments_star,
+		p.`name` AS subject_name,
+		pn.praise_number AS praise_number
+		FROM
+		course_pkg c
+		LEFT JOIN teacher t ON c.teacher_id = t.uid
+		LEFT JOIN pkg_subject p ON c.pkg_subject_id = p.uid
+		LEFT JOIN period_evaluation pn ON c.uid = pn.course_id
+		WHERE
+		c.tenant_id =#{tenant_id} and c.status="1"
+		<if test="play_type_id!=null and play_type_id !=''">
+			AND c.play_type_id =#{play_type_id}
+		</if>
+		<if test="pkg_grade_id!=null and pkg_grade_id !=''">
+			AND c.pkg_grade_id =#{pkg_grade_id}
+		</if>
+		<if test="pkg_subject_id !=null and pkg_subject_id !=''">
+			AND c.pkg_subject_id =#{pkg_subject_id}
+		</if>
+		<if test="course_type_id!=null and course_type_id !=''">
+			AND c.course_type_id =#{course_type_id}
+		</if>
+
+		<if test="is_index!=null and is_index !=''">
+			AND c.is_index =#{is_index}
+		</if>
+		<if test="pkt_type_id!=null and pkt_type_id !=''">
+			AND c.pkt_type_id =#{pkt_type_id}
+		</if>
+		<if test="apply!=null and apply!=''">
+
+			AND c.apply_number =#{apply}
+		</if>
+		<if test="key!=null and key!=''">
+			AND c.pkg_name like CONCAT('%',#{key},'%')
+		</if>
+	</select>
+
+	<resultMap id="selectMyIndexBuyRecordDetailsAndPeriod" type="com.qht.model.MyIndexBuyRecordCourseDetailsModel">
+		<id column="uid" jdbcType="VARCHAR" property="uid" />
+		<result property="name" column="name"/>
+		<collection property="period" ofType="com.qht.model.ClassModel">
+			<result property="pid" column="pid"/>
+			<result property="period_name" column="period_name"/>
+			<result property="video_file" column="video_file"/>
+			<result property="begin" column="begin"/>
+		</collection>
+	</resultMap>
+	<!--学生端个人中心首页兑换记录课程详情-->
+
+	<select id="selectMyIndexBuyRecordDetails" resultMap="selectMyIndexBuyRecordDetailsAndPeriod" parameterType="java.lang.String">
+        select c.uid,c.name,p.uid as pid,p.name as period_name,p.begin,p.video_file
+        from course_pkg cp
+        inner join chapter c on cp.uid=c.course_id
+        inner join period p on c.uid=p.chapter_id
+        where cp.uid=#{uid} and cp.status="1"
+    </select>
+
+	<!--学生端个人中心首页我的收藏列表-->
+
+	<select id="selectMyIndexMycollect" parameterType="com.qht.model.MyIndexMycollectParam" resultType="com.qht.model.MyIndexMycollectModel">
+		select cp.cover,cp.pkg_name,cp.pkt_type_id,t.nickname,c.collect_time
+		from course_pkg cp
+		inner join teacher t on cp.teacher_id=t.uid
+		inner join collect c on c.course_pkg_id=cp.uid
+		inner join student s on s.uid=c.student_id
+		where s.uid=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+		<if test="pkt_type_id !=''">
+			and cp.pkt_type_id=#{pkt_type_id}
+		</if>
+	</select>
+
+	<select id="selectIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
+		select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin
+		from course_pkg cp left join chapter c on cp.uid=c.course_id
+		left join period p on p.chapter_id=c.uid
+		where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+		<if test="play_type_id!=null and play_type_id !=''">
+			and cp.play_type_id=#{play_type_id}
+		</if>
+		<if test="course_type_id!=null and course_type_id !=''">
+			and cp.course_type_id=#{course_type_id}
+		</if>
+		<if test="pkg_subject_id !=null and pkg_subject_id !=''">
+			and cp.pkg_subject_id=#{pkg_subject_id}
+		</if>
+		<if test="now_time!=null and now_time!=''">
+			and p.begin like CONCAT(#{now_time},'%')
+		</if>
+	</select>
+	<!--教师|端首页我的课程-->
+	<select id="selectTeaIndexMyCourseDto" parameterType="com.qht.model.IndexMyCourseParam" resultType="com.qht.model.IndexMyCourseModel">
+		select cp.uid,cp.pkg_name,cp.play_type_id,p.name,c.name as chapter_name,p.video_file,p.begin,
+		cp.cover,p.uid as period_id
+		from course_pkg cp left join chapter c on cp.uid=c.course_id
+		left join period p on p.chapter_id=c.uid
+		left join teacher t on t.uid=cp.teacher_id
+		where cp.teacher_id=#{uid} and cp.tenant_id=#{tenant_id} and cp.status="1"
+		and FROM_UNIXTIME(unix_timestamp(now()), '%Y-%m-%d %H:%i:%S') &lt; FROM_UNIXTIME(unix_timestamp(p.begin), '%Y-%m-%d %H:%i:%S')
+		<if test="play_type_id!=null and play_type_id !=''">
+			and cp.play_type_id=#{play_type_id}
+		</if>
+		<if test="course_type_id!=null and course_type_id !=''">
+			and cp.course_type_id=#{course_type_id}
+		</if>
+		<if test="pkg_subject_id !=null and pkg_subject_id !=''">
+			and cp.pkg_subject_id=#{pkg_subject_id}
+		</if>
+	</select>
+
+	<!--教师端首页我的课程包-->
+	<select id="selectIndexMyCourseList" resultType="com.qht.model.IndexMyCourseModel" parameterType="com.qht.model.IndexMyCourseParam">
+		select
+		cp.cover,pl.name as course_type_name,cp.uid,cp.pkg_name,cp.create_time,cp.pkg_level_id
+		from course_pkg cp left join pkg_level pl on cp.course_type_id=pl.uid
+		where cp.tenant_id=#{tenant_id} and cp.teacher_id=#{uid} and cp.status="1"
+		<if test="course_type_id!=null and course_type_id!=''">
+			cp.course_type_id=#{course_type_id}
+		</if>
+	</select>
+	<!-- app课程包评论 -->
+	<select id="selectCoursePkgPing" resultType="com.qht.model.SelectCoursePkgPingModel" parameterType="com.qht.model.UidAndTenantIDParam" >
+
+		SELECT
+		s.head AS head,
+		cg.pkg_name,
+		s.`name` AS `name`,
+		pn.uid AS uid,
+		pn.comments_time AS comments_time,
+		pn.comments_content AS comments_content,
+		avg(pn.comments_star) AS comments_star
+	FROM
+		student s
+	LEFT JOIN period_evaluation pn ON s.uid = pn.student_id
+	LEFT JOIN buy_record bd ON s.uid = bd.student_id
+	LEFT JOIN course_pkg cg ON bd.course_pkg_id = cg.uid
+	WHERE cg.uid =#{uid} and  cg.tenant_id =#{tenant_id} and cg.status="1"
+	<if test="eval==1 ">
+	and pn.comments_star &lt; 3
+	</if>
+	<if test="eval==2">
+	and pn.comments_star  &gt;= 3 AND pn.comments_star &lt; 8
+	</if>
+	<if test="eval==3">
+	and pn.comments_star &gt;=8
+	</if>
+		GROUP BY
+	cg.uid,
+	s.head,
+	s.`name`,
+	pn.uid,
+	pn.comments_time
+
+	</select>
+
+	<!--countAll -->
+	<select id="count" resultType="java.lang.Integer" parameterType="java.lang.String">
+
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+            where   c.uid=#{uid} and  c.status="1"
+	</select>
+	<!--count差评 -->
+	<select id="countMin" resultType="java.lang.Integer"  parameterType="java.lang.String">
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+		where pn.comments_star&lt;3
+             and c.uid=#{uid} and  c.status="1"
+	</select>
+
+	<!--count中评 -->
+	<select id="countbad" resultType="java.lang.Integer" parameterType="java.lang.String">
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+		where pn.comments_star &gt;=3 and pn.comments_star&lt;8
+            and c.uid=#{uid} and  c.status="1"
+	</select>
+
+	<!--count好评 -->
+	<select id="countGood" resultType="java.lang.Integer" parameterType="java.lang.String">
+	select COUNT(*) from course_pkg  c
+            INNER JOIN period_evaluation pn ON pn.course_id=c.uid
+		where pn.comments_star&gt;=8 and c.uid=#{uid} and  c.status="1"
+
+	</select>
+	<!-- 查询课程包价格 -->
+	<select id="selectTotalPrice" resultType="java.lang.Integer" parameterType="String">
+	select total_price from course_pkg where uid=#{uid} and   status="1"
+	</select>
+
+	<select id="selectCoursePkgInfoJJ" resultType="com.qht.model.SelectCorseInfoJJModel"  parameterType="com.qht.model.UidAndTenantIDParam">
+
+	SELECT
+	c.pkg_name AS pkg_name,
+	c.apply_number AS apply_number,
+	c.total_price AS total_price,
+	pl.`name` AS level_name,
+	pg.`name` AS grade_name,
+	ps.`name` AS subject_name,
+	t.`name` AS teacher_name,
+	t.back_img AS back_img,
+	pgd.`name` AS teacher_grade_name,
+	sl.school_name AS school_name,
+	c.content AS content,
+	avg(pn.comments_star) AS comments_star
+FROM
+	course_pkg c
+LEFT JOIN period_evaluation pn ON pn.course_id = c.uid
+LEFT JOIN pkg_level pl ON c.pkg_level_id = pl.uid
+LEFT JOIN pkg_grade pg ON c.pkg_grade_id = pg.uid
+LEFT JOIN pkg_subject ps ON c.pkg_subject_id = ps.uid
+LEFT JOIN teacher t ON c.teacher_id = t.uid
+LEFT JOIN pkg_grade pgd ON t.grade_id = pgd.uid
+LEFT JOIN school sl ON t.school_id = sl.uid
+where c.uid=#{uid} and c.tenant_id=#{tenant_id}
+GROUP BY
+	c.uid,
+	c.pkg_name,
+	c.apply_number,
+	c.total_price,
+	pl.`name`,
+	pg.`name`,
+	ps.`name`,
+	t.`name`,
+	t.back_img,
+	pgd.`name`,
+	sl.school_name,
+	c.content
+	</select>
 </mapper>

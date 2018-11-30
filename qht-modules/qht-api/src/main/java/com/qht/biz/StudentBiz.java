@@ -1,13 +1,13 @@
 package com.qht.biz;
 
-import com.qht.dto.*;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.wxiaoqi.security.common.biz.BaseBiz;
+import com.qht.dto.CourseChapterDto;
+import com.qht.dto.StudentDto;
 import com.qht.entity.Student;
 import com.qht.mapper.StudentMapper;
+import com.qht.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -27,185 +27,212 @@ public class StudentBiz extends BaseBiz<StudentMapper,Student> {
 
     /**
      * login查询学生
+     *
      * @param account
      * @param password
      * @return
      */
-    public StudentDto studentLogin(String account, String password){
-        return studentMapper.studentLogin(account,password);
+    public StudentDto studentLogin(String account, String password) {
+        return studentMapper.studentLogin(account, password);
     }
 
     /**
      * 首页查询banner
-     * @param tenantId
+     *
+     * @param tenant_id
      * @return
      */
-    public List<BannerDto> selectBanner(String tenantId) {
-        return studentMapper.selectBanner(tenantId);
-    }
 
-    /**
-     * 首页查询直播课程
-     * @param tenantId
-     * @return
-     */
-    public List<LiveClassDto> selectLiveClass(String tenantId) {
-        return studentMapper.selectLiveClass(tenantId);
-    }
-
-    /**
-     * 查询首页的免费课程
-     * @param pkg_subject_id
-     * @param pkg_grade_id
-     * @param tenantId
-     * @return
-     */
-    public List<FreeClassDto> selectFreeClass(String pkg_subject_id, String pkg_grade_id, String tenantId) {
-        return studentMapper.selectFreeClass(pkg_subject_id,pkg_grade_id,tenantId);
-    }
-
-    /**
-     * 查询首页试听排行榜
-     * @param tenantId
-     * @return
-     */
-    public List<ListeningClassRankingDto> selectListeningClassRanking(String tenantId) {
-        return studentMapper.selectListeningClassRanking(tenantId);
-    }
-
-    /**
-     * 查询首页试听列表
-     * @param tenantId
-     * @return
-     */
-    public List<ListeningClassListDto> selectListeningClassList(String tenantId) {
-        return studentMapper.selectListeningClassList(tenantId);
-    }
-
-    /**
-     * 查询首页老师排行榜
-     * @param tenantId
-     * @return
-     */
-    public List<TeacherRankingDto> selectTeacherRanking(String tenantId) {
-        return studentMapper.selectTeacherRanking(tenantId);
-    }
-
-    /**
-     * 查询首页老师集合
-     * @param tenantId
-     * @return
-     */
-    public List<TeacherListDto> selectTeacherList(String tenantId) {
-        return studentMapper.selectTeacherList(tenantId);
-    }
-
-    /**
-     * 查询学生课程详情-课程包简介
-     * @param uid
-     * @param tenantId
-     * @return
-     */
-    public CourseIntroDto selectCourseIntro(String uid, String tenantId) {
-
-        return studentMapper.selectCourseIntro(uid,tenantId);
-    }
-
-    /**
-     * 课程详情--课程包体系
-     * @param uid
-     * @param tenantId
-     * @return
-     */
-    public List<CourseChapterDto> selectCourseChapter(String uid, String tenantId) {
-        return studentMapper.selectCourseChapter(uid,tenantId);
+    public List<BannerModel> selectBanner(String tenant_id,String type) {
+        return studentMapper.selectBanner(tenant_id,type);
     }
 
     /**
      * 课程详情--课程包评论
-     * @param uid
-     * @param tenantId
      * @return
      */
-    public List<CourseEvaluationDto> selectCourseEvaluation(String uid, String tenantId) {
-        return studentMapper.selectCourseEvaluation(uid,tenantId);
+
+    public List<CourseEvaluationModel> selectCourseEvaluation(CourseEvaluationParam data) {
+        return studentMapper.selectCourseEvaluation(data);
     }
 
-    /**
-     * 课程详情--教师信息
-     * @param uid
-     * @param tenantId
-     * @return
-     */
-    public TeacherInfoDto selectTeacherInfo(String uid, String tenantId) {
-        return studentMapper.selectTeacherInfo(uid,tenantId);
+    public List<CourseEvaluationModel> selectCourseEvaluationGood(CourseEvaluationParam data) {
+        return studentMapper.selectCourseEvaluationGood(data);
     }
 
-    /**
-     * 课程列表
-     * @param data
-     * @param tenantId
-     * @return
-     */
-    public List<CourseListDto> selectCourseList(CourseListParameter data, String tenantId) {
-        return studentMapper.selectCourseList(data,tenantId);
+    public List<CourseEvaluationModel> selectCourseEvaluationMid(CourseEvaluationParam data) {
+        return studentMapper.selectCourseEvaluationMid(data);
     }
 
-    /**
-     * 名师列表
-     * @param data
-     * @param tenantId
-     * @return
-     */
-    public List<TopTeacherListDto> selectTopTeacherList(TopTeacherListParameter data, String tenantId) {
-        return studentMapper.selectTopTeacherList(data,tenantId);
+    public List<CourseEvaluationModel> selectCourseEvaluationBad(CourseEvaluationParam data) {
+        return studentMapper.selectCourseEvaluationBad(data);
     }
 
-    /**
-     * 名师详情--讲师简介
-     * @param uid
-     * @param tenantId
-     * @return
-     */
-    public List<TopTeacherInfoDto> selectTopTeacherInfo(String uid, String tenantId) {
-        return studentMapper.selectTopTeacherInfo(uid,tenantId);
-    }
 
-    /**
-     * 名师详情--全部课程
-     * @param uid
-     * @param tenantId
-     * @return
-     */
-    public List<TeacherCourseDto> selectTeacherCourse(String uid, String tenantId) {
-        return studentMapper.selectTeacherCourse(uid,tenantId);
-    }
 
     /**
      * 名师详情--评论列表
      * @param uid
-     * @param tenantId
+     * @param tenant_id
      * @return
      */
-    public List<TeacherEvaluationDto> selectTeacherEvaluation(String uid, String tenantId) {
-        return studentMapper.selectTeacherEvaluation(uid,tenantId);
+
+    public List<TeacherEvaluationModel> selectTeacherEvaluation(String uid, String tenant_id) {
+        return studentMapper.selectTeacherEvaluation(uid,tenant_id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 學生信息
+     * @param uid
+     * @param tenant_id
+     * @return
+     */
+
+    public StudentInfoModel studentInfo(String uid,String tenant_id){
+        return  studentMapper.studentInfo(uid,tenant_id);
+    }
+
+
+    /**
+     * 学生端-个人中心--首页--我的收藏列表--取消收藏
+     */
+    public Integer updateMyIndexCancelcollect(MyIndexCanceCollectParam param) {
+
+        Integer num=studentMapper.updateMyIndexCancelcollect(param);
+        return num;
+    }
+
+
+
+    /**
+     * 打赏---先判断问题是否被解决
+     * @param answer_id
+     * @return
+     */
+    public Integer selectAnswerType(String answer_id) {
+        return studentMapper.selectAnswerType(answer_id);
     }
 
     /**
-     * 运营商--学校介绍
-     * @param tenantId
+     * 打赏--判断学生余额
+     * @param student_id
      * @return
      */
-    public TenantSchoolDto selectTenantSchool(String tenantId) {
-        return studentMapper.selectTenantSchool(tenantId);
+    public Integer selectStudentBalance(String student_id) {
+        return studentMapper.selectStudentBalance(student_id);
     }
 
     /**
-     * 运营商--画册
-     * @param tenantId
+     * 判断学生是否已经打赏
+     * @param answer_id
      * @return
      */
-    public TenantAlbumDto selectTenantAlbum(String tenantId) {
-        return studentMapper.selectTenantAlbum(tenantId);
+    public Integer selectAnswerReward(String answer_id) {
+        return studentMapper.selectAnswerReward(answer_id);
     }
+
+    /**
+     * 扣除学生的积分
+     * @param student_id
+     * @return
+     */
+    public Integer updateStudentBalanceByUid(String student_id,Integer value) {
+        return studentMapper.updateStudentBalanceByUid(student_id,value);
+    }
+
+    /**
+     * 增加老师的积分
+     * @param teacher_id
+     * @param value
+     * @return
+     */
+    public Integer updateTeacherBalanceByUid(String teacher_id, Integer value) {
+        return studentMapper.uodateTeacherBalanceByUid(teacher_id,value);
+    }
+
+    /**
+     * 插入记录
+     * @param uid
+     * @param value
+     * @param teacher_id
+     * @param student_id
+     * @return
+     */
+    public Integer insertStudentRecord(String uid, Integer value, String teacher_id, String student_id) {
+        return studentMapper.insertStudentRecord(uid,value,teacher_id,student_id);
+    }
+    public Integer insertTeacherRecord(String uid, Integer value, String teacher_id) {
+        return studentMapper.insertTeacherRecord(uid,value,teacher_id);
+    }
+    /**
+     * 个人中心学生信息
+     * @param uid
+     * @param tenant_id
+     * @return
+     */
+
+    public AppMyStudentInfoModel appMyStudentInfo(String uid,String tenant_id){
+        return studentMapper.appMyStudentInfo(uid,tenant_id);
+    }
+    /**
+     * app修改头像
+     * @param parameter
+     * @return
+     */
+
+   public  Integer appUpdaetStudentHead(AppStudentParam parameter){
+        return studentMapper.appUpdaetStudentHead(parameter);
+    }
+    /**
+     * app修改学生昵称
+     * @param parameter
+     * @return
+     */
+
+    public Integer appUpdaetStudentNickname(AppStudentParam parameter){
+        return studentMapper.appUpdaetStudentNickname(parameter);
+    }
+    /**
+     * app修改学生密码
+     * @param parameter
+     * @return
+     */
+
+   public Integer  appUpdaetStudentPassword(AppStudentParam parameter){
+       return studentMapper.appUpdaetStudentPassword(parameter);
+   }
+    /**
+     * 查看监护人信息
+     * @param parameter
+     * @return
+     */
+
+   public List<AppMyStudentGuardianModel>appMyStudentGuardian(AppStudentParam parameter){
+       return  studentMapper.appMyStudentGuardian(parameter);
+   }
+   /**
+    * 学生余额
+    */
+   public Integer selectbalance(String uid) {
+	   return  studentMapper.selectbalance(uid);
+   }
+   /**
+    * 修改余额
+    */
+  public Integer updateBalance(UidAndTenantIDParam param) {
+	  return  studentMapper.updateBalance(param);
+  }
+
 }
+

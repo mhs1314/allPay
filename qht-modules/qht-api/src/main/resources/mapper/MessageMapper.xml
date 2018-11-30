@@ -14,5 +14,60 @@
         <result property="attach" column="attach"/>
         <result property="type" column="type"/>
     </resultMap>
+	<!-- 教师端首页-我的消息-删除 -->
+	<delete id="deleteMessaget" parameterType="com.qht.model.UidAndTenantIDParam">
+		delete from message where uid=#{uid} and tenant_id=#{tenant_id}
+	</delete>
+	
+	<!-- 教师端首页-我的消息 -->
+    <select id="selectIndexDelMessageDetails" resultType="com.qht.model.IndexMessageModel" parameterType="com.qht.model.IndexMessageParam">
+    	select s.head,m.uid,m.isread,s.nickname,m.content 
+    	from message m 
+    		left join student s on m.from_id=s.uid 
+    	where m.uid=#{uid} and tenant_id=#{tenant_id} 
+    </select>
 
+    <!-- 消息-->
+    <select id="selectMyIndexMessage"  resultType="com.qht.model.MyIndexMessageModel">
+        select  t.back_img as head,
+        m.uid as uid,
+        m.isread as isread,
+        t.`name` as nickname,
+        m.time,
+        m.content
+        FROM message m
+        inner JOIN student  s  ON m.to_id=s.uid
+        inner JOIN teacher t  ON m.from_id=t.uid
+        where m.to_id=#{uid} AND m.tenant_id=#{tenant_id}
+        <if test="isread!=null and isread!=''">
+            and m.isread=#{isread}
+        </if>
+    </select>
+
+    <!--删除消息-->
+    <delete id="deleteMessages" parameterType="java.lang.String">
+        delete FROM message where uid=#{uid}
+    </delete>
+
+    <select id="selectMessageById" resultType="com.qht.model.MyIndexMessageModel" parameterType="com.qht.model.UidAndTenantIDParam">
+      select t.back_img as head,m.uid,m.isread,s.nickname,m.time,m.content FROM message m left join teacher t
+      on t.uid=m.from_id left join student s on s.uid=m.to_id
+      where uid=#{uid} and  tenant_id#{tenant_id}
+    </select>
+
+    <!-- 教师端首页-我的消息 -->
+    <select id="selectIndexMessage" resultType="com.qht.model.IndexMessageModel" parameterType="com.qht.model.IndexMessageParam">
+        select
+        s.head,
+        m.uid,
+        m.isread,
+        s.nickname,
+        m.content
+        from message m
+        left join student s on m.from_id=s.uid
+        where m.to_id=#{uid} and m.tenant_id=#{tenant_id}
+        <if test="isread !=null and isread !=''">
+            m.isread=${isread}
+        </if>
+    </select>
 </mapper>

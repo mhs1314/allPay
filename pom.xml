@@ -34,7 +34,7 @@
         <module>qht-common</module>
         <module>qht-auth</module>        
         <module>qht-control</module>
-        <module>qht-modules</module>
+        <module>qht-modules</module>        
     </modules>
     <packaging>pom</packaging>
     <developers>

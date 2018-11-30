@@ -34,7 +34,9 @@ public class ClientController{
 
     @RequestMapping(value = "/servicePubKey",method = RequestMethod.POST)
     public ObjectRestResponse<byte[]> getServicePublicKey(@RequestParam("clientId") String clientId, @RequestParam("secret") String secret) throws Exception {
+        System.out.println(clientId+"======================================================="+secret);
         authClientService.validate(clientId, secret);
+
         return new ObjectRestResponse<byte[]>().data(keyConfiguration.getServicePubKey());
     }
 
